@@ -25,6 +25,6 @@
 
     { "id": "s6a", "scene": 6, "pause": 0.2, "text": "La dengue peut être grave, mais nous pouvons réduire les risques grâce aux bons gestes et à une prise en charge rapide." },
     { "id": "s6b", "scene": 6, "pause": 0.3, "text": "Ensemble, protégeons nos familles et nos communautés." },
-    { "id": "s6c", "scene": 6, "pause": 0.0, "text": "SOS Médecins Burkina Faso : agir vite, sauver des vies !", "tts": "SOS Médecins Burkina Faso : agir vite, sauver des vies !" }
+    { "id": "s6c", "scene": 6, "pause": 0.0, "text": "SOS Médecins Burkina Faso : agir vite, sauver des vies !", "tts": "Èsse, O, Èsse Médecins Burkina Faso : agir vite, sauver des vies !", "say": { "SOS": "Èsse O Èsse" } }
   ]
 }

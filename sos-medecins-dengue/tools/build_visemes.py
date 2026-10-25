@@ -53,7 +53,7 @@ vis = ["X"] * n
 
 for line in tl["lines"]:
     words = line["words"]
-    clean = [re.sub(r"[^\w'\-àâäéèêëîïôöùûüçœ]", "", w["w"].lower()) or "a" for w in words]
+    clean = [re.sub(r"[^\w'\-àâäéèêëîïôöùûüçœ ]", "", w.get("say", w["w"]).lower()) or "a" for w in words]
     ipas = backend.phonemize(clean, strip=True)
     for i, w in enumerate(words):
         t0 = w["t"]

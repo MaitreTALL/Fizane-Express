@@ -56,12 +56,13 @@ def syllables(word):
     return max(1, len(re.findall(r"[aeiouyàâäéèêëîïôöùûüœ]+", word.lower())))
 
 
-def word_timings(text, a):
+def word_timings(text, a, say=None):
     """Estimate each word's start: phrase starts snap to pauses, words inside a
-    phrase are spread by syllable count."""
+    phrase are spread by syllable count (of the spoken form when it differs)."""
     dur = len(a) / SR
     words = text.split()
-    weights = np.array([syllables(w) for w in words], dtype=float)
+    say = say or {}
+    weights = np.array([syllables(say[w]) + 0.6 * (len(say[w].split()) - 1) if w in say else syllables(w) for w in words], dtype=float)
     cum = np.concatenate([[0], np.cumsum(weights)]) / weights.sum()
     est = cum[:-1] * dur
     gaps = silence_gaps(a)
@@ -116,10 +117,10 @@ def main():
     for line in narration["lines"]:
         a = load_line(ROOT / "audio" / "lines" / f"{line['id']}.wav")
         dur = len(a) / SR
-        words = word_timings(line["text"], a)
+        words = word_timings(line["text"], a, line.get("say"))
         lines.append({"id": line["id"], "scene": line["scene"], "text": line["text"],
                       "start": round(t, 3), "end": round(t + dur, 3),
-                      "words": [{"w": w["w"], "t": round(t + w["t"], 3)} for w in words]})
+                      "words": [dict({"w": w["w"], "t": round(t + w["t"], 3)}, **({"say": line["say"][w["w"]]} if w["w"] in line.get("say", {}) else {})) for w in words]})
         clips.append((t, a))
         t += dur + line["pause"] + BASE_GAP
 
