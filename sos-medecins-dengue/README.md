@@ -4,10 +4,15 @@ Vidéo de sensibilisation 3D, format vertical 9:16 (1080 × 1920, 25 i/s), pour 
 
 ## Livrables (`dist/`)
 
+Deux versions, avec la même voix, la même musique et le même minutage :
+
 | Fichier | Contenu |
 | --- | --- |
-| `sos-medecins-bf-dengue.mp4` | Vidéo finale : H.264 + AAC, sous-titres français incrustés, voix, musique |
+| `sos-medecins-bf-dengue-3d.mp4` | **Version 3D animée** : la mascotte parle (bec synchronisé), fait des gestes et joue dans des décors 3D |
+| `sos-medecins-bf-dengue-planche.mp4` | **Version « planche animée »** : les vignettes de la planche de référence, agrandies par IA, avec caméra 2,5D en relief et zooms synchronisés sur la voix |
+| `*-whatsapp.mp4` | Les mêmes vidéos en 720 × 1280, plus légères pour WhatsApp |
 | `sos-medecins-bf-dengue.srt` | Sous-titres seuls (pour un import sur Facebook ou YouTube) |
+| `kit-video-ia.md` | Consignes plan par plan pour animer les personnages de la planche avec un outil vidéo IA |
 
 ## Déroulé
 
@@ -31,7 +36,8 @@ Tout est généré par programme :
 - **Voix** : synthèse vocale française hors ligne [Piper](https://github.com/rhasspy/piper), voix `fr-siwis-medium` (`tools/synth_voice.py`).
 - **Minutage** : `tools/build_timeline.py` place les phrases, calcule les sous-titres, le minutage des mots et l'ouverture du bec (synchronisation labiale) → `src/timeline.json`.
 - **Musique et bruitages** : `tools/make_music.py` (balafon, nappes, percussions légères, pluie, moustiques, transitions). La musique est atténuée sous la voix. Mixage → `audio/mix.wav`.
-- **Images** : scène Three.js (`src/`) rendue image par image dans Chromium (`tools/render.cjs`), puis encodée avec ffmpeg.
+- **Images 3D** : scène Three.js (`src/index.html`) rendue image par image dans Chromium (`tools/render.cjs`), puis encodée avec ffmpeg.
+- **Planche animée** : `tools/planche_prep.py` découpe les vignettes de `src/planche-reference.png`, utilise leur agrandissement Real-ESRGAN (`realesr-animevideov3`, ×4), retire les étiquettes et les logos approximatifs, passe la croix du centre de santé en vert, puis calcule une carte de profondeur (MiDaS small). `src/planche.html` anime le tout (`PAGE=planche.html node tools/render.cjs …`).
 
 ```bash
 npm install
@@ -43,7 +49,13 @@ node tools/render.cjs cues src/cues.json
 python3 tools/make_music.py
 # 3. images (exemple : vues fixes, puis un segment d'images)
 node tools/render.cjs stills out/ 2.5,26,90
-node tools/render.cjs segment out/seg.mp4 0 2357
+node tools/render.cjs segment out/seg_a.mp4 0 2357
+tools/assemble.sh out/ dist/ sos-medecins-bf-dengue-3d
+# planche animée
+PAGE=planche.html node tools/render.cjs cues src/cues_planche.json
+python3 tools/make_music.py src/cues_planche.json audio/mix_planche.wav
+PAGE=planche.html node tools/render.cjs segment out-planche/seg_a.mp4 0 2357
+tools/assemble.sh out-planche/ dist/ sos-medecins-bf-dengue-planche audio/mix_planche.wav
 ```
 
 Pour modifier un texte de la narration, éditer `narration.json` (le champ `tts` sert à corriger la prononciation, par exemple « Aédèsse » pour Aedes), puis relancer les étapes 1 à 3.

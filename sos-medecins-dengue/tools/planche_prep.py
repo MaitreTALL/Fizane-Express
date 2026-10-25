@@ -34,7 +34,9 @@ CLEAN = {
     7: [(0, 0, 86, 60), (338, 0, 490, 74)],
 }
 CROSS = {6: (95, 25, 185, 100)}  # red cross on the "CENTRE DE SANTÉ" sign
-PAD_TOP = {6: 70}  # extend the sky so the sign can sit below the logo
+PAD_TOP = {6: 70}
+# white gutter lines left on the panel edges by the board layout: (top, bottom, left, right)
+TRIM = {1: (0, 2, 0, 2), 2: (0, 2, 0, 0), 3: (0, 2, 0, 0), 4: (2, 3, 0, 2), 5: (2, 3, 0, 0), 6: (2, 2, 0, 0), 7: (2, 0, 0, 0)}  # extend the sky so the sign can sit below the logo
 
 board = Image.open(board_path).convert("RGB")
 sess = ort.InferenceSession(str(midas_path))
@@ -46,6 +48,10 @@ for k, box in BOXES.items():
     up_path = up_dir / f"p{k}_x4.png"
     big = np.array(Image.open(up_path).convert("RGB")) if up_path.exists() else np.array(Image.fromarray(small).resize((w * 4, h * 4), Image.LANCZOS))
     S = big.shape[1] / w
+    t_, b_, l_, r_ = TRIM.get(k, (0, 0, 0, 0))
+    small = small[t_:h - b_, l_:w - r_]
+    big = big[int(t_ * S):int((h - b_) * S), int(l_ * S):int((w - r_) * S)]
+    h, w = small.shape[:2]
 
     # inpaint at panel resolution (backgrounds there are soft), then blend the upsampled fill
     mask = np.zeros((h, w), np.uint8)
