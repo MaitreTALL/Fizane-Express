@@ -31,7 +31,7 @@ async function open(server) {
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
   page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') console.error('[page]', m.text()); });
   page.on('pageerror', (e) => console.error('[pageerror]', e.message));
-  await page.goto(`http://127.0.0.1:${server.address().port}/src/index.html`);
+  await page.goto(`http://127.0.0.1:${server.address().port}/src/${process.env.PAGE || 'index.html'}`);
   await page.waitForFunction(() => window.__ready === true, null, { timeout: 120000 });
   return { browser, page };
 }

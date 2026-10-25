@@ -6,9 +6,11 @@ src/timeline.json: rain + mosquito buzz in the hook, a darker bar for the
 danger signs, an uplifting lift for the conclusion. Music is ducked under
 the voice.
 
-Writes audio/music.wav and audio/mix.wav (44.1 kHz stereo).
+Usage: python3 tools/make_music.py [cues.json] [mix.wav]
+Writes audio/music.wav and audio/mix.wav (44.1 kHz stereo) by default.
 """
 import json
+import sys
 import wave
 from pathlib import Path
 
@@ -223,7 +225,9 @@ for s in tl["scenes"][1:]:
     add(sfx[:, 1], s["start"] - 0.28, w, 0.22)
 
 # soft "pop" for every pictogram / card is added in the renderer cue list
-cues = json.loads((ROOT / "src" / "cues.json").read_text()) if (ROOT / "src" / "cues.json").exists() else []
+CUES = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "src" / "cues.json"
+MIX = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "audio" / "mix.wav"
+cues = json.loads(CUES.read_text()) if CUES.exists() else []
 for c in cues:
     tt = np.arange(int(0.12 * SR)) / SR
     f = 900 if c.get("kind") != "alert" else 420
@@ -253,5 +257,5 @@ music_bed = music_norm * 0.16          # roughly -16 dB under a full-scale voice
 mix = music_bed + sfx + np.stack([voice, voice], axis=1) * 0.9
 mix /= max(1.0, np.max(np.abs(mix)) / 0.97)
 write(ROOT / "audio" / "music.wav", music_bed + sfx)
-write(ROOT / "audio" / "mix.wav", mix)
+write(MIX, mix)
 print("mix peak", float(np.max(np.abs(mix))), "duration", DUR)
