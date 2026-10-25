@@ -1,0 +1,102 @@
+[
+  {
+    "id": "s1a",
+    "scene": 1,
+    "duration": 3.625
+  },
+  {
+    "id": "s1b",
+    "scene": 1,
+    "duration": 5.866
+  },
+  {
+    "id": "s1c",
+    "scene": 1,
+    "duration": 2.626
+  },
+  {
+    "id": "s2a",
+    "scene": 2,
+    "duration": 6.574
+  },
+  {
+    "id": "s2b",
+    "scene": 2,
+    "duration": 2.696
+  },
+  {
+    "id": "s3a",
+    "scene": 3,
+    "duration": 9.941
+  },
+  {
+    "id": "s3b",
+    "scene": 3,
+    "duration": 8.78
+  },
+  {
+    "id": "s3c",
+    "scene": 3,
+    "duration": 2.081
+  },
+  {
+    "id": "s4a",
+    "scene": 4,
+    "duration": 2.835
+  },
+  {
+    "id": "s4b",
+    "scene": 4,
+    "duration": 2.673
+  },
+  {
+    "id": "s4c",
+    "scene": 4,
+    "duration": 2.301
+  },
+  {
+    "id": "s4d",
+    "scene": 4,
+    "duration": 3.962
+  },
+  {
+    "id": "s4e",
+    "scene": 4,
+    "duration": 4.043
+  },
+  {
+    "id": "s4f",
+    "scene": 4,
+    "duration": 4.275
+  },
+  {
+    "id": "s5a",
+    "scene": 5,
+    "duration": 4.078
+  },
+  {
+    "id": "s5b",
+    "scene": 5,
+    "duration": 6.493
+  },
+  {
+    "id": "s5c",
+    "scene": 5,
+    "duration": 3.962
+  },
+  {
+    "id": "s6a",
+    "scene": 6,
+    "duration": 6.284
+  },
+  {
+    "id": "s6b",
+    "scene": 6,
+    "duration": 3.277
+  },
+  {
+    "id": "s6c",
+    "scene": 6,
+    "duration": 3.253
+  }
+]

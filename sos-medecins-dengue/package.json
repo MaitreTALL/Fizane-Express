@@ -1,0 +1,16 @@
+{
+  "name": "sos-medecins-dengue",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SOS Médecins Burkina Faso — Ensemble contre la dengue ! Vidéo 3D de sensibilisation (9:16, 1080x1920).",
+  "scripts": {
+    "stills": "node tools/render.cjs stills",
+    "segment": "node tools/render.cjs segment"
+  },
+  "dependencies": {
+    "@fontsource/montserrat": "5.1.0",
+    "@fontsource/nunito": "5.1.0",
+    "@fontsource/oswald": "5.1.0",
+    "three": "0.169.0"
+  }
+}

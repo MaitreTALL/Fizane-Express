@@ -1,0 +1,30 @@
+{
+  "voice": "fr-siwis-medium",
+  "lines": [
+    { "id": "s1a", "scene": 1, "pause": 0.25, "text": "Au Burkina Faso, la dengue reste une maladie à prendre au sérieux." },
+    { "id": "s1b", "scene": 1, "pause": 0.2, "text": "Pendant la saison des pluies et après les pluies, les eaux stagnantes peuvent favoriser la prolifération des moustiques." },
+    { "id": "s1c", "scene": 1, "pause": 0.55, "text": "Mais chacun de nous peut agir pour se protéger !" },
+
+    { "id": "s2a", "scene": 2, "pause": 0.2, "text": "La dengue est une maladie virale transmise principalement par la piqûre d'un moustique infecté du genre Aedes.", "tts": "La dengue est une maladie virale, transmise principalement par la piqûre d'un moustique infecté, du genre Aédèsse." },
+    { "id": "s2b", "scene": 2, "pause": 0.55, "text": "Ces moustiques peuvent piquer pendant la journée." },
+
+    { "id": "s3a", "scene": 3, "pause": 0.45, "text": "Les signes à surveiller sont une forte fièvre, des maux de tête, des douleurs derrière les yeux, des douleurs musculaires et articulaires, des nausées ou parfois des éruptions cutanées." },
+    { "id": "s3b", "scene": 3, "pause": 0.2, "text": "Des douleurs abdominales intenses, des vomissements persistants, des saignements, une grande faiblesse ou des difficultés respiratoires peuvent signaler une forme grave." },
+    { "id": "s3c", "scene": 3, "pause": 0.55, "text": "Il faut consulter en urgence." },
+
+    { "id": "s4a", "scene": 4, "pause": 0.3, "text": "Pour prévenir la dengue, adoptons les bons réflexes :" },
+    { "id": "s4b", "scene": 4, "pause": 0.2, "text": "Vider régulièrement les récipients où l'eau stagne." },
+    { "id": "s4c", "scene": 4, "pause": 0.2, "text": "Couvrir hermétiquement les réserves d'eau." },
+    { "id": "s4d", "scene": 4, "pause": 0.2, "text": "Nettoyer les récipients et éliminer les objets inutiles pouvant retenir l'eau." },
+    { "id": "s4e", "scene": 4, "pause": 0.2, "text": "Utiliser des moustiquaires, des vêtements couvrants et des répulsifs adaptés." },
+    { "id": "s4f", "scene": 4, "pause": 0.55, "text": "Entretenir les abords de la maison et supprimer les gîtes de reproduction des moustiques." },
+
+    { "id": "s5a", "scene": 5, "pause": 0.2, "text": "Si vous présentez des symptômes, rendez-vous rapidement dans un centre de santé." },
+    { "id": "s5b", "scene": 5, "pause": 0.2, "text": "Ne vous automédiquez pas : évitez l'aspirine et l'ibuprofène, qui peuvent augmenter le risque de saignement en cas de dengue." },
+    { "id": "s5c", "scene": 5, "pause": 0.55, "text": "Buvez régulièrement de l'eau et suivez les conseils du personnel de santé." },
+
+    { "id": "s6a", "scene": 6, "pause": 0.2, "text": "La dengue peut être grave, mais nous pouvons réduire les risques grâce aux bons gestes et à une prise en charge rapide." },
+    { "id": "s6b", "scene": 6, "pause": 0.3, "text": "Ensemble, protégeons nos familles et nos communautés." },
+    { "id": "s6c", "scene": 6, "pause": 0.0, "text": "SOS Médecins Burkina Faso : agir vite, sauver des vies !", "tts": "SOS Médecins Burkina Faso : agir vite, sauver des vies !" }
+  ]
+}
