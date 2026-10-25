@@ -10,7 +10,7 @@ ls "$SEG"/seg_*.mp4 | sort | sed "s/^/file '/; s/$/'/" > "$SEG/list.txt"
 
 # main version: 1080x1920, H.264 High, AAC 48 kHz, loudness for social networks
 ffmpeg -y -loglevel error -f concat -safe 0 -i "$SEG/list.txt" -i "$MIX" \
-  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 19 -profile:v high -pix_fmt yuv420p -r 25 \
+  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 19 -profile:v high -pix_fmt yuv420p \
   -c:a aac -b:a 192k -ar 48000 -af "loudnorm=I=-14:TP=-1.5:LRA=11" -shortest -movflags +faststart \
   -metadata title="SOS Médecins Burkina Faso — Ensemble contre la dengue !" \
   "$OUT/$NAME.mp4"

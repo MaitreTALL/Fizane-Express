@@ -6,6 +6,7 @@ import { clamp, smooth, easeOut, backOut, easeInOut, lerp } from './core.js';
 const ANIMS = {
   pop: (ki, ko) => ({ s: lerp(0.5, 1, backOut(ki)) * lerp(0.92, 1, ko), op: Math.min(smooth(ki * 2.2), smooth(ko)) }),
   up: (ki, ko) => ({ ty: lerp(80, 0, easeOut(ki)) + lerp(-30, 0, ko), op: Math.min(smooth(ki * 1.4), smooth(ko)) }),
+  down: (ki, ko) => ({ ty: lerp(-80, 0, easeOut(ki)) + lerp(30, 0, ko), op: Math.min(smooth(ki * 1.4), smooth(ko)) }),
   left: (ki, ko) => ({ tx: lerp(-700, 0, easeOut(ki)) + lerp(-80, 0, smooth(ko)), op: Math.min(smooth(ki * 3), smooth(ko)) }),
   right: (ki, ko) => ({ tx: lerp(700, 0, easeOut(ki)) + lerp(80, 0, smooth(ko)), op: Math.min(smooth(ki * 3), smooth(ko)) }),
   fade: (ki, ko) => ({ op: Math.min(smooth(ki), smooth(ko)) }),

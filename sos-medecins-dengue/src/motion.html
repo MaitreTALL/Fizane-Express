@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>SOS Médecins Burkina Faso — Motion design</title>
+<style>
+  @font-face { font-family: 'Montserrat'; font-weight: 800; src: url('/node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Montserrat'; font-weight: 900; src: url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Nunito'; font-weight: 800; src: url('/node_modules/@fontsource/nunito/files/nunito-latin-800-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Nunito'; font-weight: 700; src: url('/node_modules/@fontsource/nunito/files/nunito-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Nunito'; font-weight: 900; src: url('/node_modules/@fontsource/nunito/files/nunito-latin-900-normal.woff2') format('woff2'); }
+  :root { --green: #0da255; --green-dark: #08793f; --red: #e81e27; --black: #232021; --yellow: #ffc83d; --ink: #1f2a2e; }
+  html, body { margin: 0; background: #000; }
+  #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #eef7f1; }
+  #art { position: absolute; inset: 0; width: 1080px; height: 1920px; display: block; }
+  #ui { position: absolute; inset: 0; pointer-events: none; font-family: 'Nunito', sans-serif; color: var(--ink); }
+  #ui > * { position: absolute; }
+
+  .logo-card { right: 34px; top: 34px; width: 190px; height: 190px; background: #fff; border-radius: 28px; box-sizing: border-box; padding: 8px; transform-origin: 100% 0; z-index: 70; }
+  .logo-card img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+  .sub { left: 40px; width: 1000px; top: 912px; text-align: center; z-index: 65; }
+  .sub span { display: inline-block; font: 800 46px/1.22 'Nunito', sans-serif; color: #fff; background: rgba(24,30,32,.86);
+    padding: 12px 26px 14px; border-radius: 18px; text-wrap: balance; max-width: 940px; }
+
+  .chip { left: 40px; top: 56px; z-index: 66; display: flex; align-items: center; gap: 14px; font: 800 30px/1 'Montserrat', sans-serif; color: var(--ink);
+    background: #fff; border-radius: 40px; padding: 12px 24px 12px 12px; letter-spacing: .5px; text-transform: uppercase; }
+  .chip b { display: grid; place-items: center; width: 50px; height: 50px; border-radius: 50%; background: var(--green); color: #fff; font-size: 28px; }
+
+  .h1 { left: 60px; width: 960px; z-index: 30; font: 900 88px/1.02 'Montserrat', sans-serif; text-transform: uppercase; color: var(--ink); letter-spacing: -1px; }
+  .h1 em { font-style: normal; color: var(--red); }
+  .h1 i { font-style: normal; color: var(--green); }
+  .h1.center { text-align: center; }
+  .h1.white { color: #fff; }
+  .kw { z-index: 31; font: 900 54px/1 'Montserrat', sans-serif; text-transform: uppercase; color: #fff; padding: 16px 26px 18px; border-radius: 16px; background: var(--green); white-space: nowrap; }
+  .kw.red { background: var(--red); }
+  .kw.dark { background: var(--ink); }
+  .kw.white { background: #fff; color: var(--ink); }
+  .kw.yellow { background: var(--yellow); color: var(--ink); }
+  .lbl { z-index: 31; font: 800 34px/1.15 'Nunito', sans-serif; color: var(--ink); text-align: center; }
+  .card { z-index: 25; display: flex; align-items: center; gap: 22px; background: #fff; border-radius: 26px; padding: 14px 26px 14px 14px; box-sizing: border-box;
+    box-shadow: 0 14px 30px rgba(20,40,30,.12); }
+  .card .ic { flex: 0 0 104px; height: 104px; border-radius: 22px; display: grid; place-items: center; background: #e7f6ee; }
+  .card .ic svg { width: 86px; height: 86px; }
+  .card .tx { font: 800 38px/1.15 'Nunito', sans-serif; color: var(--ink); }
+  .card.red .ic { background: #fde8e8; }
+  .card .n { position: absolute; left: -14px; top: -14px; width: 52px; height: 52px; border-radius: 50%; background: var(--green); color: #fff; font: 900 28px/52px 'Montserrat'; text-align: center; }
+  .card.red .n { background: var(--red); }
+  .step { z-index: 30; font: 800 40px/1.18 'Nunito', sans-serif; color: var(--ink); text-align: center; }
+  .wipe { inset: 0; z-index: 80; }
+  .wipe div { position: absolute; top: -300px; height: 2520px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <svg id="art" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"><defs id="defs"></defs></svg>
+  <div id="ui"></div>
+</div>
+<script type="module" src="/src/motion/main.js"></script>
+</body>
+</html>
