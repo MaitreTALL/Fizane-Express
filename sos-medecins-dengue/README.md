@@ -34,7 +34,7 @@ Le centre de santé porte une croix verte générique : l'emblème de la croix r
 
 Tout est généré par programme :
 
-- **Voix** : synthèse vocale française hors ligne [Piper](https://github.com/rhasspy/piper), voix `fr-siwis-medium` (`tools/synth_voice.py`).
+- **Voix** : synthèse vocale française hors ligne [Piper](https://github.com/rhasspy/piper), voix `fr-siwis-medium` (`tools/synth_voice.py`), puis transformée pour prendre le timbre de la voix de référence fournie : `tools/separate_vocals.py` isole cette voix de sa musique (UVR MDX-Net), `tools/convert_voice.py` convertit la narration phrase par phrase avec [kNN-VC](https://github.com/bshall/knn-vc) sans changer son minutage.
 - **Minutage** : `tools/build_timeline.py` place les phrases, calcule les sous-titres, le minutage des mots et l'ouverture du bec (synchronisation labiale) → `src/timeline.json`.
 - **Musique et bruitages** : `tools/make_music.py` (balafon, nappes, percussions légères, pluie, moustiques, transitions). La musique est atténuée sous la voix. Mixage → `audio/mix.wav`.
 - **Motion design 2D** : `src/motion.html` (présentatrice vectorielle animée dans `src/motion/doctor.js`, illustrations dans `src/motion/art.js`, mise en scène dans `src/motion/scenes.js`). La bouche suit les sons du français : `tools/build_visemes.py` phonétise chaque mot (espeak) et produit une forme de bouche par image → `src/visemes.json`.
@@ -46,6 +46,9 @@ npm install
 # 1. voix (binaire piper + modèle fr-siwis-medium)
 python3 tools/synth_voice.py <piper> <fr-siwis-medium.onnx> 0.88
 python3 tools/build_timeline.py
+cp audio/voice.wav audio/voice_piper.wav
+python3 -I tools/separate_vocals.py reference_44k.wav UVR-MDX-NET-Voc_FT.onnx vocals.wav
+python3 tools/convert_voice.py <knn-vc> vocals.wav audio/voice_piper.wav audio/voice.wav
 # 2. bruitages synchronisés sur les apparitions de texte, puis mixage
 node tools/render.cjs cues src/cues.json
 python3 tools/make_music.py
