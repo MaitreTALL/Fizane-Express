@@ -4,15 +4,22 @@ Application Android de la boutique **https://boutique.visionaryentreprises.com/*
 
 ## Fichier à partager
 
-`dist/Tondraaga-1.1.apk` — Android 7.0 ou plus récent, environ 0,5 Mo. Elle s'installe par-dessus la version 1.0 (même clé de signature).
+- `dist/Tondraaga-1.2.apk` — à partager directement (WhatsApp…). Android 7.0 ou plus récent, environ 0,5 Mo. S'installe par-dessus les versions 1.0 et 1.1 (même clé de signature).
+- `dist/Tondraaga-1.2.aab` — App Bundle pour Google Play (voir `play-store/FICHE-PLAY-STORE.md`).
 
 Installation sur le téléphone :
 
-1. Ouvrir le fichier `Tondraaga-1.1.apk` reçu (WhatsApp, Téléchargements…).
+1. Ouvrir le fichier `Tondraaga-1.2.apk` reçu (WhatsApp, Téléchargements…).
 2. Si Android le demande, autoriser l'application qui ouvre le fichier (WhatsApp, Fichiers, Chrome…) à « installer des applications inconnues ».
 3. Appuyer sur **Installer**, puis **Ouvrir**. L'icône Tondraaga apparaît avec les autres applications.
 
 Play Protect peut afficher « application inconnue » : c'est normal pour une application installée hors du Play Store. Choisir « Installer quand même ».
+
+## Nouveautés de la version 1.2
+
+- Prête pour Google Play : vise Android 16 (API 36), fournie aussi en App Bundle (`.aab`).
+- Affichage « bord à bord » d'Android 15 et 16 : la boutique reste dégagée de la barre d'état, de la barre de navigation, de l'encoche et du clavier.
+- Geste « retour » d'Android 13 et plus (retour prédictif).
 
 ## Nouveautés de la version 1.1
 
@@ -44,8 +51,15 @@ javac -cp apksig-2.3.0.jar -d cls tools/SignApk.java
 java --add-exports java.base/sun.security.x509=ALL-UNNAMED \
      --add-exports java.base/sun.security.pkcs=ALL-UNNAMED \
      --add-exports java.base/sun.security.util=ALL-UNNAMED \
-     -cp apksig-2.3.0.jar:cls SignApk build/tondraaga-unsigned.apk dist/Tondraaga-1.1.apk \
+     -cp apksig-2.3.0.jar:cls SignApk build/tondraaga-unsigned.apk dist/Tondraaga-1.2.apk \
      tondraaga-release.p12 keystore-password.txt tondraaga
+```
+
+- `build-aab.sh` fabrique l'App Bundle (`build/tondraaga-unsigned.aab`) avec `bundletool` ; il est signé pour Google Play avec `jarsigner` et la même clé (clé d'importation) :
+
+```bash
+jarsigner -keystore tondraaga-release.p12 -storetype PKCS12 -storepass:file keystore-password.txt \
+  -sigalg SHA256withRSA -digestalg SHA-256 -signedjar dist/Tondraaga-1.2.aab build/tondraaga-unsigned.aab tondraaga
 ```
 
 ## Clé de signature
