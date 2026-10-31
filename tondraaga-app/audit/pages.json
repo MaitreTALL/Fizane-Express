@@ -2,8 +2,13 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "logos",
-   "file://{ws}/tondraaga-app/audit/logos.html"
+   "accueil",
+   "/"
+  ],
+  [
+   "panier",
+   "/panier/",
+   "/?add-to-cart=41"
   ],
   [
    "commander",
@@ -11,8 +16,24 @@
    "/?add-to-cart=41"
   ],
   [
-   "boutique-produit-spa",
-   "/#/courses"
+   "produit-wc",
+   "/produit/riz-parfume/"
+  ],
+  [
+   "liste-boutiques",
+   "/store-listing/"
+  ],
+  [
+   "abonnement",
+   "/dashboard/product-subscription/"
+  ],
+  [
+   "devenir-vendeur",
+   "/devenir-vendeur/"
+  ],
+  [
+   "mon-compte",
+   "/mon-compte/"
   ]
  ]
 }
