@@ -12,7 +12,7 @@ mkdir -p "$OUT/gen" "$OUT/classes" "$OUT/dex"
 "$BT/aapt2" compile --dir "$APP/res" -o "$OUT/res.zip"
 "$BT/aapt2" link -I "$ANDROID_JAR" \
   --manifest "$APP/AndroidManifest.xml" -A "$APP/assets" \
-  --min-sdk-version 23 --target-sdk-version 34 \
+  --min-sdk-version 24 --target-sdk-version 34 \
   --version-code "$VC" --version-name "$VN" \
   --java "$OUT/gen" -o "$OUT/base.apk" "$OUT/res.zip"
 
@@ -20,7 +20,7 @@ javac -source 8 -target 8 -Xlint:-options -encoding UTF-8 \
   -bootclasspath "$ANDROID_JAR" -classpath "$ANDROID_JAR" \
   -d "$OUT/classes" $(find "$APP/src" "$OUT/gen" -name '*.java')
 
-"$BT/d8" --release --min-api 23 --lib "$ANDROID_JAR" --output "$OUT/dex" \
+"$BT/d8" --release --min-api 24 --lib "$ANDROID_JAR" --output "$OUT/dex" \
   $(find "$OUT/classes" -name '*.class')
 
 cp "$OUT/base.apk" "$OUT/unsigned.apk"
