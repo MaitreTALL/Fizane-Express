@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Tondraaga — améliorations
  * Description: Traductions françaises de Dokan et WooCommerce, deux formules vendeur (sans abonnement 15 % / abonnement annuel 8 %), expédition internationale au kilo, sous-catégories de la boutique, protection des données des vendeurs, logos des moyens de paiement, corrections d'affichage sur téléphone et fiches produits (titre et description pour Google).
- * Version: 1.1.1
+ * Version: 1.2.0
  * Author: Tondraaga
  *
  * Extension « obligatoire » (mu-plugin) : elle reste active même si l'extension Tondraaga Core ou le thème
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'TDG_AM_VERSION', '1.1.1' );
+define( 'TDG_AM_VERSION', '1.2.0' );
 define( 'TDG_AM_DIR', __DIR__ . '/tdg-ameliorations' );
 define( 'TDG_AM_URL', content_url( 'mu-plugins/tdg-ameliorations' ) );
 
@@ -492,3 +492,75 @@ add_filter( 'rest_post_dispatch', function ( $reponse, $serveur, $requete ) {
 	$reponse->set_data( $d );
 	return $reponse;
 }, 10, 3 );
+
+/* -------------------------------------------------------------------------
+ * 9. « Je commande depuis » : tous les pays, avec l'équivalent dans la monnaie du pays
+ *    Taux du jour (open.er-api.com, base euro, parité fixe 1 € = 655,957 FCFA), mis à jour deux fois
+ *    par jour par une tâche planifiée ; pas d'équivalent pour les pays du franc CFA.
+ * ---------------------------------------------------------------------- */
+function tdg_am_pays_commande() {
+	return array(
+		'FR' => array( 'France', 'EUR', '€', 'euros' ),
+		'US' => array( 'États-Unis', 'USD', '$', 'dollars américains' ),
+		'CA' => array( 'Canada', 'CAD', '$ CA', 'dollars canadiens' ),
+		'BE' => array( 'Belgique', 'EUR', '€', 'euros' ),
+		'CH' => array( 'Suisse', 'CHF', 'CHF', 'francs suisses' ),
+		'DE' => array( 'Allemagne', 'EUR', '€', 'euros' ),
+		'IT' => array( 'Italie', 'EUR', '€', 'euros' ),
+		'ES' => array( 'Espagne', 'EUR', '€', 'euros' ),
+		'PT' => array( 'Portugal', 'EUR', '€', 'euros' ),
+		'NL' => array( 'Pays-Bas', 'EUR', '€', 'euros' ),
+		'LU' => array( 'Luxembourg', 'EUR', '€', 'euros' ),
+		'GB' => array( 'Royaume-Uni', 'GBP', '£', 'livres sterling' ),
+		'CI' => array( 'Côte d’Ivoire', 'XOF', 'FCFA', 'francs CFA' ),
+		'SN' => array( 'Sénégal', 'XOF', 'FCFA', 'francs CFA' ),
+		'ML' => array( 'Mali', 'XOF', 'FCFA', 'francs CFA' ),
+		'NE' => array( 'Niger', 'XOF', 'FCFA', 'francs CFA' ),
+		'TG' => array( 'Togo', 'XOF', 'FCFA', 'francs CFA' ),
+		'BJ' => array( 'Bénin', 'XOF', 'FCFA', 'francs CFA' ),
+		'GN' => array( 'Guinée', 'GNF', 'FG', 'francs guinéens' ),
+		'GH' => array( 'Ghana', 'GHS', '₵', 'cedis' ),
+		'NG' => array( 'Nigeria', 'NGN', '₦', 'nairas' ),
+		'CM' => array( 'Cameroun', 'XOF', 'FCFA', 'francs CFA' ),
+		'GA' => array( 'Gabon', 'XOF', 'FCFA', 'francs CFA' ),
+		'MA' => array( 'Maroc', 'MAD', 'DH', 'dirhams' ),
+		'AE' => array( 'Émirats arabes unis', 'AED', 'AED', 'dirhams des Émirats' ),
+		'CN' => array( 'Chine', 'CNY', '¥', 'yuans' ),
+		'BF' => array( 'Burkina Faso', 'XOF', 'FCFA', 'francs CFA' ),
+		'AUTRE' => array( 'Autre pays', 'USD', '$', 'dollars américains' ),
+	);
+}
+
+function tdg_am_maj_taux() {
+	$r = wp_remote_get( 'https://open.er-api.com/v6/latest/EUR', array( 'timeout' => 15 ) );
+	$j = is_wp_error( $r ) ? null : json_decode( wp_remote_retrieve_body( $r ), true );
+	if ( ! is_array( $j ) || 'success' !== ( $j['result'] ?? '' ) || empty( $j['rates'] ) ) {
+		return;
+	}
+	$t = array( 'date' => date_i18n( 'j F Y', strtotime( (string) ( $j['time_last_update_utc'] ?? 'now' ) ) ), 'taux' => array( 'EUR' => 655.957, 'XOF' => 1 ) );
+	foreach ( array_unique( wp_list_pluck( tdg_am_pays_commande(), 1 ) ) as $devise ) {
+		if ( ! isset( $t['taux'][ $devise ] ) && ! empty( $j['rates'][ $devise ] ) ) {
+			$t['taux'][ $devise ] = round( 655.957 / (float) $j['rates'][ $devise ], 4 );
+		}
+	}
+	update_option( 'tdg_am_taux', $t, false );
+}
+add_action( 'tdg_am_maj_taux', 'tdg_am_maj_taux' );
+add_action( 'init', function () {
+	if ( ! wp_next_scheduled( 'tdg_am_maj_taux' ) ) {
+		wp_schedule_event( time() + 60, 'twicedaily', 'tdg_am_maj_taux' );
+	}
+} );
+
+add_action( 'wp_enqueue_scripts', function () {
+	if ( ! wp_script_is( 'tdg-donnees', 'registered' ) ) {
+		return;
+	}
+	$pays = array();
+	foreach ( tdg_am_pays_commande() as $code => $p ) {
+		$pays[ $code ] = array( 'nom' => $p[0], 'devise' => $p[1], 'symbole' => $p[2], 'nomDevise' => $p[3] );
+	}
+	$t = get_option( 'tdg_am_taux' );
+	$t = is_array( $t ) ? $t : array( 'date' => '', 'taux' => array( 'EUR' => 655.957, 'XOF' => 1 ) );
+	wp_add_inline_script( 'tdg-donnees', '(function(P){if(!P)return;P.paysCommande=' . wp_json_encode( $pays ) . ';P.taux=Object.assign({},P.taux||{},' . wp_json_encode( $t['taux'] ) . ');' . ( $t['date'] ? 'P.tauxDate=' . wp_json_encode( $t['date'] ) . ';' : '' ) . '})(window.TDG&&window.TDG.parametres);', 'after' );
+}, 100 );

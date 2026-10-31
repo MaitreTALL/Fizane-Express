@@ -13,3 +13,5 @@ La page « Devenir vendeur » complète est dans `../theme/page-devenir-vendeur.
 3. `expeditions-depuis-burkina.json` : colis uniquement du Burkina vers les autres pays (trajets retour fermés,
    y compris dans les réglages enregistrés), textes « du Burkina vers le monde entier ».
 4. `derniers-textes-monde.json` : dernières mentions « France et États-Unis » (courses, fiche produit, à propos).
+5. `pays-de-commande.json` : « Je commande depuis » ouvert à tous les pays (liste et taux injectés par
+   l'extension tdg-ameliorations), équivalent dans la monnaie du pays, aucun pour les pays du franc CFA.

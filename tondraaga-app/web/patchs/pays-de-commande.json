@@ -1,0 +1,44 @@
+[
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "  function enDevise(xof) {\n    const p = pays(), v = xof / P.taux[p.devise];\n    return p.devise === 'EUR' ? v.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })\n      : v.toLocaleString('en-US', { style: 'currency', currency: 'USD' });\n  }\n  const equiv = (xof) => '≈ ' + enDevise(xof);\n",
+  "new": "  // équivalent indicatif dans la monnaie du pays de commande (aucun pour les pays du franc CFA)\n  function enDevise(xof) {\n    const p = pays() || P.paysCommande.FR, t = P.taux[p.devise];\n    if (!t || p.devise === 'XOF') return '';\n    const v = xof / t;\n    try { return v.toLocaleString('fr-FR', { style: 'currency', currency: p.devise, maximumFractionDigits: v >= 1000 ? 0 : 2 }); } catch (e) { return Math.round(v) + ' ' + p.devise; }\n  }\n  const equiv = (xof) => { const s = enDevise(xof); return s ? '≈ ' + s : ''; };\n  function noteDevise() {\n    const p = pays() || P.paysCommande.FR;\n    if (p.devise === 'XOF' || !P.taux[p.devise]) return '';\n    return 'Équivalent ' + p.devise + ' indicatif (' + (p.devise === 'EUR' ? 'parité fixe 1 € = 655,957 FCFA' : 'taux du ' + P.tauxDate + ' : 1 ' + p.devise + ' ≈ ' + (Math.round(P.taux[p.devise] * 100) / 100).toLocaleString('fr-FR') + ' FCFA') + ').';\n  }\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "Équivalent ${pays().devise} indicatif (${pays().devise === 'EUR' ? 'parité fixe 1 € = 655,957 FCFA' : 'taux de démonstration 1 $ = ' + P.taux.USD + ' FCFA'}).",
+  "new": "${noteDevise()}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "Équivalent en ${x.devise === 'EUR' ? 'euros (€)' : 'dollars ($)'}",
+  "new": "${x.devise === 'XOF' ? 'Prix en FCFA' : 'Équivalent en ' + (x.nomDevise || x.devise)}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<span>Équivalent en ${x.devise}</span>",
+  "new": "<span>${x.devise === 'XOF' ? 'Prix en FCFA' : 'Équivalent en ' + (x.nomDevise || x.devise)}</span>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "paiement débité en FCFA, équivalent en ${p.devise} affiché",
+  "new": "paiement débité en FCFA${p.devise === 'XOF' ? '' : ', équivalent en ' + (p.nomDevise || p.devise) + ' affiché'}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<p class=\"petit muet\" style=\"margin:4px 0 0\">${equiv(p.prix)} · débit en FCFA, équivalent indicatif au ${P.tauxDate}</p>",
+  "new": "${equiv(p.prix) ? `<p class=\"petit muet\" style=\"margin:4px 0 0\">${equiv(p.prix)} · débit en FCFA, équivalent indicatif au ${P.tauxDate}</p>` : ''}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "define( 'TDG_THEME_VERSION', '1.9.6' );",
+  "new": "define( 'TDG_THEME_VERSION', '1.9.7' );",
+  "count": 1
+ }
+]
