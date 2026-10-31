@@ -1,0 +1,6 @@
+om.svg https://upload.wikimedia.org/wikipedia/commons/1/19/Logo_Orange_Money.svg
+wave-nav.png https://www.wave.com/img/nav-logo.png
+wave-fav.png https://www.wave.com/img/favicon.png
+moov-flooz.png https://upload.wikimedia.org/wikipedia/commons/a/a8/Moov_Money_Flooz.png
+moov-africa.png https://moov-africa.bf/wp-content/uploads/2026/01/cropped-logo-moov.png
+moov-money-banner.png https://moov-africa.bf/wp-content/uploads/2026/02/MoovMoney1040x500-300x144.png

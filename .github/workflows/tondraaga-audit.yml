@@ -8,6 +8,8 @@ on:
     paths:
       - 'tondraaga-app/audit/pages.json'
       - 'tondraaga-app/audit/shoot.cjs'
+      - 'tondraaga-app/audit/fetch.txt'
+      - 'tondraaga-app/audit/*.html'
       - '.github/workflows/tondraaga-audit.yml'
   workflow_dispatch:
 
@@ -30,9 +32,16 @@ jobs:
           npm init -y >/dev/null
           npm install playwright-core@1.63.0 >/dev/null
           which google-chrome || which chromium || ls /opt/google/chrome
+      - name: Fetch reference files
+        run: |
+          rm -rf tondraaga-app/audit/out && mkdir -p tondraaga-app/audit/out/fetch
+          while read -r name url; do
+            [ -n "$name" ] || continue
+            curl -fsSL -A "Mozilla/5.0 (TondraagaAudit; +https://github.com/MaitreTALL/Fizane-Express)" -o "tondraaga-app/audit/out/fetch/$name" "$url" || echo "failed: $name"
+          done < tondraaga-app/audit/fetch.txt
+          ls -la tondraaga-app/audit/out/fetch
       - name: Audit the pages
         run: |
-          rm -rf tondraaga-app/audit/out
           CHROME="$(which google-chrome || which chromium)" NODE_PATH="$RUNNER_TEMP/pw/node_modules" node tondraaga-app/audit/shoot.cjs tondraaga-app/audit/pages.json tondraaga-app/audit/out
       - name: Store the results in the branch
         run: |

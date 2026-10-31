@@ -26,8 +26,9 @@ const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|
     page.on('response', (r) => { if (r.status() >= 400) failed.push(r.status() + ' ' + r.url().slice(0, 160)); });
     const entry = { name, url };
     try {
-      if (before) await page.goto(cfg.base + before, { waitUntil: 'networkidle', timeout: 60000 });
-      const resp = await page.goto(cfg.base + url, { waitUntil: 'networkidle', timeout: 60000 });
+      const abs = (u) => (/^(https?|file):/.test(u) ? u.replace('{ws}', process.cwd()) : cfg.base + u);
+      if (before) await page.goto(abs(before), { waitUntil: 'networkidle', timeout: 60000 });
+      const resp = await page.goto(abs(url), { waitUntil: 'networkidle', timeout: 60000 });
       entry.status = resp ? resp.status() : null;
       entry.finalUrl = page.url();
       await page.waitForTimeout(1500);
