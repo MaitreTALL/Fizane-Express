@@ -6,7 +6,7 @@
   "finalUrl": "https://boutique.visionaryentreprises.com/#/courses",
   "title": "Faire des courses pour mes proches · Tondraaga — Notre marché, notre fierté",
   "scrollWidth": 390,
-  "height": 9397,
+  "height": 8720,
   "overflow": [],
   "english": [
    "Pack de 6 × 1,5 L"
@@ -22,29 +22,6 @@
   "consoleErrors": [
    "Failed to load resource: the server responded with a status of 404 ()"
   ],
-  "failedRequests": []
- },
- {
-  "name": "accueil",
-  "url": "/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/",
-  "title": "Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 390,
-  "height": 7360,
-  "overflow": [],
-  "english": [
-   "Pack de 6 × 1,5 L"
-  ],
-  "brokenImages": [],
-  "slices": [
-   "accueil-1.png",
-   "accueil-2.png",
-   "accueil-3.png",
-   "accueil-4.png",
-   "accueil-5.png"
-  ],
-  "consoleErrors": [],
   "failedRequests": []
  }
 ]
