@@ -1,70 +1,25 @@
 [
  {
-  "name": "accueil",
-  "url": "/",
+  "name": "spa-colis",
+  "url": "/#/colis",
   "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/",
-  "title": "Tondraaga — Notre marché, notre fierté",
+  "finalUrl": "https://boutique.visionaryentreprises.com/#/colis",
+  "title": "Expédiez vos colis entre le Burkina et le monde entier · Tondraaga — Notre marché, notre fierté",
   "scrollWidth": 390,
-  "height": 7402,
+  "height": 8631,
   "overflow": [],
-  "english": [
-   "Pack de 6 × 1,5 L"
-  ],
+  "english": [],
   "brokenImages": [],
   "slices": [
-   "accueil-1.png",
-   "accueil-2.png",
-   "accueil-3.png",
-   "accueil-4.png",
-   "accueil-5.png"
+   "spa-colis-1.png",
+   "spa-colis-2.png",
+   "spa-colis-3.png",
+   "spa-colis-4.png",
+   "spa-colis-5.png"
   ],
   "consoleErrors": [
    "Failed to load resource: the server responded with a status of 404 ()"
   ],
-  "failedRequests": []
- },
- {
-  "name": "devenir-vendeur",
-  "url": "/devenir-vendeur/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/devenir-vendeur/",
-  "title": "Devenir vendeur sur Tondraaga – Tondraaga",
-  "scrollWidth": 390,
-  "height": 5925,
-  "overflow": [
-   "div L-14985 R-14684",
-   "label L-14985 R-14684",
-   "input#trap L-14985 R-14684"
-  ],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "devenir-vendeur-1.png",
-   "devenir-vendeur-2.png",
-   "devenir-vendeur-3.png",
-   "devenir-vendeur-4.png",
-   "devenir-vendeur-5.png"
-  ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "mon-compte",
-  "url": "/mon-compte/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/mon-compte/",
-  "title": "Mon compte – Tondraaga",
-  "scrollWidth": 390,
-  "height": 2462,
-  "overflow": [],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "mon-compte-1.png",
-   "mon-compte-2.png"
-  ],
-  "consoleErrors": [],
   "failedRequests": []
  },
  {
@@ -87,40 +42,24 @@
   "failedRequests": []
  },
  {
-  "name": "spa-colis",
-  "url": "/#/colis",
+  "name": "accueil",
+  "url": "/",
   "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/#/colis",
-  "title": "Expédiez vos colis entre le Burkina et le monde entier · Tondraaga — Notre marché, notre fierté",
+  "finalUrl": "https://boutique.visionaryentreprises.com/",
+  "title": "Tondraaga — Notre marché, notre fierté",
   "scrollWidth": 390,
-  "height": 13015,
+  "height": 7402,
   "overflow": [],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "spa-colis-1.png",
-   "spa-colis-2.png",
-   "spa-colis-3.png",
-   "spa-colis-4.png",
-   "spa-colis-5.png"
+  "english": [
+   "Pack de 6 × 1,5 L"
   ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "spa-boutique-local",
-  "url": "/#/boutique?cat=local",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/#/boutique?cat=local",
-  "title": "Produits locaux : la boutique des artisans ouvre bientôt · Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 390,
-  "height": 1895,
-  "overflow": [],
-  "english": [],
   "brokenImages": [],
   "slices": [
-   "spa-boutique-local-1.png",
-   "spa-boutique-local-2.png"
+   "accueil-1.png",
+   "accueil-2.png",
+   "accueil-3.png",
+   "accueil-4.png",
+   "accueil-5.png"
   ],
   "consoleErrors": [],
   "failedRequests": []
