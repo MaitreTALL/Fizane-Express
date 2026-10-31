@@ -4,19 +4,24 @@ Application Android de la boutique **https://boutique.visionaryentreprises.com/*
 
 ## Fichier à partager
 
-`dist/Tondraaga-1.0.apk` — Android 7.0 ou plus récent, environ 0,5 Mo.
+`dist/Tondraaga-1.1.apk` — Android 7.0 ou plus récent, environ 0,5 Mo. Elle s'installe par-dessus la version 1.0 (même clé de signature).
 
 Installation sur le téléphone :
 
-1. Ouvrir le fichier `Tondraaga-1.0.apk` reçu (WhatsApp, Téléchargements…).
+1. Ouvrir le fichier `Tondraaga-1.1.apk` reçu (WhatsApp, Téléchargements…).
 2. Si Android le demande, autoriser l'application qui ouvre le fichier (WhatsApp, Fichiers, Chrome…) à « installer des applications inconnues ».
 3. Appuyer sur **Installer**, puis **Ouvrir**. L'icône Tondraaga apparaît avec les autres applications.
 
 Play Protect peut afficher « application inconnue » : c'est normal pour une application installée hors du Play Store. Choisir « Installer quand même ».
 
+## Nouveautés de la version 1.1
+
+- Animation au lancement : un halo ocre s'ouvre, le logo apparaît, trois points battent pendant le chargement de la boutique.
+- Sécurité renforcée : seule la boutique (HTTPS) s'affiche dans l'application ; les autres sites s'ouvrent dans le navigateur et seuls les liens téléphone, e-mail, SMS, WhatsApp, cartes et Play Store ouvrent une autre application. Pas de contenu non chiffré, pas d'accès aux fichiers du téléphone, pas de cookies tiers, Google Safe Browsing activé, données de l'application exclues des sauvegardes (elles contiennent la session).
+
 ## Ce que fait l'application
 
-- Elle ouvre la boutique en plein écran, aux couleurs Tondraaga (barre d'état brune, écran de démarrage avec le logo).
+- Elle ouvre la boutique en plein écran, aux couleurs Tondraaga (barre d'état brune, écran de démarrage animé avec le logo).
 - Les pages du site restent dans l'application. Les liens WhatsApp, téléphone, e-mail et les sites externes s'ouvrent dans l'application correspondante.
 - L'envoi de fichiers fonctionne : on peut joindre la preuve de paiement Orange Money ou Wave.
 - Si le site demande la position du client pour calculer la livraison, l'application demande l'autorisation de localisation.
@@ -39,7 +44,7 @@ javac -cp apksig-2.3.0.jar -d cls tools/SignApk.java
 java --add-exports java.base/sun.security.x509=ALL-UNNAMED \
      --add-exports java.base/sun.security.pkcs=ALL-UNNAMED \
      --add-exports java.base/sun.security.util=ALL-UNNAMED \
-     -cp apksig-2.3.0.jar:cls SignApk build/tondraaga-unsigned.apk dist/Tondraaga-1.0.apk \
+     -cp apksig-2.3.0.jar:cls SignApk build/tondraaga-unsigned.apk dist/Tondraaga-1.1.apk \
      tondraaga-release.p12 keystore-password.txt tondraaga
 ```
 
