@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:statusBarColor">@color/brun</item>
+        <item name="android:navigationBarColor">@color/brun_fonce</item>
+        <item name="android:colorPrimary">@color/brun</item>
+        <item name="android:colorPrimaryDark">@color/brun_fonce</item>
+        <item name="android:colorAccent">@color/ocre</item>
+        <!-- Android 12+ system splash: the basket icon on cream -->
+        <item name="android:windowSplashScreenBackground">@color/creme</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>
+    </style>
+</resources>

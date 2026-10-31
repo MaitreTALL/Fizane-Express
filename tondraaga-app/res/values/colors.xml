@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tondraaga brand: brown, ochre and cream from the logo -->
+    <color name="brun">#4D3529</color>
+    <color name="brun_fonce">#3B281F</color>
+    <color name="ocre">#C87817</color>
+    <color name="creme">#FBF8F4</color>
+    <color name="icon_bg">#FBF8F4</color>
+</resources>

@@ -1,0 +1,46 @@
+name: Tondraaga APK
+
+# Builds the Tondraaga Android app (tondraaga-app/) with the official Android SDK of the
+# runner and stores the unsigned, zip-aligned APK in the branch. Signing happens outside CI,
+# with a key that never enters this public repository.
+on:
+  push:
+    branches: [ccr-823f62ce-tc8p8p]
+    paths:
+      - 'tondraaga-app/**'
+      - '.github/workflows/tondraaga-apk.yml'
+      - '!tondraaga-app/build/**'
+      - '!tondraaga-app/dist/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: tondraaga-apk
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Build the unsigned APK
+        run: |
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          JAR="$ANDROID_HOME/platforms/android-34/android.jar"
+          [ -f "$JAR" ] || JAR="$(ls -d "$ANDROID_HOME"/platforms/android-* | sort -V | tail -1)/android.jar"
+          echo "build-tools: $BT"
+          echo "platform: $JAR"
+          tondraaga-app/build.sh "$BT" "$JAR" "$RUNNER_TEMP/out" "$(cat tondraaga-app/VERSION_CODE)" "$(cat tondraaga-app/VERSION_NAME)"
+      - name: Store it in the branch
+        run: |
+          mkdir -p tondraaga-app/build
+          cp "$RUNNER_TEMP/out/tondraaga-unsigned.apk" tondraaga-app/build/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tondraaga-app/build/tondraaga-unsigned.apk
+          git commit -m "Tondraaga: unsigned APK built by CI [skip ci]" || exit 0
+          git push

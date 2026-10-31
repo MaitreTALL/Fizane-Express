@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tondraaga — hors connexion</title>
+<style>
+  :root { --brun: #4D3529; --ocre: #C87817; --creme: #FBF8F4; }
+  html, body { margin: 0; height: 100%; background: var(--creme); color: var(--brun); font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+  main { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 32px 24px; box-sizing: border-box; gap: 14px; }
+  svg { width: 96px; height: 96px; }
+  h1 { font-size: 1.35rem; margin: 6px 0 0; }
+  p { margin: 0; max-width: 320px; line-height: 1.5; color: #5E5853; }
+  a.btn { display: inline-block; margin-top: 10px; padding: 14px 28px; border-radius: 999px; background: var(--brun); color: #fff; text-decoration: none; font-weight: 700; font-size: 1rem; }
+  a.wa { color: var(--ocre); font-weight: 700; text-decoration: none; margin-top: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <svg viewBox="0 0 96 96" aria-hidden="true">
+    <circle cx="48" cy="48" r="46" fill="#F7EBDB"/>
+    <path d="M22 40c14-14 38-14 52 0M30 50c10-9 26-9 36 0M39 60c5-4 13-4 18 0" fill="none" stroke="#4D3529" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="48" cy="70" r="5" fill="#C87817"/>
+    <path d="M24 24l48 48" stroke="#A23A1E" stroke-width="5" stroke-linecap="round"/>
+  </svg>
+  <h1>Pas de connexion internet</h1>
+  <p>Vérifiez votre connexion (données mobiles ou Wi-Fi), puis réessayez.</p>
+  <a class="btn" href="tdg://reessayer">Réessayer</a>
+  <a class="wa" href="https://wa.me/22675552661">Nous écrire sur WhatsApp</a>
+</main>
+</body>
+</html>

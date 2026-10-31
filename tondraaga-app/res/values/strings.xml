@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tondraaga</string>
+    <string name="exit_hint">Appuyez encore une fois pour quitter</string>
+    <string name="no_app">Aucune application ne peut ouvrir ce lien.</string>
+</resources>
