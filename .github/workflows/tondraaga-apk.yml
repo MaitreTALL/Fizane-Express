@@ -11,6 +11,8 @@ on:
       - '.github/workflows/tondraaga-apk.yml'
       - '!tondraaga-app/build/**'
       - '!tondraaga-app/dist/**'
+      - '!tondraaga-app/tools/**'
+      - '!tondraaga-app/README.md'
   workflow_dispatch:
 
 permissions:
