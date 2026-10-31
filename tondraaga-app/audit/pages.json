@@ -2,22 +2,28 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "panier",
-   "/panier/",
-   "/?add-to-cart=41"
+   "accueil",
+   "/"
   ],
   [
-   "commander",
-   "/commander/",
-   "/?add-to-cart=41"
+   "devenir-vendeur",
+   "/devenir-vendeur/"
   ],
   [
-   "abonnement",
-   "/dashboard/product-subscription/"
+   "mon-compte",
+   "/mon-compte/"
   ],
   [
-   "liste-boutiques",
-   "/store-listing/"
+   "spa-colis-envoyer",
+   "/#/colis/envoyer"
+  ],
+  [
+   "spa-colis",
+   "/#/colis"
+  ],
+  [
+   "spa-boutique-local",
+   "/#/boutique?cat=local"
   ]
  ]
 }
