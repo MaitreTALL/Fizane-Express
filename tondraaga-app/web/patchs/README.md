@@ -10,3 +10,5 @@ les fichiers d'origine sont sauvegardés dans `wp-content/tdg-sauvegardes/formul
    nouveaux pays, nom « Textiles & mode africaine », version du thème (cache des navigateurs).
 
 La page « Devenir vendeur » complète est dans `../theme/page-devenir-vendeur.php`.
+3. `expeditions-depuis-burkina.json` : colis uniquement du Burkina vers les autres pays (trajets retour fermés,
+   y compris dans les réglages enregistrés), textes « du Burkina vers le monde entier ».

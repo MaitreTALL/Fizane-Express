@@ -1,0 +1,62 @@
+[
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "const brouillonVide = () => ({ etape: 1, de: 'FR', vers: 'BF',",
+  "new": "const brouillonVide = () => ({ etape: 1, de: 'BF', vers: 'FR',",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "Prix au kilo : <strong>5 000 FCFA</strong> vers et depuis l’Afrique",
+  "new": "Prix au kilo : <strong>5 000 FCFA</strong> vers l’Afrique",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": " Les envois de ces pays vers le Burkina se font aux mêmes tarifs.",
+  "new": "",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "Expédiez vos colis entre le Burkina et le monde entier</h1>",
+  "new": "Expédiez vos colis du Burkina vers le monde entier</h1>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "colis entre le Burkina et le monde entier",
+  "new": "colis du Burkina vers le monde entier",
+  "count": 2
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "'Burkina ⇄ Europe, Amérique, Afrique, en toute confiance'",
+  "new": "'Du Burkina vers l’Europe, l’Amérique et l’Afrique, en toute confiance'",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "À notre agence de Ouagadougou ou chez un point de dépôt partenaire à l’étranger.",
+  "new": "À notre agence de Ouagadougou.",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "expédiez vos colis entre le Burkina et le monde entier (Europe, Amérique, Afrique).",
+  "new": "expédiez vos colis du Burkina vers le monde entier (Europe, Amérique, Afrique).",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "define( 'TDG_THEME_VERSION', '1.9.4' );",
+  "new": "define( 'TDG_THEME_VERSION', '1.9.5' );",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/outils.php",
+  "old": "'actif'   => 1,",
+  "new": "'actif'   => ( 'BF-' . $code === $cle ) ? 1 : 0, // expéditions au départ du Burkina uniquement",
+  "count": 1
+ }
+]
