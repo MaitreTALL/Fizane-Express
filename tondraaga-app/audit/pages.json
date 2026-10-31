@@ -2,10 +2,6 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "accueil",
-   "/"
-  ],
-  [
    "panier",
    "/panier/",
    "/?add-to-cart=41"
@@ -16,24 +12,12 @@
    "/?add-to-cart=41"
   ],
   [
-   "produit-wc",
-   "/produit/riz-parfume/"
-  ],
-  [
-   "liste-boutiques",
-   "/store-listing/"
-  ],
-  [
    "abonnement",
    "/dashboard/product-subscription/"
   ],
   [
-   "devenir-vendeur",
-   "/devenir-vendeur/"
-  ],
-  [
-   "mon-compte",
-   "/mon-compte/"
+   "liste-boutiques",
+   "/store-listing/"
   ]
  ]
 }
