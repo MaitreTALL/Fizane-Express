@@ -17,8 +17,9 @@ const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|
 (async () => {
   const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {});
   const report = [];
-  for (const [name, url, before] of cfg.pages) {
-    const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, userAgent: UA, locale: 'fr-FR' });
+  for (const [name, url, before, opt] of cfg.pages) {
+    const store = opt === 'store'; // Google Play screenshots: 1080 × 1920
+    const ctx = await browser.newContext({ viewport: store ? { width: 360, height: 640 } : { width: W, height: H }, deviceScaleFactor: store ? 3 : 1, isMobile: true, hasTouch: true, userAgent: UA, locale: 'fr-FR' });
     const page = await ctx.newPage();
     const errors = [], failed = [];
     page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text().slice(0, 200)); });
@@ -71,6 +72,13 @@ const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|
         for (const img of document.images) if (img.complete && img.naturalWidth === 0 && img.src) res.brokenImages.push(img.src.slice(0, 160));
         return res;
       }, [ENGLISH.source, W]));
+      if (store) {
+        await page.evaluate(() => window.scrollTo(0, 0));
+        await page.waitForTimeout(600);
+        await page.screenshot({ path: path.join(out, name + '.png') });
+        entry.slices = [name + '.png'];
+        throw 'store-done';
+      }
       const h = entry.height;
       entry.slices = [];
       for (let i = 0; i < Math.min(MAX_SLICES, Math.ceil(h / SLICE)); i++) {
@@ -79,7 +87,7 @@ const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|
         entry.slices.push(file);
       }
     } catch (e) {
-      entry.error = String(e).slice(0, 300);
+      if (e !== 'store-done') entry.error = String(e).slice(0, 300);
     }
     entry.consoleErrors = errors.slice(0, 10);
     entry.failedRequests = [...new Set(failed)].slice(0, 10);

@@ -12,7 +12,7 @@ mkdir -p "$OUT/gen" "$OUT/classes" "$OUT/dex"
 "$BT/aapt2" compile --dir "$APP/res" -o "$OUT/res.zip"
 "$BT/aapt2" link -I "$ANDROID_JAR" \
   --manifest "$APP/AndroidManifest.xml" -A "$APP/assets" \
-  --min-sdk-version 24 --target-sdk-version 34 \
+  --min-sdk-version 24 --target-sdk-version "${TARGET_SDK:-36}" \
   --version-code "$VC" --version-name "$VN" \
   --java "$OUT/gen" -o "$OUT/base.apk" "$OUT/res.zip"
 

@@ -2,16 +2,40 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "spa-colis",
-   "/#/colis"
+   "play-1-accueil",
+   "/",
+   null,
+   "store"
   ],
   [
-   "spa-colis-envoyer",
-   "/#/colis/envoyer"
+   "play-2-courses",
+   "/#/courses",
+   null,
+   "store"
   ],
   [
-   "accueil",
-   "/"
+   "play-3-produit",
+   "/produit/riz-parfume/",
+   null,
+   "store"
+  ],
+  [
+   "play-4-colis",
+   "/#/colis",
+   null,
+   "store"
+  ],
+  [
+   "play-5-vendeur",
+   "/devenir-vendeur/",
+   null,
+   "store"
+  ],
+  [
+   "play-6-categories",
+   "/#/categories",
+   null,
+   "store"
   ]
  ]
 }

@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Insets;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.webkit.CookieManager;
@@ -32,6 +34,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.window.OnBackInvokedCallback;
+import android.window.OnBackInvokedDispatcher;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -77,7 +81,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         FrameLayout root = new FrameLayout(this);
-        root.setBackgroundColor(Color.WHITE);
+        // behind the status and navigation bars (Android 15+ draws the app edge to edge)
+        root.setBackgroundColor(getColor(R.color.brun));
 
         web = new WebView(this);
         root.addView(web, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -94,7 +99,9 @@ public class MainActivity extends Activity {
         root.addView(splash, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         setContentView(root);
+        keepClearOfSystemBars(root);
         configureWebView();
+        registerBackHandler();
 
         if (savedInstanceState != null) {
             web.restoreState(savedInstanceState);
@@ -445,20 +452,54 @@ public class MainActivity extends Activity {
         if (intent.getData() != null) web.loadUrl(startUrl(intent));
     }
 
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onBackPressed() {
+    /**
+     * Android 15+ draws apps edge to edge: the shop is padded by the status bar, the
+     * navigation bar, the camera cut-out and the keyboard so nothing hides behind them.
+     */
+    private void keepClearOfSystemBars(View root) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) return;
+        root.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
+                Insets bars = insets.getInsets(WindowInsets.Type.systemBars()
+                        | WindowInsets.Type.displayCutout() | WindowInsets.Type.ime());
+                v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+                return WindowInsets.CONSUMED;
+            }
+        });
+    }
+
+    /** Back: previous page of the shop; on the first page, press twice to leave. */
+    private void handleBack() {
         if (web.canGoBack()) {
             web.goBack();
             return;
         }
         long now = System.currentTimeMillis();
         if (now - lastBackPress < 2000) {
-            super.onBackPressed();
+            finish();
         } else {
             lastBackPress = now;
             toast(R.string.exit_hint);
         }
+    }
+
+    /** Android 13+ (and Android 16 always) delivers the back gesture through OnBackInvokedCallback. */
+    private void registerBackHandler() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return;
+        getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                new OnBackInvokedCallback() {
+                    @Override
+                    public void onBackInvoked() {
+                        handleBack();
+                    }
+                });
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onBackPressed() {
+        handleBack();
     }
 
     @Override

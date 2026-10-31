@@ -15,6 +15,7 @@ on:
       - '!tondraaga-app/README.md'
       - '!tondraaga-app/audit/**'
       - '!tondraaga-app/web/**'
+      - '!tondraaga-app/play-store/**'
   workflow_dispatch:
 
 permissions:
@@ -31,20 +32,31 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Build the unsigned APK
+      - name: Android 16 platform (target SDK 36, required by Google Play)
+        run: |
+          if [ ! -f "$ANDROID_HOME/platforms/android-36/android.jar" ]; then
+            SDKM=$(ls "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager | sort -V | tail -1)
+            yes | "$SDKM" --licenses >/dev/null || true
+            "$SDKM" "platforms;android-36" >/dev/null
+          fi
+          ls "$ANDROID_HOME/platforms"
+      - name: Build the unsigned APK and App Bundle
         run: |
           BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
-          JAR="$ANDROID_HOME/platforms/android-34/android.jar"
-          [ -f "$JAR" ] || JAR="$(ls -d "$ANDROID_HOME"/platforms/android-* | sort -V | tail -1)/android.jar"
+          JAR="$ANDROID_HOME/platforms/android-36/android.jar"
           echo "build-tools: $BT"
           echo "platform: $JAR"
-          tondraaga-app/build.sh "$BT" "$JAR" "$RUNNER_TEMP/out" "$(cat tondraaga-app/VERSION_CODE)" "$(cat tondraaga-app/VERSION_NAME)"
-      - name: Store it in the branch
+          VC="$(cat tondraaga-app/VERSION_CODE)"; VN="$(cat tondraaga-app/VERSION_NAME)"
+          tondraaga-app/build.sh "$BT" "$JAR" "$RUNNER_TEMP/out" "$VC" "$VN"
+          curl -fsSL -o "$RUNNER_TEMP/bundletool.jar" https://github.com/google/bundletool/releases/download/1.17.2/bundletool-all-1.17.2.jar
+          tondraaga-app/build-aab.sh "$BT" "$JAR" "$RUNNER_TEMP/out" "$VC" "$VN" "$RUNNER_TEMP/bundletool.jar"
+      - name: Store them in the branch
         run: |
           mkdir -p tondraaga-app/build
-          cp "$RUNNER_TEMP/out/tondraaga-unsigned.apk" tondraaga-app/build/
+          cp "$RUNNER_TEMP/out/tondraaga-unsigned.apk" "$RUNNER_TEMP/out/tondraaga-unsigned.aab" tondraaga-app/build/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tondraaga-app/build/tondraaga-unsigned.apk
-          git commit -m "Tondraaga: unsigned APK built by CI [skip ci]" || exit 0
+          git add tondraaga-app/build/tondraaga-unsigned.apk tondraaga-app/build/tondraaga-unsigned.aab
+          git commit -m "Tondraaga: unsigned APK and App Bundle built by CI [skip ci]" || exit 0
+          git pull --rebase origin ccr-823f62ce-tc8p8p
           git push
