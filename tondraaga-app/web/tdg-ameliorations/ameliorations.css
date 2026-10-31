@@ -119,3 +119,29 @@ ul.dokan_tabs li.active a { color: #fff !important; }
 	.dokan-dashboard-content .dokan-btn { white-space: normal; }
 	.dokan-dashboard-content ul.subsubsub { display: flex; flex-wrap: wrap; gap: 6px 12px; float: none; }
 }
+
+/* ---------- Sous-catégories de la boutique ---------- */
+.chips-sous { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.chips-sous::-webkit-scrollbar { display: none; }
+.chip-sous { flex: none; padding: 8px 14px; border-radius: 999px; border: 1px solid #E8DED3; background: #fff; color: var(--brun, #4D3529); font-size: .9rem; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.chip-sous.actif { background: var(--brun, #4D3529); border-color: var(--brun, #4D3529); color: #fff; }
+
+/* ---------- Formules vendeur : inscription, page « Devenir vendeur », espace vendeur ---------- */
+.tdg-am-formules { border: 0; margin: 0 0 16px; padding: 0; }
+.tdg-am-formules legend { font-weight: 700; margin-bottom: 8px; }
+.tdg-am-formule { display: flex; gap: 10px; align-items: flex-start; margin: 0 0 8px; padding: 12px 14px; border: 1px solid #E8DED3; border-radius: 12px; background: #fff; cursor: pointer; }
+.tdg-am-formule:has(input:checked) { border-color: var(--ocre, #C87817); box-shadow: 0 0 0 1px var(--ocre, #C87817); background: #FFFBF5; }
+.tdg-am-formule input { margin-top: 4px; }
+.tdg-am-formule small { color: #6B5E55; }
+.tdg-am-formules-aide { font-size: .85rem; color: #6B5E55; margin: 4px 0 0; }
+.tdg-am-abonnement-ok { background: #EEF6EC; border-left-color: #2E7D32; }
+.dv-formules { max-width: 1100px; margin: 0 auto; padding: 32px 16px 8px; }
+.dv-formules h2 { text-align: center; margin: 0 0 18px; }
+.dv-formules-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.dv-formule { padding: 22px 20px; border: 1px solid #E8DED3; border-radius: 18px; background: #fff; }
+.dv-formule h3 { margin: 0 0 6px; }
+.dv-formule-prix { font-size: 1.6rem; font-weight: 800; color: var(--brun, #4D3529); margin: 0 0 10px; }
+.dv-formule-prix small { font-size: .9rem; font-weight: 600; }
+.dv-formule-note { color: #6B5E55; font-size: .9rem; margin: 8px 0 0; }
+.dv-formule-vedette { border: 2px solid var(--ocre, #C87817); background: #FFFBF5; }
+.dv-formules-aide { text-align: center; color: #6B5E55; font-size: .9rem; margin: 14px 0 0; }

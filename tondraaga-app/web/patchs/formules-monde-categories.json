@@ -1,0 +1,200 @@
+[
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "'Nourrissez la famille depuis Paris ou New&nbsp;York'",
+  "new": "'Nourrissez la famille, où que vous soyez dans le monde'",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "colis entre le Burkina, la France et les États-Unis",
+  "new": "colis entre le Burkina et le monde entier",
+  "count": 2
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "Burkina ⇄ France ⇄ États-Unis",
+  "new": "Burkina ⇄ Europe, Amérique, Afrique",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "Vendez vos créations en France et aux États-Unis",
+  "new": "Vendez vos créations dans le monde entier",
+  "count": 2
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "chez notre partenaire à Paris ou New York",
+  "new": "chez un point de dépôt partenaire à l’étranger",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "['Les produits de la boutique sont-ils expédiés en France ou aux États-Unis ?', 'L’expédition internationale sera ouverte dès qu’un transporteur sera en place. En attendant, les produits peuvent être livrés à un proche au Burkina Faso.']",
+  "new": "['Les produits de la boutique sont-ils expédiés à l’étranger ?', 'Oui, partout dans le monde. Les frais d’expédition sont calculés au poids : 5 000 FCFA le kilo vers l’Afrique, 10 000 FCFA le kilo vers l’Europe, l’Amérique et le reste du monde. Vous pouvez aussi faire livrer un proche au Burkina Faso.']",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "const F = { cats: new Set(), vendeurs: new Set(), prixMax: 40000",
+  "new": "const F = { sous: '', cats: new Set(), vendeurs: new Set(), prixMax: 40000",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "    F.cats = new Set(qs.get('cat') ? [qs.get('cat')] : []);\n",
+  "new": "    F.cats = new Set(qs.get('cat') ? [qs.get('cat')] : []);\n    F.sous = qs.get('sous') || '';\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<span>${esc(c.nom)}</span></a>`).join('')}</div></div>\n      <div class=\"cadre\"><div class=\"barre-resultats-amz\">",
+  "new": "<span>${esc(c.nom)}</span></a>`).join('')}</div></div>${sousChips(cat)}\n      <div class=\"cadre\"><div class=\"barre-resultats-amz\">",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "  function vBoutique(qs) {\n",
+  "new": "  // sous-catégories (Épices, Textiles…) sous la catégorie choisie\n  function sousChips(cat) {\n    const l = cat && D.sousCategories && D.sousCategories[cat.id];\n    if (!l || !l.length) return '';\n    return `<div class=\"cadre\"><div class=\"chips-sous\">${[{ id: '', nom: 'Tout' }].concat(l).map((s) => `<a href=\"#/boutique?cat=${cat.id}${s.id ? '&sous=' + s.id : ''}\" class=\"chip-sous ${F.sous === s.id ? 'actif' : ''}\">${esc(s.nom)}</a>`).join('')}</div></div>`;\n  }\n  function vBoutique(qs) {\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "&& (!q || (p.nom + ' ' + vendeur(p.vendeur).nom + ' ' + categorie(p.cat).nom).toLowerCase().includes(q)));",
+  "new": "&& (!F.sous || p.sous === F.sous) && (!q || (p.nom + ' ' + vendeur(p.vendeur).nom + ' ' + categorie(p.cat).nom + ' ' + (p.sousNom || '') + ' ' + (p.motsCles || '')).toLowerCase().includes(q)));",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "D.catalogueReel = true; change = true;\n",
+  "new": "D.catalogueReel = true; change = true;\n        if (c.sousCategories) D.sousCategories = c.sousCategories;\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "Expédiez vos colis entre le Burkina, la France et les États-Unis</h1>",
+  "new": "Expédiez vos colis entre le Burkina et le monde entier</h1>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "parKg: +c.prix_kg, min: +c.min_kg",
+  "new": "parKg: +(t.prix_kg || c.prix_kg), min: +c.min_kg",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "const PAYS = {\n    BF: { nom: 'Burkina Faso', indicatif: '226', chiffres: 8, villes: ['Ouagadougou', 'Bobo-Dioulasso', 'Koudougou'] },\n    FR: { nom: 'France', indicatif: '33', chiffres: 9, villes: ['Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille', 'Autre ville'] },\n    US: { nom: 'États-Unis', indicatif: '1', chiffres: 10, villes: ['New York', 'Washington', 'Atlanta', 'Houston', 'Autre ville'] },\n    CI: { nom: 'Côte d’Ivoire', indicatif: '225', chiffres: 10, villes: ['Abidjan'] }\n  };",
+  "new": "const PAYS = {\n    BF: { nom: 'Burkina Faso', indicatif: '226', chiffres: 8, villes: ['Ouagadougou', 'Bobo-Dioulasso', 'Koudougou'], zone: 'afrique' },\n    FR: { nom: 'France', indicatif: '33', chiffres: 9, villes: ['Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille', 'Autre ville'], zone: 'europe' },\n    BE: { nom: 'Belgique', indicatif: '32', chiffres: 9, villes: ['Bruxelles', 'Anvers', 'Liège', 'Autre ville'], zone: 'europe' },\n    DE: { nom: 'Allemagne', indicatif: '49', chiffres: 11, villes: ['Berlin', 'Francfort', 'Hambourg', 'Munich', 'Autre ville'], zone: 'europe' },\n    IT: { nom: 'Italie', indicatif: '39', chiffres: 10, villes: ['Rome', 'Milan', 'Turin', 'Naples', 'Autre ville'], zone: 'europe' },\n    ES: { nom: 'Espagne', indicatif: '34', chiffres: 9, villes: ['Madrid', 'Barcelone', 'Valence', 'Autre ville'], zone: 'europe' },\n    PT: { nom: 'Portugal', indicatif: '351', chiffres: 9, villes: ['Lisbonne', 'Porto', 'Autre ville'], zone: 'europe' },\n    NL: { nom: 'Pays-Bas', indicatif: '31', chiffres: 9, villes: ['Amsterdam', 'Rotterdam', 'La Haye', 'Autre ville'], zone: 'europe' },\n    CH: { nom: 'Suisse', indicatif: '41', chiffres: 9, villes: ['Genève', 'Lausanne', 'Zurich', 'Autre ville'], zone: 'europe' },\n    GB: { nom: 'Royaume-Uni', indicatif: '44', chiffres: 10, villes: ['Londres', 'Manchester', 'Birmingham', 'Autre ville'], zone: 'europe' },\n    US: { nom: 'États-Unis', indicatif: '1', chiffres: 10, villes: ['New York', 'Washington', 'Atlanta', 'Houston', 'Autre ville'], zone: 'amerique' },\n    CA: { nom: 'Canada', indicatif: '1', chiffres: 10, villes: ['Montréal', 'Toronto', 'Ottawa', 'Québec', 'Autre ville'], zone: 'amerique' },\n    CI: { nom: 'Côte d’Ivoire', indicatif: '225', chiffres: 10, villes: ['Abidjan', 'Bouaké', 'Yamoussoukro', 'Autre ville'], zone: 'afrique' },\n    SN: { nom: 'Sénégal', indicatif: '221', chiffres: 9, villes: ['Dakar', 'Thiès', 'Saint-Louis', 'Autre ville'], zone: 'afrique' },\n    ML: { nom: 'Mali', indicatif: '223', chiffres: 8, villes: ['Bamako', 'Sikasso', 'Ségou', 'Autre ville'], zone: 'afrique' },\n    NE: { nom: 'Niger', indicatif: '227', chiffres: 8, villes: ['Niamey', 'Zinder', 'Autre ville'], zone: 'afrique' },\n    GH: { nom: 'Ghana', indicatif: '233', chiffres: 9, villes: ['Accra', 'Kumasi', 'Autre ville'], zone: 'afrique' },\n    TG: { nom: 'Togo', indicatif: '228', chiffres: 8, villes: ['Lomé', 'Kara', 'Autre ville'], zone: 'afrique' },\n    BJ: { nom: 'Bénin', indicatif: '229', chiffres: 10, villes: ['Cotonou', 'Porto-Novo', 'Parakou', 'Autre ville'], zone: 'afrique' },\n    NG: { nom: 'Nigeria', indicatif: '234', chiffres: 10, villes: ['Lagos', 'Abuja', 'Kano', 'Autre ville'], zone: 'afrique' },\n    CM: { nom: 'Cameroun', indicatif: '237', chiffres: 9, villes: ['Douala', 'Yaoundé', 'Autre ville'], zone: 'afrique' },\n    GN: { nom: 'Guinée', indicatif: '224', chiffres: 9, villes: ['Conakry', 'Autre ville'], zone: 'afrique' },\n    MA: { nom: 'Maroc', indicatif: '212', chiffres: 9, villes: ['Casablanca', 'Rabat', 'Marrakech', 'Autre ville'], zone: 'afrique' }\n  };",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "expédiez vos colis entre le Burkina, la France et les États-Unis.",
+  "new": "expédiez vos colis entre le Burkina et le monde entier (Europe, Amérique, Afrique).",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "define( 'TDG_THEME_VERSION', '1.9.2' );",
+  "new": "define( 'TDG_THEME_VERSION', '1.9.3' );",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/outils.php",
+  "old": "\treturn array(\n\t\t'BF' => array( 'nom' => 'Burkina Faso', 'indicatif' => '226', 'chiffres' => 8, 'villes' => array( 'Ouagadougou', 'Bobo-Dioulasso', 'Koudougou' ) ),\n\t\t'FR' => array( 'nom' => 'France', 'indicatif' => '33', 'chiffres' => 9, 'villes' => array( 'Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille', 'Autre ville' ) ),\n\t\t'US' => array( 'nom' => 'États-Unis', 'indicatif' => '1', 'chiffres' => 10, 'villes' => array( 'New York', 'Washington', 'Atlanta', 'Houston', 'Autre ville' ) ),\n\t\t'CI' => array( 'nom' => 'Côte d’Ivoire', 'indicatif' => '225', 'chiffres' => 10, 'villes' => array( 'Abidjan' ) ),\n\t);",
+  "new": "\treturn array(\n\t\t'BF' => array( 'nom' => 'Burkina Faso', 'indicatif' => '226', 'chiffres' => 8, 'villes' => array( 'Ouagadougou', 'Bobo-Dioulasso', 'Koudougou' ), 'zone' => 'afrique' ),\n\t\t'FR' => array( 'nom' => 'France', 'indicatif' => '33', 'chiffres' => 9, 'villes' => array( 'Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'BE' => array( 'nom' => 'Belgique', 'indicatif' => '32', 'chiffres' => 9, 'villes' => array( 'Bruxelles', 'Anvers', 'Liège', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'DE' => array( 'nom' => 'Allemagne', 'indicatif' => '49', 'chiffres' => 11, 'villes' => array( 'Berlin', 'Francfort', 'Hambourg', 'Munich', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'IT' => array( 'nom' => 'Italie', 'indicatif' => '39', 'chiffres' => 10, 'villes' => array( 'Rome', 'Milan', 'Turin', 'Naples', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'ES' => array( 'nom' => 'Espagne', 'indicatif' => '34', 'chiffres' => 9, 'villes' => array( 'Madrid', 'Barcelone', 'Valence', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'PT' => array( 'nom' => 'Portugal', 'indicatif' => '351', 'chiffres' => 9, 'villes' => array( 'Lisbonne', 'Porto', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'NL' => array( 'nom' => 'Pays-Bas', 'indicatif' => '31', 'chiffres' => 9, 'villes' => array( 'Amsterdam', 'Rotterdam', 'La Haye', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'CH' => array( 'nom' => 'Suisse', 'indicatif' => '41', 'chiffres' => 9, 'villes' => array( 'Genève', 'Lausanne', 'Zurich', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'GB' => array( 'nom' => 'Royaume-Uni', 'indicatif' => '44', 'chiffres' => 10, 'villes' => array( 'Londres', 'Manchester', 'Birmingham', 'Autre ville' ), 'zone' => 'europe' ),\n\t\t'US' => array( 'nom' => 'États-Unis', 'indicatif' => '1', 'chiffres' => 10, 'villes' => array( 'New York', 'Washington', 'Atlanta', 'Houston', 'Autre ville' ), 'zone' => 'amerique' ),\n\t\t'CA' => array( 'nom' => 'Canada', 'indicatif' => '1', 'chiffres' => 10, 'villes' => array( 'Montréal', 'Toronto', 'Ottawa', 'Québec', 'Autre ville' ), 'zone' => 'amerique' ),\n\t\t'CI' => array( 'nom' => 'Côte d’Ivoire', 'indicatif' => '225', 'chiffres' => 10, 'villes' => array( 'Abidjan', 'Bouaké', 'Yamoussoukro', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'SN' => array( 'nom' => 'Sénégal', 'indicatif' => '221', 'chiffres' => 9, 'villes' => array( 'Dakar', 'Thiès', 'Saint-Louis', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'ML' => array( 'nom' => 'Mali', 'indicatif' => '223', 'chiffres' => 8, 'villes' => array( 'Bamako', 'Sikasso', 'Ségou', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'NE' => array( 'nom' => 'Niger', 'indicatif' => '227', 'chiffres' => 8, 'villes' => array( 'Niamey', 'Zinder', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'GH' => array( 'nom' => 'Ghana', 'indicatif' => '233', 'chiffres' => 9, 'villes' => array( 'Accra', 'Kumasi', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'TG' => array( 'nom' => 'Togo', 'indicatif' => '228', 'chiffres' => 8, 'villes' => array( 'Lomé', 'Kara', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'BJ' => array( 'nom' => 'Bénin', 'indicatif' => '229', 'chiffres' => 10, 'villes' => array( 'Cotonou', 'Porto-Novo', 'Parakou', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'NG' => array( 'nom' => 'Nigeria', 'indicatif' => '234', 'chiffres' => 10, 'villes' => array( 'Lagos', 'Abuja', 'Kano', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'CM' => array( 'nom' => 'Cameroun', 'indicatif' => '237', 'chiffres' => 9, 'villes' => array( 'Douala', 'Yaoundé', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'GN' => array( 'nom' => 'Guinée', 'indicatif' => '224', 'chiffres' => 9, 'villes' => array( 'Conakry', 'Autre ville' ), 'zone' => 'afrique' ),\n\t\t'MA' => array( 'nom' => 'Maroc', 'indicatif' => '212', 'chiffres' => 9, 'villes' => array( 'Casablanca', 'Rabat', 'Marrakech', 'Autre ville' ), 'zone' => 'afrique' ),\n\t);",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/outils.php",
+  "old": "function tdg_nom_pays( $code ) {\n",
+  "new": "/** Prix au kilo des colis selon la zone du pays : Afrique 5 000 FCFA, Europe et Amérique 10 000 FCFA. */\nfunction tdg_prix_kg_zone( $zone ) {\n\treturn 'afrique' === $zone ? 5000 : 10000;\n}\n\n/** Trajets par défaut : du Burkina vers chaque pays et retour, avec le prix au kilo de la zone. */\nfunction tdg_trajets_defaut() {\n\t$connus = array(\n\t\t'BF-FR' => array( '7 à 12 jours', 'Aérien groupé' ),\n\t\t'FR-BF' => array( '7 à 12 jours', 'Aérien groupé' ),\n\t\t'BF-US' => array( '10 à 15 jours', 'Aérien groupé' ),\n\t\t'US-BF' => array( '10 à 15 jours', 'Aérien groupé' ),\n\t\t'BF-CI' => array( '4 à 6 jours', 'Routier' ),\n\t);\n\t$t = array();\n\tforeach ( tdg_pays() as $code => $p ) {\n\t\tif ( 'BF' === $code ) {\n\t\t\tcontinue;\n\t\t}\n\t\tforeach ( array( 'BF-' . $code, $code . '-BF' ) as $cle ) {\n\t\t\t$t[ $cle ] = array(\n\t\t\t\t'actif'   => 1,\n\t\t\t\t'delai'   => isset( $connus[ $cle ] ) ? $connus[ $cle ][0] : 'À confirmer',\n\t\t\t\t'mode'    => isset( $connus[ $cle ] ) ? $connus[ $cle ][1] : ( 'afrique' === $p['zone'] ? 'Aérien ou routier' : 'Aérien groupé' ),\n\t\t\t\t'prix_kg' => tdg_prix_kg_zone( $p['zone'] ),\n\t\t\t);\n\t\t}\n\t}\n\treturn $t;\n}\n\n/** Lieux de dépôt par défaut. */\nfunction tdg_agences_defaut() {\n\t$a = array(\n\t\t'BF' => 'Agence Tondraaga — Ouagadougou',\n\t\t'FR' => 'Point de dépôt Paris (partenaire à définir)',\n\t\t'US' => 'Point de dépôt New York (partenaire à définir)',\n\t);\n\tforeach ( tdg_pays() as $code => $p ) {\n\t\tif ( ! isset( $a[ $code ] ) ) {\n\t\t\t$a[ $code ] = 'Point de dépôt ' . $p['nom'] . ' : à confirmer avec notre équipe (WhatsApp)';\n\t\t}\n\t}\n\treturn $a;\n}\n\nfunction tdg_nom_pays( $code ) {\n",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/outils.php",
+  "old": "\t\t\t'trajets'            => array(\n\t\t\t\t'BF-FR' => array( 'actif' => 1, 'delai' => '7 à 12 jours', 'mode' => 'Aérien groupé' ),\n\t\t\t\t'BF-US' => array( 'actif' => 1, 'delai' => '10 à 15 jours', 'mode' => 'Aérien groupé' ),\n\t\t\t\t'FR-BF' => array( 'actif' => 1, 'delai' => '7 à 12 jours', 'mode' => 'Aérien groupé' ),\n\t\t\t\t'US-BF' => array( 'actif' => 1, 'delai' => '10 à 15 jours', 'mode' => 'Aérien groupé' ),\n\t\t\t\t'BF-CI' => array( 'actif' => 0, 'delai' => '4 à 6 jours', 'mode' => 'Routier' ),\n\t\t\t),\n\t\t\t'agences'            => array(\n\t\t\t\t'BF' => 'Agence Tondraaga — Ouagadougou',\n\t\t\t\t'FR' => 'Point de dépôt Paris (partenaire à définir)',\n\t\t\t\t'US' => 'Point de dépôt New York (partenaire à définir)',\n\t\t\t\t'CI' => 'Abidjan (bientôt)',\n\t\t\t),\n",
+  "new": "\t\t\t'trajets'            => tdg_trajets_defaut(),\n\t\t\t'agences'            => tdg_agences_defaut(),\n",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/reglages.php",
+  "old": "<th>Trajet</th><th>Ouvert</th><th>Délai</th><th>Mode</th></tr></thead><tbody>';",
+  "new": "<th>Trajet</th><th>Ouvert</th><th>Prix / kg (FCFA)</th><th>Délai</th><th>Mode</th></tr></thead><tbody>';",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/reglages.php",
+  "old": "checked( ! empty( $t['actif'] ), true, false ) . '></td><td><input name=\"t[' . esc_attr( $k ) . '][delai]\"",
+  "new": "checked( ! empty( $t['actif'] ), true, false ) . '></td><td><input type=\"number\" min=\"0\" step=\"500\" style=\"width:110px\" name=\"t[' . esc_attr( $k ) . '][prix_kg]\" value=\"' . esc_attr( (string) ( $t['prix_kg'] ?? '' ) ) . '\"></td><td><input name=\"t[' . esc_attr( $k ) . '][delai]\"",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/reglages.php",
+  "old": "'mode' => tdg_ligne( $x['mode'] ?? $t['mode'], 60 ) );",
+  "new": "'mode' => tdg_ligne( $x['mode'] ?? $t['mode'], 60 ), 'prix_kg' => max( 0, (float) ( $x['prix_kg'] ?? ( $t['prix_kg'] ?? 0 ) ) ) );",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/reglages.php",
+  "old": "'Prix au kilo (FCFA)'",
+  "new": "'Prix au kilo par défaut (FCFA)'",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/colis.php",
+  "old": "$prix    = (float) $c['prix_kg'];",
+  "new": "$prix    = ! empty( $t['prix_kg'] ) ? (float) $t['prix_kg'] : (float) $c['prix_kg'];",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "'abonnement'      => $abo,",
+  "new": "'abonnement'      => $abo,\n\t\t'commission_abonnement' => function_exists( 'tdg_am_taux_abonnement' ) ? tdg_am_taux_abonnement() : 8,",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "\t$abo  = tdg_fcfa( $c['abonnement'] );\n",
+  "new": "\t$abo  = tdg_fcfa( $c['abonnement'] );\n\t$taux_abo = rtrim( rtrim( number_format( (float) ( $c['commission_abonnement'] ?? 8 ), 2, ',', '' ), '0' ), ',' ) . ' %';\n",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "qui met en relation le Vendeur avec des clients au Burkina Faso, en France, aux États-Unis et ailleurs.</p>",
+  "new": "qui met en relation le Vendeur avec des clients au Burkina Faso et partout dans le monde (Afrique, Europe, Amérique).</p>",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "<p>Le contrat prend effet à la date de son acceptation par le Vendeur, pour une durée de douze (12) mois. Il est renouvelé pour la même durée à chaque paiement de l’abonnement annuel, sauf résiliation dans les conditions de l’article 10.</p>",
+  "new": "<p>Le contrat prend effet à la date de son acceptation par le Vendeur, pour une durée indéterminée. Il peut être résilié dans les conditions de l’article 10.</p>",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "<p>Après son inscription, l’équipe Tondraaga vérifie l’identité du Vendeur et ses premiers produits, puis met la boutique en ligne sans paiement préalable. Le Vendeur règle ensuite l’abonnement annuel dans un délai de trente (30) jours à compter de la mise en ligne ; à défaut, ses produits sont retirés de la vente jusqu’au paiement. Tondraaga peut refuser une boutique qui ne respecte pas le présent contrat ; l’abonnement éventuellement réglé est alors remboursé.</p>",
+  "new": "<p>L’ouverture de la boutique est gratuite. Après son inscription, l’équipe Tondraaga vérifie l’identité du Vendeur et ses premiers produits, puis met la boutique en ligne. Tondraaga peut refuser une boutique qui ne respecte pas le présent contrat ; l’abonnement éventuellement réglé est alors remboursé.</p>",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "array( 'Prix, abonnement et commission', '<p>Le Vendeur fixe librement ses prix en francs CFA (FCFA). Il paie un abonnement annuel de <b>' . esc_html( $abo ) . '</b>. Tondraaga perçoit une commission de <b>' . esc_html( $taux ) . '</b> sur le montant des produits vendus.' . esc_html( $liv ) . ' Les paiements",
+  "new": "array( 'Prix, formules et commission', '<p>Le Vendeur fixe librement ses prix en francs CFA (FCFA). Il choisit l’une des deux formules suivantes :</p><ul><li><b>Sans abonnement</b> : aucun frais fixe ; Tondraaga perçoit une commission de <b>' . esc_html( $taux ) . '</b> sur le montant des produits vendus ;</li><li><b>Abonnement annuel</b> : le Vendeur paie <b>' . esc_html( $abo ) . '</b> ; pendant les douze (12) mois qui suivent le paiement, la commission est réduite à <b>' . esc_html( $taux_abo ) . '</b>.</li></ul><p>À l’échéance de l’abonnement, s’il n’est pas renouvelé, la formule sans abonnement s’applique automatiquement, sans interruption de la boutique. Le Vendeur peut souscrire ou renouveler l’abonnement à tout moment depuis son espace vendeur ; la commission d’une vente est celle de la formule en vigueur à la date de la commande.' . esc_html( $liv ) . ' Les paiements",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "(abonnement annuel de ' . esc_html( tdg_fcfa( $c['abonnement'] ) ) . ', commission de ' . esc_html( rtrim( rtrim( number_format( $c['commission'], 2, ',', '' ), '0' ), ',' ) ) . ' % sur les ventes)",
+  "new": "(sans abonnement : commission de ' . esc_html( rtrim( rtrim( number_format( $c['commission'], 2, ',', '' ), '0' ), ',' ) ) . ' % sur les ventes ; abonnement annuel de ' . esc_html( tdg_fcfa( $c['abonnement'] ) ) . ' : commission de ' . esc_html( rtrim( rtrim( number_format( (float) ( $c['commission_abonnement'] ?? 8 ), 2, ',', '' ), '0' ), ',' ) ) . ' % pendant 1 an)",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/documents.php",
+  "old": "tdg_tableau( array( 'Contrat' => 'N° ' . $c['numero'], 'Commission' => rtrim( rtrim( number_format( (float) $c['conditions']['commission'], 2, ',', '' ), '0' ), ',' ) . ' % des ventes', 'Abonnement annuel' => tdg_fcfa( $c['conditions']['abonnement'] ) ) )",
+  "new": "tdg_tableau( array( 'Contrat' => 'N° ' . $c['numero'], 'Sans abonnement' => 'commission de ' . rtrim( rtrim( number_format( (float) $c['conditions']['commission'], 2, ',', '' ), '0' ), ',' ) . ' % des ventes', 'Abonnement annuel' => tdg_fcfa( $c['conditions']['abonnement'] ) . ' par an, commission de ' . rtrim( rtrim( number_format( (float) ( $c['conditions']['commission_abonnement'] ?? 8 ), 2, ',', '' ), '0' ), ',' ) . ' % pendant 1 an' ) )",
+  "count": 1
+ }
+]
