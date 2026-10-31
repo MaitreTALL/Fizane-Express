@@ -2,28 +2,16 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "accueil",
-   "/"
-  ],
-  [
-   "devenir-vendeur",
-   "/devenir-vendeur/"
-  ],
-  [
-   "mon-compte",
-   "/mon-compte/"
+   "spa-colis",
+   "/#/colis"
   ],
   [
    "spa-colis-envoyer",
    "/#/colis/envoyer"
   ],
   [
-   "spa-colis",
-   "/#/colis"
-  ],
-  [
-   "spa-boutique-local",
-   "/#/boutique?cat=local"
+   "accueil",
+   "/"
   ]
  ]
 }
