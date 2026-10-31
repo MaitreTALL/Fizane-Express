@@ -3,7 +3,8 @@
 //   node shoot.cjs pages.json out/
 const fs = require('fs');
 const path = require('path');
-const { chromium } = require('playwright');
+let pw; try { pw = require('playwright'); } catch (e) { pw = require('playwright-core'); }
+const { chromium } = pw;
 
 const cfg = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 const out = process.argv[3];
@@ -14,7 +15,7 @@ const UA = 'Mozilla/5.0 (Linux; Android 13; SM-A145F) AppleWebKit/537.36 (KHTML,
 const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|products?|add to cart|cart|checkout|log ?in|log ?out|register|password|search|view|details|save|submit|cancel|update|subscriptions?|pack|withdraw|settings|shop|price|quantity|shipping|apply|remove|continue|back|next|previous|home|account|sign (in|up)|welcome|hello|world|read more|select|choose|showing|results|sort by|sorting|out of stock|in stock|related|reviews?|additional information|lost your password|remember me|username|first name|last name|billing|city|country|postcode|order notes|place order|privacy policy|terms|no products|found|follow|enquiry|vacation|support ticket|request|quote|store list|my orders|onboarding|get started|skip|upload|choose file|no file chosen|filter|reset|clear|all|items?|per page|page \d+ of|of \d+|by|for|with|from|this|that|is|are|was|have|has|not|will|can|please)\b/i;
 
 (async () => {
-  const browser = await chromium.launch();
+  const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {});
   const report = [];
   for (const [name, url, before] of cfg.pages) {
     const ctx = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: 1, isMobile: true, hasTouch: true, userAgent: UA, locale: 'fr-FR' });

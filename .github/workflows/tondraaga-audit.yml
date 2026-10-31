@@ -28,12 +28,12 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
           npm init -y >/dev/null
-          npm install playwright@1.50.1 >/dev/null
-          npx playwright install --with-deps chromium >/dev/null
+          npm install playwright-core@1.63.0 >/dev/null
+          which google-chrome || which chromium || ls /opt/google/chrome
       - name: Audit the pages
         run: |
           rm -rf tondraaga-app/audit/out
-          NODE_PATH="$RUNNER_TEMP/pw/node_modules" node tondraaga-app/audit/shoot.cjs tondraaga-app/audit/pages.json tondraaga-app/audit/out
+          CHROME="$(which google-chrome || which chromium)" NODE_PATH="$RUNNER_TEMP/pw/node_modules" node tondraaga-app/audit/shoot.cjs tondraaga-app/audit/pages.json tondraaga-app/audit/out
       - name: Store the results in the branch
         run: |
           git config user.name "github-actions[bot]"

@@ -13,6 +13,7 @@ on:
       - '!tondraaga-app/dist/**'
       - '!tondraaga-app/tools/**'
       - '!tondraaga-app/README.md'
+      - '!tondraaga-app/audit/**'
   workflow_dispatch:
 
 permissions:
