@@ -1,0 +1,32 @@
+[
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "</svg>';\n    return '';\n  }\n  const madeInB",
+  "new": "</svg>';\n    // autres pays : drapeau emoji à partir du code pays\n    return /^[A-Z]{2}$/.test(k) ? `<span class=\"drapeau-emoji\" style=\"font-size:1.15em;line-height:1;vertical-align:-2px\" aria-hidden=\"true\">${String.fromCodePoint(...[...k].map((c) => 127397 + c.charCodeAt(0)))}</span>` : '';\n  }\n  const madeInB",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "Tarif unique : <strong>10 000 FCFA par kilo</strong>, calculé automatiquement selon le poids (ou le poids volumétrique s’il est supérieur).",
+  "new": "Prix au kilo : <strong>5 000 FCFA</strong> vers et depuis l’Afrique, <strong>10 000 FCFA</strong> pour l’Europe et l’Amérique, calculé automatiquement selon le poids (ou le poids volumétrique s’il est supérieur). Les envois de ces pays vers le Burkina se font aux mêmes tarifs.",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/colis.js",
+  "old": "<div class=\"trajets\">${P.trajets.map((t) =>",
+  "new": "<div class=\"trajets\">${P.trajets.filter((t) => t.de === 'BF').map((t) =>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/donnees.js",
+  "old": "{ id: 'mode', nom: 'Mode africaine' }",
+  "new": "{ id: 'mode', nom: 'Textiles & mode africaine' }",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "define( 'TDG_THEME_VERSION', '1.9.3' );",
+  "new": "define( 'TDG_THEME_VERSION', '1.9.4' );",
+  "count": 1
+ }
+]
