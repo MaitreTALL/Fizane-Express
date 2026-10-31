@@ -12,3 +12,4 @@ les fichiers d'origine sont sauvegardés dans `wp-content/tdg-sauvegardes/formul
 La page « Devenir vendeur » complète est dans `../theme/page-devenir-vendeur.php`.
 3. `expeditions-depuis-burkina.json` : colis uniquement du Burkina vers les autres pays (trajets retour fermés,
    y compris dans les réglages enregistrés), textes « du Burkina vers le monde entier ».
+4. `derniers-textes-monde.json` : dernières mentions « France et États-Unis » (courses, fiche produit, à propos).
