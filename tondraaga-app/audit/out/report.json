@@ -1,37 +1,12 @@
 [
  {
-  "name": "accueil",
-  "url": "/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/",
-  "title": "Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 390,
-  "height": 7426,
-  "overflow": [],
-  "english": [
-   "Pack de 6 × 1,5 L"
-  ],
-  "brokenImages": [],
-  "slices": [
-   "accueil-1.png",
-   "accueil-2.png",
-   "accueil-3.png",
-   "accueil-4.png",
-   "accueil-5.png"
-  ],
-  "consoleErrors": [
-   "Failed to load resource: the server responded with a status of 404 ()"
-  ],
-  "failedRequests": []
- },
- {
   "name": "panier",
   "url": "/panier/",
   "status": 200,
   "finalUrl": "https://boutique.visionaryentreprises.com/panier/",
   "title": "Panier – Tondraaga",
   "scrollWidth": 390,
-  "height": 2227,
+  "height": 2295,
   "overflow": [],
   "english": [],
   "brokenImages": [],
@@ -39,7 +14,9 @@
    "panier-1.png",
    "panier-2.png"
   ],
-  "consoleErrors": [],
+  "consoleErrors": [
+   "Failed to load resource: the server responded with a status of 404 ()"
+  ],
   "failedRequests": []
  },
  {
@@ -49,7 +26,7 @@
   "finalUrl": "https://boutique.visionaryentreprises.com/commander/",
   "title": "Validation de la commande – Tondraaga",
   "scrollWidth": 390,
-  "height": 5841,
+  "height": 5781,
   "overflow": [],
   "english": [
    "[attr] A JavaScript library for interactive maps"
@@ -66,29 +43,22 @@
   "failedRequests": []
  },
  {
-  "name": "produit-wc",
-  "url": "/produit/riz-parfume/",
+  "name": "abonnement",
+  "url": "/dashboard/product-subscription/",
   "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/produit/riz-parfume/",
-  "title": "Riz parfumé – Tondraaga",
+  "finalUrl": "https://boutique.visionaryentreprises.com/dashboard/product-subscription/",
+  "title": "Abonnement vendeur – Tondraaga",
   "scrollWidth": 390,
-  "height": 2675,
+  "height": 1783,
   "overflow": [],
-  "english": [
-   "[attr] you@example.com"
-  ],
+  "english": [],
   "brokenImages": [],
   "slices": [
-   "produit-wc-1.png",
-   "produit-wc-2.png"
+   "abonnement-1.png",
+   "abonnement-2.png"
   ],
-  "consoleErrors": [
-   "Failed to load resource: the server responded with a status of 401 ()",
-   "pageerror: Object"
-  ],
-  "failedRequests": [
-   "401 https://boutique.visionaryentreprises.com/wp-json/wp/v2/users/me?context=edit&_locale=user"
-  ]
+  "consoleErrors": [],
+  "failedRequests": []
  },
  {
   "name": "liste-boutiques",
@@ -104,66 +74,6 @@
   "slices": [
    "liste-boutiques-1.png",
    "liste-boutiques-2.png"
-  ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "abonnement",
-  "url": "/dashboard/product-subscription/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/dashboard/product-subscription/",
-  "title": "Abonnement vendeur – Tondraaga",
-  "scrollWidth": 390,
-  "height": 1869,
-  "overflow": [],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "abonnement-1.png",
-   "abonnement-2.png"
-  ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "devenir-vendeur",
-  "url": "/devenir-vendeur/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/devenir-vendeur/",
-  "title": "Devenir vendeur sur Tondraaga – Tondraaga",
-  "scrollWidth": 390,
-  "height": 4621,
-  "overflow": [
-   "div L-14985 R-14684",
-   "label L-14985 R-14684",
-   "input#trap L-14985 R-14684"
-  ],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "devenir-vendeur-1.png",
-   "devenir-vendeur-2.png",
-   "devenir-vendeur-3.png",
-   "devenir-vendeur-4.png"
-  ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "mon-compte",
-  "url": "/mon-compte/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/mon-compte/",
-  "title": "Mon compte – Tondraaga",
-  "scrollWidth": 390,
-  "height": 2462,
-  "overflow": [],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "mon-compte-1.png",
-   "mon-compte-2.png"
   ],
   "consoleErrors": [],
   "failedRequests": []
