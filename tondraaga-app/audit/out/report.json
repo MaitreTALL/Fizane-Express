@@ -1,23 +1,23 @@
 [
  {
-  "name": "spa-courses-pays",
+  "name": "spa-courses-grille",
   "url": "/#/courses",
   "status": 200,
   "finalUrl": "https://boutique.visionaryentreprises.com/#/courses",
   "title": "Faire des courses pour mes proches · Tondraaga — Notre marché, notre fierté",
   "scrollWidth": 390,
-  "height": 8720,
+  "height": 7828,
   "overflow": [],
   "english": [
    "Pack de 6 × 1,5 L"
   ],
   "brokenImages": [],
   "slices": [
-   "spa-courses-pays-1.png",
-   "spa-courses-pays-2.png",
-   "spa-courses-pays-3.png",
-   "spa-courses-pays-4.png",
-   "spa-courses-pays-5.png"
+   "spa-courses-grille-1.png",
+   "spa-courses-grille-2.png",
+   "spa-courses-grille-3.png",
+   "spa-courses-grille-4.png",
+   "spa-courses-grille-5.png"
   ],
   "consoleErrors": [
    "Failed to load resource: the server responded with a status of 404 ()"
