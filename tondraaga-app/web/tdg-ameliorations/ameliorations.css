@@ -17,7 +17,7 @@
 .logo-moyen.om > *,
 .logo-moyen.wave > * { display: none !important; }
 .pied10-moyen .logo-moyen.moov { width: 36px; height: 36px; border-radius: 9px; display: inline-block; vertical-align: middle; }
-img.tdg-am-icone-moyen { width: 32px; height: 32px; border-radius: 8px; object-fit: contain; vertical-align: middle; margin-left: 8px; background: #fff; box-shadow: 0 0 0 1px #E8DED3; }
+img.tdg-am-icone-moyen { float: right; width: 32px; height: 32px; margin: -4px 0 0 8px; border-radius: 8px; object-fit: contain; background: #fff; box-shadow: 0 0 0 1px #E8DED3; }
 
 /* ---------- Panier : le tableau reste dans l'écran ---------- */
 .woocommerce-cart-form .shop_table,
@@ -27,8 +27,10 @@ img.tdg-am-icone-moyen { width: 32px; height: 32px; border-radius: 8px; object-f
 .woocommerce-cart-form .shop_table tr.cart_item td { min-width: 0; }
 .woocommerce-cart-form td.product-thumbnail img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; }
 .woocommerce-cart-form td.actions { width: 100%; box-sizing: border-box; }
-.woocommerce-cart-form td.actions .coupon { flex-wrap: wrap; }
-.woocommerce-cart-form td.actions .coupon .input-text { min-width: 0; }
+.woocommerce-cart-form td.actions .coupon { flex-direction: column; flex-wrap: nowrap; }
+.woocommerce-cart-form td.actions .coupon .input-text,
+.woocommerce-cart-form td.actions .coupon .button { width: 100% !important; min-width: 0; box-sizing: border-box; }
+.woocommerce-cart-form td.actions .coupon .button { min-height: 44px; white-space: normal !important; }
 .woocommerce-cart-form td.actions > .button { white-space: normal; }
 
 /* ---------- Fiche produit ---------- */
@@ -51,12 +53,35 @@ img.tdg-am-icone-moyen { width: 32px; height: 32px; border-radius: 8px; object-f
 .related.products .button,
 .upsells.products .button { display: block; width: 100%; box-sizing: border-box; text-align: center; white-space: normal; line-height: 1.25; padding: 10px 8px !important; font-size: .85rem !important; }
 
-/* ---------- Abonnement vendeur (formules) ---------- */
+/* ---------- Abonnement vendeur (formules) et onglets de l'espace vendeur ---------- */
+ul.dokan_tabs { display: flex !important; flex-wrap: wrap; gap: 8px; margin: 0 0 18px !important; padding: 0 !important; border: 0 !important; list-style: none; }
+ul.dokan_tabs::before, ul.dokan_tabs::after { display: none !important; }
+ul.dokan_tabs li { float: none !important; margin: 0 !important; border: 1px solid #E8DED3 !important; border-radius: 999px !important; background: #fff !important; }
+ul.dokan_tabs li a { display: block; padding: 8px 14px !important; border: 0 !important; background: none !important; color: var(--brun, #4D3529) !important; text-decoration: none !important; font-weight: 600; font-size: .9rem; }
+ul.dokan_tabs li.active { background: var(--brun, #4D3529) !important; border-color: var(--brun, #4D3529) !important; }
+ul.dokan_tabs li.active a { color: #fff !important; }
 .pack_content_wrapper { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-.pack_content_wrapper .product_pack_item { width: 100% !important; max-width: none !important; float: none !important; margin: 0 !important; box-sizing: border-box; }
-.pack_content_wrapper .product_pack_item .pack_price { margin-left: auto; margin-right: auto; }
-.pack_content_wrapper .buy_pack_button { position: static !important; transform: none !important; padding: 0 16px 16px; text-align: center; }
-.pack_content_wrapper .buy_pack_button .buy_product_pack { display: block; width: 100%; box-sizing: border-box; white-space: normal; }
+.pack_content_wrapper .product_pack_item {
+	display: flex !important; flex-direction: column !important; align-items: stretch !important;
+	width: 100% !important; max-width: none !important; float: none !important; margin: 0 !important;
+	padding: 20px 18px !important; box-sizing: border-box; text-align: center;
+	background: #fff; border: 1px solid #E8DED3; border-radius: 16px; box-shadow: none !important;
+}
+.pack_content_wrapper .product_pack_item.current_pack { border: 2px solid var(--ocre, #C87817); }
+.pack_content_wrapper .pack_price {
+	position: static !important; transform: none !important; display: inline-flex !important; align-self: center;
+	align-items: center; justify-content: center; width: auto !important; height: auto !important; min-width: 0 !important;
+	margin: 0 0 14px !important; padding: 8px 18px !important; border-radius: 999px !important;
+	background: var(--ocre, #C87817) !important; color: #fff !important; font-size: 1.05rem; font-weight: 700; line-height: 1.2; white-space: nowrap;
+}
+.pack_content_wrapper .pack_price * { color: #fff !important; }
+.pack_content_wrapper .pack_content { width: auto !important; float: none !important; padding: 0 !important; }
+.pack_content_wrapper .pack_content h2 { font-size: 1.25rem; margin: 0 0 10px; word-break: normal; overflow-wrap: normal; hyphens: none; }
+.pack_content_wrapper .pack_content p { margin: 0 0 12px; }
+.pack_content_wrapper .pack_data_option { padding: 12px 0 0; border-top: 1px solid #F0E8DF; }
+.pack_content_wrapper .pack_data_option br { display: none; }
+.pack_content_wrapper .buy_pack_button { position: static !important; transform: none !important; float: none !important; width: auto !important; margin: 16px 0 0 !important; padding: 0 !important; text-align: center; }
+.pack_content_wrapper .buy_pack_button .buy_product_pack { display: block; width: 100%; box-sizing: border-box; white-space: normal; padding: 12px 16px !important; border-radius: 999px !important; }
 .tdg-am-abonnement { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 0 16px; padding: 14px 16px; border-radius: 12px; background: #F7EBDB; border-left: 4px solid #C87817; }
 .tdg-am-abonnement p { margin: 0; flex: 1 1 220px; }
 
