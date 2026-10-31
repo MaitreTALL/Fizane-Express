@@ -1,0 +1,96 @@
+/* Tondraaga — corrections d'affichage (chargées après les feuilles du thème) */
+
+/* ---------- Logos des moyens de paiement ---------- */
+.logo-moyen.om,
+.logo-moyen.wave,
+.logo-moyen.moov {
+	background-color: #fff;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 78%;
+	box-shadow: inset 0 0 0 1px #E8DED3;
+	overflow: hidden;
+}
+.logo-moyen.om { background-image: var(--tdg-logo-om); }
+.logo-moyen.moov { background-image: var(--tdg-logo-moov); background-size: 84%; }
+.logo-moyen.wave { background-color: #1DC3FF; background-image: var(--tdg-logo-wave); background-size: cover; box-shadow: none; }
+.logo-moyen.om > *,
+.logo-moyen.wave > * { display: none !important; }
+.pied10-moyen .logo-moyen.moov { width: 36px; height: 36px; border-radius: 9px; display: inline-block; vertical-align: middle; }
+img.tdg-am-icone-moyen { width: 32px; height: 32px; border-radius: 8px; object-fit: contain; vertical-align: middle; margin-left: 8px; background: #fff; box-shadow: 0 0 0 1px #E8DED3; }
+
+/* ---------- Panier : le tableau reste dans l'écran ---------- */
+.woocommerce-cart-form .shop_table,
+.woocommerce-cart-form .shop_table tbody { display: block !important; width: 100% !important; max-width: 100%; }
+.woocommerce-cart-form .shop_table tr { display: block; width: 100%; }
+.woocommerce-cart-form .shop_table tr.cart_item { grid-template-columns: 64px minmax(0, 1fr) auto !important; }
+.woocommerce-cart-form .shop_table tr.cart_item td { min-width: 0; }
+.woocommerce-cart-form td.product-thumbnail img { width: 64px; height: 64px; object-fit: cover; border-radius: 10px; }
+.woocommerce-cart-form td.actions { width: 100%; box-sizing: border-box; }
+.woocommerce-cart-form td.actions .coupon { flex-wrap: wrap; }
+.woocommerce-cart-form td.actions .coupon .input-text { min-width: 0; }
+.woocommerce-cart-form td.actions > .button { white-space: normal; }
+
+/* ---------- Fiche produit ---------- */
+.woocommerce-product-gallery { opacity: 1 !important; }
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+	display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+	margin: 0 0 16px; padding: 0 0 6px; border: 0; scrollbar-width: none;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs::-webkit-scrollbar { display: none; }
+.woocommerce div.product .woocommerce-tabs ul.tabs::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after { display: none !important; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+	flex: none; margin: 0 !important; padding: 0 !important; border: 1px solid #E8DED3 !important;
+	border-radius: 999px !important; background: #fff !important;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li a { display: block; padding: 8px 14px !important; font-size: .9rem; white-space: nowrap; color: var(--brun, #4D3529) !important; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active { background: var(--brun, #4D3529) !important; border-color: var(--brun, #4D3529) !important; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a { color: #fff !important; }
+.related.products .button,
+.upsells.products .button { display: block; width: 100%; box-sizing: border-box; text-align: center; white-space: normal; line-height: 1.25; padding: 10px 8px !important; font-size: .85rem !important; }
+
+/* ---------- Abonnement vendeur (formules) ---------- */
+.pack_content_wrapper { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.pack_content_wrapper .product_pack_item { width: 100% !important; max-width: none !important; float: none !important; margin: 0 !important; box-sizing: border-box; }
+.pack_content_wrapper .product_pack_item .pack_price { margin-left: auto; margin-right: auto; }
+.pack_content_wrapper .buy_pack_button { position: static !important; transform: none !important; padding: 0 16px 16px; text-align: center; }
+.pack_content_wrapper .buy_pack_button .buy_product_pack { display: block; width: 100%; box-sizing: border-box; white-space: normal; }
+.tdg-am-abonnement { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 0 16px; padding: 14px 16px; border-radius: 12px; background: #F7EBDB; border-left: 4px solid #C87817; }
+.tdg-am-abonnement p { margin: 0; flex: 1 1 220px; }
+
+/* ---------- Liste des boutiques ---------- */
+#dokan-store-listing-filter-wrap .right .item,
+#dokan-store-listing-filter-wrap .left,
+#dokan-store-listing-filter-wrap .right { max-width: 100%; }
+#dokan-store-listing-filter-wrap .right { display: flex; flex-wrap: wrap; gap: 8px; }
+#dokan-store-listing-filter-wrap select { max-width: 100%; min-width: 0; }
+
+/* ---------- Espace vendeur sur téléphone ---------- */
+@media (max-width: 782px) {
+	.dokan-dashboard-wrap { display: block; }
+	.dokan-dashboard .dokan-dash-sidebar,
+	.dokan-dashboard .dokan-dashboard-content { width: 100% !important; float: none !important; margin-left: 0 !important; margin-right: 0 !important; }
+	.dokan-dashboard .dokan-dash-sidebar { margin-bottom: 16px !important; }
+	.dokan-dashboard-content { overflow-x: hidden; }
+	.dokan-dashboard-content table { display: block; width: 100% !important; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+	.dokan-dashboard-content .dokan-w3,
+	.dokan-dashboard-content .dokan-w4,
+	.dokan-dashboard-content .dokan-w5,
+	.dokan-dashboard-content .dokan-w6,
+	.dokan-dashboard-content .dokan-w7,
+	.dokan-dashboard-content .dokan-w8,
+	.dokan-dashboard-content .dokan-w9 { width: 100% !important; float: none !important; padding-left: 0 !important; padding-right: 0 !important; }
+	.dokan-dashboard-content .dokan-control-label { text-align: left !important; display: block; margin-bottom: 6px; }
+	.dokan-dashboard-content input[type="text"],
+	.dokan-dashboard-content input[type="email"],
+	.dokan-dashboard-content input[type="number"],
+	.dokan-dashboard-content input[type="tel"],
+	.dokan-dashboard-content input[type="url"],
+	.dokan-dashboard-content select,
+	.dokan-dashboard-content textarea,
+	.dokan-dashboard-content .dokan-form-control { max-width: 100%; box-sizing: border-box; }
+	.dokan-dashboard-content .dokan-btn { white-space: normal; }
+	.dokan-dashboard-content ul.subsubsub { display: flex; flex-wrap: wrap; gap: 6px 12px; float: none; }
+}
