@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Tondraaga — améliorations
  * Description: Traductions françaises de Dokan et WooCommerce, deux formules vendeur (sans abonnement 15 % / abonnement annuel 8 %), expédition internationale au kilo, sous-catégories de la boutique, protection des données des vendeurs, logos des moyens de paiement, corrections d'affichage sur téléphone et fiches produits (titre et description pour Google).
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Tondraaga
  *
  * Extension « obligatoire » (mu-plugin) : elle reste active même si l'extension Tondraaga Core ou le thème
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'TDG_AM_VERSION', '1.1.0' );
+define( 'TDG_AM_VERSION', '1.1.1' );
 define( 'TDG_AM_DIR', __DIR__ . '/tdg-ameliorations' );
 define( 'TDG_AM_URL', content_url( 'mu-plugins/tdg-ameliorations' ) );
 
@@ -382,7 +382,7 @@ add_action( 'woocommerce_shipping_init', function () {
 				return;
 			}
 			$defaut  = max( 0, (float) $this->get_option( 'poids_defaut', 1 ) );
-			$lignes  = ( function_exists( 'WC' ) && WC()->cart ) ? WC()->cart->get_cart() : (array) ( $package['contents'] ?? array() );
+			$lignes  = ( function_exists( 'WC' ) && WC()->cart && ! WC()->cart->is_empty() ) ? WC()->cart->get_cart() : (array) ( $package['contents'] ?? array() );
 			$kg      = 0;
 			foreach ( $lignes as $l ) {
 				$p = $l['data'] ?? null;
