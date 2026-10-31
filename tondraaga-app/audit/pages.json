@@ -2,8 +2,8 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "spa-courses-grille",
-   "/#/courses"
+   "demo-images",
+   "file://{ws}/tondraaga-app/audit/demo.html"
   ]
  ]
 }
