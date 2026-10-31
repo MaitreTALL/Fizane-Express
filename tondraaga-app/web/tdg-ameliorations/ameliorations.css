@@ -147,11 +147,12 @@ ul.dokan_tabs li.active a { color: #fff !important; }
 .dv-formules-aide { text-align: center; color: #6B5E55; font-size: .9rem; margin: 14px 0 0; }
 
 /* ---------- « D'où passez-vous commande ? » : liste des pays en grille compacte ---------- */
-div:has(> button[data-action="pays"]) { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px !important; }
-@media (min-width: 700px) { div:has(> button[data-action="pays"]) { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-button[data-action="pays"] { padding: 10px !important; gap: 8px !important; min-width: 0; min-height: 0 !important; margin: 0 !important; text-align: left; align-items: center; }
-button[data-action="pays"] .drapeau svg,
-button[data-action="pays"] .drapeau .drapeau-svg { width: 30px !important; height: auto !important; }
-button[data-action="pays"] .drapeau .drapeau-emoji { font-size: 1.6rem !important; }
-button[data-action="pays"] strong { font-size: .92rem; line-height: 1.2; }
-button[data-action="pays"] span span { font-size: .78rem; line-height: 1.25; }
+.choix-pays-grand .options { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; }
+@media (min-width: 700px) { .choix-pays-grand .options { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+@media (max-width: 600px) { .choix-pays-grand { padding: 18px 14px !important; } }
+.choix-pays-grand .option-pays { padding: 10px !important; gap: 8px !important; min-height: 0 !important; min-width: 0; margin: 0 !important; text-align: left; align-items: center; }
+.choix-pays-grand .option-pays .drapeau svg,
+.choix-pays-grand .option-pays .drapeau-svg { width: 28px !important; height: auto !important; }
+.choix-pays-grand .option-pays .drapeau-emoji { font-size: 1.5rem !important; }
+.choix-pays-grand .option-pays strong { font-size: .9rem; line-height: 1.2; }
+.choix-pays-grand .option-pays span span { font-size: .75rem; line-height: 1.25; }
