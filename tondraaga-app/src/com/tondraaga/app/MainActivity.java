@@ -1,6 +1,8 @@
 package com.tondraaga.app;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +20,8 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
@@ -29,25 +34,37 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 /**
  * Tondraaga: the shop boutique.visionaryentreprises.com in a full-screen WebView,
- * with a branded splash, an offline page, file upload (payment proofs), location
+ * with an animated splash, an offline page, file upload (payment proofs), location
  * for delivery pricing, and external apps for WhatsApp, phone and other sites.
+ *
+ * Security: only the shop itself is shown in the app (HTTPS, no mixed content,
+ * no access to local files or content providers, no third-party cookies); other
+ * sites open in the browser and only well-known link types open other apps.
  */
 public class MainActivity extends Activity {
 
     private static final String HOME = "https://boutique.visionaryentreprises.com/";
-    private static final String SITE_DOMAIN = "visionaryentreprises.com";
+    private static final String SITE_HOST = "boutique.visionaryentreprises.com";
     private static final String OFFLINE_PAGE = "file:///android_asset/offline.html";
     private static final int REQ_FILE = 1;
     private static final int REQ_LOCATION = 2;
+    private static final long SPLASH_MIN_MS = 1500;
 
     private WebView web;
     private ProgressBar progress;
     private View splash;
+    private View splashHalo;
+    private View splashLogo;
+    private final View[] splashDots = new View[3];
+    private final ObjectAnimator[] dotAnimators = new ObjectAnimator[3];
+    private long splashShownAt;
+    private boolean splashHiding;
     private ValueCallback<Uri[]> fileCallback;
     private GeolocationPermissions.Callback geoCallback;
     private String geoOrigin;
@@ -83,6 +100,7 @@ public class MainActivity extends Activity {
             web.restoreState(savedInstanceState);
             splash.setVisibility(View.GONE);
         } else {
+            playSplash();
             web.loadUrl(startUrl(getIntent()));
             // never keep the splash for ever, even on a slow network
             handler.postDelayed(new Runnable() {
@@ -94,23 +112,79 @@ public class MainActivity extends Activity {
         }
     }
 
+    /** Cream screen with a soft ochre halo, the logo and three pulsing dots. */
     private View buildSplash() {
         FrameLayout box = new FrameLayout(this);
         box.setBackgroundColor(getColor(R.color.creme));
         box.setClickable(true);
+
+        splashHalo = new View(this);
+        GradientDrawable halo = new GradientDrawable();
+        halo.setShape(GradientDrawable.OVAL);
+        halo.setColor(getColor(R.color.ocre_pale));
+        splashHalo.setBackground(halo);
+        FrameLayout.LayoutParams hp = new FrameLayout.LayoutParams(dp(300), dp(300));
+        hp.gravity = Gravity.CENTER;
+        box.addView(splashHalo, hp);
+
         ImageView logo = new ImageView(this);
         logo.setImageResource(R.drawable.logo_splash);
         logo.setAdjustViewBounds(true);
+        logo.setContentDescription(getString(R.string.app_name));
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(dp(240), ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.gravity = Gravity.CENTER;
         box.addView(logo, lp);
-        ProgressBar spinner = new ProgressBar(this);
-        spinner.setIndeterminateTintList(ColorStateList.valueOf(getColor(R.color.ocre)));
-        FrameLayout.LayoutParams sp = new FrameLayout.LayoutParams(dp(36), dp(36));
+        splashLogo = logo;
+
+        LinearLayout dots = new LinearLayout(this);
+        dots.setOrientation(LinearLayout.HORIZONTAL);
+        for (int i = 0; i < splashDots.length; i++) {
+            View dot = new View(this);
+            GradientDrawable d = new GradientDrawable();
+            d.setShape(GradientDrawable.OVAL);
+            d.setColor(getColor(R.color.ocre));
+            dot.setBackground(d);
+            LinearLayout.LayoutParams dl = new LinearLayout.LayoutParams(dp(10), dp(10));
+            dl.leftMargin = dp(5);
+            dl.rightMargin = dp(5);
+            dots.addView(dot, dl);
+            splashDots[i] = dot;
+        }
+        FrameLayout.LayoutParams sp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         sp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
-        sp.bottomMargin = dp(72);
-        box.addView(spinner, sp);
+        sp.bottomMargin = dp(88);
+        box.addView(dots, sp);
         return box;
+    }
+
+    /** Launch animation: the halo opens, the logo pops in, then the dots pulse while the shop loads. */
+    private void playSplash() {
+        splashShownAt = System.currentTimeMillis();
+
+        splashHalo.setScaleX(0.2f);
+        splashHalo.setScaleY(0.2f);
+        splashHalo.setAlpha(0f);
+        splashHalo.animate().scaleX(1f).scaleY(1f).alpha(1f)
+                .setDuration(750).setInterpolator(new DecelerateInterpolator(1.6f)).start();
+
+        splashLogo.setAlpha(0f);
+        splashLogo.setScaleX(0.78f);
+        splashLogo.setScaleY(0.78f);
+        splashLogo.setTranslationY(dp(18));
+        splashLogo.animate().alpha(1f).scaleX(1f).scaleY(1f).translationY(0f)
+                .setStartDelay(180).setDuration(700).setInterpolator(new OvershootInterpolator(1.5f)).start();
+
+        for (int i = 0; i < splashDots.length; i++) {
+            View dot = splashDots[i];
+            dot.setAlpha(0f);
+            ObjectAnimator a = ObjectAnimator.ofFloat(dot, View.ALPHA, 0.2f, 1f);
+            a.setDuration(520);
+            a.setRepeatMode(ValueAnimator.REVERSE);
+            a.setRepeatCount(ValueAnimator.INFINITE);
+            a.setStartDelay(950 + i * 170L);
+            a.start();
+            dotAnimators[i] = a;
+        }
     }
 
     private void configureWebView() {
@@ -125,13 +199,18 @@ public class MainActivity extends Activity {
         s.setMediaPlaybackRequiresUserGesture(false);
         s.setGeolocationEnabled(true);
         s.setAllowFileAccess(false);
-        s.setAllowContentAccess(true);
-        s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        s.setAllowContentAccess(false);
+        s.setAllowFileAccessFromFileURLs(false);
+        s.setAllowUniversalAccessFromFileURLs(false);
+        s.setJavaScriptCanOpenWindowsAutomatically(false);
+        s.setSupportMultipleWindows(false);
+        s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) s.setSafeBrowsingEnabled(true);
         s.setUserAgentString(s.getUserAgentString() + " TondraagaApp/" + appVersion());
 
         CookieManager cookies = CookieManager.getInstance();
         cookies.setAcceptCookie(true);
-        cookies.setAcceptThirdPartyCookies(web, true);
+        cookies.setAcceptThirdPartyCookies(web, false);
 
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
         web.setWebViewClient(new ShopClient());
@@ -147,14 +226,32 @@ public class MainActivity extends Activity {
 
     private String startUrl(Intent intent) {
         Uri data = intent != null ? intent.getData() : null;
-        if (data != null && isSiteHost(data.getHost())) {
+        if (data != null && "https".equalsIgnoreCase(data.getScheme()) && isSiteHost(data.getHost())) {
             return data.toString();
         }
         return HOME;
     }
 
     private static boolean isSiteHost(String host) {
-        return host != null && (host.equals(SITE_DOMAIN) || host.endsWith("." + SITE_DOMAIN));
+        return host != null && host.equalsIgnoreCase(SITE_HOST);
+    }
+
+    /** Link types that may open another app (phone, e-mail, SMS, WhatsApp, maps, store). */
+    private static boolean isAllowedExternalScheme(String scheme) {
+        switch (scheme) {
+            case "http":
+            case "https":
+            case "tel":
+            case "mailto":
+            case "sms":
+            case "smsto":
+            case "whatsapp":
+            case "geo":
+            case "market":
+                return true;
+            default:
+                return false;
+        }
     }
 
     /** Returns true when the URL is handled outside the WebView. */
@@ -166,8 +263,8 @@ public class MainActivity extends Activity {
         }
         Uri uri = Uri.parse(url);
         String scheme = uri.getScheme() == null ? "" : uri.getScheme().toLowerCase();
+        if (scheme.equals("https") && isSiteHost(uri.getHost())) return false;   // the shop stays in the app
         if (scheme.equals("http") || scheme.equals("https")) {
-            if (isSiteHost(uri.getHost())) return false;     // the shop stays in the app
             openExternal(url);                                // WhatsApp (wa.me), maps, social networks...
             return true;
         }
@@ -189,11 +286,13 @@ public class MainActivity extends Activity {
             }
             return true;
         }
-        if (scheme.equals("file") || scheme.equals("about") || scheme.equals("data") || scheme.equals("javascript")) {
+        if (url.equals(OFFLINE_PAGE) || url.equals("about:blank")) {
             return false;
         }
-        openExternal(url);                                    // tel:, mailto:, sms:, whatsapp:, geo:, market:...
-        return true;
+        if (isAllowedExternalScheme(scheme)) {
+            openExternal(url);                                // tel:, mailto:, sms:, whatsapp:, geo:, market:
+        }
+        return true;                                          // file:, content:, data:, javascript:... are never opened
     }
 
     private void openExternal(String url) {
@@ -212,14 +311,26 @@ public class MainActivity extends Activity {
         web.loadUrl(target);
     }
 
+    /** Lets the launch animation finish (at least SPLASH_MIN_MS), then fades the splash out. */
     private void hideSplash() {
-        if (splash.getVisibility() != View.VISIBLE) return;
-        splash.animate().alpha(0f).setDuration(280).withEndAction(new Runnable() {
+        if (splash.getVisibility() != View.VISIBLE || splashHiding) return;
+        splashHiding = true;
+        long wait = Math.max(0, SPLASH_MIN_MS - (System.currentTimeMillis() - splashShownAt));
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                splash.setVisibility(View.GONE);
+                splash.animate().alpha(0f).scaleX(1.06f).scaleY(1.06f).setDuration(320)
+                        .setInterpolator(new DecelerateInterpolator()).withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                splash.setVisibility(View.GONE);
+                                for (ObjectAnimator a : dotAnimators) {
+                                    if (a != null) a.cancel();
+                                }
+                            }
+                        }).start();
             }
-        }).start();
+        }, wait);
     }
 
     private class ShopClient extends WebViewClient {
@@ -372,6 +483,9 @@ public class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         handler.removeCallbacksAndMessages(null);
+        for (ObjectAnimator a : dotAnimators) {
+            if (a != null) a.cancel();
+        }
         web.destroy();
         super.onDestroy();
     }
