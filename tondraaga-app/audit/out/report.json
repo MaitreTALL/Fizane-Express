@@ -1,23 +1,50 @@
 [
  {
-  "name": "play-2-courses",
+  "name": "spa-courses",
   "url": "/#/courses",
   "status": 200,
   "finalUrl": "https://boutique.visionaryentreprises.com/#/courses",
   "title": "Faire des courses pour mes proches · Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 360,
-  "height": 6762,
+  "scrollWidth": 390,
+  "height": 9397,
   "overflow": [],
   "english": [
    "Pack de 6 × 1,5 L"
   ],
   "brokenImages": [],
   "slices": [
-   "play-2-courses.png"
+   "spa-courses-1.png",
+   "spa-courses-2.png",
+   "spa-courses-3.png",
+   "spa-courses-4.png",
+   "spa-courses-5.png"
   ],
   "consoleErrors": [
    "Failed to load resource: the server responded with a status of 404 ()"
   ],
+  "failedRequests": []
+ },
+ {
+  "name": "accueil",
+  "url": "/",
+  "status": 200,
+  "finalUrl": "https://boutique.visionaryentreprises.com/",
+  "title": "Tondraaga — Notre marché, notre fierté",
+  "scrollWidth": 390,
+  "height": 7360,
+  "overflow": [],
+  "english": [
+   "Pack de 6 × 1,5 L"
+  ],
+  "brokenImages": [],
+  "slices": [
+   "accueil-1.png",
+   "accueil-2.png",
+   "accueil-3.png",
+   "accueil-4.png",
+   "accueil-5.png"
+  ],
+  "consoleErrors": [],
   "failedRequests": []
  }
 ]
