@@ -2,10 +2,12 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "play-2-courses",
-   "/#/courses",
-   null,
-   "store"
+   "spa-courses",
+   "/#/courses"
+  ],
+  [
+   "accueil",
+   "/"
   ]
  ]
 }
