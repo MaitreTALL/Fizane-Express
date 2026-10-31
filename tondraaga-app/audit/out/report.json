@@ -1,26 +1,5 @@
 [
  {
-  "name": "play-1-accueil",
-  "url": "/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/",
-  "title": "Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 360,
-  "height": 7580,
-  "overflow": [],
-  "english": [
-   "Pack de 6 × 1,5 L"
-  ],
-  "brokenImages": [],
-  "slices": [
-   "play-1-accueil.png"
-  ],
-  "consoleErrors": [
-   "Failed to load resource: the server responded with a status of 404 ()"
-  ],
-  "failedRequests": []
- },
- {
   "name": "play-2-courses",
   "url": "/#/courses",
   "status": 200,
@@ -36,86 +15,9 @@
   "slices": [
    "play-2-courses.png"
   ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "play-3-produit",
-  "url": "/produit/riz-parfume/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/produit/riz-parfume/",
-  "title": "Riz parfumé – Tondraaga",
-  "scrollWidth": 360,
-  "height": 2689,
-  "overflow": [],
-  "english": [
-   "[attr] you@example.com"
-  ],
-  "brokenImages": [],
-  "slices": [
-   "play-3-produit.png"
-  ],
   "consoleErrors": [
-   "Failed to load resource: the server responded with a status of 401 ()",
-   "pageerror: Object"
+   "Failed to load resource: the server responded with a status of 404 ()"
   ],
-  "failedRequests": [
-   "401 https://boutique.visionaryentreprises.com/wp-json/wp/v2/users/me?context=edit&_locale=user"
-  ]
- },
- {
-  "name": "play-4-colis",
-  "url": "/#/colis",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/#/colis",
-  "title": "Expédiez vos colis du Burkina vers le monde entier · Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 360,
-  "height": 9173,
-  "overflow": [],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "play-4-colis.png"
-  ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "play-5-vendeur",
-  "url": "/devenir-vendeur/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/devenir-vendeur/",
-  "title": "Devenir vendeur sur Tondraaga – Tondraaga",
-  "scrollWidth": 360,
-  "height": 5925,
-  "overflow": [
-   "div L-14985 R-14684",
-   "label L-14985 R-14684",
-   "input#trap L-14985 R-14684"
-  ],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "play-5-vendeur.png"
-  ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "play-6-categories",
-  "url": "/#/categories",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/#/categories",
-  "title": "Catégories · Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 360,
-  "height": 1423,
-  "overflow": [],
-  "english": [],
-  "brokenImages": [],
-  "slices": [
-   "play-6-categories.png"
-  ],
-  "consoleErrors": [],
   "failedRequests": []
  }
 ]
