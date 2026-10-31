@@ -1,0 +1,210 @@
+{
+ "produits": [
+  {
+   "maj": 115,
+   "image": "https://raw.githubusercontent.com/MaitreTALL/Fizane-Express/ccr-823f62ce-tc8p8p/tondraaga-app/web/produits/images/mangue-sechee.jpg",
+   "prix_var": {
+    "150 g": 2000,
+    "300 g": 3500,
+    "500 g": 5500
+   },
+   "stock": 40
+  },
+  {
+   "maj": 119,
+   "image": "https://images.unsplash.com/flagged/photo-1553617569-8ef7a8da3146?w=1400&q=80&fm=jpg",
+   "prix_var": {
+    "100 g": 1500,
+    "250 g": 3000
+   },
+   "stock": 40
+  },
+  {
+   "maj": 122,
+   "image": "https://images.unsplash.com/photo-1573812461383-e5f8b759d12e?w=1400&q=80&fm=jpg",
+   "prix_var": {
+    "200 g": 2500,
+    "500 g": 5000
+   },
+   "stock": 40
+  },
+  {
+   "maj": 125,
+   "image": "https://raw.githubusercontent.com/MaitreTALL/Fizane-Express/ccr-823f62ce-tc8p8p/tondraaga-app/web/produits/images/kinkeliba.jpg",
+   "prix_var": {
+    "100 g": 1500,
+    "250 g": 3000
+   },
+   "stock": 40
+  },
+  {
+   "cle": "ex-chemise-fdf",
+   "nom": "Chemise homme en Faso Dan Fani",
+   "cats": [
+    "mode",
+    "vetements"
+   ],
+   "image": "https://images.unsplash.com/photo-1776435303294-ae487c8c28a5?w=1400&q=80&fm=jpg",
+   "prix": 22000,
+   "poids": 0.4,
+   "stock": 12,
+   "courte": "Une chemise élégante taillée dans le Faso Dan Fani, le coton tissé à la main qui fait la fierté du Burkina.",
+   "description": "<h3>Le produit</h3><p>Coupe droite, col classique et boutons assortis : cette chemise se porte aussi bien au bureau qu’aux cérémonies. Le tissu Faso Dan Fani, tissé à la main par des tisserandes burkinabè, lui donne une tenue souple et des motifs uniques.</p><h3>Fabrication</h3><p>Le fil de coton est teint puis tissé sur des métiers traditionnels, en bandes assemblées par un tailleur de Ouagadougou. Chaque chemise est donc légèrement différente : c’est la marque du fait main.</p><h3>Caractéristiques</h3><ul><li>Matière : 100 % coton tissé à la main (Faso Dan Fani)</li><li>Coupe : droite, manches longues</li><li>Tailles : du S au XXL</li><li>Les motifs et les teintes peuvent varier légèrement d’une pièce à l’autre</li></ul><h3>Entretien</h3><p>Lavage à la main ou en machine à 30 °C, à l’envers. Séchage à l’ombre. Repassage à température moyenne.</p>",
+   "titre_seo": "Chemise homme en Faso Dan Fani - Coton tissé main du Burkina Faso",
+   "meta": "Chemise homme en Faso Dan Fani, coton tissé à la main au Burkina Faso. Coupe droite, tailles S à XXL. Livraison dans le monde entier.",
+   "variantes": {
+    "nom": "Taille",
+    "options": [
+     "S",
+     "M",
+     "L",
+     "XL",
+     "XXL"
+    ]
+   }
+  },
+  {
+   "cle": "ex-pagne-fdf",
+   "nom": "Pagne Faso Dan Fani — 2 mètres",
+   "cats": [
+    "mode",
+    "faso-dan-fani"
+   ],
+   "image": "https://images.unsplash.com/photo-1630084305900-b297cff3a608?w=1400&q=80&fm=jpg",
+   "prix": 15000,
+   "poids": 0.6,
+   "stock": 10,
+   "courte": "Deux mètres de Faso Dan Fani tissé main, pour faire coudre la tenue de vos rêves ou habiller votre intérieur.",
+   "description": "<h3>Le produit</h3><p>Le Faso Dan Fani, « pagne tissé de la patrie », est devenu le symbole de l’élégance burkinabè. Ce coupon de deux mètres vous laisse libre de le confier à votre couturier : boubou, robe, chemise, veste ou coussins.</p><h3>Fabrication</h3><p>Tissé sur des métiers traditionnels par des tisserandes, puis assemblé en bandes. Les couleurs vives et les motifs géométriques sont caractéristiques du savoir-faire burkinabè.</p><h3>Caractéristiques</h3><ul><li>Longueur : 2 mètres</li><li>Matière : coton tissé à la main</li><li>Motifs et coloris variés : chaque coupon est unique</li><li>Idéal pour une tenue complète ou deux pièces</li></ul><h3>Entretien</h3><p>Premier lavage à la main et à l’eau froide, séparément, pour fixer les couleurs. Séchage à l’ombre.</p>",
+   "titre_seo": "Pagne Faso Dan Fani 2 mètres - Tissu tissé main du Burkina Faso",
+   "meta": "Coupon de 2 mètres de Faso Dan Fani tissé à la main au Burkina Faso, pour vos tenues et votre décoration. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-sac-cuir",
+   "nom": "Sac cabas en cuir",
+   "cats": [
+    "mode",
+    "sacs-chaussures"
+   ],
+   "image": "https://images.unsplash.com/photo-1624687943971-e86af76d57de?w=1400&q=80&fm=jpg",
+   "prix": 18500,
+   "poids": 0.9,
+   "stock": 6,
+   "courte": "Un grand cabas en cuir souple, cousu par des maroquiniers de Ouagadougou, pour vous accompagner partout.",
+   "description": "<h3>Le produit</h3><p>Spacieux et solide, ce cabas accueille sans peine vos documents, un ordinateur portable ou vos courses. Ses anses longues se portent à la main ou à l’épaule, et le cuir prend une belle patine avec le temps.</p><h3>Fabrication</h3><p>Découpé, assemblé et cousu à la main dans l’atelier d’un artisan maroquinier burkinabè.</p><h3>Caractéristiques</h3><ul><li>Matière : cuir de vachette</li><li>Dimensions : environ 38 × 32 × 12 cm</li><li>Anses longues, se porte à l’épaule</li><li>Teinte naturelle pouvant légèrement varier</li></ul><h3>Entretien</h3><p>Nourrir le cuir de temps en temps avec un baume ou… un peu de beurre de karité. Éviter l’eau et le plein soleil prolongé.</p>",
+   "titre_seo": "Sac cabas en cuir fait main - Maroquinerie du Burkina Faso",
+   "meta": "Grand sac cabas en cuir cousu à la main à Ouagadougou. Solide, spacieux, se porte à l’épaule. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-savons-karite",
+   "nom": "Savons naturels au karité — lot de 3",
+   "cats": [
+    "karite",
+    "savons-soins"
+   ],
+   "image": "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?w=1400&q=80&fm=jpg",
+   "prix": 3000,
+   "poids": 0.4,
+   "stock": 30,
+   "courte": "Trois savons doux fabriqués à froid avec du beurre de karité, pour une toilette tout en douceur.",
+   "description": "<h3>Le produit</h3><p>Riches en beurre de karité, ces savons nettoient sans dessécher. Leur mousse onctueuse convient à toute la famille, pour le visage comme pour le corps.</p><h3>Fabrication</h3><p>Savonnerie artisanale à froid, en petites séries, par une coopérative de femmes. Les pains sont découpés à la main puis séchés plusieurs semaines.</p><h3>Caractéristiques</h3><ul><li>Lot de 3 savons d’environ 100 g</li><li>Base végétale au beurre de karité</li><li>Fabrication artisanale à froid</li><li>Emballage papier recyclable</li></ul><h3>Conseils</h3><p>Conservez le savon sur un porte-savon bien égoutté : il durera plus longtemps.</p>",
+   "titre_seo": "Savons naturels au karité - Lot de 3 - Burkina Faso",
+   "meta": "Lot de 3 savons artisanaux au beurre de karité, fabriqués à froid par une coopérative du Burkina Faso. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-bracelets-perles",
+   "nom": "Bracelets en perles tissées — lot de 3",
+   "cats": [
+    "bijoux",
+    "colliers-bracelets"
+   ],
+   "image": "https://images.unsplash.com/photo-1601387603639-387c75bdcb0d?w=1400&q=80&fm=jpg",
+   "prix": 6500,
+   "poids": 0.1,
+   "stock": 20,
+   "courte": "Trois bracelets colorés en perles tissées à la main, à porter seuls ou ensemble.",
+   "description": "<h3>Le produit</h3><p>Des couleurs vives et des motifs géométriques pour illuminer une tenue simple. Les trois bracelets se combinent entre eux et avec vos autres bijoux.</p><h3>Fabrication</h3><p>Perles de verre enfilées et tissées une à une par des artisanes, un travail minutieux de plusieurs heures par bracelet.</p><h3>Caractéristiques</h3><ul><li>Lot de 3 bracelets</li><li>Perles de verre tissées à la main</li><li>Fermoir réglable, s’adapte à la plupart des poignets</li><li>Coloris assortis, chaque lot est unique</li></ul><h3>Entretien</h3><p>Éviter le contact avec l’eau et les parfums. Ranger à plat, à l’abri de l’humidité.</p>",
+   "titre_seo": "Bracelets en perles tissées à la main - Lot de 3 - Burkina Faso",
+   "meta": "Lot de 3 bracelets en perles de verre tissées à la main par des artisanes du Burkina Faso. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-collier-perles",
+   "nom": "Collier en perles du Sahel",
+   "cats": [
+    "bijoux",
+    "colliers-bracelets"
+   ],
+   "image": "https://images.unsplash.com/photo-1760726743536-019e9e2b06b8?w=1400&q=80&fm=jpg",
+   "prix": 12500,
+   "poids": 0.1,
+   "stock": 8,
+   "courte": "Un collier généreux en perles colorées, inspiré des parures traditionnelles du Sahel.",
+   "description": "<h3>Le produit</h3><p>Ce collier long réunit des perles de tailles et de couleurs variées. Il habille une tenue unie comme un boubou de fête.</p><h3>Fabrication</h3><p>Monté à la main par des artisans bijoutiers, perle après perle, sur un fil solide.</p><h3>Caractéristiques</h3><ul><li>Longueur : environ 60 cm</li><li>Perles de verre et de résine</li><li>Pièce unique : les couleurs peuvent varier</li><li>Livré dans une pochette en tissu</li></ul><h3>Entretien</h3><p>Ranger à plat, éviter l’eau et les parfums.</p>",
+   "titre_seo": "Collier en perles du Sahel - Bijou artisanal du Burkina Faso",
+   "meta": "Collier long en perles colorées, monté à la main par des artisans du Burkina Faso. Pièce unique. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-statuette-bois",
+   "nom": "Statuette en bois peint « Femme du Faso »",
+   "cats": [
+    "artisanat",
+    "bois-sculpte"
+   ],
+   "image": "https://images.unsplash.com/photo-1694465990855-e78110c345af?w=1400&q=80&fm=jpg",
+   "prix": 32000,
+   "poids": 1.2,
+   "stock": 4,
+   "courte": "Une statuette élancée, sculptée et peinte à la main, hommage à la femme burkinabè.",
+   "description": "<h3>Le produit</h3><p>Silhouette fine, pagne coloré et port altier : cette statuette apporte une touche d’Afrique à un salon, un bureau ou une bibliothèque. Un beau cadeau pour une personne chère.</p><h3>Fabrication</h3><p>Sculptée dans un seul morceau de bois, poncée puis peinte à la main par un artisan sculpteur. Chaque pièce est unique.</p><h3>Caractéristiques</h3><ul><li>Hauteur : environ 40 cm</li><li>Bois sculpté et peint à la main</li><li>Pièce unique, légères variations de forme et de couleur</li><li>Emballage renforcé pour l’expédition</li></ul><h3>Entretien</h3><p>Dépoussiérer avec un chiffon sec. Éviter l’humidité et le soleil direct.</p>",
+   "titre_seo": "Statuette en bois peint Femme du Faso - Sculpture artisanale",
+   "meta": "Statuette en bois sculpté et peint à la main par un artisan du Burkina Faso. Pièce unique, environ 40 cm. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-masque-bois",
+   "nom": "Masque décoratif en bois sculpté (reproduction)",
+   "cats": [
+    "culture",
+    "masques-statuettes"
+   ],
+   "image": "https://images.unsplash.com/photo-1753818268864-c48c672b50ae?w=1400&q=80&fm=jpg",
+   "prix": 27000,
+   "poids": 1.5,
+   "stock": 3,
+   "courte": "Un masque décoratif sculpté à la main, inspiré des masques traditionnels d’Afrique de l’Ouest.",
+   "description": "<h3>Le produit</h3><p>Ce masque mural, aux motifs gravés et aux teintes naturelles, met en valeur un mur d’entrée ou de salon. Il s’agit d’une reproduction décorative, créée pour la vente, et non d’un objet rituel.</p><h3>Fabrication</h3><p>Sculpté et gravé à la main dans du bois local par un artisan, puis patiné.</p><h3>Caractéristiques</h3><ul><li>Hauteur : environ 45 cm</li><li>Bois sculpté et patiné à la main</li><li>Attache au dos pour le fixer au mur</li><li>Reproduction décorative, pièce unique</li></ul><h3>Entretien</h3><p>Dépoussiérer avec un pinceau doux. Éviter l’humidité.</p>",
+   "titre_seo": "Masque décoratif en bois sculpté - Artisanat d’Afrique de l’Ouest",
+   "meta": "Masque mural en bois sculpté à la main, reproduction décorative inspirée des masques traditionnels. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-panier-paille",
+   "nom": "Panier tressé en paille",
+   "cats": [
+    "artisanat",
+    "vannerie"
+   ],
+   "image": "https://images.unsplash.com/photo-1784212958428-f95d351c88be?w=1400&q=80&fm=jpg",
+   "prix": 7500,
+   "poids": 0.5,
+   "stock": 15,
+   "courte": "Un panier rond tressé à la main, aussi pratique pour ranger que joli à exposer.",
+   "description": "<h3>Le produit</h3><p>Fruits, pain, linge, plantes ou petits objets : ce panier trouve sa place dans toutes les pièces. Ses motifs colorés en font aussi un bel objet de décoration murale.</p><h3>Fabrication</h3><p>Tressé à la main avec des fibres végétales séchées et teintes, selon une technique transmise de génération en génération.</p><h3>Caractéristiques</h3><ul><li>Diamètre : environ 30 cm</li><li>Fibres végétales tressées à la main</li><li>Motifs et couleurs variables, chaque panier est unique</li><li>Léger et solide</li></ul><h3>Entretien</h3><p>Dépoussiérer à sec. Ne pas laisser tremper dans l’eau.</p>",
+   "titre_seo": "Panier tressé en paille fait main - Vannerie du Burkina Faso",
+   "meta": "Panier rond en fibres végétales tressées à la main au Burkina Faso, pour ranger ou décorer. Livraison dans le monde entier."
+  },
+  {
+   "cle": "ex-coffret-saveurs",
+   "nom": "Coffret cadeau « Saveurs du Faso »",
+   "cats": [
+    "cadeaux"
+   ],
+   "image": "https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=1400&q=80&fm=jpg",
+   "prix": 16000,
+   "poids": 1.2,
+   "stock": 10,
+   "courte": "Le goût du pays dans un coffret : mangue séchée, soumbala, kinkeliba et beurre de karité.",
+   "description": "<h3>Le contenu</h3><p>Un assortiment de nos produits phares, prêt à offrir :</p><ul><li>Mangue séchée (150 g)</li><li>Soumbala en poudre (100 g)</li><li>Kinkeliba en feuilles (100 g)</li><li>Beurre de karité brut (200 g)</li></ul><h3>Pour qui ?</h3><p>Pour un proche installé à l’étranger qui a le mal du pays, pour une fête, un anniversaire, ou simplement pour faire découvrir le Burkina.</p><h3>Présentation</h3><p>Coffret en carton kraft fermé par un ruban, avec une petite carte pour votre message.</p>",
+   "titre_seo": "Coffret cadeau Saveurs du Faso - Produits du Burkina Faso",
+   "meta": "Coffret cadeau de produits du Burkina Faso : mangue séchée, soumbala, kinkeliba et beurre de karité. Livraison dans le monde entier."
+  }
+ ]
+}
