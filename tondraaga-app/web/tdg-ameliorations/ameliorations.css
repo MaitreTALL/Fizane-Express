@@ -145,3 +145,12 @@ ul.dokan_tabs li.active a { color: #fff !important; }
 .dv-formule-note { color: #6B5E55; font-size: .9rem; margin: 8px 0 0; }
 .dv-formule-vedette { border: 2px solid var(--ocre, #C87817); background: #FFFBF5; }
 .dv-formules-aide { text-align: center; color: #6B5E55; font-size: .9rem; margin: 14px 0 0; }
+
+/* ---------- « D'où passez-vous commande ? » : liste des pays en grille compacte ---------- */
+div:has(> button[data-action="pays"]) { display: grid !important; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px !important; }
+button[data-action="pays"] { padding: 10px 12px !important; gap: 10px !important; min-height: 0 !important; margin: 0 !important; text-align: left; align-items: center; }
+button[data-action="pays"] .drapeau svg,
+button[data-action="pays"] .drapeau .drapeau-svg { width: 30px !important; height: auto !important; }
+button[data-action="pays"] .drapeau .drapeau-emoji { font-size: 1.6rem !important; }
+button[data-action="pays"] strong { font-size: .92rem; line-height: 1.2; }
+button[data-action="pays"] span span { font-size: .78rem; line-height: 1.25; }
