@@ -1,0 +1,1730 @@
+[
+ {
+  "locuteur": "021",
+  "fichiers": 11,
+  "duree_40": 172.5,
+  "f0": 98.2,
+  "snr": 20.9,
+  "chemin": "African_Accented_French/speech/train/ca16/021"
+ },
+ {
+  "locuteur": "ctell5-71",
+  "fichiers": 100,
+  "duree_40": 153.6,
+  "f0": 100.6,
+  "snr": 45.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-71"
+ },
+ {
+  "locuteur": "097",
+  "fichiers": 68,
+  "duree_40": 134.2,
+  "f0": 104.6,
+  "snr": 22.4,
+  "chemin": "African_Accented_French/speech/train/ca16/097"
+ },
+ {
+  "locuteur": "ctell4-66",
+  "fichiers": 100,
+  "duree_40": 137.9,
+  "f0": 105.3,
+  "snr": 39.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-66"
+ },
+ {
+  "locuteur": "ctell1-02",
+  "fichiers": 100,
+  "duree_40": 167.5,
+  "f0": 106.0,
+  "snr": 39.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-02"
+ },
+ {
+  "locuteur": "007",
+  "fichiers": 54,
+  "duree_40": 74.5,
+  "f0": 107.4,
+  "snr": 26.4,
+  "chemin": "African_Accented_French/speech/train/ca16/007"
+ },
+ {
+  "locuteur": "ctell3-48",
+  "fichiers": 100,
+  "duree_40": 100.1,
+  "f0": 107.4,
+  "snr": 35.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-48"
+ },
+ {
+  "locuteur": "ctell1-06",
+  "fichiers": 100,
+  "duree_40": 108.8,
+  "f0": 107.4,
+  "snr": 40.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-06"
+ },
+ {
+  "locuteur": "098",
+  "fichiers": 53,
+  "duree_40": 137.2,
+  "f0": 110.3,
+  "snr": 23.5,
+  "chemin": "African_Accented_French/speech/train/ca16/098"
+ },
+ {
+  "locuteur": "ctell4-63",
+  "fichiers": 100,
+  "duree_40": 143.2,
+  "f0": 111.1,
+  "snr": 36.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-63"
+ },
+ {
+  "locuteur": "niger_sys2_4",
+  "fichiers": 44,
+  "duree_40": 96.2,
+  "f0": 111.9,
+  "snr": 28.9,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_4"
+ },
+ {
+  "locuteur": "niger_sys1_5",
+  "fichiers": 42,
+  "duree_40": 77.0,
+  "f0": 111.9,
+  "snr": 24.5,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys1_5"
+ },
+ {
+  "locuteur": "ctell1-18",
+  "fichiers": 100,
+  "duree_40": 121.4,
+  "f0": 112.7,
+  "snr": 39.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-18"
+ },
+ {
+  "locuteur": "gabon_m_074",
+  "fichiers": 71,
+  "duree_40": 96.8,
+  "f0": 112.7,
+  "snr": 33.0,
+  "chemin": "African_Accented_French/speech/test/ca16/gabon_m_074"
+ },
+ {
+  "locuteur": "niger_sys2_8",
+  "fichiers": 45,
+  "duree_40": 147.5,
+  "f0": 112.7,
+  "snr": 31.3,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_8"
+ },
+ {
+  "locuteur": "011",
+  "fichiers": 105,
+  "duree_40": 148.0,
+  "f0": 113.5,
+  "snr": 27.3,
+  "chemin": "African_Accented_French/speech/train/ca16/011"
+ },
+ {
+  "locuteur": "090",
+  "fichiers": 17,
+  "duree_40": 99.5,
+  "f0": 114.3,
+  "snr": 37.4,
+  "chemin": "African_Accented_French/speech/train/ca16/090"
+ },
+ {
+  "locuteur": "niger_sys2_1",
+  "fichiers": 39,
+  "duree_40": 115.5,
+  "f0": 114.3,
+  "snr": 32.4,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_1"
+ },
+ {
+  "locuteur": "103",
+  "fichiers": 50,
+  "duree_40": 150.8,
+  "f0": 115.1,
+  "snr": 23.0,
+  "chemin": "African_Accented_French/speech/train/ca16/103"
+ },
+ {
+  "locuteur": "niger_sys1_1",
+  "fichiers": 25,
+  "duree_40": 92.8,
+  "f0": 115.1,
+  "snr": 30.6,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys1_1"
+ },
+ {
+  "locuteur": "096",
+  "fichiers": 12,
+  "duree_40": 213.2,
+  "f0": 115.9,
+  "snr": 40.7,
+  "chemin": "African_Accented_French/speech/train/ca16/096"
+ },
+ {
+  "locuteur": "067",
+  "fichiers": 38,
+  "duree_40": 92.2,
+  "f0": 115.9,
+  "snr": 28.3,
+  "chemin": "African_Accented_French/speech/train/ca16/067"
+ },
+ {
+  "locuteur": "ctell1-08",
+  "fichiers": 100,
+  "duree_40": 148.6,
+  "f0": 115.9,
+  "snr": 36.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-08"
+ },
+ {
+  "locuteur": "023",
+  "fichiers": 73,
+  "duree_40": 216.2,
+  "f0": 116.8,
+  "snr": 31.0,
+  "chemin": "African_Accented_French/speech/train/ca16/023"
+ },
+ {
+  "locuteur": "078",
+  "fichiers": 71,
+  "duree_40": 71.0,
+  "f0": 117.6,
+  "snr": 32.3,
+  "chemin": "African_Accented_French/speech/train/ca16/078"
+ },
+ {
+  "locuteur": "066",
+  "fichiers": 182,
+  "duree_40": 80.5,
+  "f0": 117.6,
+  "snr": 36.7,
+  "chemin": "African_Accented_French/speech/train/ca16/066"
+ },
+ {
+  "locuteur": "085",
+  "fichiers": 122,
+  "duree_40": 126.0,
+  "f0": 117.6,
+  "snr": 25.5,
+  "chemin": "African_Accented_French/speech/train/ca16/085"
+ },
+ {
+  "locuteur": "ctell4-67",
+  "fichiers": 100,
+  "duree_40": 113.5,
+  "f0": 117.6,
+  "snr": 34.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-67"
+ },
+ {
+  "locuteur": "ctell1-05",
+  "fichiers": 100,
+  "duree_40": 156.0,
+  "f0": 117.6,
+  "snr": 45.9,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-05"
+ },
+ {
+  "locuteur": "ctell5-83",
+  "fichiers": 100,
+  "duree_40": 145.5,
+  "f0": 118.5,
+  "snr": 40.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-83"
+ },
+ {
+  "locuteur": "038",
+  "fichiers": 64,
+  "duree_40": 168.8,
+  "f0": 120.3,
+  "snr": 25.0,
+  "chemin": "African_Accented_French/speech/train/ca16/038"
+ },
+ {
+  "locuteur": "ctell4-52",
+  "fichiers": 100,
+  "duree_40": 141.0,
+  "f0": 120.3,
+  "snr": 41.5,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-52"
+ },
+ {
+  "locuteur": "ctell1-13",
+  "fichiers": 100,
+  "duree_40": 136.6,
+  "f0": 121.2,
+  "snr": 42.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-13"
+ },
+ {
+  "locuteur": "ctell4-54",
+  "fichiers": 100,
+  "duree_40": 170.7,
+  "f0": 121.2,
+  "snr": 40.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-54"
+ },
+ {
+  "locuteur": "gabon_m_072",
+  "fichiers": 48,
+  "duree_40": 67.5,
+  "f0": 122.1,
+  "snr": 31.4,
+  "chemin": "African_Accented_French/speech/test/ca16/gabon_m_072"
+ },
+ {
+  "locuteur": "084",
+  "fichiers": 148,
+  "duree_40": 147.0,
+  "f0": 123.1,
+  "snr": 38.1,
+  "chemin": "African_Accented_French/speech/train/ca16/084"
+ },
+ {
+  "locuteur": "ctell3-50",
+  "fichiers": 100,
+  "duree_40": 172.0,
+  "f0": 123.1,
+  "snr": 38.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-50"
+ },
+ {
+  "locuteur": "ctell1-01",
+  "fichiers": 100,
+  "duree_40": 148.6,
+  "f0": 123.1,
+  "snr": 41.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-01"
+ },
+ {
+  "locuteur": "niger_sys2_6",
+  "fichiers": 45,
+  "duree_40": 126.8,
+  "f0": 123.1,
+  "snr": 28.3,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_6"
+ },
+ {
+  "locuteur": "100",
+  "fichiers": 75,
+  "duree_40": 256.8,
+  "f0": 124.0,
+  "snr": 21.3,
+  "chemin": "African_Accented_French/speech/train/ca16/100"
+ },
+ {
+  "locuteur": "ctell5-75",
+  "fichiers": 100,
+  "duree_40": 163.1,
+  "f0": 124.0,
+  "snr": 42.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-75"
+ },
+ {
+  "locuteur": "046",
+  "fichiers": 55,
+  "duree_40": 294.5,
+  "f0": 125.0,
+  "snr": 26.1,
+  "chemin": "African_Accented_French/speech/train/ca16/046"
+ },
+ {
+  "locuteur": "047",
+  "fichiers": 11,
+  "duree_40": 358.0,
+  "f0": 125.0,
+  "snr": 15.7,
+  "chemin": "African_Accented_French/speech/train/ca16/047"
+ },
+ {
+  "locuteur": "ctell1-09",
+  "fichiers": 100,
+  "duree_40": 177.6,
+  "f0": 125.0,
+  "snr": 39.6,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-09"
+ },
+ {
+  "locuteur": "002",
+  "fichiers": 29,
+  "duree_40": 154.5,
+  "f0": 126.0,
+  "snr": 27.2,
+  "chemin": "African_Accented_French/speech/train/ca16/002"
+ },
+ {
+  "locuteur": "ctell4-65",
+  "fichiers": 100,
+  "duree_40": 131.6,
+  "f0": 126.0,
+  "snr": 36.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-65"
+ },
+ {
+  "locuteur": "ctell2-20",
+  "fichiers": 100,
+  "duree_40": 209.6,
+  "f0": 126.0,
+  "snr": 44.9,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-20"
+ },
+ {
+  "locuteur": "020",
+  "fichiers": 35,
+  "duree_40": 117.5,
+  "f0": 127.0,
+  "snr": 25.4,
+  "chemin": "African_Accented_French/speech/train/ca16/020"
+ },
+ {
+  "locuteur": "ctell5-79",
+  "fichiers": 100,
+  "duree_40": 181.4,
+  "f0": 127.0,
+  "snr": 39.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-79"
+ },
+ {
+  "locuteur": "ctell2-23",
+  "fichiers": 100,
+  "duree_40": 169.0,
+  "f0": 127.0,
+  "snr": 39.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-23"
+ },
+ {
+  "locuteur": "ctell4-58",
+  "fichiers": 100,
+  "duree_40": 165.5,
+  "f0": 127.0,
+  "snr": 42.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-58"
+ },
+ {
+  "locuteur": "081",
+  "fichiers": 25,
+  "duree_40": 68.8,
+  "f0": 128.0,
+  "snr": 33.3,
+  "chemin": "African_Accented_French/speech/train/ca16/081"
+ },
+ {
+  "locuteur": "ctell1-04",
+  "fichiers": 100,
+  "duree_40": 154.1,
+  "f0": 128.0,
+  "snr": 46.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-04"
+ },
+ {
+  "locuteur": "ctell3-38",
+  "fichiers": 100,
+  "duree_40": 213.8,
+  "f0": 128.0,
+  "snr": 44.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-38"
+ },
+ {
+  "locuteur": "ctell3-42",
+  "fichiers": 100,
+  "duree_40": 129.0,
+  "f0": 128.0,
+  "snr": 36.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-42"
+ },
+ {
+  "locuteur": "niger_sys1_7",
+  "fichiers": 45,
+  "duree_40": 110.8,
+  "f0": 128.0,
+  "snr": 29.4,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys1_7"
+ },
+ {
+  "locuteur": "065",
+  "fichiers": 37,
+  "duree_40": 132.0,
+  "f0": 129.0,
+  "snr": 35.2,
+  "chemin": "African_Accented_French/speech/train/ca16/065"
+ },
+ {
+  "locuteur": "ctell5-69",
+  "fichiers": 100,
+  "duree_40": 157.7,
+  "f0": 129.0,
+  "snr": 44.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-69"
+ },
+ {
+  "locuteur": "054",
+  "fichiers": 19,
+  "duree_40": 75.8,
+  "f0": 130.1,
+  "snr": 23.2,
+  "chemin": "African_Accented_French/speech/train/ca16/054"
+ },
+ {
+  "locuteur": "061",
+  "fichiers": 61,
+  "duree_40": 151.2,
+  "f0": 130.1,
+  "snr": 24.8,
+  "chemin": "African_Accented_French/speech/train/ca16/061"
+ },
+ {
+  "locuteur": "056",
+  "fichiers": 9,
+  "duree_40": 394.5,
+  "f0": 130.1,
+  "snr": 12.9,
+  "chemin": "African_Accented_French/speech/train/ca16/056"
+ },
+ {
+  "locuteur": "109",
+  "fichiers": 43,
+  "duree_40": 233.2,
+  "f0": 130.1,
+  "snr": 29.8,
+  "chemin": "African_Accented_French/speech/train/ca16/109"
+ },
+ {
+  "locuteur": "gabon_m_060",
+  "fichiers": 71,
+  "duree_40": 73.6,
+  "f0": 130.1,
+  "snr": 30.2,
+  "chemin": "African_Accented_French/speech/test/ca16/gabon_m_060"
+ },
+ {
+  "locuteur": "niger_sys2_9",
+  "fichiers": 26,
+  "duree_40": 95.8,
+  "f0": 130.1,
+  "snr": 36.6,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_9"
+ },
+ {
+  "locuteur": "075",
+  "fichiers": 69,
+  "duree_40": 143.2,
+  "f0": 131.1,
+  "snr": 34.2,
+  "chemin": "African_Accented_French/speech/train/ca16/075"
+ },
+ {
+  "locuteur": "niger_sys2_3",
+  "fichiers": 64,
+  "duree_40": 129.5,
+  "f0": 131.1,
+  "snr": 28.5,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_3"
+ },
+ {
+  "locuteur": "019",
+  "fichiers": 88,
+  "duree_40": 97.2,
+  "f0": 132.2,
+  "snr": 28.5,
+  "chemin": "African_Accented_French/speech/train/ca16/019"
+ },
+ {
+  "locuteur": "101",
+  "fichiers": 78,
+  "duree_40": 426.2,
+  "f0": 132.2,
+  "snr": 23.7,
+  "chemin": "African_Accented_French/speech/train/ca16/101"
+ },
+ {
+  "locuteur": "ctell5-78",
+  "fichiers": 100,
+  "duree_40": 157.5,
+  "f0": 132.2,
+  "snr": 36.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-78"
+ },
+ {
+  "locuteur": "ctell5-84",
+  "fichiers": 100,
+  "duree_40": 136.1,
+  "f0": 133.3,
+  "snr": 43.9,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-84"
+ },
+ {
+  "locuteur": "ctell1-03",
+  "fichiers": 100,
+  "duree_40": 133.9,
+  "f0": 134.5,
+  "snr": 44.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-03"
+ },
+ {
+  "locuteur": "017",
+  "fichiers": 83,
+  "duree_40": 126.5,
+  "f0": 135.6,
+  "snr": 34.4,
+  "chemin": "African_Accented_French/speech/train/ca16/017"
+ },
+ {
+  "locuteur": "051",
+  "fichiers": 17,
+  "duree_40": 247.0,
+  "f0": 136.8,
+  "snr": 22.9,
+  "chemin": "African_Accented_French/speech/train/ca16/051"
+ },
+ {
+  "locuteur": "055",
+  "fichiers": 38,
+  "duree_40": 125.5,
+  "f0": 136.8,
+  "snr": 29.3,
+  "chemin": "African_Accented_French/speech/train/ca16/055"
+ },
+ {
+  "locuteur": "118",
+  "fichiers": 105,
+  "duree_40": 105.2,
+  "f0": 136.8,
+  "snr": 30.0,
+  "chemin": "African_Accented_French/speech/train/ca16/118"
+ },
+ {
+  "locuteur": "niger_sys2_7",
+  "fichiers": 27,
+  "duree_40": 73.2,
+  "f0": 136.8,
+  "snr": 25.5,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_7"
+ },
+ {
+  "locuteur": "108",
+  "fichiers": 45,
+  "duree_40": 216.5,
+  "f0": 139.1,
+  "snr": 28.8,
+  "chemin": "African_Accented_French/speech/train/ca16/108"
+ },
+ {
+  "locuteur": "052",
+  "fichiers": 18,
+  "duree_40": 97.0,
+  "f0": 139.1,
+  "snr": 18.1,
+  "chemin": "African_Accented_French/speech/train/ca16/052"
+ },
+ {
+  "locuteur": "037",
+  "fichiers": 66,
+  "duree_40": 111.2,
+  "f0": 139.1,
+  "snr": 23.1,
+  "chemin": "African_Accented_French/speech/train/ca16/037"
+ },
+ {
+  "locuteur": "ctell5-72",
+  "fichiers": 100,
+  "duree_40": 166.9,
+  "f0": 139.1,
+  "snr": 45.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-72"
+ },
+ {
+  "locuteur": "niger_sys2_2",
+  "fichiers": 63,
+  "duree_40": 151.8,
+  "f0": 139.1,
+  "snr": 34.4,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_2"
+ },
+ {
+  "locuteur": "niger_sys3_2",
+  "fichiers": 55,
+  "duree_40": 131.5,
+  "f0": 140.4,
+  "snr": 29.3,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys3_2"
+ },
+ {
+  "locuteur": "015",
+  "fichiers": 131,
+  "duree_40": 109.8,
+  "f0": 141.6,
+  "snr": 33.7,
+  "chemin": "African_Accented_French/speech/train/ca16/015"
+ },
+ {
+  "locuteur": "gabon_m_058",
+  "fichiers": 52,
+  "duree_40": 85.2,
+  "f0": 141.6,
+  "snr": 27.4,
+  "chemin": "African_Accented_French/speech/test/ca16/gabon_m_058"
+ },
+ {
+  "locuteur": "116",
+  "fichiers": 91,
+  "duree_40": 139.0,
+  "f0": 142.9,
+  "snr": 25.3,
+  "chemin": "African_Accented_French/speech/train/ca16/116"
+ },
+ {
+  "locuteur": "115",
+  "fichiers": 47,
+  "duree_40": 148.8,
+  "f0": 142.9,
+  "snr": 25.0,
+  "chemin": "African_Accented_French/speech/train/ca16/115"
+ },
+ {
+  "locuteur": "018",
+  "fichiers": 43,
+  "duree_40": 254.5,
+  "f0": 142.9,
+  "snr": 33.9,
+  "chemin": "African_Accented_French/speech/train/ca16/018"
+ },
+ {
+  "locuteur": "125",
+  "fichiers": 126,
+  "duree_40": 125.8,
+  "f0": 142.9,
+  "snr": 28.0,
+  "chemin": "African_Accented_French/speech/train/ca16/125"
+ },
+ {
+  "locuteur": "niger_sys3_3",
+  "fichiers": 25,
+  "duree_40": 60.8,
+  "f0": 142.9,
+  "snr": 26.6,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys3_3"
+ },
+ {
+  "locuteur": "niger_sys1_2",
+  "fichiers": 21,
+  "duree_40": 80.0,
+  "f0": 142.9,
+  "snr": 24.3,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys1_2"
+ },
+ {
+  "locuteur": "114",
+  "fichiers": 38,
+  "duree_40": 325.0,
+  "f0": 144.1,
+  "snr": 26.0,
+  "chemin": "African_Accented_French/speech/train/ca16/114"
+ },
+ {
+  "locuteur": "ctell3-46",
+  "fichiers": 100,
+  "duree_40": 144.2,
+  "f0": 144.1,
+  "snr": 43.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-46"
+ },
+ {
+  "locuteur": "cameroon_m_006",
+  "fichiers": 24,
+  "duree_40": 80.5,
+  "f0": 144.1,
+  "snr": 34.4,
+  "chemin": "African_Accented_French/speech/test/ca16/cameroon_m_006"
+ },
+ {
+  "locuteur": "niger_sys3_7",
+  "fichiers": 21,
+  "duree_40": 99.2,
+  "f0": 144.1,
+  "snr": 28.1,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys3_7"
+ },
+ {
+  "locuteur": "083",
+  "fichiers": 79,
+  "duree_40": 134.8,
+  "f0": 144.8,
+  "snr": 31.8,
+  "chemin": "African_Accented_French/speech/train/ca16/083"
+ },
+ {
+  "locuteur": "113",
+  "fichiers": 59,
+  "duree_40": 561.5,
+  "f0": 145.5,
+  "snr": 10.7,
+  "chemin": "African_Accented_French/speech/train/ca16/113"
+ },
+ {
+  "locuteur": "124",
+  "fichiers": 60,
+  "duree_40": 88.5,
+  "f0": 145.5,
+  "snr": 29.1,
+  "chemin": "African_Accented_French/speech/train/ca16/124"
+ },
+ {
+  "locuteur": "ctell2-35",
+  "fichiers": 100,
+  "duree_40": 191.7,
+  "f0": 145.5,
+  "snr": 43.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-35"
+ },
+ {
+  "locuteur": "chad_m_001",
+  "fichiers": 20,
+  "duree_40": 81.0,
+  "f0": 145.5,
+  "snr": 26.1,
+  "chemin": "African_Accented_French/speech/test/ca16/chad_m_001"
+ },
+ {
+  "locuteur": "ctell2-30",
+  "fichiers": 100,
+  "duree_40": 304.9,
+  "f0": 146.8,
+  "snr": 54.9,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-30"
+ },
+ {
+  "locuteur": "ctell2-19",
+  "fichiers": 100,
+  "duree_40": 177.7,
+  "f0": 146.8,
+  "snr": 41.6,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-19"
+ },
+ {
+  "locuteur": "033",
+  "fichiers": 23,
+  "duree_40": 93.2,
+  "f0": 148.1,
+  "snr": 20.8,
+  "chemin": "African_Accented_French/speech/train/ca16/033"
+ },
+ {
+  "locuteur": "035",
+  "fichiers": 99,
+  "duree_40": 87.8,
+  "f0": 148.1,
+  "snr": 27.3,
+  "chemin": "African_Accented_French/speech/train/ca16/035"
+ },
+ {
+  "locuteur": "ctell1-14",
+  "fichiers": 100,
+  "duree_40": 192.0,
+  "f0": 148.1,
+  "snr": 52.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-14"
+ },
+ {
+  "locuteur": "niger_sys3_6",
+  "fichiers": 44,
+  "duree_40": 151.2,
+  "f0": 148.1,
+  "snr": 38.7,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys3_6"
+ },
+ {
+  "locuteur": "005",
+  "fichiers": 51,
+  "duree_40": 88.0,
+  "f0": 148.8,
+  "snr": 26.3,
+  "chemin": "African_Accented_French/speech/devtest/ca16/005"
+ },
+ {
+  "locuteur": "041",
+  "fichiers": 51,
+  "duree_40": 126.5,
+  "f0": 149.5,
+  "snr": 30.1,
+  "chemin": "African_Accented_French/speech/train/ca16/041"
+ },
+ {
+  "locuteur": "ctell4-59",
+  "fichiers": 100,
+  "duree_40": 114.7,
+  "f0": 149.5,
+  "snr": 47.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-59"
+ },
+ {
+  "locuteur": "009",
+  "fichiers": 50,
+  "duree_40": 152.5,
+  "f0": 149.5,
+  "snr": 22.9,
+  "chemin": "African_Accented_French/speech/devtest/ca16/009"
+ },
+ {
+  "locuteur": "niger_sys1_4",
+  "fichiers": 51,
+  "duree_40": 140.5,
+  "f0": 150.9,
+  "snr": 31.6,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys1_4"
+ },
+ {
+  "locuteur": "niger_sys3_4",
+  "fichiers": 67,
+  "duree_40": 104.8,
+  "f0": 150.9,
+  "snr": 25.8,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys3_4"
+ },
+ {
+  "locuteur": "niger_sys1_6",
+  "fichiers": 57,
+  "duree_40": 221.8,
+  "f0": 150.9,
+  "snr": 38.0,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys1_6"
+ },
+ {
+  "locuteur": "ctell2-21",
+  "fichiers": 100,
+  "duree_40": 157.5,
+  "f0": 152.4,
+  "snr": 41.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-21"
+ },
+ {
+  "locuteur": "ctell3-36",
+  "fichiers": 100,
+  "duree_40": 131.1,
+  "f0": 152.4,
+  "snr": 47.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-36"
+ },
+ {
+  "locuteur": "ctell2-32",
+  "fichiers": 100,
+  "duree_40": 182.2,
+  "f0": 153.8,
+  "snr": 50.6,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-32"
+ },
+ {
+  "locuteur": "123",
+  "fichiers": 38,
+  "duree_40": 139.2,
+  "f0": 155.3,
+  "snr": 35.8,
+  "chemin": "African_Accented_French/speech/train/ca16/123"
+ },
+ {
+  "locuteur": "ctell3-39",
+  "fichiers": 100,
+  "duree_40": 143.1,
+  "f0": 155.3,
+  "snr": 40.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-39"
+ },
+ {
+  "locuteur": "087",
+  "fichiers": 83,
+  "duree_40": 209.2,
+  "f0": 156.9,
+  "snr": 35.8,
+  "chemin": "African_Accented_French/speech/train/ca16/087"
+ },
+ {
+  "locuteur": "057",
+  "fichiers": 44,
+  "duree_40": 696.5,
+  "f0": 156.9,
+  "snr": 25.5,
+  "chemin": "African_Accented_French/speech/train/ca16/057"
+ },
+ {
+  "locuteur": "039",
+  "fichiers": 89,
+  "duree_40": 130.5,
+  "f0": 156.9,
+  "snr": 27.4,
+  "chemin": "African_Accented_French/speech/train/ca16/039"
+ },
+ {
+  "locuteur": "070",
+  "fichiers": 77,
+  "duree_40": 142.2,
+  "f0": 156.9,
+  "snr": 46.2,
+  "chemin": "African_Accented_French/speech/train/ca16/070"
+ },
+ {
+  "locuteur": "ctell5-80",
+  "fichiers": 100,
+  "duree_40": 160.2,
+  "f0": 156.9,
+  "snr": 48.6,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-80"
+ },
+ {
+  "locuteur": "069",
+  "fichiers": 69,
+  "duree_40": 130.8,
+  "f0": 158.4,
+  "snr": 30.6,
+  "chemin": "African_Accented_French/speech/train/ca16/069"
+ },
+ {
+  "locuteur": "gabon_m_003",
+  "fichiers": 49,
+  "duree_40": 96.1,
+  "f0": 158.4,
+  "snr": 37.3,
+  "chemin": "African_Accented_French/speech/test/ca16/gabon_m_003"
+ },
+ {
+  "locuteur": "119",
+  "fichiers": 87,
+  "duree_40": 118.0,
+  "f0": 160.0,
+  "snr": 18.2,
+  "chemin": "African_Accented_French/speech/train/ca16/119"
+ },
+ {
+  "locuteur": "112",
+  "fichiers": 108,
+  "duree_40": 123.5,
+  "f0": 160.0,
+  "snr": 24.9,
+  "chemin": "African_Accented_French/speech/train/ca16/112"
+ },
+ {
+  "locuteur": "082",
+  "fichiers": 72,
+  "duree_40": 97.8,
+  "f0": 160.0,
+  "snr": 33.0,
+  "chemin": "African_Accented_French/speech/train/ca16/082"
+ },
+ {
+  "locuteur": "004",
+  "fichiers": 197,
+  "duree_40": 97.2,
+  "f0": 160.0,
+  "snr": 25.8,
+  "chemin": "African_Accented_French/speech/train/ca16/004"
+ },
+ {
+  "locuteur": "niger_sys3_5",
+  "fichiers": 94,
+  "duree_40": 197.8,
+  "f0": 160.0,
+  "snr": 30.7,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys3_5"
+ },
+ {
+  "locuteur": "042",
+  "fichiers": 22,
+  "duree_40": 66.2,
+  "f0": 161.6,
+  "snr": 26.0,
+  "chemin": "African_Accented_French/speech/train/ca16/042"
+ },
+ {
+  "locuteur": "030",
+  "fichiers": 56,
+  "duree_40": 656.8,
+  "f0": 161.6,
+  "snr": 29.5,
+  "chemin": "African_Accented_French/speech/train/ca16/030"
+ },
+ {
+  "locuteur": "086",
+  "fichiers": 97,
+  "duree_40": 97.8,
+  "f0": 161.6,
+  "snr": 36.5,
+  "chemin": "African_Accented_French/speech/train/ca16/086"
+ },
+ {
+  "locuteur": "ctell3-47",
+  "fichiers": 100,
+  "duree_40": 163.3,
+  "f0": 161.6,
+  "snr": 33.2,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-47"
+ },
+ {
+  "locuteur": "027",
+  "fichiers": 66,
+  "duree_40": 136.5,
+  "f0": 164.9,
+  "snr": 26.5,
+  "chemin": "African_Accented_French/speech/train/ca16/027"
+ },
+ {
+  "locuteur": "063",
+  "fichiers": 59,
+  "duree_40": 198.2,
+  "f0": 166.7,
+  "snr": 27.0,
+  "chemin": "African_Accented_French/speech/train/ca16/063"
+ },
+ {
+  "locuteur": "062",
+  "fichiers": 87,
+  "duree_40": 245.8,
+  "f0": 166.7,
+  "snr": 24.2,
+  "chemin": "African_Accented_French/speech/train/ca16/062"
+ },
+ {
+  "locuteur": "niger_sys2_5",
+  "fichiers": 60,
+  "duree_40": 130.2,
+  "f0": 166.7,
+  "snr": 31.2,
+  "chemin": "African_Accented_French/speech/dev/niger_west_african_fr/niger_sys2_5"
+ },
+ {
+  "locuteur": "044",
+  "fichiers": 73,
+  "duree_40": 139.8,
+  "f0": 168.4,
+  "snr": 24.1,
+  "chemin": "African_Accented_French/speech/train/ca16/044"
+ },
+ {
+  "locuteur": "008",
+  "fichiers": 56,
+  "duree_40": 129.5,
+  "f0": 170.2,
+  "snr": 33.3,
+  "chemin": "African_Accented_French/speech/train/ca16/008"
+ },
+ {
+  "locuteur": "045",
+  "fichiers": 50,
+  "duree_40": 136.8,
+  "f0": 170.2,
+  "snr": 32.3,
+  "chemin": "African_Accented_French/speech/train/ca16/045"
+ },
+ {
+  "locuteur": "ctell3-45",
+  "fichiers": 100,
+  "duree_40": 154.5,
+  "f0": 173.9,
+  "snr": 45.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-45"
+ },
+ {
+  "locuteur": "ctell2-22",
+  "fichiers": 100,
+  "duree_40": 150.4,
+  "f0": 173.9,
+  "snr": 44.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-22"
+ },
+ {
+  "locuteur": "ctell4-56",
+  "fichiers": 100,
+  "duree_40": 120.6,
+  "f0": 175.8,
+  "snr": 35.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-56"
+ },
+ {
+  "locuteur": "ctell4-53",
+  "fichiers": 100,
+  "duree_40": 164.5,
+  "f0": 177.8,
+  "snr": 44.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-53"
+ },
+ {
+  "locuteur": "ctell1-15",
+  "fichiers": 100,
+  "duree_40": 145.9,
+  "f0": 177.8,
+  "snr": 50.2,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-15"
+ },
+ {
+  "locuteur": "031",
+  "fichiers": 185,
+  "duree_40": 176.5,
+  "f0": 179.8,
+  "snr": 26.4,
+  "chemin": "African_Accented_French/speech/train/ca16/031"
+ },
+ {
+  "locuteur": "121",
+  "fichiers": 84,
+  "duree_40": 142.8,
+  "f0": 179.8,
+  "snr": 28.7,
+  "chemin": "African_Accented_French/speech/train/ca16/121"
+ },
+ {
+  "locuteur": "ctell3-49",
+  "fichiers": 100,
+  "duree_40": 135.8,
+  "f0": 179.8,
+  "snr": 39.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-49"
+ },
+ {
+  "locuteur": "028",
+  "fichiers": 104,
+  "duree_40": 135.0,
+  "f0": 181.8,
+  "snr": 36.9,
+  "chemin": "African_Accented_French/speech/train/ca16/028"
+ },
+ {
+  "locuteur": "043",
+  "fichiers": 72,
+  "duree_40": 211.5,
+  "f0": 183.9,
+  "snr": 37.0,
+  "chemin": "African_Accented_French/speech/train/ca16/043"
+ },
+ {
+  "locuteur": "040",
+  "fichiers": 76,
+  "duree_40": 139.8,
+  "f0": 183.9,
+  "snr": 27.4,
+  "chemin": "African_Accented_French/speech/train/ca16/040"
+ },
+ {
+  "locuteur": "ctell4-55",
+  "fichiers": 100,
+  "duree_40": 137.3,
+  "f0": 183.9,
+  "snr": 37.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-55"
+ },
+ {
+  "locuteur": "094",
+  "fichiers": 48,
+  "duree_40": 239.8,
+  "f0": 186.0,
+  "snr": 32.9,
+  "chemin": "African_Accented_French/speech/train/ca16/094"
+ },
+ {
+  "locuteur": "080",
+  "fichiers": 98,
+  "duree_40": 132.2,
+  "f0": 188.2,
+  "snr": 32.6,
+  "chemin": "African_Accented_French/speech/train/ca16/080"
+ },
+ {
+  "locuteur": "ctell5-81",
+  "fichiers": 100,
+  "duree_40": 161.7,
+  "f0": 188.2,
+  "snr": 42.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-81"
+ },
+ {
+  "locuteur": "120",
+  "fichiers": 33,
+  "duree_40": 171.5,
+  "f0": 190.5,
+  "snr": 27.0,
+  "chemin": "African_Accented_French/speech/train/ca16/120"
+ },
+ {
+  "locuteur": "025",
+  "fichiers": 37,
+  "duree_40": 116.8,
+  "f0": 190.5,
+  "snr": 24.7,
+  "chemin": "African_Accented_French/speech/train/ca16/025"
+ },
+ {
+  "locuteur": "ctell4-64",
+  "fichiers": 100,
+  "duree_40": 188.4,
+  "f0": 190.5,
+  "snr": 37.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-64"
+ },
+ {
+  "locuteur": "ctell4-61",
+  "fichiers": 100,
+  "duree_40": 156.1,
+  "f0": 190.5,
+  "snr": 33.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-61"
+ },
+ {
+  "locuteur": "ctell5-82",
+  "fichiers": 100,
+  "duree_40": 188.1,
+  "f0": 192.8,
+  "snr": 41.2,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-82"
+ },
+ {
+  "locuteur": "ctell1-07",
+  "fichiers": 100,
+  "duree_40": 139.6,
+  "f0": 192.8,
+  "snr": 45.5,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-07"
+ },
+ {
+  "locuteur": "gabon_f_024",
+  "fichiers": 32,
+  "duree_40": 70.8,
+  "f0": 192.8,
+  "snr": 27.2,
+  "chemin": "African_Accented_French/speech/test/ca16/gabon_f_024"
+ },
+ {
+  "locuteur": "071",
+  "fichiers": 97,
+  "duree_40": 112.8,
+  "f0": 195.1,
+  "snr": 35.2,
+  "chemin": "African_Accented_French/speech/train/ca16/071"
+ },
+ {
+  "locuteur": "010",
+  "fichiers": 25,
+  "duree_40": 77.8,
+  "f0": 195.1,
+  "snr": 35.1,
+  "chemin": "African_Accented_French/speech/train/ca16/010"
+ },
+ {
+  "locuteur": "105",
+  "fichiers": 56,
+  "duree_40": 306.0,
+  "f0": 197.5,
+  "snr": 27.0,
+  "chemin": "African_Accented_French/speech/train/ca16/105"
+ },
+ {
+  "locuteur": "104",
+  "fichiers": 46,
+  "duree_40": 221.0,
+  "f0": 197.5,
+  "snr": 20.7,
+  "chemin": "African_Accented_French/speech/train/ca16/104"
+ },
+ {
+  "locuteur": "ctell2-24",
+  "fichiers": 100,
+  "duree_40": 209.6,
+  "f0": 197.5,
+  "snr": 42.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-24"
+ },
+ {
+  "locuteur": "076",
+  "fichiers": 86,
+  "duree_40": 122.8,
+  "f0": 200.0,
+  "snr": 34.0,
+  "chemin": "African_Accented_French/speech/train/ca16/076"
+ },
+ {
+  "locuteur": "029",
+  "fichiers": 103,
+  "duree_40": 137.2,
+  "f0": 200.0,
+  "snr": 31.8,
+  "chemin": "African_Accented_French/speech/train/ca16/029"
+ },
+ {
+  "locuteur": "ctell2-34",
+  "fichiers": 100,
+  "duree_40": 157.8,
+  "f0": 200.0,
+  "snr": 42.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-34"
+ },
+ {
+  "locuteur": "ctell5-74",
+  "fichiers": 100,
+  "duree_40": 153.1,
+  "f0": 200.0,
+  "snr": 42.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-74"
+ },
+ {
+  "locuteur": "093",
+  "fichiers": 23,
+  "duree_40": 224.0,
+  "f0": 202.5,
+  "snr": 33.1,
+  "chemin": "African_Accented_French/speech/train/ca16/093"
+ },
+ {
+  "locuteur": "ctell1-17",
+  "fichiers": 100,
+  "duree_40": 183.2,
+  "f0": 202.5,
+  "snr": 45.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-17"
+ },
+ {
+  "locuteur": "ctell2-31",
+  "fichiers": 100,
+  "duree_40": 198.5,
+  "f0": 202.5,
+  "snr": 43.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-31"
+ },
+ {
+  "locuteur": "ctell2-25",
+  "fichiers": 100,
+  "duree_40": 151.0,
+  "f0": 202.5,
+  "snr": 41.7,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-25"
+ },
+ {
+  "locuteur": "gabon_f_026",
+  "fichiers": 87,
+  "duree_40": 62.0,
+  "f0": 202.5,
+  "snr": 25.6,
+  "chemin": "African_Accented_French/speech/test/ca16/gabon_f_026"
+ },
+ {
+  "locuteur": "106",
+  "fichiers": 17,
+  "duree_40": 175.5,
+  "f0": 205.1,
+  "snr": 21.0,
+  "chemin": "African_Accented_French/speech/train/ca16/106"
+ },
+ {
+  "locuteur": "088",
+  "fichiers": 37,
+  "duree_40": 198.8,
+  "f0": 205.1,
+  "snr": 42.8,
+  "chemin": "African_Accented_French/speech/train/ca16/088"
+ },
+ {
+  "locuteur": "ctell2-28",
+  "fichiers": 100,
+  "duree_40": 172.7,
+  "f0": 205.1,
+  "snr": 41.9,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-28"
+ },
+ {
+  "locuteur": "ctell4-60",
+  "fichiers": 100,
+  "duree_40": 178.7,
+  "f0": 205.1,
+  "snr": 38.9,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-60"
+ },
+ {
+  "locuteur": "034",
+  "fichiers": 45,
+  "duree_40": 378.5,
+  "f0": 207.8,
+  "snr": 29.3,
+  "chemin": "African_Accented_French/speech/train/ca16/034"
+ },
+ {
+  "locuteur": "064",
+  "fichiers": 70,
+  "duree_40": 229.2,
+  "f0": 207.8,
+  "snr": 18.7,
+  "chemin": "African_Accented_French/speech/train/ca16/064"
+ },
+ {
+  "locuteur": "ctell3-41",
+  "fichiers": 100,
+  "duree_40": 152.5,
+  "f0": 207.8,
+  "snr": 38.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-41"
+ },
+ {
+  "locuteur": "073",
+  "fichiers": 103,
+  "duree_40": 155.8,
+  "f0": 210.5,
+  "snr": 34.0,
+  "chemin": "African_Accented_French/speech/train/ca16/073"
+ },
+ {
+  "locuteur": "014",
+  "fichiers": 72,
+  "duree_40": 141.2,
+  "f0": 210.5,
+  "snr": 24.8,
+  "chemin": "African_Accented_French/speech/train/ca16/014"
+ },
+ {
+  "locuteur": "ctell3-40",
+  "fichiers": 100,
+  "duree_40": 141.9,
+  "f0": 210.5,
+  "snr": 31.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-40"
+ },
+ {
+  "locuteur": "107",
+  "fichiers": 19,
+  "duree_40": 166.5,
+  "f0": 213.3,
+  "snr": 27.8,
+  "chemin": "African_Accented_French/speech/train/ca16/107"
+ },
+ {
+  "locuteur": "ctell5-68",
+  "fichiers": 99,
+  "duree_40": 184.3,
+  "f0": 213.3,
+  "snr": 40.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-68"
+ },
+ {
+  "locuteur": "077",
+  "fichiers": 75,
+  "duree_40": 98.5,
+  "f0": 216.2,
+  "snr": 29.1,
+  "chemin": "African_Accented_French/speech/train/ca16/077"
+ },
+ {
+  "locuteur": "ctell5-76",
+  "fichiers": 100,
+  "duree_40": 195.1,
+  "f0": 216.2,
+  "snr": 41.2,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-76"
+ },
+ {
+  "locuteur": "ctell4-62",
+  "fichiers": 100,
+  "duree_40": 168.9,
+  "f0": 216.2,
+  "snr": 35.2,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-62"
+ },
+ {
+  "locuteur": "022",
+  "fichiers": 141,
+  "duree_40": 111.0,
+  "f0": 219.2,
+  "snr": 22.3,
+  "chemin": "African_Accented_French/speech/train/ca16/022"
+ },
+ {
+  "locuteur": "092",
+  "fichiers": 41,
+  "duree_40": 173.0,
+  "f0": 222.2,
+  "snr": 33.0,
+  "chemin": "African_Accented_French/speech/train/ca16/092"
+ },
+ {
+  "locuteur": "079",
+  "fichiers": 95,
+  "duree_40": 123.2,
+  "f0": 222.2,
+  "snr": 29.0,
+  "chemin": "African_Accented_French/speech/train/ca16/079"
+ },
+ {
+  "locuteur": "ctell3-51",
+  "fichiers": 100,
+  "duree_40": 189.9,
+  "f0": 222.2,
+  "snr": 39.2,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-51"
+ },
+ {
+  "locuteur": "ctell5-77",
+  "fichiers": 100,
+  "duree_40": 170.0,
+  "f0": 222.2,
+  "snr": 52.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-77"
+ },
+ {
+  "locuteur": "122",
+  "fichiers": 102,
+  "duree_40": 115.8,
+  "f0": 225.4,
+  "snr": 29.6,
+  "chemin": "African_Accented_French/speech/train/ca16/122"
+ },
+ {
+  "locuteur": "ctell1-11",
+  "fichiers": 100,
+  "duree_40": 139.9,
+  "f0": 225.4,
+  "snr": 44.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-11"
+ },
+ {
+  "locuteur": "089",
+  "fichiers": 17,
+  "duree_40": 102.8,
+  "f0": 228.6,
+  "snr": 27.4,
+  "chemin": "African_Accented_French/speech/train/ca16/089"
+ },
+ {
+  "locuteur": "048",
+  "fichiers": 21,
+  "duree_40": 393.5,
+  "f0": 228.6,
+  "snr": 23.3,
+  "chemin": "African_Accented_French/speech/train/ca16/048"
+ },
+ {
+  "locuteur": "ctell4-57",
+  "fichiers": 100,
+  "duree_40": 160.5,
+  "f0": 228.6,
+  "snr": 40.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell4-57"
+ },
+ {
+  "locuteur": "ctell3-37",
+  "fichiers": 100,
+  "duree_40": 147.0,
+  "f0": 228.6,
+  "snr": 32.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-37"
+ },
+ {
+  "locuteur": "068",
+  "fichiers": 71,
+  "duree_40": 94.8,
+  "f0": 231.9,
+  "snr": 29.2,
+  "chemin": "African_Accented_French/speech/train/ca16/068"
+ },
+ {
+  "locuteur": "ctell1-16",
+  "fichiers": 100,
+  "duree_40": 190.5,
+  "f0": 231.9,
+  "snr": 45.2,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-16"
+ },
+ {
+  "locuteur": "ctell1-10",
+  "fichiers": 100,
+  "duree_40": 116.5,
+  "f0": 231.9,
+  "snr": 49.1,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-10"
+ },
+ {
+  "locuteur": "091",
+  "fichiers": 81,
+  "duree_40": 134.8,
+  "f0": 235.3,
+  "snr": 26.0,
+  "chemin": "African_Accented_French/speech/train/ca16/091"
+ },
+ {
+  "locuteur": "ctell2-29",
+  "fichiers": 100,
+  "duree_40": 208.8,
+  "f0": 235.3,
+  "snr": 49.5,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-29"
+ },
+ {
+  "locuteur": "ctell2-33",
+  "fichiers": 100,
+  "duree_40": 190.9,
+  "f0": 235.3,
+  "snr": 45.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-33"
+ },
+ {
+  "locuteur": "ctell1-12",
+  "fichiers": 98,
+  "duree_40": 162.4,
+  "f0": 235.3,
+  "snr": 47.4,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell1-12"
+ },
+ {
+  "locuteur": "ctell3-44",
+  "fichiers": 100,
+  "duree_40": 173.2,
+  "f0": 238.8,
+  "snr": 42.5,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-44"
+ },
+ {
+  "locuteur": "ctell3-43",
+  "fichiers": 100,
+  "duree_40": 155.6,
+  "f0": 238.8,
+  "snr": 40.8,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell3-43"
+ },
+ {
+  "locuteur": "ctell2-26",
+  "fichiers": 100,
+  "duree_40": 181.6,
+  "f0": 238.8,
+  "snr": 46.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-26"
+ },
+ {
+  "locuteur": "ctell5-70",
+  "fichiers": 100,
+  "duree_40": 179.2,
+  "f0": 246.2,
+  "snr": 46.3,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-70"
+ },
+ {
+  "locuteur": "ctell2-27",
+  "fichiers": 100,
+  "duree_40": 210.2,
+  "f0": 250.0,
+  "snr": 46.6,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell2-27"
+ },
+ {
+  "locuteur": "ctell5-73",
+  "fichiers": 100,
+  "duree_40": 196.8,
+  "f0": 262.3,
+  "snr": 49.0,
+  "chemin": "African_Accented_French/speech/train/yaounde/read/ctell5-73"
+ },
+ {
+  "locuteur": "095",
+  "fichiers": 24,
+  "duree_40": 373.8,
+  "f0": 301.9,
+  "snr": 22.8,
+  "chemin": "African_Accented_French/speech/train/ca16/095"
+ }
+]
