@@ -1,0 +1,3729 @@
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=0">
+    <meta name="theme-color" content="#000000">
+    <title>Freesound - Search</title>
+    <meta name="description" content="Freesound: collaborative database of creative-commons licensed sound for musicians and sound lovers. Have you freed your sound today?">
+    <meta name="keywords" content="free, sound">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#fd5b65">
+    <meta name="theme-color" content="#fd5b65">
+    <meta name="msapplication-config" content="none" />
+    
+    
+    
+    
+    <link id="style" rel="stylesheet" href="/static/bw-frontend/dist/index.d2ba5ddf55c7.css">
+    
+    
+</head>
+<body>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    
+
+<div class="modal " id="loginModal" tabindex="-1" role="dialog" aria-label="Login modal" aria-hidden="true">
+    <div class="modal-wrapper">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="bw-icon-close ">
+    
+</span>
+                    </span>
+                </div>
+                <div class="modal-body">
+                    
+<div class="col-12">
+    <div class="text-center">
+        <h4 class="v-spacing-5">Log in to Freesound</h4>
+        <form id="loginForm" class="bw-form bw-form-less-spacing" method="post" action="/home/login/"><input type="hidden" name="csrfmiddlewaretoken" value="hITwofAfbiNZzwlmtBmSi0YQlDsNBWfs1SFq8bgxHtOs2BOb72mcsbPrc7lVM2HS">
+            <p>
+    <label for="id_username">Username:</label>
+    <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" placeholder="Enter your email or username" required id="id_username">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_password">Password:</label>
+    <input type="password" name="password" autocomplete="current-password" placeholder="Enter your password" required id="id_password">
+    
+    
+      
+    
+  </p>
+            <input type="hidden" name="next" value="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22" />
+            <button type="submit" class="btn-primary v-spacing-top-2">Log in</button>
+        </form>
+    </div>
+</div>
+
+                </div>
+                <div class="modal-footer">
+                    
+    <a class="v-spacing-top-3" data-toggle="problems-logging-in-modal">Problems logging in?</a>
+
+                </div>
+                <div class="modal-extra-info">
+                    
+    <a data-toggle="registration-modal">Don't have an account? Join now</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="modal " id="problemsLoggingInModal" tabindex="-1" role="dialog" aria-label="Problems logging in modal" aria-hidden="true">
+    <div class="modal-wrapper">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="bw-icon-close ">
+    
+</span>
+                    </span>
+                </div>
+                <div class="modal-body">
+                    
+<div class="col-12">
+    <div class="text-center">
+        <h4 class="v-spacing-5">Problems logging in?</h4>
+        <div class="text-grey v-spacing-top-negative-1 v-spacing-4">
+            Enter your email or username below and we'll send you a link to help you login into your account.
+        </div>
+        <form id="problemsLoggingInModalForm" class="bw-form bw-form-less-spacing" method="post" action="/home/problems/"><input type="hidden" name="csrfmiddlewaretoken" value="hITwofAfbiNZzwlmtBmSi0YQlDsNBWfs1SFq8bgxHtOs2BOb72mcsbPrc7lVM2HS">
+            <p>
+    
+    <input type="text" name="username_or_email" maxlength="254" placeholder="Your email or username" required id="id_username_or_email">
+    
+    
+      
+    
+  </p>
+            <button id="recovery-account" type="submit" class="btn-primary v-spacing-top-2">Send me a link</button>
+        </form>
+    </div>
+</div>
+
+                </div>
+                <div class="modal-footer">
+                    
+    <a class="v-spacing-top-3" data-link="loginModal"><span class="bw-icon-chevron bw-icon__chevron_left">
+    
+</span> Back to log in</a>
+
+                </div>
+                <div class="modal-extra-info">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="modal " id="feedbackRegistration" tabindex="-1" role="dialog" aria-label="Registration complete modal" aria-hidden="true">
+    <div class="modal-wrapper">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="bw-icon-close ">
+    
+</span>
+                    </span>
+                </div>
+                <div class="modal-body">
+                    
+<div class="col-12">
+    <div class="text-center">
+        <h4 class="v-spacing-5">Almost there!</h4>
+        <p class="main-text">We've sent a verification link by email</p>
+        <p class="secondary-text">Didn't receive the email? Check your Spam folder, it may have been caught by a filter. If you still don't see it, you can <a href="/home/reactivate/">resend the verification email</a>.</p>
+    </div>
+</div>
+
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+                <div class="modal-extra-info">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+
+<div class="modal zindex2000" id="confirmationModal" tabindex="-1" role="dialog" aria-label="Confirmation modal" aria-hidden="true">
+    <div class="modal-wrapper">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="bw-icon-close ">
+    
+</span>
+                    </span>
+                </div>
+                <div class="modal-body">
+                    
+    <div class="text-center">
+        <h4 id="confirmationModalTitle">Default title</h4>
+        <div id="confirmationModalHelpText" class="v-spacing-top-2"></div>
+        <div class="row v-spacing-top-4 v-spacing-3">
+            <div class="col-4 offset-2">
+                <form id="confirmationModalAcceptSubmitForm" method="post" action=""><input type="hidden" name="csrfmiddlewaretoken" value="hITwofAfbiNZzwlmtBmSi0YQlDsNBWfs1SFq8bgxHtOs2BOb72mcsbPrc7lVM2HS">
+                    <button type="submit" class="btn-primary">Yes</button>
+                </form>
+            </div>
+            <div class="col-4">
+                <button class="btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+                <div class="modal-extra-info">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="genericModalWrapper"></div>
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body"></div>
+</div>
+    <div class="notifications-wrapper"></div>
+    
+    <div class="bw-page" aria-hidden="false">
+        
+<nav class="bw-nav bw-nav--expanded">
+    <div class="container bw-nav__container">
+        <form id="search-page-navbar-form" method="get" action="/search/">
+        <div class="bw-nav__logo-search-container">
+            <div class="bw-nav__logo">
+                <a href="/" class="no-hover"></a>
+            </div>
+            <div class="input-wrapper">
+                <input id="search-input-browse-navbar" name="q" type="search" value="djembe loop" placeholder="Search sounds..." autocomplete="off" />
+            </div>
+        </div>
+        </form>
+        <ul class="bw-nav__actions">
+            <li class="bw-nav__action d-none d-lg-flex">
+    <a class="bw-link--grey font-weight-bold" href="/browse/" role="menuitem">Sounds</a>
+</li>
+<li class="bw-nav__action d-none d-lg-flex">
+    <a class="bw-link--grey font-weight-bold" href="/browse/tags/" role="menuitem">Tags</a>
+</li>
+<li class="bw-nav__action d-none d-lg-flex">
+    <a class="bw-link--grey font-weight-bold" href="/forum/" role="menuitem">Forum</a>
+</li>
+<li class="bw-nav__action d-none d-lg-flex">
+    <a class="bw-link--grey font-weight-bold" href="/browse/geotags/" role="menuitem">Map</a>
+</li>
+<li class="bw-nav__action dropdown">
+    <a class="bw-link--grey bw-nav__menu dropdown-toggle no-hover bw-icon-ellipsis" id="three-dots-menu" aria-label="Menu"
+       data-toggle="dropdown" tabindex="0"></a>
+    <ul class="dropdown-menu" aria-labelledby="three-dots-menu">
+        <li class="bw-nav__action dropdown-item d-lg-none">
+            <a class="bw-link--black" href="/browse/">Sounds</a>
+        </li>
+        <li class="bw-nav__action dropdown-item">
+            <a class="bw-link--black" href="/browse/packs/">Packs</a>
+        </li>
+        
+        <li class="bw-nav__action dropdown-item">
+            <a class="bw-link--black" href="/collections/">Collections</a>
+        </li>
+        
+        <li class="bw-nav__action dropdown-item d-lg-none">
+            <a class="bw-link--black" href="/forum/">Forum</a>
+        </li>
+        <li class="bw-nav__action dropdown-item d-lg-none">
+            <a class="bw-link--black" href="/browse/geotags/">Map</a>
+        </li>
+        <li class="bw-nav__action dropdown-item d-lg-none">
+            <a class="bw-link--black" href="/browse/tags/">Tags</a>
+        </li>
+        <li class="bw-nav__action dropdown-item">
+            <a class="bw-link--black" href="/browse/random/">Random sound</a>
+        </li>
+        <li class="bw-nav__action dropdown-item">
+            <a class="bw-link--black" href="/charts/">Charts</a>
+        </li>
+        <li class="bw-nav__action dropdown-item d-lg-none">
+            <a class="bw-link--black" href="/donations/donate/">Donate</a>
+        </li>
+        <li class="bw-nav__action dropdown-item">
+            <a class="bw-link--grey" href="/help/faq/">Help</a>
+        </li>
+                
+    </ul>
+</li>
+
+            
+
+
+
+    <li class="bw-nav__action">
+        <button class="btn-secondary" data-toggle="login-modal" data-target="#loginModal" role="menuitem">Log in</button>
+    </li>
+    <li class="bw-nav__action d-none d-lg-flex">
+        <button class="btn-primary" data-toggle="registration-modal" data-target="#registerModal" role="menuitem">Join</button>
+    </li>
+
+
+        </ul>
+    </div>
+</nav>
+        
+
+    <div class="container">
+        
+            <div class="navbar-space-filler v-spacing-3 v-spacing-top-2">
+                <form method="get" id="search_form" action="/search/">
+                    
+                    <div class="v-spacing-5 ">
+                        <div class="middle center">
+                            <div class="bw-search__input_wrapper"><i class="bw-icon-search input-icon text-light-grey"></i>
+                                <input id="search-input-browse"
+                                       class="bw-search__input"
+                                       name="q"
+                                       type="text"
+                                       value="djembe loop"
+                                       placeholder="Search sounds..."
+                                       autocomplete="off"
+                                       />
+                            </div>
+                            <span class="bw-search_remove-query" id="remove-content-search"><span class="bw-icon-close ">
+    
+</span></span>
+                        </div>
+                        <input type="hidden" name="f" value="license%3A%22Creative%20Commons%200%22"/>
+                        
+                        
+                    </div>
+                    
+                    <div>
+                        
+                        <div class="divider-light"></div>
+                        <div class="padding-3 v-padding-2 between font-weight-bold middle">
+                            
+                            <div class="col-4">
+                                
+                                    
+                                        43 sounds
+                                    
+                                
+                            </div>
+                            
+                            <div class="col-4 middle center">
+                                <a href="#" class="bw-link--grey-light" id="toggle_advanced_search_options"></a>
+                                
+                            </div>
+                            
+                            <div class="col-4 right browse__search-overview-sorter">
+                                <div class="">
+                                    
+<label class="text-light-grey d-none d-md-inline">Sort:</label>
+<select id="id_sort_by" name="s" >
+
+    <option value="Automatic by relevance"selected="selected">Automatic by relevance</option>
+
+    <option value="Duration (longest first)">Duration (longest first)</option>
+
+    <option value="Duration (shortest first)">Duration (shortest first)</option>
+
+    <option value="Date added (newest first)">Date added (newest first)</option>
+
+    <option value="Date added (oldest first)">Date added (oldest first)</option>
+
+    <option value="Downloads (most first)">Downloads (most first)</option>
+
+    <option value="Downloads (least first)">Downloads (least first)</option>
+
+    <option value="Rating (highest first)">Rating (highest first)</option>
+
+    <option value="Rating (lowest first)">Rating (lowest first)</option>
+    
+</select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider-light"></div>
+                        
+                        <div id="advanced-search-options" data-visible="0" class="display-none">
+                            <div class="padding-2">
+                                
+                                <div class="row">
+                                    
+                                    <div class="col-md-4 bw-search__advanced-search-filter-section v-spacing-2">
+                                        <div class="bw-search__filter-section-name caps text-light-grey text-18">
+                                            Search in
+                                        </div>
+                                        <div class="row no-gutters v-spacing-top-1 ">
+                                            
+                                                <div class="col-6 v-padding-1">
+                                                    <label class="between w-100 cursor-pointer">
+                                                        <div class="bw-search__filter-checkbox">
+                                                            <input name="si_tags" type="checkbox" class="bw-checkbox"  />
+                                                        </div>
+                                                        <div class="bw-search__filter-name">Tags</div>
+                                                    </label>
+                                                </div>
+                                            
+                                                <div class="col-6 v-padding-1">
+                                                    <label class="between w-100 cursor-pointer">
+                                                        <div class="bw-search__filter-checkbox">
+                                                            <input name="si_name" type="checkbox" class="bw-checkbox"  />
+                                                        </div>
+                                                        <div class="bw-search__filter-name">Sound name</div>
+                                                    </label>
+                                                </div>
+                                            
+                                                <div class="col-6 v-padding-1">
+                                                    <label class="between w-100 cursor-pointer">
+                                                        <div class="bw-search__filter-checkbox">
+                                                            <input name="si_description" type="checkbox" class="bw-checkbox"  />
+                                                        </div>
+                                                        <div class="bw-search__filter-name">Description</div>
+                                                    </label>
+                                                </div>
+                                            
+                                                <div class="col-6 v-padding-1">
+                                                    <label class="between w-100 cursor-pointer">
+                                                        <div class="bw-search__filter-checkbox">
+                                                            <input name="si_packname" type="checkbox" class="bw-checkbox"  />
+                                                        </div>
+                                                        <div class="bw-search__filter-name">Pack name</div>
+                                                    </label>
+                                                </div>
+                                            
+                                                <div class="col-6 v-padding-1">
+                                                    <label class="between w-100 cursor-pointer">
+                                                        <div class="bw-search__filter-checkbox">
+                                                            <input name="si_collection_names" type="checkbox" class="bw-checkbox"  />
+                                                        </div>
+                                                        <div class="bw-search__filter-name">Collections</div>
+                                                    </label>
+                                                </div>
+                                            
+                                                <div class="col-6 v-padding-1">
+                                                    <label class="between w-100 cursor-pointer">
+                                                        <div class="bw-search__filter-checkbox">
+                                                            <input name="si_sound_id" type="checkbox" class="bw-checkbox"  />
+                                                        </div>
+                                                        <div class="bw-search__filter-name">Sound ID</div>
+                                                    </label>
+                                                </div>
+                                            
+                                                <div class="col-6 v-padding-1">
+                                                    <label class="between w-100 cursor-pointer">
+                                                        <div class="bw-search__filter-checkbox">
+                                                            <input name="si_username" type="checkbox" class="bw-checkbox"  />
+                                                        </div>
+                                                        <div class="bw-search__filter-name">Username</div>
+                                                    </label>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3 bw-search__advanced-search-filter-section v-spacing-2">
+                                        <div class="bw-search__filter-section-name caps text-light-grey text-18">
+                                            Duration
+                                        </div>
+                                        <div class="bw-search__filter-range v-spacing-top-2">
+                                            <input name="d0" class="bw-search_input-range v-spacing-1" type="text" value="0"/> - <input name="d1" class="bw-search_input-range" type="text" value="*"/> <span>seconds</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-5 bw-search__advanced-search-filter-section v-spacing-2">
+                                        <div class="bw-search__filter-section-name caps text-light-grey text-18">
+                                            Other
+                                        </div>
+                                        <div class="row no-gutters v-spacing-top-1">
+                                            <div class="col-6 v-padding-1">
+                                                
+<label for="id_is_geotagged" class="between w-100 cursor-pointer ">
+    <div class="bw-search__filter-checkbox">
+        <input id="id_is_geotagged" name="ig" type="checkbox" class="bw-checkbox"  />
+    </div>
+    <div class="bw-search__filter-name" title="Only find sounds that have geolocation information">Only geotagged sounds</div>
+</label>
+
+                                            </div>
+                                            <div class="col-6 v-padding-1">
+                                                
+<label for="id_is_remix" class="between w-100 cursor-pointer ">
+    <div class="bw-search__filter-checkbox">
+        <input id="id_is_remix" name="r" type="checkbox" class="bw-checkbox"  />
+    </div>
+    <div class="bw-search__filter-name" title="Only find sounds that are a remix of other sounds or have been remixed">Only remix sounds</div>
+</label>
+
+                                            </div>
+                                            <div class="col-6 v-padding-1">
+                                                
+<label for="id_group_by_pack" class="between w-100 cursor-pointer ">
+    <div class="bw-search__filter-checkbox">
+        <input id="id_group_by_pack" name="g" type="checkbox" class="bw-checkbox" checked />
+    </div>
+    <div class="bw-search__filter-name" title="Group search results so that multiple sounds of the same pack only represent one item">Group sounds by pack</div>
+</label>
+
+                                            </div>
+                                            <div class="col-6 v-padding-1">
+                                                
+<label for="id_display_as_packs" class="between w-100 cursor-pointer ">
+    <div class="bw-search__filter-checkbox">
+        <input id="id_display_as_packs" name="dp" type="checkbox" class="bw-checkbox"  />
+    </div>
+    <div class="bw-search__filter-name" title="Display search results as packs rather than individual sounds">Display results as packs</div>
+</label>
+
+                                            </div>
+                                            <div class="col-6 v-padding-1">
+                                                
+<label for="id_grid_mode" class="between w-100 cursor-pointer ">
+    <div class="bw-search__filter-checkbox">
+        <input id="id_grid_mode" name="cm" type="checkbox" class="bw-checkbox"  />
+    </div>
+    <div class="bw-search__filter-name" title="Display search results in a grid so that more sounds are visible per search results page">Display results in grid</div>
+</label>
+
+                                            </div>
+                                            <div class="col-6 v-padding-1">
+                                                
+<label for="id_map_mode" class="between w-100 cursor-pointer ">
+    <div class="bw-search__filter-checkbox">
+        <input id="id_map_mode" name="mm" type="checkbox" class="bw-checkbox"  />
+    </div>
+    <div class="bw-search__filter-name" title="Display search results in a map">Display results in map</div>
+</label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="v-spacing-4 center">
+                                <button id="advanced-search-apply-button" class="btn-primary" disabled>Apply advanced search filters</button>
+                            </div>
+                            <div class="divider-light"></div>
+                        </div>
+                        
+                        
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-12 center v-spacing-top-negative-2 d-md-none">
+                    <div data-target="collapsable-filters" data-show-text="Show filters" data-hide-text="Hide filters" data-hide-on-load class="collapsable-toggle v-spacing-top-2 font-weight-bold text-light-grey"></div>
+                </div>
+                
+                
+                <aside class="col-md-4 col-lg-3 collapsable-block md-max-h-100" id="collapsable-filters">
+                    
+                    
+
+
+                    
+                        
+
+                        
+                    
+                    
+                        
+
+<div class="bw-search__filter-section">
+    <div class="bw-search__filter-section-name caps text-light-grey"><span>Tags</span></div>
+    
+    
+    
+    <div class="bw-search__filter-tags-list">
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22djembe%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-100 tag-container ">
+    djembe
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22africa%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-090 tag-container ">
+    africa
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22percussion%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-080 tag-container ">
+    percussion
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22loop%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-080 tag-container ">
+    loop
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22drum%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-080 tag-container ">
+    drum
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22ancident%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-070 tag-container ">
+    ancident
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22trance%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-070 tag-container ">
+    trance
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22tribal%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-070 tag-container ">
+    tribal
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22african%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    african
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22groove%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    groove
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22american%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    american
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22native%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    native
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22remo%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    remo
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22traditional%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    traditional
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22tribe%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    tribe
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22trommel%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    trommel
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22hand%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-040 tag-container ">
+    hand
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22indian%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-040 tag-container ">
+    indian
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22handdrum%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-040 tag-container ">
+    handdrum
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22asian%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    asian
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22bongo%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    bongo
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22ethnic%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    ethnic
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22looped%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    looped
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22perc%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    perc
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22beat%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    beat
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22dark%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    dark
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22distorted%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    distorted
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22distortion%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    distortion
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22drone%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    drone
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22drum-loop%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    drum-loop
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22experimental%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    experimental
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22india%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    india
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22noise%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    noise
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22sfx%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    sfx
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22tabla%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-030 tag-container ">
+    tabla
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22afirca%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    afirca
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22drums%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    drums
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22groovy%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    groovy
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22loops%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    loops
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22percussive%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    percussive
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22rhythm%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    rhythm
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22stereo%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    stereo
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%2288bpm%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    88bpm
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22acoustic%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    acoustic
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22ambient%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    ambient
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22background%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    background
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22beats%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    beats
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22break%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    break
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22ceramic%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    ceramic
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+tag%3A%22chilled%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    chilled
+</a></div>
+        
+    </div>
+    
+</div>
+
+
+                    
+                    
+
+
+                    
+
+<div class="bw-search__filter-section">
+    <div class="bw-search__filter-section-name caps text-light-grey"><span>Channels</span></div>
+    
+    <ul class="bw-search__filter-value-list">
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+channels%3A1" class="bw-link--black">1</a>
+                    <div class="bw-search__filter-count padding-left-1">(1)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+channels%3A2" class="bw-link--black">2</a>
+                    <div class="bw-search__filter-count padding-left-1">(42)</div>
+                </div>
+            </li>
+        
+    </ul>
+    
+    
+    
+</div>
+
+
+                    
+
+<div class="bw-search__filter-section">
+    <div class="bw-search__filter-section-name caps text-light-grey"><span>Samplerate</span></div>
+    
+    <ul class="bw-search__filter-value-list">
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+samplerate%3A44100" class="bw-link--black">44100</a>
+                    <div class="bw-search__filter-count padding-left-1">(39)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+samplerate%3A48000" class="bw-link--black">48000</a>
+                    <div class="bw-search__filter-count padding-left-1">(2)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+samplerate%3A96000" class="bw-link--black">96000</a>
+                    <div class="bw-search__filter-count padding-left-1">(2)</div>
+                </div>
+            </li>
+        
+    </ul>
+    
+    
+    
+</div>
+
+
+                    
+                        
+
+
+                    
+                    
+                        
+
+<div class="bw-search__filter-section">
+    <div class="bw-search__filter-section-name caps text-light-grey"><span>Packs</span></div>
+    
+    <ul class="bw-search__filter-value-list">
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2227427_Djembe+Sample%2FLoops+Pack+by+Manuel.Ed%22" class="bw-link--black">Djembe Sample/Loops Pack by Manuel.Ed</a>
+                    <div class="bw-search__filter-count padding-left-1">(12)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2227430_Djembe+Sample%2FLoops+Pack+by+Manuel.Ed+v.2%22" class="bw-link--black">Djembe Sample/Loops Pack by Manuel.Ed v.2</a>
+                    <div class="bw-search__filter-count padding-left-1">(10)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2228288_Drums%22" class="bw-link--black">Drums</a>
+                    <div class="bw-search__filter-count padding-left-1">(10)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%223422_Djembe_satured%22" class="bw-link--black">Djembe_satured</a>
+                    <div class="bw-search__filter-count padding-left-1">(3)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2215216_beats+2%22" class="bw-link--black">beats 2</a>
+                    <div class="bw-search__filter-count padding-left-1">(1)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2220631_Acoustic+Ethnic+Percussion%22" class="bw-link--black">Acoustic Ethnic Percussion</a>
+                    <div class="bw-search__filter-count padding-left-1">(1)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2222744_justin3am%27s+Morphagene+reels%22" class="bw-link--black">justin3am&#x27;s Morphagene reels</a>
+                    <div class="bw-search__filter-count padding-left-1">(1)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2236276_Small+Djembe%22" class="bw-link--black">Small Djembe</a>
+                    <div class="bw-search__filter-count padding-left-1">(1)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2237868_Music+and+Loops%22" class="bw-link--black">Music and Loops</a>
+                    <div class="bw-search__filter-count padding-left-1">(1)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2240420_rhythmic%22" class="bw-link--black">rhythmic</a>
+                    <div class="bw-search__filter-count padding-left-1">(1)</div>
+                </div>
+            </li>
+        
+    </ul>
+    
+    
+    
+</div>
+
+
+                    
+                    
+
+<div class="bw-search__filter-section">
+    <div class="bw-search__filter-section-name caps text-light-grey"><span>Users</span></div>
+    
+    
+    
+    <div class="bw-search__filter-tags-list">
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22Ancient.Sounds%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-100 tag-container ">
+    Ancient.Sounds
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22SpaceJoe%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-070 tag-container ">
+    SpaceJoe
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22art6nik%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-040 tag-container ">
+    art6nik
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22Aanimaisema-tiimi%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    Aanimaisema-tiimi
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22Insidebeat%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    Insidebeat
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22NearTheAtmoshphere%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    NearTheAtmoshphere
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22PareeKatti%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    PareeKatti
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22RutgerMuller%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    RutgerMuller
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22justin3am%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    justin3am
+</a></div>
+        
+            <div class="display-inline-block"><a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+username%3A%22mooncubedesign%22"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-020 tag-container ">
+    mooncubedesign
+</a></div>
+        
+    </div>
+    
+</div>
+
+
+                    
+
+<div class="bw-search__filter-section">
+    <div class="bw-search__filter-section-name caps text-light-grey"><span>Bitdepth</span></div>
+    
+    <ul class="bw-search__filter-value-list">
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+bitdepth%3A16" class="bw-link--black">16</a>
+                    <div class="bw-search__filter-count padding-left-1">(29)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+bitdepth%3A24" class="bw-link--black">24</a>
+                    <div class="bw-search__filter-count padding-left-1">(12)</div>
+                </div>
+            </li>
+        
+            <li class="bw-search__filter-value padding-bottom-1">
+                <div class="bw-search__filter-name">
+                    <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+bitdepth%3A32" class="bw-link--black">32</a>
+                    <div class="bw-search__filter-count padding-left-1">(2)</div>
+                </div>
+            </li>
+        
+    </ul>
+    
+    
+    
+</div>
+
+
+                    
+
+
+                    
+                </aside>
+                <div class="col-12 divider-light d-md-none v-spacing-top-3 v-spacing-3"></div>
+                
+                
+                <main class="col-12 col-md-8 col-lg-9 col-extra-left-padding-large-md">
+                    
+                    
+                        
+                            <div class="v-spacing-3 v-spacing-top-2 line-height-33">
+                                
+                                    <a class="no-hover btn-inverse bw-search__active-filters-button" href="/search/?q=djembe+loop" title="Remove this filter">
+                                        license:&quot;Creative Commons 0&quot;<span class="h-spacing-left-1"><span class="bw-icon-close ">
+    
+</span> </span>
+                                    </a>
+                                
+                            </div>
+                        
+                    
+                    
+                    
+                        
+                        <div class="v-spacing-6 v-spacing-top-2">
+                            
+                                
+                                    
+                                        <div class="bw-search__result" data-score="8.14">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound Djembe Loop 11 - 120 BPM.wav by Ancient.Sounds">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="485401"
+    data-username="Ancient.Sounds"
+    data-user-id="9585786"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/485401/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/Ancient.Sounds/sounds/485401/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/Ancient.Sounds/sounds/485401/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/485/485401_9585786-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/485/485401_9585786-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/485/485401_9585786_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/485/485401_9585786_spec_bw_M.jpg"
+    data-title="Djembe Loop 11 - 120 BPM.wav"
+    data-duration="4.0"
+    data-samplerate="44100.0"
+    data-show-milliseconds="true"
+    data-favorite="false"
+    data-num-comments="0" 
+    data-num-downloads="283" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/Ancient.Sounds/sounds/485401/" title="Djembe Loop 11 - 120 BPM.wav">Djembe Loop 11 - 120 BPM.wav</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 4.4">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485401" data-rate-url="/people/Ancient.Sounds/sounds/485401/rate/5/" id="rate-485401-5" value="5">
+            <label for="rate-485401-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485401" data-rate-url="/people/Ancient.Sounds/sounds/485401/rate/4/" id="rate-485401-4" value="4">
+            <label for="rate-485401-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485401" data-rate-url="/people/Ancient.Sounds/sounds/485401/rate/3/" id="rate-485401-3" value="3">
+            <label for="rate-485401-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485401" data-rate-url="/people/Ancient.Sounds/sounds/485401/rate/2/" id="rate-485401-2" value="2">
+            <label for="rate-485401-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485401" data-rate-url="/people/Ancient.Sounds/sounds/485401/rate/1/" id="rate-485401-1" value="1">
+            <label for="rate-485401-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(11)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            A simple Djembe Loop recorded with the SM57 microphon.
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/afirca/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    afirca
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/ancident/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    ancident
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/loop/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    loop
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/percussion/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    percussion
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/9585/9585786_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/Ancient.Sounds/">Ancient.Sounds</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">September 18th, 2019</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            September 18th, 2019
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: Djembe Sample/Loops Pack by Manuel.Ed">
+                        <a href="/people/Ancient.Sounds/packs/27427/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> Djembe Sample/Loops…
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="283 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Ancient.Sounds/sounds/485401/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 283
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="0 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Ancient.Sounds/sounds/485401/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 0
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                                    <div class="text-grey text-right v-spacing-top-negative-1 v-spacing-2">
+                                                        <span class="bw-icon-plus ">
+    
+</span> <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2227427_Djembe+Sample%2FLoops+Pack+by+Manuel.Ed%22">See 12 results from same pack</a>
+                                                    </div>
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="8.120001">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound small-djembe-88bpm-loop.wav by trubalesk">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="651231"
+    data-username="trubalesk"
+    data-user-id="14238989"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/651231/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/trubalesk/sounds/651231/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/trubalesk/sounds/651231/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/651/651231_14238989-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/651/651231_14238989-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/651/651231_14238989_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/651/651231_14238989_spec_bw_M.jpg"
+    data-title="small-djembe-88bpm-loop.wav"
+    data-duration="10.9091"
+    data-samplerate="44100.0"
+    data-show-milliseconds="false"
+    data-favorite="false"
+    data-num-comments="1" 
+    data-num-downloads="151" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/trubalesk/sounds/651231/" title="small-djembe-88bpm-loop.wav">small-djembe-88bpm-loop.wav</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 4.7">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-651231" data-rate-url="/people/trubalesk/sounds/651231/rate/5/" id="rate-651231-5" value="5">
+            <label for="rate-651231-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-half-star text-red">
+    
+        <span class="path1"></span><span class="path2"></span>
+        
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-651231" data-rate-url="/people/trubalesk/sounds/651231/rate/4/" id="rate-651231-4" value="4">
+            <label for="rate-651231-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-651231" data-rate-url="/people/trubalesk/sounds/651231/rate/3/" id="rate-651231-3" value="3">
+            <label for="rate-651231-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-651231" data-rate-url="/people/trubalesk/sounds/651231/rate/2/" id="rate-651231-2" value="2">
+            <label for="rate-651231-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-651231" data-rate-url="/people/trubalesk/sounds/651231/rate/1/" id="rate-651231-1" value="1">
+            <label for="rate-651231-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(3)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            88bpm toca rope tuned wood djembe loop
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/88bpm/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    88bpm
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/loop/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    loop
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/percussion/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    percussion
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/14238/14238989_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/trubalesk/">trubalesk</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">September 23rd, 2022</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            September 23rd, 2022
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: Small Djembe">
+                        <a href="/people/trubalesk/packs/36276/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> Small Djembe
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="151 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/trubalesk/sounds/651231/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 151
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="1 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/trubalesk/sounds/651231/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 1
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="8.05">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound Ethnic Drum Loop - 6.wav by SpaceJoe">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="506119"
+    data-username="SpaceJoe"
+    data-user-id="6150892"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/506119/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/SpaceJoe/sounds/506119/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/SpaceJoe/sounds/506119/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/506/506119_6150892-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/506/506119_6150892-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/506/506119_6150892_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/506/506119_6150892_spec_bw_M.jpg"
+    data-title="Ethnic Drum Loop - 6.wav"
+    data-duration="58.3285"
+    data-samplerate="44100.0"
+    data-show-milliseconds="false"
+    data-favorite="false"
+    data-num-comments="0" 
+    data-num-downloads="98" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/SpaceJoe/sounds/506119/" title="Ethnic Drum Loop - 6.wav">Ethnic Drum Loop - 6.wav</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 5.0">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-506119" data-rate-url="/people/SpaceJoe/sounds/506119/rate/5/" id="rate-506119-5" value="5">
+            <label for="rate-506119-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-506119" data-rate-url="/people/SpaceJoe/sounds/506119/rate/4/" id="rate-506119-4" value="4">
+            <label for="rate-506119-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-506119" data-rate-url="/people/SpaceJoe/sounds/506119/rate/3/" id="rate-506119-3" value="3">
+            <label for="rate-506119-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-506119" data-rate-url="/people/SpaceJoe/sounds/506119/rate/2/" id="rate-506119-2" value="2">
+            <label for="rate-506119-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-506119" data-rate-url="/people/SpaceJoe/sounds/506119/rate/1/" id="rate-506119-1" value="1">
+            <label for="rate-506119-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(4)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            Ethnic hand drum loop.
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/Africa/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    Africa
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/African/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    African
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/hand/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    hand
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/6150/6150892_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/SpaceJoe/">SpaceJoe</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">February 16th, 2020</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            February 16th, 2020
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: Drums">
+                        <a href="/people/SpaceJoe/packs/28288/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> Drums
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="98 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/SpaceJoe/sounds/506119/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 98
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="0 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/SpaceJoe/sounds/506119/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 0
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                                    <div class="text-grey text-right v-spacing-top-negative-1 v-spacing-2">
+                                                        <span class="bw-icon-plus ">
+    
+</span> <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2228288_Drums%22">See 10 results from same pack</a>
+                                                    </div>
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="8.05">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound Ceramic_Djembe_Jamming_Small_Room.wav by RutgerMuller">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="365260"
+    data-username="RutgerMuller"
+    data-user-id="179538"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/365260/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/RutgerMuller/sounds/365260/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/RutgerMuller/sounds/365260/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/365/365260_179538-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/365/365260_179538-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/365/365260_179538_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/365/365260_179538_spec_bw_M.jpg"
+    data-title="Ceramic_Djembe_Jamming_Small_Room.wav"
+    data-duration="198.0"
+    data-samplerate="96000.0"
+    data-show-milliseconds="false"
+    data-favorite="false"
+    data-num-comments="11" 
+    data-num-downloads="2300" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/RutgerMuller/sounds/365260/" title="Ceramic_Djembe_Jamming_Small_Room.wav">Ceramic_Djembe_Jamming_Small_Room.wav</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 4.9">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-365260" data-rate-url="/people/RutgerMuller/sounds/365260/rate/5/" id="rate-365260-5" value="5">
+            <label for="rate-365260-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-half-star text-red">
+    
+        <span class="path1"></span><span class="path2"></span>
+        
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-365260" data-rate-url="/people/RutgerMuller/sounds/365260/rate/4/" id="rate-365260-4" value="4">
+            <label for="rate-365260-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-365260" data-rate-url="/people/RutgerMuller/sounds/365260/rate/3/" id="rate-365260-3" value="3">
+            <label for="rate-365260-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-365260" data-rate-url="/people/RutgerMuller/sounds/365260/rate/2/" id="rate-365260-2" value="2">
+            <label for="rate-365260-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-365260" data-rate-url="/people/RutgerMuller/sounds/365260/rate/1/" id="rate-365260-1" value="1">
+            <label for="rate-365260-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(29)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            Improvising on an African drum. Should be OK to cut up, sample, loop. Placed the Zoom H2n recorder below it on the floor.
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/african/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    african
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/beat/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    beat
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/ceramic/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    ceramic
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/179/179538_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/RutgerMuller/">RutgerMuller</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">October 27th, 2016</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            October 27th, 2016
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: Acoustic Ethnic Percussion">
+                        <a href="/people/RutgerMuller/packs/20631/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> Acoustic Ethnic Per…
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="2300 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/RutgerMuller/sounds/365260/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 2.3K
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="11 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/RutgerMuller/sounds/365260/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 11
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="8.030001">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound bangui flower.wav by Insidebeat">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="249194"
+    data-username="Insidebeat"
+    data-user-id="4469980"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/249194/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/Insidebeat/sounds/249194/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/Insidebeat/sounds/249194/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/249/249194_4469980-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/249/249194_4469980-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/249/249194_4469980_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/249/249194_4469980_spec_bw_M.jpg"
+    data-title="bangui flower.wav"
+    data-duration="3.84834"
+    data-samplerate="44100.0"
+    data-show-milliseconds="true"
+    data-favorite="false"
+    data-num-comments="5" 
+    data-num-downloads="567" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/Insidebeat/sounds/249194/" title="bangui flower.wav">bangui flower.wav</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 5.0">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-249194" data-rate-url="/people/Insidebeat/sounds/249194/rate/5/" id="rate-249194-5" value="5">
+            <label for="rate-249194-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-249194" data-rate-url="/people/Insidebeat/sounds/249194/rate/4/" id="rate-249194-4" value="4">
+            <label for="rate-249194-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-249194" data-rate-url="/people/Insidebeat/sounds/249194/rate/3/" id="rate-249194-3" value="3">
+            <label for="rate-249194-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-249194" data-rate-url="/people/Insidebeat/sounds/249194/rate/2/" id="rate-249194-2" value="2">
+            <label for="rate-249194-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-249194" data-rate-url="/people/Insidebeat/sounds/249194/rate/1/" id="rate-249194-1" value="1">
+            <label for="rate-249194-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(6)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            vst slicex combination + pattern multi sample
+cut final loop with soundforge 7
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/african/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    african
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/beat/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    beat
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/beats/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    beats
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/4469/4469980_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/Insidebeat/">Insidebeat</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">September 18th, 2014</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            September 18th, 2014
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: beats 2">
+                        <a href="/people/Insidebeat/packs/15216/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> beats 2
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="567 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Insidebeat/sounds/249194/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 567
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="5 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Insidebeat/sounds/249194/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 5
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="8.02">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound Blinking Forest [Acoustic] by NearTheAtmoshphere">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="676787"
+    data-username="NearTheAtmoshphere"
+    data-user-id="2578040"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/676787/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/NearTheAtmoshphere/sounds/676787/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/NearTheAtmoshphere/sounds/676787/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/676/676787_2578040-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/676/676787_2578040-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/676/676787_2578040_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/676/676787_2578040_spec_bw_M.jpg"
+    data-title="Blinking Forest [Acoustic]"
+    data-duration="69.8182"
+    data-samplerate="96000.0"
+    data-show-milliseconds="false"
+    data-favorite="false"
+    data-num-comments="2" 
+    data-num-downloads="471" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/NearTheAtmoshphere/sounds/676787/" title="Blinking Forest [Acoustic]">Blinking Forest [Acoustic]</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 4.7">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-676787" data-rate-url="/people/NearTheAtmoshphere/sounds/676787/rate/5/" id="rate-676787-5" value="5">
+            <label for="rate-676787-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-half-star text-red">
+    
+        <span class="path1"></span><span class="path2"></span>
+        
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-676787" data-rate-url="/people/NearTheAtmoshphere/sounds/676787/rate/4/" id="rate-676787-4" value="4">
+            <label for="rate-676787-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-676787" data-rate-url="/people/NearTheAtmoshphere/sounds/676787/rate/3/" id="rate-676787-3" value="3">
+            <label for="rate-676787-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-676787" data-rate-url="/people/NearTheAtmoshphere/sounds/676787/rate/2/" id="rate-676787-2" value="2">
+            <label for="rate-676787-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-676787" data-rate-url="/people/NearTheAtmoshphere/sounds/676787/rate/1/" id="rate-676787-1" value="1">
+            <label for="rate-676787-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(23)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            Background Music, but with adventure
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/acoustic/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    acoustic
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/ambient/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    ambient
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/background/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    background
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/bongo/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    bongo
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/classical-guitar/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    classical-guitar
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/2578/2578040_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/NearTheAtmoshphere/">NearTheAtmos...</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">February 23rd, 2023</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            February 23rd, 2023
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: Music and Loops">
+                        <a href="/people/NearTheAtmoshphere/packs/37868/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> Music and Loops
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="471 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/NearTheAtmoshphere/sounds/676787/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 471
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="2 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/NearTheAtmoshphere/sounds/676787/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 2
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="7.11">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound Djembe Loop 09 - 120 BPM.wav by Ancient.Sounds">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="485479"
+    data-username="Ancient.Sounds"
+    data-user-id="9585786"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/485479/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/Ancient.Sounds/sounds/485479/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/Ancient.Sounds/sounds/485479/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/485/485479_9585786-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/485/485479_9585786-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/485/485479_9585786_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/485/485479_9585786_spec_bw_M.jpg"
+    data-title="Djembe Loop 09 - 120 BPM.wav"
+    data-duration="1.99068"
+    data-samplerate="44100.0"
+    data-show-milliseconds="true"
+    data-favorite="false"
+    data-num-comments="0" 
+    data-num-downloads="203" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/Ancient.Sounds/sounds/485479/" title="Djembe Loop 09 - 120 BPM.wav">Djembe Loop 09 - 120 BPM.wav</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 5.0">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485479" data-rate-url="/people/Ancient.Sounds/sounds/485479/rate/5/" id="rate-485479-5" value="5">
+            <label for="rate-485479-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485479" data-rate-url="/people/Ancient.Sounds/sounds/485479/rate/4/" id="rate-485479-4" value="4">
+            <label for="rate-485479-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485479" data-rate-url="/people/Ancient.Sounds/sounds/485479/rate/3/" id="rate-485479-3" value="3">
+            <label for="rate-485479-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485479" data-rate-url="/people/Ancient.Sounds/sounds/485479/rate/2/" id="rate-485479-2" value="2">
+            <label for="rate-485479-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-485479" data-rate-url="/people/Ancient.Sounds/sounds/485479/rate/1/" id="rate-485479-1" value="1">
+            <label for="rate-485479-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(3)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            A djembe loop recorded with the sm57 microphone.
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/africa/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    africa
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/ancident/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    ancident
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/groove/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    groove
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/9585/9585786_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/Ancient.Sounds/">Ancient.Sounds</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">September 19th, 2019</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            September 19th, 2019
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: Djembe Sample/Loops Pack by Manuel.Ed v.2">
+                        <a href="/people/Ancient.Sounds/packs/27430/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> Djembe Sample/Loops…
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="203 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Ancient.Sounds/sounds/485479/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 203
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="0 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Ancient.Sounds/sounds/485479/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 0
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                                    <div class="text-grey text-right v-spacing-top-negative-1 v-spacing-2">
+                                                        <span class="bw-icon-plus ">
+    
+</span> <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%2227430_Djembe+Sample%2FLoops+Pack+by+Manuel.Ed+v.2%22">See 10 results from same pack</a>
+                                                    </div>
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="7.05">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound warped_djembe_mgreel.wav by justin3am">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="403111"
+    data-username="justin3am"
+    data-user-id="700664"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/403111/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/justin3am/sounds/403111/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/justin3am/sounds/403111/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/403/403111_700664-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/403/403111_700664-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/403/403111_700664_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/403/403111_700664_spec_bw_M.jpg"
+    data-title="warped_djembe_mgreel.wav"
+    data-duration="21.573"
+    data-samplerate="48000.0"
+    data-show-milliseconds="false"
+    data-favorite="false"
+    data-num-comments="2" 
+    data-num-downloads="239" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/justin3am/sounds/403111/" title="warped_djembe_mgreel.wav">warped_djembe_mgreel.wav</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    title="Average rating not shown as there are not enough ratings" aria-label="Not enough ratings to show average">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-403111" data-rate-url="/people/justin3am/sounds/403111/rate/5/" id="rate-403111-5" value="5">
+            <label for="rate-403111-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-403111" data-rate-url="/people/justin3am/sounds/403111/rate/4/" id="rate-403111-4" value="4">
+            <label for="rate-403111-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-403111" data-rate-url="/people/justin3am/sounds/403111/rate/3/" id="rate-403111-3" value="3">
+            <label for="rate-403111-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-403111" data-rate-url="/people/justin3am/sounds/403111/rate/2/" id="rate-403111-2" value="2">
+            <label for="rate-403111-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-403111" data-rate-url="/people/justin3am/sounds/403111/rate/1/" id="rate-403111-1" value="1">
+            <label for="rate-403111-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1"></span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" title="Formatted for the Make Noise Morphagene. 
+This reel consists of a spliced drum loop. The final splice is the whole loop without any splices. 
+Djembe samples, recorded by me, processed with filters and modulated delays.">
+                            Formatted for the Make Noise Morphagene. 
+This reel consists of a spliced drum loop. The final splice is the whole loop without any splices. 
+Djembe samples, recorded by …
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/delay/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    delay
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum-loop/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum-loop
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/filtered/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    filtered
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/mgreel/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    mgreel
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/700/700664_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/justin3am/">justin3am</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">September 29th, 2017</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            September 29th, 2017
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: justin3am&#x27;s Morphagene reels">
+                        <a href="/people/justin3am/packs/22744/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> justin3am&#x27;s Morphag…
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="239 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/justin3am/sounds/403111/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 239
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="2 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/justin3am/sounds/403111/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 2
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="7.03">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound rytmiii3 by Aanimaisema-tiimi">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="723758"
+    data-username="Aanimaisema-tiimi"
+    data-user-id="15688569"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/723758/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/Aanimaisema-tiimi/sounds/723758/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/Aanimaisema-tiimi/sounds/723758/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/723/723758_15688569-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/723/723758_15688569-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/723/723758_15688569_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/723/723758_15688569_spec_bw_M.jpg"
+    data-title="rytmiii3"
+    data-duration="37.6173"
+    data-samplerate="44100.0"
+    data-show-milliseconds="false"
+    data-favorite="false"
+    data-num-comments="0" 
+    data-num-downloads="22" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/Aanimaisema-tiimi/sounds/723758/" title="rytmiii3">rytmiii3</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    title="Average rating not shown as there are not enough ratings" aria-label="Not enough ratings to show average">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-723758" data-rate-url="/people/Aanimaisema-tiimi/sounds/723758/rate/5/" id="rate-723758-5" value="5">
+            <label for="rate-723758-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-723758" data-rate-url="/people/Aanimaisema-tiimi/sounds/723758/rate/4/" id="rate-723758-4" value="4">
+            <label for="rate-723758-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-723758" data-rate-url="/people/Aanimaisema-tiimi/sounds/723758/rate/3/" id="rate-723758-3" value="3">
+            <label for="rate-723758-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-723758" data-rate-url="/people/Aanimaisema-tiimi/sounds/723758/rate/2/" id="rate-723758-2" value="2">
+            <label for="rate-723758-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-723758" data-rate-url="/people/Aanimaisema-tiimi/sounds/723758/rate/1/" id="rate-723758-1" value="1">
+            <label for="rate-723758-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1"></span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            djembe drum + percussion loop
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/beat/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    beat
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/percussion/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    percussion
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/rhythm/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    rhythm
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/15688/15688569_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/Aanimaisema-tiimi/">Aanimaisema-...</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">February 15th, 2024</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            February 15th, 2024
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: rhythmic">
+                        <a href="/people/Aanimaisema-tiimi/packs/40420/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> rhythmic
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="Geotag: Helsinki, Uusimaa, Finland">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Aanimaisema-tiimi/sounds/723758/geotag/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-pin"></span> Helsinki, Uusimaa, …
+                        </a>
+                    </div>
+                    
+                    <div class="h-spacing-left-2" title="22 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Aanimaisema-tiimi/sounds/723758/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 22
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="0 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/Aanimaisema-tiimi/sounds/723758/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 0
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="7.02">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound Djembe1 by PareeKatti">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="757914"
+    data-username="PareeKatti"
+    data-user-id="4603329"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/757914/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/PareeKatti/sounds/757914/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/PareeKatti/sounds/757914/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/757/757914_4603329-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/757/757914_4603329-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/757/757914_4603329_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/757/757914_4603329_spec_bw_M.jpg"
+    data-title="Djembe1"
+    data-duration="5.5181"
+    data-samplerate="48000.0"
+    data-show-milliseconds="true"
+    data-favorite="false"
+    data-num-comments="0" 
+    data-num-downloads="100" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/PareeKatti/sounds/757914/" title="Djembe1">Djembe1</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 4.7">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-757914" data-rate-url="/people/PareeKatti/sounds/757914/rate/5/" id="rate-757914-5" value="5">
+            <label for="rate-757914-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-half-star text-red">
+    
+        <span class="path1"></span><span class="path2"></span>
+        
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-757914" data-rate-url="/people/PareeKatti/sounds/757914/rate/4/" id="rate-757914-4" value="4">
+            <label for="rate-757914-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-757914" data-rate-url="/people/PareeKatti/sounds/757914/rate/3/" id="rate-757914-3" value="3">
+            <label for="rate-757914-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-757914" data-rate-url="/people/PareeKatti/sounds/757914/rate/2/" id="rate-757914-2" value="2">
+            <label for="rate-757914-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-757914" data-rate-url="/people/PareeKatti/sounds/757914/rate/1/" id="rate-757914-1" value="1">
+            <label for="rate-757914-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(7)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            I recorded this loop for one of my tracks using my sennheiser e835 microphone and ended up not using it, uploading here as a free loop
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/break/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    break
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/dnb/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    dnb
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drum/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drum
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="no-avatar text-white opacity-080 " style="background-color:rgb(255, 133, 62);width:32px;height:32px;line-height:32px;font-size:12px;">
+        P
+    </div>
+
+                            </div>
+                            <a href="/people/PareeKatti/">PareeKatti</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">October 1st, 2024</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            October 1st, 2024
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: DnB Breaks">
+                        <a href="/people/PareeKatti/packs/40951/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> DnB Breaks
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="100 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/PareeKatti/sounds/757914/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 100
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="0 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/PareeKatti/sounds/757914/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 0
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="7.02">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound Eastern Vibe Instrumental Loop by mooncubedesign">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="411661"
+    data-username="mooncubedesign"
+    data-user-id="5426702"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/411661/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/mooncubedesign/sounds/411661/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/mooncubedesign/sounds/411661/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/411/411661_5426702-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/411/411661_5426702-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/411/411661_5426702_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/411/411661_5426702_spec_bw_M.jpg"
+    data-title="Eastern Vibe Instrumental Loop"
+    data-duration="26.8636"
+    data-samplerate="44100.0"
+    data-show-milliseconds="false"
+    data-favorite="false"
+    data-num-comments="6" 
+    data-num-downloads="645" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/mooncubedesign/sounds/411661/" title="Eastern Vibe Instrumental Loop">Eastern Vibe Instrumental Loop</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    aria-label="Average rating of 4.3">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-411661" data-rate-url="/people/mooncubedesign/sounds/411661/rate/5/" id="rate-411661-5" value="5">
+            <label for="rate-411661-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-411661" data-rate-url="/people/mooncubedesign/sounds/411661/rate/4/" id="rate-411661-4" value="4">
+            <label for="rate-411661-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-411661" data-rate-url="/people/mooncubedesign/sounds/411661/rate/3/" id="rate-411661-3" value="3">
+            <label for="rate-411661-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-411661" data-rate-url="/people/mooncubedesign/sounds/411661/rate/2/" id="rate-411661-2" value="2">
+            <label for="rate-411661-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-411661" data-rate-url="/people/mooncubedesign/sounds/411661/rate/1/" id="rate-411661-1" value="1">
+            <label for="rate-411661-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-red">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1">(24)</span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" title="Eastern vibe instrumental loop that I worked on a few years back. Could be cool remixed and chopped up etc... or as is... Do whatever you like with iiiiit! Peace and biscuits">
+                            Eastern vibe instrumental loop that I worked on a few years back. Could be cool remixed and chopped up etc... or as is... Do whatever you like with …
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/chilled/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    chilled
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/djembe/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    djembe
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/eastern/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    eastern
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/indian/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    indian
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/sitar/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    sitar
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="avatar" style="width:32px;height:32px;">
+        <img src="/data/avatars/5426/5426702_S.jpg"  class="avatar " style="width:32px;height:32px;" />
+    </div>
+
+                            </div>
+                            <a href="/people/mooncubedesign/">mooncubedesign</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">November 23rd, 2017</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            November 23rd, 2017
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    
+                    <div class="h-spacing-left-2" title="645 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/mooncubedesign/sounds/411661/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 645
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="6 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/mooncubedesign/sounds/411661/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 6
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                            
+                                            
+                                                <div class="divider-light v-spacing-2"></div>
+                                            
+                                        </div>
+                                    
+                                        <div class="bw-search__result" data-score="5.02">
+                                            
+                                                
+
+
+
+
+    
+        
+        
+        <div class="" aria-label="Sound DJB_21_loop.WAV by art6nik">
+            <div class="row no-gutters no-wrap">
+                <div class="col-4 col-lg-3">
+                    <div
+    class="bw-player"
+    data-sound-id="53316"
+    data-username="art6nik"
+    data-user-id="547769"
+    data-size="small"
+    data-collection="true"
+    data-collection-modal-content-url="/collections/53316/add/?ajax=1"
+    data-bookmark="false"
+    data-bookmark-modal-url=""
+    data-add-bookmark-url=""
+    data-similar-sounds="true"
+    data-similar-sounds-modal-url="/people/art6nik/sounds/53316/similar/?ajax=1"
+    data-remix-group="false"
+    data-remix-group-modal-url="/people/art6nik/sounds/53316/remixes/?ajax=1"
+    data-mp3="https://cdn.freesound.org/previews/53/53316_547769-lq.mp3"
+    data-ogg="https://cdn.freesound.org/previews/53/53316_547769-lq.ogg"
+    data-waveform="https://cdn.freesound.org/displays/53/53316_547769_wave_bw_M.png"
+    data-spectrum="https://cdn.freesound.org/displays/53/53316_547769_spec_bw_M.jpg"
+    data-title="DJB_21_loop.WAV"
+    data-duration="4.00079"
+    data-samplerate="44100.0"
+    data-show-milliseconds="true"
+    data-favorite="false"
+    data-num-comments="0" 
+    data-num-downloads="62" 
+    
+    tabindex="0">  
+</div>
+                </div>
+                
+                <div class="col-8 col-lg-9">
+                    <div class="padding-left-3">
+                        <div class="between">
+                            <div>
+                                <h5 class="v-spacing-1"><a class="bw-link--black" href="/people/art6nik/sounds/53316/" title="DJB_21_loop.WAV">DJB_21_loop.WAV</a></h5>
+                            </div>
+                            <div class="text-grey text-right between stars-margin-top-middle-player">
+                                <div style="min-width:130px;" class="top right">
+<div class="bw-rating__container" 
+    data-show-added-rating-on-save="false" 
+    
+    title="Average rating not shown as there are not enough ratings" aria-label="Not enough ratings to show average">
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-53316" data-rate-url="/people/art6nik/sounds/53316/rate/5/" id="rate-53316-5" value="5">
+            <label for="rate-53316-5" data-value="5" aria-label="Rate sound 5 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-53316" data-rate-url="/people/art6nik/sounds/53316/rate/4/" id="rate-53316-4" value="4">
+            <label for="rate-53316-4" data-value="4" aria-label="Rate sound 4 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-53316" data-rate-url="/people/art6nik/sounds/53316/rate/3/" id="rate-53316-3" value="3">
+            <label for="rate-53316-3" data-value="3" aria-label="Rate sound 3 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-53316" data-rate-url="/people/art6nik/sounds/53316/rate/2/" id="rate-53316-2" value="2">
+            <label for="rate-53316-2" data-value="2" aria-label="Rate sound 2 stars">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+        
+            <input class="bw-rating__input" type="radio" name="rate-53316" data-rate-url="/people/art6nik/sounds/53316/rate/1/" id="rate-53316-1" value="1">
+            <label for="rate-53316-1" data-value="1" aria-label="Rate sound 1 star">
+        
+            
+                <span class="bw-icon-star text-light-grey">
+    
+</span>
+            
+        
+            </label>
+        
+    
+</div><span class="bw-rating__count text-grey h-spacing-left-1"></span></div>
+                            </div>
+                        </div>
+                        
+                        <div class="max-h-60px-md-50px text-black overflow-hidden v-spacing-1" >
+                            Some Djembe samples distorted
+                        </div>
+                        
+                        <div class="bw-player__tags-list-height">
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/dark/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    dark
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/distorted/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    distorted
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/distortion/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    distortion
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/drone/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    drone
+</a></div>
+                        
+                            <div class="display-inline-block"><a href="/browse/tags/experimental/"  class="no-hover btn-inverse text-black font-weight-normal border-grey-light text-center no-border-radius padding-1 no-text-wrap h-spacing-1 line-height-38 no-letter-spacing opacity-050 tag-container ">
+    experimental
+</a></div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="between v-spacing-top-1 v-spacing-2">
+                <div class="middle text-grey h-spacing-1">
+                    <div class="row no-gutters">
+                        <div class="col-12 col-lg-12 middle">
+                            <div class="h-spacing-1">
+                                
+    <div class="no-avatar text-white opacity-080 " style="background-color:rgb(19, 179, 147);width:32px;height:32px;line-height:32px;font-size:12px;">
+        A
+    </div>
+
+                            </div>
+                            <a href="/people/art6nik/">art6nik</a>
+                            <div class="text-light-grey h-spacing-left-1 d-none d-lg-block no-text-wrap">May 11th, 2008</div>
+                        </div>
+                        <div class="col-lg-4 d-lg-none text-light-grey">
+                            May 11th, 2008
+                        </div>
+                    </div>
+                </div>
+                <div class="middle text-light-grey bw_sound-info-extended right">
+                    
+                    <div class="h-spacing-left-2" title="Pack: Djembe_satured">
+                        <a href="/people/art6nik/packs/3422/" class="bw-link--grey-light">
+                            <span class="bw-icon-stack"></span> Djembe_satured
+                        </a>
+                    </div>
+                    
+                    
+                    <div class="h-spacing-left-2" title="62 downloads">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/art6nik/sounds/53316/downloaders/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-download"></span> 62
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="0 comments">
+                        <a href="javascript:void(0)" data-toggle="modal-default" data-modal-content-url="/people/art6nik/sounds/53316/comments/?ajax=1" class="bw-link--grey-light">
+                            <span class="bw-icon-comments"></span> 0
+                        </a>
+                    </div>
+                    <div class="h-spacing-left-2" title="License: Creative Commons 0">
+                        <span class="bw-icon-zero"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    
+
+                                                
+                                                    <div class="text-grey text-right v-spacing-top-negative-1 v-spacing-2">
+                                                        <span class="bw-icon-plus ">
+    
+</span> <a href="/search/?q=djembe+loop&amp;f=license%3A%22Creative+Commons+0%22+pack_grouping%3A%223422_Djembe_satured%22">See 3 results from same pack</a>
+                                                    </div>
+                                                
+                                            
+                                            
+                                        </div>
+                                    
+                                
+                            
+                        </div>
+                        <div class="v-spacing-6">
+                            
+
+
+
+
+
+
+                        </div>
+                    
+                </main>
+            </div>
+        
+    </div>
+
+        
+
+<footer class="bw-footer padding-7 v-spacing-top-6">
+  <div class="center">
+    <div class="footer-logo-container">
+        <div class="row">
+            <div class="col-sm-8">
+                <a href="https://www.upf.edu/web/mtg" class="no-hover">
+                    <img class="w-100" src="/static/bw-frontend/public/upf_logo.06e9f326ce68.png" />
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a href="https://www.upf.edu/web/phonos/" class="no-hover">
+                    <img class="w-100" src="/static/bw-frontend/public/phonos_logo.7c586cfd83d2.png" />
+                </a>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row v-spacing-top-3 center">
+    <a class="bw-link--grey h-spacing-1" href="/help/faq/#about-freesound">About Freesound</a>
+    <a class="bw-link--grey h-spacing-1" href="/help/tos_web/">Terms of use</a>
+    <a class="bw-link--grey h-spacing-1" href="/help/privacy/">Privacy</a>
+    <a class="bw-link--grey h-spacing-1" href="/help/cookies_policy/">Cookies</a>
+    <a class="bw-link--grey h-spacing-1" href="/help/developers/">Developers</a>
+    <a class="bw-link--grey h-spacing-1" href="/help/faq/">Help</a>
+    <a class="bw-link--grey h-spacing-1" href="/donations/donors/">Donations</a>
+    <a class="bw-link--grey h-spacing-1" href="https://blog.freesound.org">Blog</a>
+    <a class="bw-link--grey h-spacing-1" href="https://labs.freesound.org">Freesound Labs</a>
+    <a class="bw-link--grey h-spacing-1" href="/help/tshirt/">Get your t-shirt!</a>
+  </div>
+  <div class="center v-spacing-top-3">
+    <span>© 2026 Universitat Pompeu Fabra</span>
+  </div>
+</footer>
+    </div>
+    
+<script defer data-domain="freesound.org" src="https://analytics.freesound.org/js/plausible.manual.js"></script>
+<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+<script>
+    let redactedUrl = window.location.href.replace(/\/\d+\//g, "/_ID_/"); // Replace numberic IDs
+    redactedUrl = redactedUrl.replace(/people\/([^/]+)\//ig, "people/_USERNAME_/");  // Replace usernames
+    redactedUrl = redactedUrl.replace(/browse\/geotags\/(\w+)\//ig, "browse/geotags/_TAG_/");  // Replace tag from geotags
+    redactedUrl = redactedUrl.replace(/browse\/tags\/.*/ig, "browse/tags/_TAGS_/");  // Replace multiple tags from tags page
+    if (redactedUrl.includes("/forum/")){  // Replace forum names, be careful with some hard coded URLs
+        if (!(redactedUrl.includes("/moderate/") || redactedUrl.includes("/forums-search/") || redactedUrl.includes("/hot-treads/"))){
+            redactedUrl = redactedUrl.replace(/forum\/([^/]+)\//ig, "forum/_FORUM_NAME_/");  // Replace forum name
+        }
+    }
+    redactedUrl = redactedUrl.replace(/activate\/([^/]+)\/([^/]+)\//ig, "activate/_USERNAME_/_CODE_/");  // Replace activation urls
+    redactedUrl = redactedUrl.replace(/reset\/([^/]+)\//ig, "reset/_CODE_/");  // Replace password reset
+    redactedUrl = redactedUrl.replace(/tickets\/([^/]+)\//ig, "tickets/_ID_/");  // Replace moderation tickets
+    plausible('pageview', { u: redactedUrl });
+</script>
+
+    
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css' type='text/css' />
+<script type="text/javascript">
+    mapboxgl.accessToken = '[cle-retiree]';
+</script>
+    <script>
+        
+        document.cookie = "preferSpectrogram=no;path=/";
+        document.cookie = "disallowSimultaneousAudioPlayback=no;path=/"
+        
+        const userIsAuthenticated = false;
+    </script>
+    <script src="/static/bw-frontend/dist/index.4ec5b9f1fabe.js"></script>
+    
+    
+        
+        <script src="/static/bw-frontend/dist/pages/search.8b0ce64cac61.js"></script>
+    
+
+</body>
+</html>
