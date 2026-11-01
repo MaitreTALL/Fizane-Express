@@ -241,7 +241,7 @@
     return { dessiner, ctx };
   }
   const carte2 = Carte($('carte2')), carte6 = Carte($('carte6'));
-  if (MODE === 'court') $('credit9').textContent = 'Musique : flûte, @gimbalanke';
+  if (MODE === 'court') $('credit9').style.display = 'none';   // la flûte est jouée par l'auteur de Tondraaga : pas de crédit
   const INTRO = MODE === 'court'
     ? { impact: M[0], marche: [M[0], 2.1], xDepart: 1330, accroupi: [2.1, 2.58], morph: [2.62, 2.95], zoom: [2.9, 3.85],
       lettres: 2.98, lettresPas: .05, bandes: 3.05, slogan: 3.55, sloganPas: .018, eclat: 4.0, tampon: M[2] }

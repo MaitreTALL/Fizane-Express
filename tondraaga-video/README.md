@@ -10,7 +10,7 @@ le même moteur (`src/long.html`, `src/long.js`, `src/intro.js`) :
 
 - `dist/tondraaga-boutique-long.mp4` (+ `-whatsapp.mp4`, 720 × 1280) : version longue.
 - `dist/tondraaga-boutique-court.mp4` (+ `-whatsapp.mp4`) : version courte, sur la flûte jouée par l'auteur de Tondraaga
-  (`audio/flute.wav`, extraite de sa vidéo TikTok @gimbalanke).
+  (`audio/flute.wav`).
 
 H.264, AAC 48 kHz, volume calé à −14 LUFS (TikTok, Reels, Shorts, statut WhatsApp).
 
@@ -29,7 +29,7 @@ La flûte (jeu libre) est posée sur un groove de percussions d'Afrique de l'Oue
 | 27,2 – 30,7 s | Colis : carte du monde, prix au kilo |
 | 30,7 – 35,3 s | Paiement en 3D : Orange Money, Moov Money, Wave, Visa ; Google Play |
 | 35,3 – 38,8 s | Vendeurs : les deux formules |
-| 38,8 – 44 s | Fin : logo, adresse, Google Play, WhatsApp, crédit « Musique : flûte, @gimbalanke » |
+| 38,8 – 44 s | Fin : logo, adresse, Google Play, WhatsApp |
 
 ## Chapitre terroir (les deux versions)
 
