@@ -11,6 +11,7 @@ on:
       - 'tondraaga-app/audit/fetch.txt'
       - 'tondraaga-app/audit/*.html'
       - 'tondraaga-app/audit/traitement.sh'
+      - 'tondraaga-video/voix/elevenlabs.json'
       - '.github/workflows/tondraaga-audit.yml'
   workflow_dispatch:
 
@@ -44,6 +45,8 @@ jobs:
           find tondraaga-app/audit/out/fetch -name '*.html' -exec sed -i -E 's/\b(pk|sk)\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}/[cle-retiree]/g' {} +
           ls -la tondraaga-app/audit/out/fetch
       - name: Optional processing
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         run: |
           if [ -f tondraaga-app/audit/traitement.sh ]; then bash tondraaga-app/audit/traitement.sh; fi
       - name: Audit the pages
