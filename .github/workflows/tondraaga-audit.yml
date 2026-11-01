@@ -10,6 +10,7 @@ on:
       - 'tondraaga-app/audit/shoot.cjs'
       - 'tondraaga-app/audit/fetch.txt'
       - 'tondraaga-app/audit/*.html'
+      - 'tondraaga-app/audit/traitement.sh'
       - '.github/workflows/tondraaga-audit.yml'
   workflow_dispatch:
 
@@ -42,6 +43,9 @@ jobs:
           # public map keys embedded in some fetched pages are not needed: blank them before committing
           find tondraaga-app/audit/out/fetch -name '*.html' -exec sed -i -E 's/\b(pk|sk)\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}/[cle-retiree]/g' {} +
           ls -la tondraaga-app/audit/out/fetch
+      - name: Optional processing
+        run: |
+          if [ -f tondraaga-app/audit/traitement.sh ]; then bash tondraaga-app/audit/traitement.sh; fi
       - name: Audit the pages
         run: |
           CHROME="$(which google-chrome || which chromium)" NODE_PATH="$RUNNER_TEMP/pw/node_modules" node tondraaga-app/audit/shoot.cjs tondraaga-app/audit/pages.json tondraaga-app/audit/out
