@@ -1,33 +1,95 @@
 [
  {
-  "name": "logos",
-  "url": "file://{ws}/tondraaga-app/audit/logos.html",
+  "name": "video-accueil",
+  "url": "/",
   "status": 200,
-  "finalUrl": "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/logos.html",
-  "title": "",
-  "scrollWidth": 390,
-  "height": 844,
+  "finalUrl": "https://boutique.visionaryentreprises.com/",
+  "title": "Tondraaga — Notre marché, notre fierté",
+  "scrollWidth": 360,
+  "height": 8178,
   "overflow": [],
-  "english": [],
-  "brokenImages": [
-   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/om.svg",
-   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/wave-nav.png",
-   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/wave-fav.png",
-   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/moov-flooz.png",
-   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/moov-africa.png",
-   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/moov-money-banner.png"
+  "english": [
+   "Pack de 6 × 1,5 L"
   ],
+  "brokenImages": [],
   "slices": [
-   "logos-1.png"
+   "video-accueil.png"
   ],
   "consoleErrors": [
-   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
-   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
-   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
-   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
-   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
-   "Failed to load resource: net::ERR_FILE_NOT_FOUND"
+   "Failed to load resource: the server responded with a status of 404 ()"
   ],
+  "failedRequests": []
+ },
+ {
+  "name": "video-boutique",
+  "url": "/#/boutique",
+  "status": 200,
+  "finalUrl": "https://boutique.visionaryentreprises.com/#/boutique",
+  "title": "Toute la boutique · Tondraaga — Notre marché, notre fierté",
+  "scrollWidth": 360,
+  "height": 3207,
+  "overflow": [],
+  "english": [
+   "Mieux notés"
+  ],
+  "brokenImages": [],
+  "slices": [
+   "video-boutique.png"
+  ],
+  "consoleErrors": [],
+  "failedRequests": []
+ },
+ {
+  "name": "video-courses",
+  "url": "/#/courses",
+  "status": 200,
+  "finalUrl": "https://boutique.visionaryentreprises.com/#/courses",
+  "title": "Faire des courses pour mes proches · Tondraaga — Notre marché, notre fierté",
+  "scrollWidth": 360,
+  "height": 7914,
+  "overflow": [],
+  "english": [
+   "Pack de 6 × 1,5 L"
+  ],
+  "brokenImages": [],
+  "slices": [
+   "video-courses.png"
+  ],
+  "consoleErrors": [],
+  "failedRequests": []
+ },
+ {
+  "name": "video-colis",
+  "url": "/#/colis",
+  "status": 200,
+  "finalUrl": "https://boutique.visionaryentreprises.com/#/colis",
+  "title": "Expédiez vos colis du Burkina vers le monde entier · Tondraaga — Notre marché, notre fierté",
+  "scrollWidth": 360,
+  "height": 9173,
+  "overflow": [],
+  "english": [],
+  "brokenImages": [],
+  "slices": [
+   "video-colis.png"
+  ],
+  "consoleErrors": [],
+  "failedRequests": []
+ },
+ {
+  "name": "video-categories",
+  "url": "/#/categories",
+  "status": 200,
+  "finalUrl": "https://boutique.visionaryentreprises.com/#/categories",
+  "title": "Catégories · Tondraaga — Notre marché, notre fierté",
+  "scrollWidth": 360,
+  "height": 1423,
+  "overflow": [],
+  "english": [],
+  "brokenImages": [],
+  "slices": [
+   "video-categories.png"
+  ],
+  "consoleErrors": [],
   "failedRequests": []
  }
 ]
