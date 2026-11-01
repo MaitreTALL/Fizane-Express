@@ -1,0 +1,10 @@
+v-courses.jpg https://images.unsplash.com/photo-1575303093127-18b3c4ef8c41?w=1400&q=85&fm=jpg
+v-tissus.jpg https://images.unsplash.com/photo-1578509566163-068acd11b8e7?w=1400&q=85&fm=jpg
+v-karite.jpg https://images.unsplash.com/photo-1573812461383-e5f8b759d12e?w=1400&q=85&fm=jpg
+v-bijoux.jpg https://images.unsplash.com/photo-1760726743536-019e9e2b06b8?w=1400&q=85&fm=jpg
+v-statuette.jpg https://images.unsplash.com/photo-1694465990855-e78110c345af?w=1400&q=85&fm=jpg
+v-panier.jpg https://images.unsplash.com/photo-1784212958428-f95d351c88be?w=1400&q=85&fm=jpg
+v-chemise.jpg https://images.unsplash.com/photo-1776435303294-ae487c8c28a5?w=1400&q=85&fm=jpg
+v-artisan.jpg https://images.unsplash.com/photo-1687422808289-e721259c9eb4?w=1400&q=85&fm=jpg
+v-marche.jpg https://images.unsplash.com/photo-1773858440557-cdb7fa2275bb?w=1400&q=85&fm=jpg
+v-marche2.jpg https://images.unsplash.com/photo-1734866660928-f7cd6e1b90f9?w=1400&q=85&fm=jpg

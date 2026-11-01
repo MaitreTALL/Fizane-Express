@@ -2,20 +2,8 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "spa-boutique",
-   "/#/boutique"
-  ],
-  [
-   "spa-boutique-local",
-   "/#/boutique?cat=local"
-  ],
-  [
-   "produit-chemise",
-   "/produit/chemise-homme-en-faso-dan-fani/"
-  ],
-  [
-   "accueil",
-   "/"
+   "logos",
+   "file://{ws}/tondraaga-app/audit/logos.html"
   ]
  ]
 }
