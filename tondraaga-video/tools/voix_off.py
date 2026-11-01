@@ -6,9 +6,12 @@ on obtient leur timbre et leur couleur d'accent, en gardant le texte et le rythm
 locuteurs, de sorte que la voix obtenue n'imite aucune personne précise.
 
 Usage : python3 tools/voix_off.py <texte.json> <sortie.wav> <durée> <piper> <voix.onnx> <knn-vc> <réf1.ogg> [réf2.ogg …]
+Variables : GRAVE (abaissement de la voix de synthèse avant conversion, 0,66 par défaut : la voix Piper est féminine,
+la rapprocher d'un registre d'homme rend la correspondance plus juste), TOPK (4).
 Écrit aussi <sortie>.json (début et fin réels de chaque phrase).
 """
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -22,6 +25,8 @@ from scipy.signal import butter, sosfilt
 texte, sortie, duree, piper, modele, depot = sys.argv[1], Path(sys.argv[2]), float(sys.argv[3]), sys.argv[4], sys.argv[5], sys.argv[6]
 refs = sys.argv[7:]
 SR = 48000
+GRAVE = float(os.environ.get("GRAVE", ".66"))
+TOPK = int(os.environ.get("TOPK", "4"))
 sys.path.insert(0, depot)
 from hubconf import knn_vc  # noqa: E402
 
@@ -42,8 +47,9 @@ for r in refs:
     garde = (env > env.max() * .04).repeat_interleave(160)[: x.shape[1]]
     morceaux.append(x[:, : garde.shape[0]][:, garde])
 ref = torch.cat(morceaux, dim=1)
+# WavLM calcule une attention sur toute la séquence : par tranches de 12 s pour garder une mémoire raisonnable
 with torch.inference_mode():
-    jeu = vc.get_features(ref)
+    jeu = torch.cat([vc.get_features(ref[:, i:i + 16000 * 12]) for i in range(0, ref.shape[1] - 8000, 16000 * 12)], dim=0)
 print(f"références : {len(refs)} voix, {ref.shape[1] / 16000:.0f} s de parole")
 
 # ---------------------------------------------------------------- synthèse et conversion, phrase par phrase
@@ -55,9 +61,13 @@ for i, l in enumerate(lignes):
     wav = tmp / f"l{i}.wav"
     subprocess.run([piper, "-m", modele, "-f", str(wav), "--length_scale", str(l.get("lent", 1.04)), "--noise_scale", "0.55", "--noise_w", "0.7", "--sentence_silence", "0.12"],
                    input=l.get("tts", l["texte"]).encode(), check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    if GRAVE != 1:
+        g = tmp / f"g{i}.wav"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(wav), "-af", f"asetrate=22050*{GRAVE},aresample=22050,atempo={1 / GRAVE:.5f}", str(g)], check=True)
+        wav = g
     src = charger(str(wav), 16000)
     with torch.inference_mode():
-        y = vc.match(vc.get_features(src), jeu, topk=4).flatten()
+        y = vc.match(vc.get_features(src), jeu, topk=TOPK).flatten()
     y = torchaudio.functional.resample(y.unsqueeze(0), 16000, SR).squeeze(0).numpy()
     # retire les silences de début et de fin
     e = np.convolve(np.abs(y), np.ones(480) / 480, "same"); v = np.where(e > e.max() * .02)[0]
