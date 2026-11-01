@@ -1,10 +1,4 @@
 {
  "base": "https://boutique.visionaryentreprises.com",
- "pages": [
-  ["video-accueil", "/", null, "video"],
-  ["video-boutique", "/#/boutique", null, "video"],
-  ["video-courses", "/#/courses", null, "video"],
-  ["video-colis", "/#/colis", null, "video"],
-  ["video-categories", "/#/categories", null, "video"]
- ]
+ "pages": []
 }
