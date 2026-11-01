@@ -1,94 +1,33 @@
 [
  {
-  "name": "spa-boutique",
-  "url": "/#/boutique",
+  "name": "logos",
+  "url": "file://{ws}/tondraaga-app/audit/logos.html",
   "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/#/boutique",
-  "title": "Toute la boutique · Tondraaga — Notre marché, notre fierté",
+  "finalUrl": "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/logos.html",
+  "title": "",
   "scrollWidth": 390,
-  "height": 3312,
+  "height": 844,
   "overflow": [],
-  "english": [
-   "Mieux notés"
+  "english": [],
+  "brokenImages": [
+   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/om.svg",
+   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/wave-nav.png",
+   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/wave-fav.png",
+   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/moov-flooz.png",
+   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/moov-africa.png",
+   "file:///home/runner/work/Fizane-Express/Fizane-Express/tondraaga-app/audit/out/fetch/moov-money-banner.png"
   ],
-  "brokenImages": [],
   "slices": [
-   "spa-boutique-1.png",
-   "spa-boutique-2.png",
-   "spa-boutique-3.png"
+   "logos-1.png"
   ],
   "consoleErrors": [
-   "Failed to load resource: the server responded with a status of 404 ()"
+   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+   "Failed to load resource: net::ERR_FILE_NOT_FOUND",
+   "Failed to load resource: net::ERR_FILE_NOT_FOUND"
   ],
-  "failedRequests": []
- },
- {
-  "name": "spa-boutique-local",
-  "url": "/#/boutique?cat=local",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/#/boutique?cat=local",
-  "title": "Produits locaux · Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 390,
-  "height": 2055,
-  "overflow": [],
-  "english": [
-   "Mieux notés"
-  ],
-  "brokenImages": [],
-  "slices": [
-   "spa-boutique-local-1.png",
-   "spa-boutique-local-2.png"
-  ],
-  "consoleErrors": [],
-  "failedRequests": []
- },
- {
-  "name": "produit-chemise",
-  "url": "/produit/chemise-homme-en-faso-dan-fani/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/produit/chemise-homme-en-faso-dan-fani/",
-  "title": "Chemise homme en Faso Dan Fani – Coton tissé main du Burkina Faso – Tondraaga",
-  "scrollWidth": 390,
-  "height": 3399,
-  "overflow": [],
-  "english": [
-   "[attr] you@example.com"
-  ],
-  "brokenImages": [],
-  "slices": [
-   "produit-chemise-1.png",
-   "produit-chemise-2.png",
-   "produit-chemise-3.png"
-  ],
-  "consoleErrors": [
-   "Failed to load resource: the server responded with a status of 401 ()",
-   "pageerror: Object"
-  ],
-  "failedRequests": [
-   "401 https://boutique.visionaryentreprises.com/wp-json/wp/v2/users/me?context=edit&_locale=user"
-  ]
- },
- {
-  "name": "accueil",
-  "url": "/",
-  "status": 200,
-  "finalUrl": "https://boutique.visionaryentreprises.com/",
-  "title": "Tondraaga — Notre marché, notre fierté",
-  "scrollWidth": 390,
-  "height": 8043,
-  "overflow": [],
-  "english": [
-   "Pack de 6 × 1,5 L"
-  ],
-  "brokenImages": [],
-  "slices": [
-   "accueil-1.png",
-   "accueil-2.png",
-   "accueil-3.png",
-   "accueil-4.png",
-   "accueil-5.png"
-  ],
-  "consoleErrors": [],
   "failedRequests": []
  }
 ]
