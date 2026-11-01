@@ -401,51 +401,88 @@
       ctxC.save(); ctxC.translate(g.x + Math.sin(t * 3 + g.a) * 6, y); ctxC.rotate(g.a + t * 2); ctxC.fillStyle = g.c; ctxC.beginPath(); ctxC.ellipse(0, 0, g.r, g.r * .66, 0, 0, 6.283); ctxC.fill(); ctxC.restore();
     }
   }
-  // T5 : thé et kinkeliba (illustration : la théière verse, le verre se remplit, les feuilles tombent)
+  // T5 : thé et kinkeliba (illustration : plateau, deux verres, la théière verse de haut, mousse, vapeur, feuilles)
   const svgT = $('the-svg');
   svgT.innerHTML = `<defs>
-      <linearGradient id="th-metal" x1="0" x2="1"><stop offset="0" stop-color="#7d7d82"/><stop offset=".35" stop-color="#f1f1f3"/><stop offset=".6" stop-color="#b5b5ba"/><stop offset="1" stop-color="#5c5c61"/></linearGradient>
-      <linearGradient id="th-the" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E9A43A"/><stop offset="1" stop-color="#8F4A12"/></linearGradient>
-      <linearGradient id="th-verre" x1="0" x2="1"><stop offset="0" stop-color="rgba(255,255,255,.35)"/><stop offset=".25" stop-color="rgba(255,255,255,.06)"/><stop offset=".8" stop-color="rgba(255,255,255,.05)"/><stop offset="1" stop-color="rgba(255,255,255,.3)"/></linearGradient>
-      <clipPath id="th-clip"><path d="M-78 -120 L78 -120 L62 120 L-62 120 Z"/></clipPath>
-      <g id="th-feuille"><path d="M0 -38 C22 -24 22 22 0 40 C-22 22 -22 -24 0 -38 Z" fill="#3E7D2E"/><path d="M0 -36 L0 38 M0 -10 L12 -20 M0 6 L-12 -4 M0 20 L11 12" stroke="#7FB15B" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
+      <radialGradient id="th-lueur" cx="50%" cy="55%" r="50%"><stop offset="0" stop-color="rgba(245,170,70,.55)"/><stop offset="1" stop-color="rgba(245,170,70,0)"/></radialGradient>
+      <linearGradient id="th-metal" x1="0" x2="1"><stop offset="0" stop-color="#6f6f75"/><stop offset=".3" stop-color="#f4f4f6"/><stop offset=".55" stop-color="#b9b9bf"/><stop offset=".8" stop-color="#e3e3e7"/><stop offset="1" stop-color="#55555b"/></linearGradient>
+      <linearGradient id="th-metal2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#e9e9ed"/><stop offset="1" stop-color="#8a8a90"/></linearGradient>
+      <linearGradient id="th-plateau" x1="0" x2="1"><stop offset="0" stop-color="#8d6a2e"/><stop offset=".35" stop-color="#f1d58e"/><stop offset=".6" stop-color="#c49a45"/><stop offset="1" stop-color="#7b5a24"/></linearGradient>
+      <linearGradient id="th-the" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="rgba(233,164,58,.92)"/><stop offset="1" stop-color="rgba(120,58,14,.96)"/></linearGradient>
+      <linearGradient id="th-jet" x1="0" x2="1"><stop offset="0" stop-color="#B8691C"/><stop offset=".5" stop-color="#F0B04E"/><stop offset="1" stop-color="#A65A16"/></linearGradient>
+      <linearGradient id="th-verre" x1="0" x2="1"><stop offset="0" stop-color="rgba(255,255,255,.42)"/><stop offset=".22" stop-color="rgba(255,255,255,.06)"/><stop offset=".78" stop-color="rgba(255,255,255,.04)"/><stop offset="1" stop-color="rgba(255,255,255,.34)"/></linearGradient>
+      <clipPath id="th-clip1"><path d="M-95 -150 L95 -150 L76 150 L-76 150 Z"/></clipPath>
+      <clipPath id="th-clip2"><path d="M-80 -126 L80 -126 L64 126 L-64 126 Z"/></clipPath>
+      <filter id="th-flou"><feGaussianBlur stdDeviation="5"/></filter>
+      <g id="th-feuille"><path d="M0 -40 C24 -26 24 22 0 42 C-24 22 -24 -26 0 -40 Z"/><path d="M0 -38 L0 40 M0 -12 L13 -22 M0 4 L-13 -6 M0 20 L12 11 M0 -24 L-10 -31" stroke="rgba(220,240,200,.55)" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
     </defs>
-    <g id="th-feuilles"></g>
-    <g id="th-verre-g" transform="translate(470 1020)">
-      <ellipse cx="0" cy="128" rx="96" ry="16" fill="rgba(0,0,0,.35)"/>
-      <g clip-path="url(#th-clip)"><rect id="th-niveau" x="-90" y="120" width="180" height="0" fill="url(#th-the)"/><rect id="th-mousse" x="-90" y="120" width="180" height="16" fill="#F7E2B4"/></g>
-      <path d="M-78 -120 L78 -120 L62 120 L-62 120 Z" fill="url(#th-verre)" stroke="rgba(255,255,255,.75)" stroke-width="3"/>
-      <path d="M-66 -100 L-54 100" stroke="rgba(255,255,255,.5)" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="540" cy="900" rx="560" ry="520" fill="url(#th-lueur)"/>
+    <g id="th-feuilles-fond"></g>
+    <g id="th-plateau-g">
+      <ellipse cx="560" cy="1170" rx="400" ry="86" fill="rgba(0,0,0,.45)" transform="translate(0 18)"/>
+      <ellipse cx="560" cy="1165" rx="400" ry="86" fill="url(#th-plateau)"/>
+      <ellipse cx="560" cy="1158" rx="360" ry="70" fill="none" stroke="rgba(110,80,30,.55)" stroke-width="3"/>
+      <ellipse cx="560" cy="1158" rx="300" ry="56" fill="none" stroke="rgba(255,240,200,.35)" stroke-width="2" stroke-dasharray="6 8"/>
     </g>
-    <path id="th-jet" fill="none" stroke="#D9922F" stroke-width="12" stroke-linecap="round" opacity="0"/>
-    <g id="th-vapeur" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="6" stroke-linecap="round"><path id="th-v1"/><path id="th-v2"/></g>
+    <g id="th-verre2" transform="translate(760 1030)">
+      <g clip-path="url(#th-clip2)"><rect x="-90" y="-80" width="180" height="210" fill="url(#th-the)"/><rect x="-90" y="-92" width="180" height="16" fill="#F5E2B8"/></g>
+      <path d="M-80 -126 L80 -126 L64 126 L-64 126 Z" fill="url(#th-verre)" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+      <path d="M-66 -104 L-54 104" stroke="rgba(255,255,255,.5)" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <g id="th-verre-g" transform="translate(470 1010)">
+      <g clip-path="url(#th-clip1)"><rect id="th-niveau" x="-100" y="150" width="200" height="0" fill="url(#th-the)"/><rect id="th-mousse" x="-100" y="150" width="200" height="22" fill="#F7E4BB"/><g id="th-bulles"></g></g>
+      <path d="M-95 -150 L95 -150 L76 150 L-76 150 Z" fill="url(#th-verre)" stroke="rgba(255,255,255,.78)" stroke-width="3.4"/>
+      <path d="M-80 -128 L-66 128" stroke="rgba(255,255,255,.55)" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <path id="th-jet-ombre" fill="none" stroke="rgba(120,60,10,.6)" stroke-width="20" stroke-linecap="round" opacity="0"/><path id="th-jet" fill="none" stroke="#DE9534" stroke-width="16" stroke-linecap="round" opacity="0"/>
+    <path id="th-jet-reflet" fill="none" stroke="rgba(255,240,205,.75)" stroke-width="3" stroke-linecap="round" opacity="0"/>
+    <g id="th-gouttes"></g>
+    <g id="th-vapeur" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="7" stroke-linecap="round"><path id="th-v1"/><path id="th-v2"/><path id="th-v3"/></g>
     <g id="th-pot">
-      <path d="M-150 -10 C-150 -120 150 -120 150 -10 C150 90 90 130 0 130 C-90 130 -150 90 -150 -10 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
-      <path d="M-120 -86 C-80 -150 80 -150 120 -86 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
-      <circle cx="0" cy="-150" r="22" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
-      <path d="M-140 10 C-230 0 -260 -80 -330 -150 L-312 -164 C-250 -100 -215 -60 -142 -40 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
-      <path d="M140 -60 C230 -70 230 80 130 70" fill="none" stroke="#3c3c40" stroke-width="22" stroke-linecap="round"/>
-      <path d="M-110 20 C-80 70 80 70 110 20" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="5"/>
-    </g>`;
-  const FEUILLES = Array.from({ length: 14 }, () => ({ x: rnd() * W, y0: -100 - rnd() * 600, v: 260 + rnd() * 260, r: rnd() * 360, vr: (rnd() - .5) * 160, s: .7 + rnd() * .9, a: rnd() * 6.28 }));
-  const feuillesG = $('th-feuilles');
-  feuillesG.innerHTML = FEUILLES.map((_, i) => `<use href="#th-feuille" id="th-f${i}"/>`).join('');
+      <ellipse cx="0" cy="138" rx="150" ry="22" fill="rgba(0,0,0,.25)"/>
+      <path d="M-160 -10 C-160 -130 160 -130 160 -10 C160 95 100 140 0 140 C-100 140 -160 95 -160 -10 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
+      <path d="M-150 30 C-80 60 80 60 150 30" fill="none" stroke="rgba(80,80,86,.55)" stroke-width="3"/>
+      <path d="M-155 0 C-80 28 80 28 155 0" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="2"/>
+      <g fill="none" stroke="rgba(70,70,76,.45)" stroke-width="2.4">${[-110, -66, -22, 22, 66, 110].map((x) => `<path d="M${x} 40 q12 18 0 36 q-12 18 0 36"/>`).join('')}</g>
+      <path d="M-128 -92 C-90 -165 90 -165 128 -92 Z" fill="url(#th-metal2)" stroke="#4b4b50" stroke-width="3"/>
+      <path d="M-26 -150 C-26 -200 26 -200 26 -150 Z" fill="url(#th-metal2)" stroke="#4b4b50" stroke-width="3"/>
+      <circle cx="0" cy="-206" r="14" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
+      <path d="M-150 10 C-240 0 -275 -85 -350 -160 L-330 -176 C-262 -110 -225 -66 -152 -44 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
+      <path d="M150 -70 C250 -82 252 92 140 82" fill="none" stroke="#2f2f33" stroke-width="24" stroke-linecap="round"/>
+      <path d="M-118 -40 C-90 -86 -40 -98 -10 -100" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="8" stroke-linecap="round"/>
+    </g>
+    <g id="th-feuilles"></g>`;
+  const VERTS = ['#3E7D2E', '#2F6B24', '#5C9A3A', '#4C8C30', '#6E8F2E', '#8A6A2E'];
+  const FEUILLES = Array.from({ length: 18 }, (_, i) => ({ x: rnd() * W, y0: -120 - rnd() * 700, v: 240 + rnd() * 260, r: rnd() * 360, vr: (rnd() - .5) * 160, s: .7 + rnd() * .9 + (i < 3 ? .9 : 0), a: rnd() * 6.28, c: VERTS[i % VERTS.length], flou: i < 3, fond: i >= 3 && i < 8 }));
+  $('th-feuilles').innerHTML = FEUILLES.map((f, i) => (f.fond ? '' : `<use href="#th-feuille" id="th-f${i}" fill="${f.c}" ${f.flou ? 'filter="url(#th-flou)" opacity=".9"' : ''}/>`)).join('');
+  $('th-feuilles-fond').innerHTML = FEUILLES.map((f, i) => (f.fond ? `<use href="#th-feuille" id="th-f${i}" fill="${f.c}" opacity=".55" filter="url(#th-flou)"/>` : '')).join('');
+  $('th-bulles').innerHTML = Array.from({ length: 16 }, (_, i) => `<circle id="th-b${i}" r="${(3 + rnd() * 6).toFixed(1)}" fill="rgba(255,248,230,.85)"/>`).join('');
+  $('th-gouttes').innerHTML = Array.from({ length: 10 }, (_, i) => `<circle id="th-g${i}" r="${(3 + rnd() * 4).toFixed(1)}" fill="#E7A445"/>`).join('');
+  const BULLES = Array.from({ length: 16 }, () => ({ x: -80 + rnd() * 160, d: rnd() })), GOUTTES = Array.from({ length: 10 }, () => ({ vx: (rnd() - .5) * 260, vy: -120 - rnd() * 220, d: rnd() }));
   function the(t, a, b) {
-    const d = b - a, ke = E.outBack(p(t, a + .05 * d, a + .3 * d)), verse = E.inout3(p(t, a + .22 * d, a + .38 * d));
-    const px = lerp(1300, 760, ke), py = lerp(-200, 420, ke), ang = lerp(0, -32, verse);
-    $('th-pot').setAttribute('transform', `translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${ang.toFixed(2)})`);
-    const ra = ang * RAD, bx = -330, by = -150, sx = px + bx * Math.cos(ra) - by * Math.sin(ra), sy = py + bx * Math.sin(ra) + by * Math.cos(ra);
-    const flux = p(t, a + .32 * d, a + .36 * d) * (1 - p(t, b - .2, b));
-    const jet = $('th-jet');
-    if (flux > 0) { const cx = 470, top = 1020 - 110; jet.setAttribute('d', `M${sx.toFixed(1)} ${sy.toFixed(1)} Q${(sx - 60).toFixed(1)} ${(sy + 40).toFixed(1)} ${cx} ${top}`); jet.setAttribute('opacity', flux.toFixed(2)); jet.setAttribute('stroke-width', (6 + 6 * flux).toFixed(1)); } else jet.setAttribute('opacity', 0);
-    const niveau = 170 * E.out3(p(t, a + .36 * d, b));
-    $('th-niveau').setAttribute('y', (120 - niveau).toFixed(1)); $('th-niveau').setAttribute('height', niveau.toFixed(1));
-    $('th-mousse').setAttribute('y', (120 - niveau - 8).toFixed(1)); $('th-mousse').setAttribute('opacity', clamp(niveau / 40).toFixed(2));
-    const kv = clamp(niveau / 120);
-    ['th-v1', 'th-v2'].forEach((id, i) => { const o = (t * .8 + i * .5) % 1, x = 450 + i * 40, y = 860 - o * 220; $(id).setAttribute('d', `M${x} ${y + 120} C${x - 30} ${y + 80} ${x + 30} ${y + 40} ${x} ${y}`); $(id).setAttribute('opacity', (kv * Math.sin(o * Math.PI)).toFixed(2)); });
+    const d = b - a, ke = E.outBack(p(t, a + .04 * d, a + .28 * d)), verse = E.inout3(p(t, a + .2 * d, a + .36 * d));
+    const px = lerp(1320, 780, ke), py = lerp(-240, 470, ke), ang = lerp(0, -30, verse);
+    $('th-pot').setAttribute('transform', `translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${ang.toFixed(2)}) scale(1.08)`);
+    const ra = ang * RAD, bx = -350 * 1.08, by = -168 * 1.08, sx = px + bx * Math.cos(ra) - by * Math.sin(ra), sy = py + bx * Math.sin(ra) + by * Math.cos(ra);
+    const flux = p(t, a + .3 * d, a + .34 * d) * (1 - p(t, b - .25, b - .05));
+    const cible = [470, 1010 - 150 + 6], ctl = [sx - 70, sy + 50];
+    const chemin = `M${sx.toFixed(1)} ${sy.toFixed(1)} Q${ctl[0].toFixed(1)} ${ctl[1].toFixed(1)} ${cible[0]} ${cible[1]}`;
+    $('th-jet').setAttribute('d', chemin); $('th-jet').setAttribute('opacity', flux.toFixed(2)); $('th-jet').setAttribute('stroke-width', (8 + 16 * flux).toFixed(1));
+    $('th-jet-ombre').setAttribute('d', chemin); $('th-jet-ombre').setAttribute('opacity', (flux * .7).toFixed(2)); $('th-jet-ombre').setAttribute('stroke-width', (12 + 20 * flux).toFixed(1));
+    $('th-jet-reflet').setAttribute('d', `M${(sx - 3).toFixed(1)} ${(sy + 4).toFixed(1)} Q${(ctl[0] - 4).toFixed(1)} ${ctl[1].toFixed(1)} ${cible[0] - 3} ${cible[1]}`); $('th-jet-reflet').setAttribute('opacity', (flux * .8).toFixed(2));
+    const niveau = 205 * E.out3(p(t, a + .34 * d, b));
+    $('th-niveau').setAttribute('y', (150 - niveau).toFixed(1)); $('th-niveau').setAttribute('height', (niveau + 4).toFixed(1));
+    const ym = 150 - niveau - 14; $('th-mousse').setAttribute('y', ym.toFixed(1)); $('th-mousse').setAttribute('opacity', clamp(niveau / 50).toFixed(2));
+    BULLES.forEach((q, i) => { const e = $(`th-b${i}`); e.setAttribute('cx', (q.x + Math.sin(t * 3 + q.d * 6) * 4).toFixed(1)); e.setAttribute('cy', (ym + 6 + q.d * 10).toFixed(1)); e.setAttribute('opacity', clamp(niveau / 60).toFixed(2)); });
+    GOUTTES.forEach((g, i) => {
+      const e = $(`th-g${i}`), c = ((t - a) * 1.6 + g.d) % 1, k = flux * (niveau > 10 ? 1 : 0);
+      e.setAttribute('cx', (cible[0] + g.vx * c * .5).toFixed(1)); e.setAttribute('cy', (cible[1] + (g.vy * c + 600 * c * c) * .5).toFixed(1)); e.setAttribute('opacity', (k * (1 - c)).toFixed(2));
+    });
+    const kv = clamp(niveau / 140);
+    ['th-v1', 'th-v2', 'th-v3'].forEach((id, i) => { const o = (t * .7 + i / 3) % 1, x = [450, 500, 760][i], base = i < 2 ? 860 : 900, y = base - o * 240; $(id).setAttribute('d', `M${x} ${y + 120} C${x - 34} ${y + 80} ${x + 34} ${y + 40} ${x} ${y}`); $(id).setAttribute('opacity', ((i < 2 ? kv : .8) * Math.sin(o * Math.PI)).toFixed(2)); });
     FEUILLES.forEach((f, i) => {
-      const y = f.y0 + (t - a) * f.v, x = f.x + Math.sin((t - a) * 1.6 + f.a) * 60;
-      $(`th-f${i}`).setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(f.r + (t - a) * f.vr).toFixed(1)}) scale(${f.s.toFixed(2)})`);
+      const y = f.y0 + (t - a) * f.v * (f.fond ? .6 : 1), x = f.x + Math.sin((t - a) * 1.6 + f.a) * 60;
+      $(`th-f${i}`).setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(f.r + (t - a) * f.vr).toFixed(1)}) scale(${(f.s * (f.fond ? .7 : 1)).toFixed(2)})`);
     });
   }
   // T6 : produits locaux
@@ -461,30 +498,43 @@
   const melange = (hex, f) => { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; return `rgb(${Math.round(r * f)},${Math.round(g * f)},${Math.round(b * f)})`; };
   const JETONS = [['om', 'Orange Money', 'assets/orange-money.svg', '#FFFFFF', '#FF7900'], ['moov', 'Moov Money', 'assets/moov-money.png', '#FFFFFF', '#1F6FC2'],
     ['wave', 'Wave', 'assets/wave.png', '#1DC3FF', '#0E8FD0'], ['visa', 'Visa', 'assets/visa.svg', '', '#2A3486']];
+  const R_ORB = 420, INCL = 16, Z_TEL = -120;                // orbite centrée sur le téléphone, inclinée vers l'avant
+  ['', 'fin'].forEach((c, i) => {
+    const r = R_ORB + (i ? 38 : 0), an = document.createElement('div'); an.className = 'anneau ' + c;
+    an.style.cssText = `width:${2 * r}px;height:${2 * r}px;left:${-r}px;top:${-r}px`;
+    $('orbite').appendChild(an);
+  });
+  const anneaux3d = Array.from(document.querySelectorAll('#orbite .anneau'));
   const jetons = JETONS.map(([id, nom, img, fond, bord]) => {
     const j = document.createElement('div'); j.className = 'jeton' + (id === 'visa' ? ' visa' : '');
-    const N = id === 'visa' ? 5 : 16, pas = id === 'visa' ? 1.2 : 1.7;
+    const N = id === 'visa' ? 4 : 14, pas = id === 'visa' ? 1.1 : 1.7;
     let h = '';
     for (let k = 1; k <= N; k++) h += `<div class="couche" style="transform:translateZ(${(-k * pas).toFixed(1)}px);background:linear-gradient(90deg, ${melange(bord, .55)}, ${melange(bord, 1)} 45%, ${melange(bord, .7)})"></div>`;
     const dos = `transform:translateZ(${(-(N + 1) * pas).toFixed(1)}px) rotateY(180deg)`;
-    if (id === 'visa') h += `<div class="face"><div class="puce"></div><div class="numero">•••• •••• •••• ••••</div><img class="logo-visa" src="${img}" alt=""><div class="reflet"></div></div><div class="dos" style="${dos}"></div>`;
-    else h += `<div class="face" style="background:${fond}"><img src="${img}" alt="" style="${id === 'wave' ? 'border-radius:30px' : ''}"><div class="reflet"></div></div><div class="dos" style="background:${fond};${dos}"><img src="${img}" alt=""></div>`;
+    const sansContact = '<svg class="sans-contact" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round"><path d="M8 6.5a8 8 0 0 1 0 11M12 4a12 12 0 0 1 0 16M4.5 9a4 4 0 0 1 0 6"/></svg>';
+    if (id === 'visa') h += `<div class="j-face"><div class="puce"></div>${sansContact}<div class="numero">•••• •••• •••• ••••</div><img class="logo-visa" src="${img}" alt=""><div class="reflet"></div></div><div class="j-dos" style="${dos}"></div>`;
+    else h += `<div class="j-face" style="background:${fond}"><img src="${img}" alt="" style="${id === 'wave' ? 'border-radius:28px' : ''}"><div class="lumiere"></div><div class="reflet"></div></div><div class="j-dos" style="background:${fond};${dos}"><img src="${img}" alt=""></div>`;
     h += `<div class="nom">${nom}</div>`;
     j.innerHTML = h; $('orbite').appendChild(j);
     const o = document.createElement('div'); o.className = 'ombre-sol'; $('ombres7').appendChild(o);
     return { j, o, reflet: j.querySelector('.reflet') };
   });
   function orbite(t, a, b) {
+    const ka = E.out3(p(t, a + .35, a + 1.1)), si = Math.sin(INCL * RAD), co = Math.cos(INCL * RAD);
+    anneaux3d.forEach((an, i) => {
+      an.style.transform = `translateZ(${Z_TEL}px) rotateX(${90 - INCL}deg) rotateZ(${((t - a) * 25 * (i ? -1 : 1)).toFixed(1)}deg) scale(${lerp(.35, 1, ka).toFixed(3)})`;
+      an.style.opacity = (ka * (i ? .6 : 1)).toFixed(3);
+    });
     jetons.forEach(({ j, o, reflet }, i) => {
-      const k = E.outBack(p(t, a + .45 + i * .1, a + 1.25 + i * .1)), R = clamp(k, 0, 1.15);
-      const th = (t - a) * .95 + i * Math.PI / 2 + .6;
-      const X = Math.cos(th) * 395 * R, Z = Math.sin(th) * 380 * R, Y = 90 + Math.sin(th) * 110 * R + Math.sin(t * 2.1 + i) * 10;
-      const spin = lerp(540, 0, E.out3(p(t, a + .45 + i * .1, a + 1.45 + i * .1))) + 34 * Math.sin(t * 1.4 + i * 1.7);
-      j.style.transform = `translate3d(${X.toFixed(1)}px,${Y.toFixed(1)}px,${Z.toFixed(1)}px) rotateY(${spin.toFixed(1)}deg) rotateX(-7deg) scale(${lerp(.25, 1, clamp(k)).toFixed(3)})`;
+      const d0 = a + .5 + i * .12, k = E.outBack(p(t, d0, d0 + .8)), R = R_ORB * clamp(k, 0, 1.12);
+      const th = (t - a) * (2 * Math.PI / 6.5) + i * Math.PI / 2 + .35;
+      const X = Math.cos(th) * R, Y = Math.sin(th) * R * si + Math.sin(t * 2.1 + i) * 6, Z = Z_TEL + Math.sin(th) * R * co;
+      const sway = 16 * Math.sin(t * 1.3 + i * 1.7) - Math.cos(th) * 14, flip = lerp(360, 0, E.out3(p(t, d0, d0 + 1.0)));
+      j.style.transform = `translate3d(${X.toFixed(1)}px,${Y.toFixed(1)}px,${Z.toFixed(1)}px) rotateY(${(sway + flip).toFixed(1)}deg) rotateX(-5deg) scale(${lerp(.2, 1, clamp(k)).toFixed(3)})`;
       j.style.opacity = clamp(k * 3).toFixed(3);
-      reflet.style.transform = `translateX(${(Math.sin(spin * RAD) * 55).toFixed(1)}%)`;
-      const f = 1800 / (1800 - Z), sx = 540 + X * f, sy = 1660 + Z * .12;
-      o.style.left = `${sx.toFixed(1)}px`; o.style.top = `${sy.toFixed(1)}px`; o.style.transform = `scale(${(f * (i === 3 ? 1.4 : 1)).toFixed(3)})`; o.style.opacity = (clamp(k) * .9).toFixed(3);
+      reflet.style.transform = `translateX(${(Math.sin((sway + flip) * RAD) * 40).toFixed(1)}%)`;
+      const f = 1800 / (1800 - Z), sx = 540 + X * f, sy = 1650 + (Z - Z_TEL) * .1;
+      o.style.left = `${sx.toFixed(1)}px`; o.style.top = `${sy.toFixed(1)}px`; o.style.transform = `scale(${(f * (i === 3 ? 1.35 : 1)).toFixed(3)})`; o.style.opacity = (clamp(k) * .85).toFixed(3);
     });
   }
 
@@ -666,6 +716,15 @@
         const kd = p(t, a + .15, a + .6), rebond = kd < 1 ? lerp(-500, 0, E.in3(kd)) : -Math.abs(Math.sin((t - a - .6) * 9)) * 30 * Math.exp(-(t - a - .6) * 5);
         set('boite', { y: rebond, rx: -18, ry: (t - a) * 55 + 30 });
         set('ombre-boite', { s: lerp(.4, 1, clamp(kd)), o: clamp(kd) });
+        // la balance de l'agence : elle apparaît, le plateau s'enfonce à l'arrivée du colis et l'écran compte le poids
+        const kb = E.out3(p(t, a + .05, a + .4)), choc = t > a + .6 ? Math.sin((t - a - .6) * 22) * 7 * Math.exp(-(t - a - .6) * 7) : 0;
+        set('balance', { y: lerp(260, 0, kb), o: kb });
+        set('plateau', { y: (t > a + .6 ? 4 : 0) + choc });
+        const pese = E.out3(p(t, a + .65, a + 1.35));
+        $('kg').textContent = (2.4 * pese).toFixed(2).replace('.', ',');
+        $('voyant').classList.toggle('on', pese >= 1);
+        // la fiche d'envoi se colle sur le colis à l'étape 2
+        { const d = bt(a, 2), kf = p(t, d, d + .3); ['fiche1', 'fiche2'].forEach((id) => set(id, { s: lerp(1.9, 1, E.out3(kf)), rz: lerp(-14, -3, E.out3(kf)), o: clamp(kf * 2.5) })); }
         ['pas1', 'pas2', 'pas3'].forEach((id, i) => { const d = bt(a, 1 + i), k = E.out3(p(t, d, d + .4)); set(id, { x: lerp(i % 2 ? -1000 : 1000, 0, k), o: k }); });
         const kc = pop(t, bt(a, 5), .4); set('suivi6b', { s: kc, o: clamp(kc) });
       }
@@ -677,7 +736,7 @@
         const [a, b] = SC.s7 || [0, 0], in7 = p(t, a, a + .9);
         set('cone', { o: .4 + .6 * E.out3(p(t, a, a + .9)) });
         const orb = lerp(-8, 8, E.inout3(p(t, a + .9, b - .3)));
-        set('tel', { y: lerp(1500, 0, E.out3(in7)), z: lerp(-260, -120, E.out3(in7)), ry: lerp(40, orb, E.out3(in7)), rx: lerp(16, 3, E.out3(in7)), rz: lerp(-6, 0, E.out3(in7)), s: .86, o: 1 });
+        set('tel', { y: lerp(1500, 0, E.out3(in7)), z: lerp(-260, Z_TEL, E.out3(in7)), ry: lerp(40, orb * .6, E.out3(in7)), rx: lerp(16, 2, E.out3(in7)), rz: lerp(-6, 0, E.out3(in7)), s: .82, o: 1 });
         const p2 = bq(a, b, .38), p3 = bq(a, b, .72), k2 = E.inout3(p(t, p2, p2 + .35)), k3 = E.inout3(p(t, p3, p3 + .35));
         $('ec1').style.transform = `translateX(${(-k2 * 172).toFixed(1)}px)`;
         $('ec2').style.transform = `translateX(${((1 - k2) * 580 - k3 * 172).toFixed(1)}px)`;
@@ -753,7 +812,7 @@
     if (S('tr5')) { const [a, b] = SC.tr5, d = b - a; C(a + .08 * d, 'glisse'); C(a + .33 * d, 'souffle', { duree: Math.min(1.4, .6 * d) }); }
     if (S('tr6')) { const [a, b] = SC.tr6, d = b - a; [0, 1, 2, 3, 4, 5].forEach((i) => C(a + (.05 + i * .065) * d, 'pop')); }
     if (S('s6a')) { const [a] = SC.s6a; C(a + .1, 'tampon'); C(a + .85, 'souffle', { duree: .9 }); [1.97, 2.09, 2.21].forEach((d) => C(a + d, 'pop')); }
-    if (S('s6b')) { const [a] = SC.s6b; C(a + .6, 'tampon'); [1, 2, 3].forEach((n) => C(bt(a, n), 'glisse')); C(bt(a, 5), 'pop'); }
+    if (S('s6b')) { const [a] = SC.s6b; C(a + .6, 'tampon'); C(a + 1.35, 'pop'); [1, 2, 3].forEach((n) => C(bt(a, n), 'glisse')); C(bt(a, 5), 'pop'); }
     if (S('s7')) { const [a, b] = SC.s7; C(a + .5, 'impact-doux'); [0, 1, 2, 3].forEach((i) => C(a + .55 + i * .1, 'pop')); C(bq(a, b, .38), 'glisse'); C(bq(a, b, .72), 'glisse'); C(bq(a, b, .76) + .05, 'eclat'); }
     if (S('s8')) { const [a, b] = SC.s8; C(bq(a, b, .24), 'pop'); C(bq(a, b, .33), 'pop'); C(bq(a, b, .68), 'eclat'); }
     const [a9] = SC.s9; C(a9 + .75, 'glisse'); C(a9 + 1.1, 'pop'); C(DUREE - .6, 'fin');

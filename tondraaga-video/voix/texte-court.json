@@ -1,0 +1,60 @@
+{
+  "version": "courte (44 s, flûte)",
+  "lignes": [
+    {
+      "t": 3.25,
+      "texte": "Tondraaga. Notre marché, notre fierté."
+    },
+    {
+      "t": 6.75,
+      "texte": "Nourrissez la famille, où que vous soyez dans le monde."
+    },
+    {
+      "t": 11.25,
+      "texte": "La boutique des artisans."
+    },
+    {
+      "t": 13.55,
+      "texte": "Le Faso Dan Fani.",
+      "tts": "Le Fasso Dan Fani."
+    },
+    {
+      "t": 15.85,
+      "texte": "Le Koko Dunda.",
+      "tts": "Le Koko Doun-da."
+    },
+    {
+      "t": 18.15,
+      "texte": "Le miel."
+    },
+    {
+      "t": 20.45,
+      "texte": "Mil, sorgho, fonio.",
+      "lent": 0.96
+    },
+    {
+      "t": 22.75,
+      "texte": "Thé et kinkéliba."
+    },
+    {
+      "t": 25.05,
+      "texte": "Et tous les produits locaux."
+    },
+    {
+      "t": 27.45,
+      "texte": "Vos colis, du Burkina vers le monde entier."
+    },
+    {
+      "t": 30.95,
+      "texte": "Payez par Mobile Money ou carte bancaire."
+    },
+    {
+      "t": 35.5,
+      "texte": "Artisans, vendez vos créations dans le monde entier."
+    },
+    {
+      "t": 39.1,
+      "texte": "Tondraaga. Disponible sur le site et en application."
+    }
+  ]
+}

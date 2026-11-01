@@ -48,8 +48,19 @@ Pagnes & tissus, Miel & produits de la ruche, Céréales & farines, Tisanes & in
 ## Paiement en 3D
 
 Orange Money, Moov Money et Wave sont des jetons épais (tranche à la couleur de chaque marque, reflet qui suit la rotation),
-Visa une carte bancaire en relief (puce, logo) ; ils jaillissent du téléphone et tournent en orbite autour de lui, devant et
-derrière, avec leurs ombres au sol. Mastercard est retiré.
+Visa une vraie carte bancaire (bleu Visa, puce, sans contact, numéro masqué, logo blanc). Ils tournent en orbite autour du
+téléphone, sur deux anneaux dorés centrés sur lui : le téléphone et l'orbite partagent le même espace 3D (`#espace7`), si bien
+que les jetons et l'arrière des anneaux passent réellement derrière le téléphone. Ombres au sol, noms sur pastilles sombres
+lisibles par-dessus l'écran. Mastercard est retiré.
+
+## Envoi d'un colis (version longue)
+
+Le colis tombe sur la balance de l'agence : le plateau s'enfonce, l'écran compte le poids jusqu'à 2,40 kg ; à l'étape 2 la
+fiche d'envoi Tondraaga (OUAGA → PARIS, code-barres, code de suivi) se colle sur le carton, tamponné « Made in Burkina Faso ».
+
+## Voix off
+
+VOIX_PLACEHOLDER
 
 ## Entrée du logo (les deux vidéos)
 

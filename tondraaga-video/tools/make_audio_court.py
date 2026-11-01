@@ -175,6 +175,11 @@ for c in cues:
     elif ty == "fin": add(fx, t0, fin(), .35)
 
 mix = flute * 1.0 + reverb(perc, 1.0, .08) * .42 + reverb(fx, 1.2, .1) * .7
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from voix_mix import voix_et_ducking  # noqa: E402
+voix, duck = voix_et_ducking(N, SR, 8.0)
+if voix is not None:
+    mix = mix / np.max(np.abs(mix)) * .66 * duck[:, None] + voix * .9
 mix *= np.clip((DUR - np.arange(N) / SR) / .6, 0, 1)[:, None]
 mix = np.tanh(mix / np.max(np.abs(mix)) * 1.1) * .89
 OUT.parent.mkdir(parents=True, exist_ok=True)

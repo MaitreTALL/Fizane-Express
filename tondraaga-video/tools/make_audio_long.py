@@ -191,6 +191,11 @@ for d in ducks:
     j = slice(i, min(N, i + len(k)))
     env[j] = np.minimum(env[j], 1 - .3 * np.exp(-k[: j.stop - j.start] / SR * 5))
 mix = mus * .8 * env[:, None] + reverb(fx) * .9
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from voix_mix import voix_et_ducking  # noqa: E402
+voix, duck = voix_et_ducking(N, SR)
+if voix is not None:
+    mix = mix / np.max(np.abs(mix)) * .62 * duck[:, None] + voix * .9
 mix = np.tanh(mix / np.max(np.abs(mix)) * 1.15) * .89
 OUT.parent.mkdir(parents=True, exist_ok=True)
 with wave.open(str(OUT), "wb") as w:
