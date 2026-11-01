@@ -10,7 +10,7 @@ for f in "$SEG"/seg_*.mp4; do realpath "$f"; done | sort | sed "s/^/file '/; s/$
 
 # version principale : 1080x1920, 30 i/s, H.264 High, AAC 48 kHz, volume calé pour les réseaux sociaux
 ffmpeg -y -loglevel error -f concat -safe 0 -i "$SEG/list.txt" -i "$MIX" \
-  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 18 -profile:v high -pix_fmt yuv420p -r 30 \
+  -map 0:v -map 1:a -c:v libx264 -preset slow -crf 23 -tune grain -maxrate 9M -bufsize 18M -profile:v high -pix_fmt yuv420p -r 30 \
   -c:a aac -b:a 192k -ar 48000 -af "loudnorm=I=-14:TP=-1.5:LRA=11" -shortest -movflags +faststart \
   -metadata title="Boutique Tondraaga — boutique.visionaryentreprises.com" \
   "$OUT/$NAME.mp4"

@@ -1,6 +1,7 @@
-// Tondraaga — vidéo longue (≈ 63 s), montée sur les mesures du balafon (window.BATTEMENTS).
+// Tondraaga — moteur des vidéos (version longue sur le balafon, version courte « ?plan=court » sur la flûte).
 (function () {
-  const W = 1080, H = 1920, FPS = 30, DUREE = 65;
+  const MODE = new URLSearchParams(location.search).get('plan') === 'court' ? 'court' : 'long';
+  const W = 1080, H = 1920, FPS = 30, DUREE = MODE === 'court' ? 44 : 84.6;
   window.__fps = FPS; window.__duration = DUREE;
   const $ = (id) => document.getElementById(id);
   const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -37,17 +38,28 @@
   const pop = (t, d, dur = .4) => E.outBack(p(t, d, d + dur));
 
   // ---------------------------------------------------------------- calage sur la musique
-  const BT = window.BATTEMENTS;
+  // version longue : battements détectés dans le balafon ; version courte : grille de percussions à 104 bpm sous la flûte
+  const BT = MODE === 'court' ? Array.from({ length: 96 }, (_, i) => +(0.70 + (i - 1) * 60 / 104).toFixed(4)) : window.BATTEMENTS;
   const M = BT.filter((_, i) => i % 4 === 1);           // débuts de mesure
+  const Mf = (k) => { const i = Math.floor(k), f = k - i; return f ? M[i] + f * (M[i + 1] - M[i]) : M[i]; };
   const bt = (t, n = 0) => { let i = BT.findIndex((b) => b >= t - .03); if (i < 0) i = BT.length - 1; return BT[Math.min(i + n, BT.length - 1)]; };
-  const SC = {
-    s1: [0, M[3]], s2: [M[3], M[5]], s3: [M[5], M[7]], s4a: [M[7], M[9]], s4b: [M[9], M[11]], s4c: [M[11], M[13]], s4d: [M[13], M[15]],
-    s5a: [M[15], M[17]], s5b: [M[17], M[19]], s6a: [M[19], M[22]], s6b: [M[22], M[24]], s7: [M[24], M[27]], s8: [M[27], M[30]], s9: [M[30], DUREE],
+  const bq = (a, b, f) => { const x = a + f * (b - a); let m = BT[0]; for (const v of BT) if (Math.abs(v - x) < Math.abs(m - x)) m = v; return m; };
+  const PLANS = {
+    long: [['s1', 0, 3, '', 'zoom'], ['s2', 3, 5, 'zoom', 'droite'], ['s3', 5, 7, 'droite', 'haut'], ['s4a', 7, 9, 'haut', 'zoom'], ['s4b', 9, 11, 'zoom', 'droite'],
+      ['s4c', 11, 13, 'droite', 'haut'], ['s4d', 13, 15, 'haut', 'zoom'], ['s5a', 15, 17, 'zoom', 'droite'],
+      ['tr1', 17, 19, 'droite', 'haut'], ['tr2', 19, 21, 'haut', 'droite'], ['tr3', 21, 23, 'droite', 'zoom'], ['tr4', 23, 25, 'zoom', 'haut'], ['tr5', 25, 27, 'haut', 'droite'], ['tr6', 27, 29, 'droite', 'zoom'],
+      ['s6a', 29, 32, 'zoom', 'haut'], ['s6b', 32, 34, 'haut', 'droite'], ['s7', 34, 37, 'droite', 'zoom'], ['s8', 37, 40, 'zoom', 'cercle'], ['s9', 40, null, 'cercle', '']],
+    court: [['s1', 0, 2.5, '', 'zoom'], ['s4a', 2.5, 3.5, 'zoom', 'droite'], ['s4b', 3.5, 4.5, 'droite', 'haut'], ['s5a', 4.5, 5.5, 'haut', 'zoom'],
+      ['tr1', 5.5, 6.5, 'zoom', 'droite'], ['tr2', 6.5, 7.5, 'droite', 'haut'], ['tr3', 7.5, 8.5, 'haut', 'droite'], ['tr4', 8.5, 9.5, 'droite', 'zoom'], ['tr5', 9.5, 10.5, 'zoom', 'haut'], ['tr6', 10.5, 11.5, 'haut', 'zoom'],
+      ['s6a', 11.5, 13, 'zoom', 'droite'], ['s7', 13, 15, 'droite', 'zoom'], ['s8', 15, 16.5, 'zoom', 'cercle'], ['s9', 16.5, null, 'cercle', '']],
   };
-  const TRANS = { s1: ['', 'zoom'], s2: ['zoom', 'droite'], s3: ['droite', 'haut'], s4a: ['haut', 'zoom'], s4b: ['zoom', 'droite'], s4c: ['droite', 'haut'], s4d: ['haut', 'zoom'],
-    s5a: ['zoom', 'droite'], s5b: ['droite', 'zoom'], s6a: ['zoom', 'haut'], s6b: ['haut', 'droite'], s7: ['droite', 'zoom'], s8: ['zoom', 'cercle'], s9: ['cercle', ''] };
+  const PLAN = PLANS[MODE];
+  const SC = Object.fromEntries(PLAN.map(([id, d, f]) => [id, [Mf(d), f === null ? DUREE : Mf(f)]]));
+  const TRANS = Object.fromEntries(PLAN.map(([id, , , te, ts]) => [id, [te, ts]]));
+  ['s1', 's2', 's3', 's4a', 's4b', 's4c', 's4d', 's5a', 's5b', 'tr1', 'tr2', 'tr3', 'tr4', 'tr5', 'tr6', 's6a', 's6b', 's7', 's8', 's9'].forEach((id) => { if (!SC[id]) $(id).style.display = 'none'; });
   // transitions d'entrée / de sortie communes
   function scene(id, t) {
+    if (!SC[id]) return false;
     const [a, b] = SC[id], el = $(id), [te, ts] = TRANS[id];
     if (t < a - .12 || t > b + .06) { el.style.display = 'none'; return false; }
     el.style.display = 'block';
@@ -77,7 +89,8 @@
   const T5b = mots('t5b', 'Catégories');
   const T6a = mots('t6a', 'Du Burkina vers le monde entier');
   const T6b = mots('t6b', 'Expédiez vos colis du Burkina vers le monde entier');
-  const T7 = mots('t7', 'Payez par carte bancaire ou Mobile Money');
+  const T7 = mots('t7', 'Payez par Mobile Money ou carte bancaire');
+  const TT = [['tt1', 'Faso Dan Fani'], ['tt2', 'Koko Dunda'], ['tt3', 'Miel'], ['tt4', 'Céréales'], ['tt5', 'Thé & kinkeliba'], ['tt6', 'Produits locaux']].map(([id, x]) => mots(id, x));
   const T8 = mots('t8', 'Vendez vos créations dans le monde entier');
 
   // ---------------------------------------------------------------- éléments générés
@@ -228,8 +241,12 @@
     return { dessiner, ctx };
   }
   const carte2 = Carte($('carte2')), carte6 = Carte($('carte6'));
-  const INTRO = { impact: M[0], marche: [M[0], 2.25], xDepart: 1385, accroupi: [2.25, 2.75], morph: [2.75, 3.05], zoom: [3.0, 4.15],
-    lettres: 3.12, lettresPas: .07, bandes: 3.25, slogan: 3.95, sloganPas: .026, eclat: bt(4.5), tampon: M[2] };
+  if (MODE === 'court') $('credit9').textContent = 'Musique : flûte, @gimbalanke';
+  const INTRO = MODE === 'court'
+    ? { impact: M[0], marche: [M[0], 2.1], xDepart: 1330, accroupi: [2.1, 2.58], morph: [2.62, 2.95], zoom: [2.9, 3.85],
+      lettres: 2.98, lettresPas: .05, bandes: 3.05, slogan: 3.55, sloganPas: .018, eclat: 4.0, tampon: M[2] }
+    : { impact: M[0], marche: [M[0], 2.25], xDepart: 1385, accroupi: [2.25, 2.75], morph: [2.75, 3.05], zoom: [3.0, 4.15],
+      lettres: 3.12, lettresPas: .07, bandes: 3.25, slogan: 3.95, sloganPas: .026, eclat: bt(4.5), tampon: M[2] };
   const intro = window.IntroLogo($('s1'), INTRO);
 
   // ---------------------------------------------------------------- plan de quartier (suivi du livreur)
@@ -296,12 +313,187 @@
     }
   }
 
+  // ---------------------------------------------------------------- grain de film
+  const ctxGr = $('grain').getContext('2d');
+  const grainsTuiles = Array.from({ length: 6 }, () => { const c = document.createElement('canvas'); c.width = 540; c.height = 960; const g = c.getContext('2d'); const im = g.createImageData(540, 960); for (let i = 0; i < im.data.length; i += 4) { const v = rnd() * 255; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; } g.putImageData(im, 0, 0); return c; });
+  function grain(t) { ctxGr.drawImage(grainsTuiles[Math.floor(t * FPS) % grainsTuiles.length], 0, 0); }
+
+  // ---------------------------------------------------------------- chapitre terroir
+  function texteTerroir(n, t, a, b) {
+    const ks = pop(t, a + .12, .3); set(`ts${n}`, { s: ks, o: clamp(ks) });
+    apparitionMots(TT[n - 1], t, a + .2, .07, .32);
+    if ($(`tp${n}`)) { const k = E.out3(p(t, a + .45, a + .8)); set(`tp${n}`, { y: lerp(30, 0, k), o: k }); }
+    const num = $(`tr${n}`).querySelector('.t-num'), kn = E.out3(p(t, a, a + .6));
+    num.style.transform = `translateY(${lerp(90, 0, kn).toFixed(1)}px)`; num.style.opacity = kn.toFixed(3);
+  }
+  // T1 : tissage du Faso Dan Fani (bandes tissées fil à fil, navette)
+  const ctxF = $('c-fdf').getContext('2d');
+  const CHAINES = [['#F4EEE6', '#B4231C', '#F4EEE6', '#F4EEE6', '#B4231C'], ['#F2C230', '#F7E7A1', '#F2C230', '#E3A21A'], ['#F4EEE6', '#2B3A8C', '#F4EEE6', '#2B3A8C', '#2B3A8C', '#F4EEE6'],
+    ['#2B3A8C', '#7FA3D9', '#2B3A8C', '#1B2560'], ['#B4231C', '#1B1B1B', '#B4231C', '#F5B83D'], ['#C87817', '#4D3529', '#C87817', '#F3E6D6'], ['#1E7A44', '#F4EEE6', '#1E7A44', '#0F4D2A']];
+  const TRAMES = ['#F4EEE6', '#F7E7A1', '#F4EEE6', '#BBC9EA', '#F5B83D', '#F3E6D6', '#E9F2EA'];
+  function tissage(t, a, b) {
+    ctxF.fillStyle = '#1E120C'; ctxF.fillRect(0, 0, W, H);
+    const nb = 7, l = 138, g = 10, x0 = (W - (nb * l + (nb - 1) * g)) / 2, rang = 9, d = b - a;
+    for (let i = 0; i < nb; i++) {
+      const x = x0 + i * (l + g), prog = clamp((t - a - i * .05 * d) / (d * .6)), rows = Math.floor(prog * (H / rang));
+      const fils = CHAINES[i], n = fils.length * 3, fw = l / n;
+      ctxF.globalAlpha = .28; for (let j = 0; j < n; j++) { ctxF.fillStyle = fils[j % fils.length]; ctxF.fillRect(x + j * fw, 0, fw - 1.2, H); }
+      ctxF.globalAlpha = 1;
+      for (let r = 0; r < rows; r++) for (let j = 0; j < n; j++) { ctxF.fillStyle = (r + j) % 2 ? TRAMES[i] : fils[j % fils.length]; ctxF.fillRect(x + j * fw, r * rang, fw + .3, rang); }
+      const ombre = ctxF.createLinearGradient(x, 0, x + l, 0); ombre.addColorStop(0, 'rgba(0,0,0,.28)'); ombre.addColorStop(.12, 'rgba(0,0,0,0)'); ombre.addColorStop(.88, 'rgba(0,0,0,0)'); ombre.addColorStop(1, 'rgba(0,0,0,.28)');
+      ctxF.fillStyle = ombre; ctxF.fillRect(x, 0, l, rows * rang);
+      if (prog < 1 && prog > 0) {
+        const y = rows * rang, nx = x + (Math.sin((t - a) * 13 + i * 1.7) * .5 + .5) * l;
+        ctxF.fillStyle = '#F5B83D'; ctxF.fillRect(x, y, l, 2);
+        ctxF.fillStyle = '#7A4A22'; ctxF.beginPath(); ctxF.ellipse(nx, y + 4, 30, 8, 0, 0, 6.283); ctxF.fill();
+        ctxF.fillStyle = '#B07A45'; ctxF.beginPath(); ctxF.ellipse(nx, y + 2, 20, 3.5, 0, 0, 6.283); ctxF.fill();
+      }
+    }
+  }
+  // T2 : teinture koko dunda (taches de teinture qui s'épanouissent, réserves blanches)
+  const ctxK = $('c-koko').getContext('2d');
+  const TACHES = Array.from({ length: 30 }, () => ({ x: rnd() * W, y: rnd() * 1500, r: 90 + rnd() * 230, c: ['181,23,43', '217,84,30', '227,155,43', '59,63,143', '122,30,58'][Math.floor(rnd() * 5)], d: rnd() }));
+  function teinture(t, a, b) {
+    const d = b - a;
+    ctxK.fillStyle = '#F1E4D0'; ctxK.fillRect(0, 0, W, H);
+    for (const q of TACHES) {
+      const k = E.out3(p(t, a + q.d * d * .45, a + (q.d * .45 + .45) * d)); if (k <= 0) continue;
+      const r = q.r * k, g = ctxK.createRadialGradient(q.x, q.y, r * .1, q.x, q.y, r);
+      g.addColorStop(0, `rgba(${q.c},.9)`); g.addColorStop(.7, `rgba(${q.c},.75)`); g.addColorStop(1, `rgba(${q.c},0)`);
+      ctxK.fillStyle = g; ctxK.beginPath(); ctxK.arc(q.x, q.y, r, 0, 6.283); ctxK.fill();
+      ctxK.strokeStyle = `rgba(255,250,240,${.75 * k})`; ctxK.lineWidth = 5; ctxK.setLineDash([3, 9]);
+      [.3, .55, .78].forEach((f) => { ctxK.beginPath(); ctxK.arc(q.x, q.y, r * f, 0, 6.283); ctxK.stroke(); });
+      ctxK.setLineDash([]);
+    }
+    ctxK.fillStyle = 'rgba(30,18,12,.35)'; ctxK.fillRect(0, 0, W, H);
+  }
+  // T3 : miel (rayons hexagonaux, coulures)
+  const ctxM = $('c-miel').getContext('2d');
+  const COULURES = Array.from({ length: 7 }, (_, i) => ({ x: 70 + i * 155 + rnd() * 40, w: 26 + rnd() * 26, L: 260 + rnd() * 700, d: rnd() * .3 }));
+  function miel(t, a, b) {
+    const d = b - a;
+    const fond = ctxM.createRadialGradient(540, 700, 50, 540, 700, 1300); fond.addColorStop(0, '#5A2E06'); fond.addColorStop(1, '#170B03');
+    ctxM.fillStyle = fond; ctxM.fillRect(0, 0, W, H);
+    const R = 52, hx = R * Math.sqrt(3);
+    for (let row = -1; row < 24; row++) for (let col = -1; col < 9; col++) {
+      const cx = col * hx + (row % 2 ? hx / 2 : 0), cy = row * R * 1.5, dist = Math.hypot(cx - 540, cy - 700);
+      const k = E.out3(p(t, a + dist / 1500 * d * .5, a + dist / 1500 * d * .5 + .5)); if (k <= 0) continue;
+      ctxM.beginPath(); for (let i = 0; i < 6; i++) { const an = Math.PI / 6 + i * Math.PI / 3; ctxM.lineTo(cx + Math.cos(an) * R * .94 * k, cy + Math.sin(an) * R * .94 * k); } ctxM.closePath();
+      ctxM.fillStyle = `rgba(245,170,40,${.1 + .12 * ((row * 7 + col * 3) % 5 === 0)})`; ctxM.fill();
+      ctxM.strokeStyle = `rgba(250,200,90,${.45 * k})`; ctxM.lineWidth = 3; ctxM.stroke();
+    }
+    const nappe = ctxM.createLinearGradient(0, 0, 0, 90); nappe.addColorStop(0, '#F9C24A'); nappe.addColorStop(1, '#D5860F');
+    for (const c of COULURES) {
+      const L = c.L * E.inout3(p(t, a + c.d * d, b)); if (L <= 2) continue;
+      const g = ctxM.createLinearGradient(c.x - c.w, 0, c.x + c.w, 0); g.addColorStop(0, '#C9780C'); g.addColorStop(.45, '#FBC34A'); g.addColorStop(1, '#B9690A');
+      ctxM.fillStyle = g; ctxM.beginPath(); ctxM.moveTo(c.x - c.w / 2, 0); ctxM.lineTo(c.x - c.w * .35, L); ctxM.arc(c.x, L, c.w * .62, Math.PI, 0, true); ctxM.lineTo(c.x + c.w / 2, 0); ctxM.closePath(); ctxM.fill();
+      ctxM.strokeStyle = 'rgba(255,240,200,.65)'; ctxM.lineWidth = 3; ctxM.beginPath(); ctxM.moveTo(c.x - c.w * .12, 10); ctxM.lineTo(c.x - c.w * .1, L - 4); ctxM.stroke();
+    }
+    ctxM.fillStyle = nappe; ctxM.beginPath(); ctxM.moveTo(0, 0); ctxM.lineTo(W, 0); for (let x = W; x >= 0; x -= 20) ctxM.lineTo(x, 46 + Math.sin(x / 60 + t * 2) * 8); ctxM.closePath(); ctxM.fill();
+  }
+  // T4 : céréales (pluie de grains)
+  const ctxC = $('c-cer').getContext('2d');
+  const GRAINS = Array.from({ length: 260 }, () => ({ x: rnd() * W, y: rnd() * H, v: 500 + rnd() * 900, r: 3 + rnd() * 4, a: rnd() * 6.28, c: ['#F3C94A', '#E8B33A', '#F6DD8A', '#C98E2A', '#EDE0B8'][Math.floor(rnd() * 5)] }));
+  function cereales(t, a) {
+    ctxC.clearRect(0, 0, W, H);
+    for (const g of GRAINS) {
+      const y = (g.y + (t - a) * g.v) % (H + 40) - 20;
+      ctxC.save(); ctxC.translate(g.x + Math.sin(t * 3 + g.a) * 6, y); ctxC.rotate(g.a + t * 2); ctxC.fillStyle = g.c; ctxC.beginPath(); ctxC.ellipse(0, 0, g.r, g.r * .66, 0, 0, 6.283); ctxC.fill(); ctxC.restore();
+    }
+  }
+  // T5 : thé et kinkeliba (illustration : la théière verse, le verre se remplit, les feuilles tombent)
+  const svgT = $('the-svg');
+  svgT.innerHTML = `<defs>
+      <linearGradient id="th-metal" x1="0" x2="1"><stop offset="0" stop-color="#7d7d82"/><stop offset=".35" stop-color="#f1f1f3"/><stop offset=".6" stop-color="#b5b5ba"/><stop offset="1" stop-color="#5c5c61"/></linearGradient>
+      <linearGradient id="th-the" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E9A43A"/><stop offset="1" stop-color="#8F4A12"/></linearGradient>
+      <linearGradient id="th-verre" x1="0" x2="1"><stop offset="0" stop-color="rgba(255,255,255,.35)"/><stop offset=".25" stop-color="rgba(255,255,255,.06)"/><stop offset=".8" stop-color="rgba(255,255,255,.05)"/><stop offset="1" stop-color="rgba(255,255,255,.3)"/></linearGradient>
+      <clipPath id="th-clip"><path d="M-78 -120 L78 -120 L62 120 L-62 120 Z"/></clipPath>
+      <g id="th-feuille"><path d="M0 -38 C22 -24 22 22 0 40 C-22 22 -22 -24 0 -38 Z" fill="#3E7D2E"/><path d="M0 -36 L0 38 M0 -10 L12 -20 M0 6 L-12 -4 M0 20 L11 12" stroke="#7FB15B" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
+    </defs>
+    <g id="th-feuilles"></g>
+    <g id="th-verre-g" transform="translate(470 1020)">
+      <ellipse cx="0" cy="128" rx="96" ry="16" fill="rgba(0,0,0,.35)"/>
+      <g clip-path="url(#th-clip)"><rect id="th-niveau" x="-90" y="120" width="180" height="0" fill="url(#th-the)"/><rect id="th-mousse" x="-90" y="120" width="180" height="16" fill="#F7E2B4"/></g>
+      <path d="M-78 -120 L78 -120 L62 120 L-62 120 Z" fill="url(#th-verre)" stroke="rgba(255,255,255,.75)" stroke-width="3"/>
+      <path d="M-66 -100 L-54 100" stroke="rgba(255,255,255,.5)" stroke-width="6" stroke-linecap="round"/>
+    </g>
+    <path id="th-jet" fill="none" stroke="#D9922F" stroke-width="12" stroke-linecap="round" opacity="0"/>
+    <g id="th-vapeur" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="6" stroke-linecap="round"><path id="th-v1"/><path id="th-v2"/></g>
+    <g id="th-pot">
+      <path d="M-150 -10 C-150 -120 150 -120 150 -10 C150 90 90 130 0 130 C-90 130 -150 90 -150 -10 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
+      <path d="M-120 -86 C-80 -150 80 -150 120 -86 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
+      <circle cx="0" cy="-150" r="22" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
+      <path d="M-140 10 C-230 0 -260 -80 -330 -150 L-312 -164 C-250 -100 -215 -60 -142 -40 Z" fill="url(#th-metal)" stroke="#4b4b50" stroke-width="3"/>
+      <path d="M140 -60 C230 -70 230 80 130 70" fill="none" stroke="#3c3c40" stroke-width="22" stroke-linecap="round"/>
+      <path d="M-110 20 C-80 70 80 70 110 20" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="5"/>
+    </g>`;
+  const FEUILLES = Array.from({ length: 14 }, () => ({ x: rnd() * W, y0: -100 - rnd() * 600, v: 260 + rnd() * 260, r: rnd() * 360, vr: (rnd() - .5) * 160, s: .7 + rnd() * .9, a: rnd() * 6.28 }));
+  const feuillesG = $('th-feuilles');
+  feuillesG.innerHTML = FEUILLES.map((_, i) => `<use href="#th-feuille" id="th-f${i}"/>`).join('');
+  function the(t, a, b) {
+    const d = b - a, ke = E.outBack(p(t, a + .05 * d, a + .3 * d)), verse = E.inout3(p(t, a + .22 * d, a + .38 * d));
+    const px = lerp(1300, 760, ke), py = lerp(-200, 420, ke), ang = lerp(0, -32, verse);
+    $('th-pot').setAttribute('transform', `translate(${px.toFixed(1)} ${py.toFixed(1)}) rotate(${ang.toFixed(2)})`);
+    const ra = ang * RAD, bx = -330, by = -150, sx = px + bx * Math.cos(ra) - by * Math.sin(ra), sy = py + bx * Math.sin(ra) + by * Math.cos(ra);
+    const flux = p(t, a + .32 * d, a + .36 * d) * (1 - p(t, b - .2, b));
+    const jet = $('th-jet');
+    if (flux > 0) { const cx = 470, top = 1020 - 110; jet.setAttribute('d', `M${sx.toFixed(1)} ${sy.toFixed(1)} Q${(sx - 60).toFixed(1)} ${(sy + 40).toFixed(1)} ${cx} ${top}`); jet.setAttribute('opacity', flux.toFixed(2)); jet.setAttribute('stroke-width', (6 + 6 * flux).toFixed(1)); } else jet.setAttribute('opacity', 0);
+    const niveau = 170 * E.out3(p(t, a + .36 * d, b));
+    $('th-niveau').setAttribute('y', (120 - niveau).toFixed(1)); $('th-niveau').setAttribute('height', niveau.toFixed(1));
+    $('th-mousse').setAttribute('y', (120 - niveau - 8).toFixed(1)); $('th-mousse').setAttribute('opacity', clamp(niveau / 40).toFixed(2));
+    const kv = clamp(niveau / 120);
+    ['th-v1', 'th-v2'].forEach((id, i) => { const o = (t * .8 + i * .5) % 1, x = 450 + i * 40, y = 860 - o * 220; $(id).setAttribute('d', `M${x} ${y + 120} C${x - 30} ${y + 80} ${x + 30} ${y + 40} ${x} ${y}`); $(id).setAttribute('opacity', (kv * Math.sin(o * Math.PI)).toFixed(2)); });
+    FEUILLES.forEach((f, i) => {
+      const y = f.y0 + (t - a) * f.v, x = f.x + Math.sin((t - a) * 1.6 + f.a) * 60;
+      $(`th-f${i}`).setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(f.r + (t - a) * f.vr).toFixed(1)}) scale(${f.s.toFixed(2)})`);
+    });
+  }
+  // T6 : produits locaux
+  const LOCAUX = [['karite2', 'Beurre de karité'], ['bissap', 'Bissap'], ['baobab', 'Pain de singe'], ['gingembre', 'Gingembre'], ['sesame', 'Sésame'], ['nere', 'Soumbala (néré)']];
+  const locaux = LOCAUX.map(([img, nom], i) => {
+    const c = document.createElement('div'); c.className = 'loc';
+    c.style.left = `${(i % 2) * 510}px`; c.style.top = `${Math.floor(i / 2) * 330}px`;
+    c.innerHTML = `<div class="img" style="background-image:url(assets/terroir/${img}.jpg)"></div><div class="nom">${nom}</div>`;
+    $('grille-loc').appendChild(c); return c;
+  });
+
+  // ---------------------------------------------------------------- paiement : jetons en 3D (Orange Money, Moov Money, Wave) et carte Visa
+  const melange = (hex, f) => { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; return `rgb(${Math.round(r * f)},${Math.round(g * f)},${Math.round(b * f)})`; };
+  const JETONS = [['om', 'Orange Money', 'assets/orange-money.svg', '#FFFFFF', '#FF7900'], ['moov', 'Moov Money', 'assets/moov-money.png', '#FFFFFF', '#1F6FC2'],
+    ['wave', 'Wave', 'assets/wave.png', '#1DC3FF', '#0E8FD0'], ['visa', 'Visa', 'assets/visa.svg', '', '#2A3486']];
+  const jetons = JETONS.map(([id, nom, img, fond, bord]) => {
+    const j = document.createElement('div'); j.className = 'jeton' + (id === 'visa' ? ' visa' : '');
+    const N = id === 'visa' ? 5 : 16, pas = id === 'visa' ? 1.2 : 1.7;
+    let h = '';
+    for (let k = 1; k <= N; k++) h += `<div class="couche" style="transform:translateZ(${(-k * pas).toFixed(1)}px);background:linear-gradient(90deg, ${melange(bord, .55)}, ${melange(bord, 1)} 45%, ${melange(bord, .7)})"></div>`;
+    const dos = `transform:translateZ(${(-(N + 1) * pas).toFixed(1)}px) rotateY(180deg)`;
+    if (id === 'visa') h += `<div class="face"><div class="puce"></div><div class="numero">•••• •••• •••• ••••</div><img class="logo-visa" src="${img}" alt=""><div class="reflet"></div></div><div class="dos" style="${dos}"></div>`;
+    else h += `<div class="face" style="background:${fond}"><img src="${img}" alt="" style="${id === 'wave' ? 'border-radius:30px' : ''}"><div class="reflet"></div></div><div class="dos" style="background:${fond};${dos}"><img src="${img}" alt=""></div>`;
+    h += `<div class="nom">${nom}</div>`;
+    j.innerHTML = h; $('orbite').appendChild(j);
+    const o = document.createElement('div'); o.className = 'ombre-sol'; $('ombres7').appendChild(o);
+    return { j, o, reflet: j.querySelector('.reflet') };
+  });
+  function orbite(t, a, b) {
+    jetons.forEach(({ j, o, reflet }, i) => {
+      const k = E.outBack(p(t, a + .45 + i * .1, a + 1.25 + i * .1)), R = clamp(k, 0, 1.15);
+      const th = (t - a) * .95 + i * Math.PI / 2 + .6;
+      const X = Math.cos(th) * 395 * R, Z = Math.sin(th) * 380 * R, Y = 90 + Math.sin(th) * 110 * R + Math.sin(t * 2.1 + i) * 10;
+      const spin = lerp(540, 0, E.out3(p(t, a + .45 + i * .1, a + 1.45 + i * .1))) + 34 * Math.sin(t * 1.4 + i * 1.7);
+      j.style.transform = `translate3d(${X.toFixed(1)}px,${Y.toFixed(1)}px,${Z.toFixed(1)}px) rotateY(${spin.toFixed(1)}deg) rotateX(-7deg) scale(${lerp(.25, 1, clamp(k)).toFixed(3)})`;
+      j.style.opacity = clamp(k * 3).toFixed(3);
+      reflet.style.transform = `translateX(${(Math.sin(spin * RAD) * 55).toFixed(1)}%)`;
+      const f = 1800 / (1800 - Z), sx = 540 + X * f, sy = 1660 + Z * .12;
+      o.style.left = `${sx.toFixed(1)}px`; o.style.top = `${sy.toFixed(1)}px`; o.style.transform = `scale(${(f * (i === 3 ? 1.4 : 1)).toFixed(3)})`; o.style.opacity = (clamp(k) * .9).toFixed(3);
+    });
+  }
+
   // ---------------------------------------------------------------- sons synchronisés
   const cues = [{ t: 0, type: 'montee', duree: M[0] }, { t: M[0], type: 'impact' }, { t: INTRO.accroupi[0], type: 'souffle', duree: .45 },
     { t: INTRO.morph[0] + .1, type: 'eclat' }, { t: M[1], type: 'tampon' }, { t: INTRO.lettres, type: 'cascade', duree: .6 }, { t: INTRO.bandes, type: 'souffle' },
     { t: INTRO.eclat, type: 'eclat' }, { t: INTRO.tampon, type: 'tampon' }];
   { const n = Math.max(2, Math.round((INTRO.xDepart - 1121) / (2 * 85 * Math.sin(Math.PI / 6) * .626))); for (let k = 1; k <= n; k++) cues.push({ t: INTRO.marche[0] + k / n * (INTRO.marche[1] - INTRO.marche[0]), type: 'pas' }); }
-  Object.entries(SC).forEach(([id, [a]], i) => { if (i > 0) cues.push({ t: a - .16, type: ['s2', 's4a', 's5a', 's6a', 's7', 's9'].includes(id) ? 'impact-doux' : 'souffle' }); });
+  PLAN.forEach(([id], i) => { if (i > 0) cues.push({ t: SC[id][0] - .16, type: ['s2', 's4a', 's5a', 'tr1', 's6a', 's7', 's9'].includes(id) ? 'impact-doux' : 'souffle' }); });
   const C = (t, type, extra = {}) => cues.push({ t, type, ...extra });
 
   window.renderAt = function (t) {
@@ -310,7 +502,7 @@
 
     // ---------- S2 diaspora ----------
     {
-      const [a, b] = SC.s2, vis = scene('s2', t);
+      const [a, b] = SC.s2 || [0, 0], vis = scene('s2', t);
       if (vis) {
         apparitionMots(T2, t, a + .1, .06, .35);
         const villes = [['paris', 'Paris', 1], ['lyon', 'Lyon', 2], ['ny', 'New York', 3], ['atlanta', 'Atlanta', 4]];
@@ -337,7 +529,7 @@
 
     // ---------- S3 trois services ----------
     {
-      const [a] = SC.s3;
+      const [a] = SC.s3 || [0, 0];
       if (scene('s3', t)) {
         apparitionMots(T3, t, a + .08, .06, .35);
         ['sv1', 'sv2', 'sv3'].forEach((id, i) => { const d = bt(a, 1 + 2 * i), k = E.out3(p(t, d, d + .45)); set(id, { rx: lerp(-85, 0, E.outBack(p(t, d, d + .5))), y: lerp(-40, 0, k), o: k }); });
@@ -347,18 +539,18 @@
 
     // ---------- S4a courses ----------
     {
-      const [a, b] = SC.s4a;
+      const [a, b] = SC.s4a || [0, 0];
       if (scene('s4a', t)) {
         set('ph4a', { s: lerp(1.28, 1.06, E.out3(p(t, a, b))), x: lerp(30, -30, p(t, a, b)) });
         const ks = pop(t, a + .15, .3); set('sur4a', { s: ks, o: clamp(ks) });
         apparitionMots(T4a, t, a + .25, .05, .35);
-        [['d4a1', bt(a, 3)], ['d4a2', bt(a, 5)]].forEach(([id, d]) => { const k = E.out3(p(t, d, d + .35)); set(id, { x: lerp(-40, 0, k), o: k }); });
+        [['d4a1', bq(a, b, .42)], ['d4a2', bq(a, b, .6)]].forEach(([id, d]) => { const k = E.out3(p(t, d, d + .35)); set(id, { x: lerp(-40, 0, k), o: k }); });
       }
     }
 
     // ---------- S4b pays de commande ----------
     {
-      const [a, b] = SC.s4b;
+      const [a, b] = SC.s4b || [0, 0];
       if (scene('s4b', t)) {
         apparitionMots(T4b, t, a + .1, .07, .35);
         const ks = E.out3(p(t, a + .45, a + .8)); set('sous4b', { y: lerp(20, 0, ks), o: ks });
@@ -370,7 +562,7 @@
 
     // ---------- S4c comment ça marche ----------
     {
-      const [a, b] = SC.s4c;
+      const [a, b] = SC.s4c || [0, 0];
       if (scene('s4c', t)) {
         set('ph4c', { s: lerp(1.15, 1.05, p(t, a, b)) });
         const ks = pop(t, a + .1, .3); set('sur4c', { s: ks, o: clamp(ks) });
@@ -383,7 +575,7 @@
 
     // ---------- S4d suivi du livreur ----------
     {
-      const [a, b] = SC.s4d;
+      const [a, b] = SC.s4d || [0, 0];
       if (scene('s4d', t)) {
         ville(t, a, b);
         set('plan', { rx: lerp(52, 40, E.out3(p(t, a, b))), rz: lerp(-8, 4, p(t, a, b)), s: lerp(1.08, .98, E.out3(p(t, a, b))), y: lerp(60, 0, E.out3(p(t, a, a + .8))) });
@@ -396,7 +588,7 @@
 
     // ---------- S5a boutique des artisans ----------
     {
-      const [a, b] = SC.s5a;
+      const [a, b] = SC.s5a || [0, 0];
       if (scene('s5a', t)) {
         set('fond5a', { s: 1.1 + .1 * p(t, a, b) });
         const ks = pop(t, a + .15, .3); set('sur5a', { s: ks, o: clamp(ks) });
@@ -404,13 +596,13 @@
         const tour = lerp(20, -220, E.inout3(p(t, a + .1, b - .15)));
         cartes.forEach((c, i) => { const ang = i * 72 + tour, face = Math.cos(ang * RAD); set(c, { o: 1 }); c.style.transform = `rotateY(${ang}deg) translateZ(420px)`; c.querySelector('.ombre').style.opacity = (.75 - .75 * clamp(face)).toFixed(3); });
         set('carrousel', { s: lerp(.6, 1, E.out3(p(t, a, a + .6))), rx: -6, o: 1 });
-        const kp = E.out3(p(t, bt(a, 3), bt(a, 3) + .4)); set('bas5a', { y: lerp(60, 0, kp), o: kp });
+        const kp = E.out3(p(t, bq(a, b, .45), bq(a, b, .45) + .4)); set('bas5a', { y: lerp(60, 0, kp), o: kp });
       }
     }
 
     // ---------- S5b catégories ----------
     {
-      const [a] = SC.s5b;
+      const [a] = SC.s5b || [0, 0];
       if (scene('s5b', t)) {
         const ks = pop(t, a + .1, .3); set('sur5b', { s: ks, o: clamp(ks) });
         apparitionMots(T5b, t, a + .2, .06, .35);
@@ -419,9 +611,39 @@
       }
     }
 
+
+    // ---------- chapitre terroir ----------
+    if (scene('tr1', t)) {
+      const [a, b] = SC.tr1 || [0, 0], d = b - a; tissage(t, a, b); texteTerroir(1, t, a, b);
+      const k = E.out3(p(t, a + .42 * d, a + .42 * d + .5));
+      set('fdf-photo', { y: lerp(420, 0, k), rz: lerp(-9, -2.5, k), s: lerp(.85, 1, k) * (1 + .04 * p(t, a, b)), o: clamp(k * 1.5) });
+    }
+    if (scene('tr2', t)) {
+      const [a, b] = SC.tr2 || [0, 0], d = b - a; teinture(t, a, b); texteTerroir(2, t, a, b);
+      [['k1', -9, .12], ['k2', 1, .24], ['k3', 9, .36]].forEach(([id, r, f], i) => {
+        const k = E.out3(p(t, a + f * d, a + f * d + .45)), kb = E.outBack(p(t, a + f * d, a + f * d + .5));
+        set(id, { y: lerp(700, 0, k) + Math.sin(t * 1.6 + i) * 6, rz: lerp(r * 3, r, kb), ry: lerp(i === 1 ? 0 : (i ? -40 : 40), 0, k), o: clamp(k * 1.6) });
+      });
+    }
+    if (scene('tr3', t)) {
+      const [a, b] = SC.tr3 || [0, 0], d = b - a; miel(t, a, b); texteTerroir(3, t, a, b);
+      const k = E.outBack(p(t, a + .18 * d, a + .18 * d + .55));
+      set('miel-photo', { s: lerp(.4, 1, k) * (1 + .05 * p(t, a, b)), rz: lerp(-30, 0, E.out3(p(t, a + .18 * d, a + .18 * d + .55))), o: clamp(k * 2) });
+    }
+    if (scene('tr4', t)) {
+      const [a, b] = SC.tr4 || [0, 0], d = b - a; cereales(t, a); texteTerroir(4, t, a, b);
+      set('cer-fond', { s: lerp(1.15, 1.03, p(t, a, b)) });
+      ['r1', 'r2', 'r3', 'r4'].forEach((id, i) => { const k = E.outBack(p(t, a + (.08 + i * .1) * d, a + (.08 + i * .1) * d + .45)); set(id, { s: k, o: clamp(k * 2), rz: lerp(-25, 0, clamp(k)) }); });
+    }
+    if (scene('tr5', t)) { const [a, b] = SC.tr5 || [0, 0]; the(t, a, b); texteTerroir(5, t, a, b); set('the-fond', { s: lerp(1.12, 1.02, p(t, a, b)) }); }
+    if (scene('tr6', t)) {
+      const [a, b] = SC.tr6 || [0, 0], d = b - a; texteTerroir(6, t, a, b);
+      locaux.forEach((c, i) => { const dd = a + (.05 + i * .065) * d, k = E.out3(p(t, dd, dd + .45)); set(c, { ry: lerp(i % 2 ? 80 : -80, 0, E.outBack(p(t, dd, dd + .5))), o: k }); c.firstElementChild.style.transform = `scale(${(1.12 - .1 * p(t, a, b)).toFixed(3)})`; });
+    }
+
     // ---------- S6a carte : du Burkina vers le monde ----------
     {
-      const [a, b] = SC.s6a, vis = scene('s6a', t);
+      const [a, b] = SC.s6a || [0, 0], vis = scene('s6a', t);
       if (vis) {
         const ks = pop(t, a + .1, .3); set('sur6a', { s: ks, o: clamp(ks) });
         apparitionMots(T6a, t, a + .18, .06, .34);
@@ -438,7 +660,7 @@
 
     // ---------- S6b étapes colis ----------
     {
-      const [a] = SC.s6b;
+      const [a] = SC.s6b || [0, 0];
       if (scene('s6b', t)) {
         apparitionMots(T6b, t, a + .08, .05, .34);
         const kd = p(t, a + .15, a + .6), rebond = kd < 1 ? lerp(-500, 0, E.in3(kd)) : -Math.abs(Math.sin((t - a - .6) * 9)) * 30 * Math.exp(-(t - a - .6) * 5);
@@ -449,48 +671,45 @@
       }
     }
 
-    // ---------- S7 paiement + application ----------
+    // ---------- S7 paiement en 3D + application ----------
     {
-      const [a, b] = SC.s7;
       if (scene('s7', t)) {
-        const in7 = p(t, a, a + .9);
+        const [a, b] = SC.s7 || [0, 0], in7 = p(t, a, a + .9);
         set('cone', { o: .4 + .6 * E.out3(p(t, a, a + .9)) });
-        const orb = lerp(-9, 8, E.inout3(p(t, a + .9, b - .3)));
-        set('tel', { y: lerp(1500, 0, E.out3(in7)), z: lerp(-200, 0, E.out3(in7)), ry: lerp(40, orb, E.out3(in7)), rx: lerp(16, 3, E.out3(in7)), rz: lerp(-6, 0, E.out3(in7)), o: 1 });
-        const p2 = bt(a, 4), p3 = bt(a, 8), k2 = E.inout3(p(t, p2, p2 + .35)), k3 = E.inout3(p(t, p3, p3 + .35));
+        const orb = lerp(-8, 8, E.inout3(p(t, a + .9, b - .3)));
+        set('tel', { y: lerp(1500, 0, E.out3(in7)), z: lerp(-260, -120, E.out3(in7)), ry: lerp(40, orb, E.out3(in7)), rx: lerp(16, 3, E.out3(in7)), rz: lerp(-6, 0, E.out3(in7)), s: .86, o: 1 });
+        const p2 = bq(a, b, .38), p3 = bq(a, b, .72), k2 = E.inout3(p(t, p2, p2 + .35)), k3 = E.inout3(p(t, p3, p3 + .35));
         $('ec1').style.transform = `translateX(${(-k2 * 172).toFixed(1)}px)`;
         $('ec2').style.transform = `translateX(${((1 - k2) * 580 - k3 * 172).toFixed(1)}px)`;
         $('ec3').style.transform = `translateX(${((1 - k3) * 580).toFixed(1)}px)`;
         $('ec1').style.filter = `brightness(${(1 - .35 * k2).toFixed(3)})`; $('ec2').style.filter = `brightness(${(1 - .35 * k3).toFixed(3)})`;
-        set('glint7', { x: lerp(0, 1900, E.inout3(t < p3 - .2 ? p(t, a + .95, a + 1.6) : p(t, p3 + .2, p3 + .85))) });
-        apparitionMots(T7, t, a + .8, .06, .34);
-        [['t-om', 2, -1], ['t-wave', 3, 1], ['t-moov', 4, -1], ['t-mc', 5, 1], ['t-visa', 6, -1]].forEach(([id, n, c], i) => {
-          const k = pop(t, bt(a, n), .36); set(id, { s: k, o: clamp(k), x: c * (1 - clamp(k)) * 80, y: Math.sin(t * 2.2 + i * 1.3) * 9, rz: c * -3 });
-        });
-        const kr = E.out3(p(t, bt(a, 6), bt(a, 6) + .35)) * (1 - p(t, p3 - .25, p3)); set('recu7', { y: lerp(40, 0, kr), o: kr });
-        const kg = E.outBack(p(t, p3, p3 + .4)); set('dispo7', { s: lerp(.8, 1, kg), o: clamp(E.out3(p(t, p3, p3 + .3))) });
+        set('glint7', { x: lerp(0, 1900, E.inout3(p(t, a + .95, a + 1.6))) });
+        apparitionMots(T7, t, a + .7, .06, .34);
+        orbite(t, a, b);
+        const kr = E.out3(p(t, bq(a, b, .5), bq(a, b, .5) + .35)) * (1 - p(t, bq(a, b, .76) - .25, bq(a, b, .76))); set('recu7', { y: lerp(40, 0, kr), o: kr });
+        const pd = bq(a, b, .76), kg = E.outBack(p(t, pd, pd + .4)); set('dispo7', { s: lerp(.8, 1, kg), o: clamp(E.out3(p(t, pd, pd + .3))) });
       }
     }
 
     // ---------- S8 vendeurs ----------
     {
-      const [a, b] = SC.s8;
+      const [a, b] = SC.s8 || [0, 0];
       if (scene('s8', t)) {
         set('photo8', { s: lerp(1.15, 1.03, E.out3(p(t, a, b))), y: lerp(20, -20, p(t, a, b)) });
         const ks = pop(t, a + .15, .3); set('sur8', { s: ks, o: clamp(ks) });
         apparitionMots(T8, t, a + .25, .06, .34);
-        [['f1', bt(a, 3), -1, 'c1', 15], ['f2', bt(a, 4), 1, 'c2', 8]].forEach(([id, d, c, cid, val]) => {
+        [['f1', bq(a, b, .24), -1, 'c1', 15], ['f2', bq(a, b, .33), 1, 'c2', 8]].forEach(([id, d, c, cid, val]) => {
           const k = E.out3(p(t, d, d + .45)); set(id, { ry: lerp(c * 70, 0, E.outBack(p(t, d, d + .5))), y: lerp(80, 0, k), o: k });
           $(cid).textContent = `${Math.round(val * E.out3(p(t, d + .2, d + .8)))} %`;
         });
-        const kb = E.out3(p(t, bt(a, 7), bt(a, 7) + .4)); set('bas8', { y: lerp(30, 0, kb), o: kb });
-        const kc = pop(t, bt(a, 8), .4), pul = t > bt(a, 9) ? 1 + .035 * Math.sin((t - bt(a, 9)) * 8) : 1; set('cta8', { s: kc * pul, o: clamp(kc) });
+        const kb = E.out3(p(t, bq(a, b, .58), bq(a, b, .58) + .4)); set('bas8', { y: lerp(30, 0, kb), o: kb });
+        const kc = pop(t, bq(a, b, .68), .4), pul = t > bq(a, b, .78) ? 1 + .035 * Math.sin((t - bq(a, b, .78)) * 8) : 1; set('cta8', { s: kc * pul, o: clamp(kc) });
       }
     }
 
     // ---------- S9 fin ----------
     {
-      const [a] = SC.s9;
+      const [a] = SC.s9 || [0, 0];
       if (scene('s9', t)) {
         const kl = E.outBack(p(t, a + .1, a + .75));
         set('logo9', { s: lerp(.5, 1, kl), o: clamp(E.out3(p(t, a + .1, a + .45))), blur: lerp(14, 0, E.out3(p(t, a + .1, a + .6))) });
@@ -507,10 +726,11 @@
 
     // ---------- couches globales ----------
     const clair = (t >= M[0] + .3 && t < SC.s1[1]) || (t >= SC.s4b[0] && t < SC.s4b[1]) || t >= SC.s9[0];
+    grain(t);
     poussiere(t, t < 3 ? E.out3(p(t, 0, .8)) : clair ? .25 : .35);
     $('poussiere').style.mixBlendMode = clair ? 'multiply' : 'screen';
     set('flare', { x: lerp(-300, 2400, E.inout3(p(t, .15, .95))), o: t < 1 ? .9 : 0, rz: 18 });
-    const flashs = [[M[0], .18], ...['s2', 's4a', 's5a', 's6a', 's7', 's9'].map((id) => [SC[id][0], .2])];
+    const flashs = [[M[0], .18], ...['s2', 's4a', 's5a', 'tr1', 's6a', 's7', 's9'].filter((id) => SC[id]).map((id) => [SC[id][0], .2])];
     let fl = 0; for (const [ft, d] of flashs) { if (t >= ft - .06 && t <= ft + d) fl = Math.max(fl, t < ft ? p(t, ft - .06, ft) : 1 - p(t, ft, ft + d)); }
     $('flash').style.opacity = (fl * .8).toFixed(3);
     $('fondu').style.opacity = E.in3(p(t, DUREE - .6, DUREE)).toFixed(3);
@@ -518,24 +738,31 @@
 
   // effets ponctuels (en plus des transitions)
   {
-    const [a2] = SC.s2; C(a2 + .2, 'tampon'); [1, 2, 3, 4].forEach((n) => C(bt(a2, n), 'pop'));
-    const [a3] = SC.s3; [1, 3, 5].forEach((n) => C(bt(a3, n), 'pop'));
-    const [a4a] = SC.s4a; C(bt(a4a, 3), 'pop'); C(bt(a4a, 5), 'pop');
-    const [a4b] = SC.s4b; C(a4b + .6, 'cascade', { duree: 1.0 }); C(a4b + 1.34, 'eclat');
-    const [a4c] = SC.s4c; [2, 3, 4, 5, 6].forEach((n) => C(bt(a4c, n), 'pop'));
-    const [a4d] = SC.s4d; C(SC.s4d[1] - .55, 'eclat'); C(bt(a4d, 4), 'glisse');
-    const [a5a] = SC.s5a; C(bt(a5a, 3), 'glisse');
-    const [a5b] = SC.s5b; [0, 1, 2, 3, 4, 5].forEach((i) => C(bt(a5b, 1 + i * .5 | 0) + (i % 2) * .12, 'pop'));
-    const [a6a] = SC.s6a; C(a6a + .1, 'tampon'); C(a6a + .85, 'souffle', { duree: .9 }); [1.97, 2.09, 2.21].forEach((d) => C(a6a + d, 'pop'));
-    const [a6b] = SC.s6b; C(a6b + .6, 'tampon'); [1, 2, 3].forEach((n) => C(bt(a6b, n), 'glisse')); C(bt(a6b, 5), 'pop');
-    const [a7] = SC.s7; [2, 3, 4, 5, 6].forEach((n) => C(bt(a7, n), 'pop')); C(bt(a7, 4), 'glisse'); C(bt(a7, 8), 'glisse'); C(bt(a7, 8) + .05, 'eclat');
-    const [a8] = SC.s8; C(bt(a8, 3), 'pop'); C(bt(a8, 4), 'pop'); C(bt(a8, 8), 'eclat');
+    const S = (id) => SC[id] || null;
+    if (S('s2')) { const [a] = SC.s2; C(a + .2, 'tampon'); [1, 2, 3, 4].forEach((n) => C(bt(a, n), 'pop')); }
+    if (S('s3')) { const [a] = SC.s3; [1, 3, 5].forEach((n) => C(bt(a, n), 'pop')); }
+    if (S('s4a')) { const [a, b] = SC.s4a; C(bq(a, b, .42), 'pop'); C(bq(a, b, .6), 'pop'); }
+    if (S('s4b')) { const [a] = SC.s4b; C(a + .6, 'cascade', { duree: 1.0 }); C(a + 1.34, 'eclat'); }
+    if (S('s4c')) { const [a] = SC.s4c; [2, 3, 4, 5, 6].forEach((n) => C(bt(a, n), 'pop')); }
+    if (S('s4d')) { const [a, b] = SC.s4d; C(b - .55, 'eclat'); C(bt(a, 4), 'glisse'); }
+    if (S('s5a')) { const [a, b] = SC.s5a; C(bq(a, b, .45), 'glisse'); }
+    if (S('tr1')) { const [a, b] = SC.tr1, d = b - a; C(a + .05, 'cascade', { duree: .6 * d }); C(a + .42 * d, 'glisse'); }
+    if (S('tr2')) { const [a, b] = SC.tr2, d = b - a; [.12, .24, .36].forEach((f) => C(a + f * d, 'pop')); }
+    if (S('tr3')) { const [a, b] = SC.tr3, d = b - a; C(a + .18 * d, 'eclat'); C(a + .1 * d, 'souffle', { duree: .5 }); }
+    if (S('tr4')) { const [a, b] = SC.tr4, d = b - a; [0, 1, 2, 3].forEach((i) => C(a + (.08 + i * .1) * d, 'pop')); }
+    if (S('tr5')) { const [a, b] = SC.tr5, d = b - a; C(a + .08 * d, 'glisse'); C(a + .33 * d, 'souffle', { duree: Math.min(1.4, .6 * d) }); }
+    if (S('tr6')) { const [a, b] = SC.tr6, d = b - a; [0, 1, 2, 3, 4, 5].forEach((i) => C(a + (.05 + i * .065) * d, 'pop')); }
+    if (S('s6a')) { const [a] = SC.s6a; C(a + .1, 'tampon'); C(a + .85, 'souffle', { duree: .9 }); [1.97, 2.09, 2.21].forEach((d) => C(a + d, 'pop')); }
+    if (S('s6b')) { const [a] = SC.s6b; C(a + .6, 'tampon'); [1, 2, 3].forEach((n) => C(bt(a, n), 'glisse')); C(bt(a, 5), 'pop'); }
+    if (S('s7')) { const [a, b] = SC.s7; C(a + .5, 'impact-doux'); [0, 1, 2, 3].forEach((i) => C(a + .55 + i * .1, 'pop')); C(bq(a, b, .38), 'glisse'); C(bq(a, b, .72), 'glisse'); C(bq(a, b, .76) + .05, 'eclat'); }
+    if (S('s8')) { const [a, b] = SC.s8; C(bq(a, b, .24), 'pop'); C(bq(a, b, .33), 'pop'); C(bq(a, b, .68), 'eclat'); }
     const [a9] = SC.s9; C(a9 + .75, 'glisse'); C(a9 + 1.1, 'pop'); C(DUREE - .6, 'fin');
   }
   window.__cues = cues.sort((x, y) => x.t - y.t).map((c) => ({ ...c, t: Math.round(c.t * 1000) / 1000 }));
   window.__scenes = SC;
 
-  const images = ['courses', 'tissus', 'karite', 'bijoux', 'statuette', 'panier', 'marche', 'marche2', 'artisan'].map((n) => `assets/photos/${n}.jpg`);
+  const images = ['courses', 'tissus', 'karite', 'bijoux', 'statuette', 'panier', 'marche', 'marche2', 'artisan'].map((n) => `assets/photos/${n}.jpg`)
+    .concat(['fdf', 'koko1', 'koko2', 'koko3', 'miel2', 'mil', 'mais', 'fonio', 'sorgho', 'couscous', 'karite2', 'bissap', 'baobab', 'gingembre', 'sesame', 'nere', 'the2'].map((n) => `assets/terroir/${n}.jpg`));
   Promise.all([document.fonts.ready, ...Array.from(document.images).map((i) => (i.complete ? 1 : new Promise((r) => { i.onload = i.onerror = r; })))])
     .then(() => Promise.all(images.map((u) => new Promise((r) => { const im = new Image(); im.onload = im.onerror = r; im.src = u; }))))
     .then(() => Promise.all(['500', '600', '700', '800'].map((w) => document.fonts.load(`${w} 40px P`))))

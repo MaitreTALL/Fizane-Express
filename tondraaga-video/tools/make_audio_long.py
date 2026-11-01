@@ -4,7 +4,7 @@ Musique : « Le son de balafon sénoufo », KONE IF (festival Porlahla 2026, Kou
 Wikimedia Commons (src/assets/musique/). Elle est seulement nettoyée (filtrage, égalisation douce,
 limiteur) et mise en fondu ; le montage de l'image est calé sur ses mesures (tools/beats.py).
 
-Usage : python3 tools/make_audio_long.py <cues.json> <mix.wav> [durée]
+Usage : python3 tools/make_audio_long.py <cues.json> <mix.wav> [durée] [musique]
 """
 import json
 import subprocess
@@ -22,7 +22,7 @@ OUT = Path(sys.argv[2])
 DUR = float(sys.argv[3]) if len(sys.argv) > 3 else 63.0
 N = int(DUR * SR)
 rng = np.random.default_rng(5)
-MUSIQUE = ROOT / "src" / "assets" / "musique" / "balafon-senoufo-KONE-IF-CC-BY-4.0.ogg"
+MUSIQUE = Path(sys.argv[4]) if len(sys.argv) > 4 else ROOT / "src" / "assets" / "musique" / "balafon-senoufo-KONE-IF-CC-BY-4.0.ogg"
 
 
 def lp(x, f, o=2):

@@ -241,7 +241,7 @@ window.IntroLogo = function (racine, T) {
     const dx = lerp(f.sx - 1150, 0, kp), dy = lerp(f.sy - 196, 0, kp);   // le panier rejoint sa place dans le logo
     const tangue = t < T.accroupi[0] ? 2.2 * Math.sin(p(t, T.marche[0], T.marche[1]) * nbPas * Math.PI) : 0;
     // panier à taille réelle pendant la marche ; il grandit jusqu'à sa taille de logo quand elle s'accroupit
-    const sb = lerp(.55, 1, out3(p(t, T.accroupi[0] + .1, mo0 + .1)));
+    const sb = lerp(.34, 1, inout(p(t, T.accroupi[0] + .05, mo0 + .15)));
     // le creux du tressage (qui épouse le « g » dans le logo) n'apparaît qu'avec la lettre
     const kgp = out3(p(t, mo0 + (mo1 - mo0) * .35, mo1 + .12));
     PANIER.forEach((n) => pose(el[n], { x: dx, y: dy - f.rebond * 1.5, r: tangue, s: sb, o: t >= i ? (n === 'tressage' ? kgp : 1) : 0 }));
