@@ -21,22 +21,14 @@ html, body { margin: 0; background: #000; }
 .titre .m { display: inline-block; margin-right: .22em; }
 .detail { font-weight: 600; font-size: 38px; color: var(--pale); display: flex; align-items: center; gap: 16px; }
 .detail svg { width: 44px; height: 44px; flex: none; }
-.bande { position: absolute; left: -10%; width: 120%; height: 34px;
-  background: repeating-linear-gradient(90deg, var(--ocre) 0 34px, var(--nuit) 34px 44px, #E9D7BC 44px 60px, var(--nuit) 60px 70px, #B4231C 70px 92px, var(--nuit) 92px 102px, #2E7D32 102px 118px, var(--nuit) 118px 128px); }
+.bande { position: absolute; left: -10%; width: 120%; height: 60px; background: url(assets/pagne.svg) 0 0 / 100px 100px repeat-x, #1B1B1B; border-bottom: 5px solid #C87817; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
 #flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 48%, #fff 0%, #FFE7A8 35%, rgba(245,184,61,0) 75%); opacity: 0; pointer-events: none; mix-blend-mode: screen; z-index: 50; }
 #flare { position: absolute; left: -40%; top: -10%; width: 60%; height: 140%; background: linear-gradient(90deg, rgba(255,231,168,0) 0%, rgba(255,231,168,.55) 50%, rgba(255,231,168,0) 100%); transform: rotate(18deg); mix-blend-mode: screen; z-index: 40; opacity: 0; }
 #poussiere { position: absolute; inset: 0; z-index: 20; pointer-events: none; }
 #fondu { position: absolute; inset: 0; background: var(--nuit); opacity: 0; z-index: 60; }
 
-/* S1 */
-#s1 { background: radial-gradient(circle at 50% 46%, #6B4528 0%, #3A2418 34%, var(--nuit) 70%); }
-#halo1 { left: 90px; top: 450px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(245,184,61,.35) 0%, rgba(245,184,61,0) 65%); }
-#carte-logo { left: 90px; top: 780px; width: 900px; height: 300px; border-radius: 34px; background: var(--creme); box-shadow: 0 50px 120px rgba(0,0,0,.55), 0 0 0 2px rgba(255,255,255,.4) inset; overflow: hidden; transform-style: preserve-3d; }
-#carte-logo img { position: absolute; left: 40px; top: 36px; width: 820px; }
-#reflet1 { position: absolute; top: -20%; left: -60%; width: 40%; height: 140%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.85), rgba(255,255,255,0)); transform: skewX(-20deg); }
 .badge-bf { display: inline-flex; align-items: center; gap: 16px; font-weight: 700; font-size: 32px; letter-spacing: .12em; text-transform: uppercase; color: var(--pale); }
 .badge-bf svg { width: 66px; height: 44px; border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.4); }
-#badge1 { left: 0; right: 0; top: 1150px; text-align: center; }
 
 /* S2a courses */
 #s2a { background: var(--nuit); }
@@ -113,14 +105,8 @@ html, body { margin: 0; background: #000; }
 <body>
 <div id="stage">
 
-  <!-- S1 : ouverture -->
-  <div class="scene" id="s1">
-    <div class="abs" id="halo1"></div>
-    <div class="bande" id="bande1a" style="top:560px"></div>
-    <div class="bande" id="bande1b" style="top:1310px"></div>
-    <div class="abs" id="carte-logo"><img src="assets/logo-crop.png" alt=""><div id="reflet1"></div></div>
-    <div class="abs" id="badge1"><span class="badge-bf"><svg viewBox="0 0 3 2"><path fill="#EF2B2D" d="M0 0h3v1H0z"/><path fill="#009E49" d="M0 1h3v1H0z"/><path fill="#FCD116" d="m1.5.62.09.27h.29l-.23.17.09.27-.24-.17-.24.17.09-.27-.23-.17h.29z"/></svg>Made in Burkina</span></div>
-  </div>
+  <!-- S1 : entrée du logo (src/intro.js) -->
+  <div class="scene" id="s1"></div>
 
   <!-- S2a : courses -->
   <div class="scene" id="s2a">
@@ -176,8 +162,8 @@ html, body { margin: 0; background: #000; }
 
   <!-- S4 : fin -->
   <div class="scene" id="s4">
-    <div class="bande" id="bande4a" style="top:0;height:30px"></div>
-    <div class="bande" id="bande4b" style="top:1890px;height:30px"></div>
+    <div class="bande" id="bande4a" style="top:0"></div>
+    <div class="bande" id="bande4b" style="top:1855px"></div>
     <div class="abs" id="badge4"><span class="badge-bf"><svg viewBox="0 0 3 2"><path fill="#EF2B2D" d="M0 0h3v1H0z"/><path fill="#009E49" d="M0 1h3v1H0z"/><path fill="#FCD116" d="m1.5.62.09.27h.29l-.23.17.09.27-.24-.17-.24.17.09-.27-.23-.17h.29z"/></svg>Made in Burkina</span></div>
     <img class="abs" id="logo4" src="assets/logo-crop.png" alt="Tondraaga">
     <div class="abs" id="dispo4">Disponible sur le site et en application</div>
@@ -193,6 +179,8 @@ html, body { margin: 0; background: #000; }
 </div>
 
 <script src="assets/monde.js"></script>
+<script src="assets/logo-pieces.js"></script>
+<script src="intro.js"></script>
 <script>
 (function () {
   const W = 1080, H = 1920, FPS = 30, DUREE = 15;
@@ -381,7 +369,8 @@ html, body { margin: 0; background: #000; }
 
   // sons synchronisés (pour la piste audio)
   window.__cues = [
-    { t: 0.0, type: 'montee', duree: 0.62 }, { t: 0.62, type: 'impact' }, { t: 1.55, type: 'eclat' },
+    { t: 0.0, type: 'montee', duree: 0.62 }, { t: 0.62, type: 'impact' }, { t: 0.885, type: 'pas' }, { t: 1.15, type: 'pas' }, { t: 1.17, type: 'souffle' }, { t: 1.5, type: 'eclat' }, { t: 1.6, type: 'tampon' },
+    { t: 1.66, type: 'cascade', duree: .35 }, { t: 2.3, type: 'eclat' }, { t: 2.42, type: 'tampon' },
     { t: 2.82, type: 'souffle' }, { t: 4.12, type: 'souffle' }, { t: 5.78, type: 'souffle' },
     { t: 5.98, type: 'tampon' }, { t: 6.22, type: 'souffle', duree: 0.85 },
     { t: 7.24, type: 'pop' }, { t: 7.36, type: 'pop' }, { t: 7.48, type: 'pop' },
@@ -391,19 +380,14 @@ html, body { margin: 0; background: #000; }
     { t: 11.88, type: 'souffle' }, { t: 12.2, type: 'impact' }, { t: 12.85, type: 'glisse' }, { t: 13.2, type: 'pop' }, { t: 14.55, type: 'fin' },
   ];
 
+  const intro = window.IntroLogo($('s1'), { impact: .62, marche: [.62, 1.15], xDepart: 1240, accroupi: [1.15, 1.45], morph: [1.45, 1.68], zoom: [1.62, 2.2],
+    lettres: 1.66, lettresPas: .045, bandes: 1.75, slogan: 2.05, sloganPas: .014, eclat: 2.3, tampon: 2.42 });
+
   window.renderAt = function (t) {
-    // ---------- S1 : ouverture (0 → 3.1) ----------
+    // ---------- S1 : entrée du logo (0 → 3.1) ----------
     const sortie1 = E.inExpo(p(t, 2.7, 3.12));
     set('s1', { o: t < 3.12 ? 1 - p(t, 2.98, 3.12) : 0, s: 1 + sortie1 * 1.6, z: 0 });
-    set('halo1', { s: .6 + .5 * E.out3(p(t, 0, 1.6)), o: .3 + .7 * E.out3(p(t, .2, 1.2)) });
-    const kb = E.outExpo(p(t, .25, 1.15));
-    set('bande1a', { x: lerp(-1300, 0, kb) - t * 40, o: kb });
-    set('bande1b', { x: lerp(1300, 0, kb) + t * 40, o: kb });
-    const kc = p(t, .5, 1.35);
-    set('carte-logo', { s: lerp(.62, 1, E.outBack(kc)), rx: lerp(38, 0, E.out3(kc)), o: E.out3(p(t, .5, .9)), blur: lerp(16, 0, E.out3(kc)), z: lerp(-300, 0, E.out3(kc)) });
-    set('reflet1', { x: lerp(0, 2200, E.inout3(p(t, 1.5, 2.15))) });
-    const kbd = E.out3(p(t, 1.55, 2.0));
-    set('badge1', { y: lerp(40, 0, kbd), o: kbd });
+    if (t < 3.12) intro(t);
 
     // ---------- S2a : courses (2.95 → 4.45) ----------
     const in2a = p(t, 2.95, 3.25), out2a = E.inout3(p(t, 4.15, 4.45));
@@ -483,8 +467,8 @@ html, body { margin: 0; background: #000; }
     set('gp4', { s: kg4 * pulse4, o: clamp(kg4) });
     const kw4 = E.out3(p(t, 13.5, 13.9));
     set('wa4', { y: lerp(40, 0, kw4), o: kw4 });
-    set('bande4a', { x: -((t - 12) * 60) % 128, o: in4 });
-    set('bande4b', { x: ((t - 12) * 60) % 128 - 128, o: in4 });
+    set('bande4a', { x: -((t - 12) * 60) % 100, o: in4 });
+    set('bande4b', { x: ((t - 12) * 60) % 100 - 100, o: in4 });
 
     // ---------- couches globales ----------
     const forceP = t < 3.1 ? E.out3(p(t, 0, .8)) : t < 5.9 ? .25 : t < 8.1 ? .4 : t < 12.15 ? .45 : .35;

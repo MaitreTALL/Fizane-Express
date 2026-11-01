@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 144 144">
+  <!-- Pagne « aux hirondelles » du ruban d'en-tête de boutique.visionaryentreprises.com (thème Tondraaga) -->
+  <style>.pg-rouge{fill:#DA251D}.pg-noir{fill:#1B1B1B}.pg-blanc{fill:#FFFFFF}.pg-trait{stroke:#1B1B1B;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}.pg-croise{stroke:#DA251D;stroke-width:1.6}</style>
+  <defs>
+    <pattern id="pg-losanges" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" class="pg-noir"/><path class="pg-blanc" d="M5 1.5 8.5 5 5 8.5 1.5 5z"/><path class="pg-rouge" d="M0-2 2 0 0 2-2 0zM10-2l2 2-2 2-2-2zM0 8l2 2-2 2-2-2zM10 8l2 2-2 2-2-2z"/></pattern>
+    <g id="pg-oiseau"><path class="pg-blanc pg-trait" d="M50 10C56 10 59 15 58 21C58 24 57 26 56 28C66 26 80 20 95 22C93 30 86 36 80 38C84 40 82 44 76 44C78 47 74 50 68 49C68 52 64 54 60 53C61 58 60 62 58 66L66 88C60 86 55 82 50 80C45 82 40 86 34 88L42 66C40 62 39 58 40 53C36 54 32 52 32 49C26 50 22 47 24 44C18 44 16 40 20 38C14 36 7 30 5 22C20 20 34 26 44 28C43 26 42 24 42 21C41 15 44 10 50 10Z"/><path class="pg-trait" fill="none" d="M58 35C66 33 76 31 86 29M42 35C34 33 24 31 14 29M50 66V76"/><circle cx="53.5" cy="17" r="1.8" class="pg-noir"/><rect x="44" y="-3" width="12" height="10" rx="1.5" class="pg-noir"/><rect x="47.5" y="0" width="5" height="4" class="pg-rouge"/></g>
+  </defs>
+  <rect width="144" height="144" class="pg-noir"/>
+  <rect x="12" y="12" width="60" height="60" class="pg-rouge"/><rect x="84" y="84" width="60" height="60" class="pg-rouge"/>
+  <rect x="84" y="12" width="60" height="60" fill="url(#pg-losanges)"/><rect x="12" y="84" width="60" height="60" fill="url(#pg-losanges)"/>
+  <g class="pg-blanc pg-croise"><rect x="1" y="1" width="10" height="10"/><rect x="73" y="1" width="10" height="10"/><rect x="1" y="73" width="10" height="10"/><rect x="73" y="73" width="10" height="10"/></g>
+  <use href="#pg-oiseau" transform="translate(42 42) rotate(-30) translate(-25 -21.5) scale(.5)"/><use href="#pg-oiseau" transform="translate(114 114) rotate(160) translate(-25 -21.5) scale(.5)"/>
+</svg>

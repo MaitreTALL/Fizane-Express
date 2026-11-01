@@ -305,6 +305,13 @@ for c in cues:
         add(fx, t0, pop(), 0.32, pan=rng.uniform(-0.4, 0.4))
     elif ty == "tampon":
         add(fx, t0, tampon(), 0.6)
+    elif ty == "pas":
+        x = tt(.16)
+        add(fx, t0, lp(rng.standard_normal(len(x)) * np.exp(-x * 45), 900) * .9 + np.sin(2 * np.pi * 85 * x) * np.exp(-x * 30) * .5, 0.4, pan=.15)
+    elif ty == "cascade":
+        for k in range(10):
+            x = tt(.05)
+            add(fx, t0 + k * c.get("duree", .5) / 10, np.sin(2 * np.pi * (1800 + 90 * k) * x) * np.exp(-x * 120) * .6, .14, pan=rng.uniform(-.6, .6))
     elif ty == "glisse":
         add(fx, t0, glisse(), 0.42, pan=-0.2)
     elif ty == "fin":
