@@ -201,6 +201,15 @@ def pop():
     return s * 0.7 + hp(rng.standard_normal(len(t)) * np.exp(-t * 900), 3000) * 0.15
 
 
+def tampon():
+    """Le Burkina se pose sur la carte : coup sourd et claquement."""
+    t = tt(0.5)
+    f = 60 + 120 * np.exp(-t * 30)
+    s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 9)
+    s += bp(rng.standard_normal(len(t)), 1200, 6000) * np.exp(-t * 60) * 0.5
+    return np.tanh(s * 1.4)
+
+
 def glisse():
     t = tt(0.32)
     n = rng.standard_normal(len(t))
@@ -291,9 +300,11 @@ for c in cues:
     elif ty == "eclat":
         add(fx, t0, eclat(), 0.6, pan=0.2)
     elif ty == "souffle":
-        add(fx, t0 - 0.05, souffle(), 0.32)
+        add(fx, t0 - 0.05, souffle(c.get("duree", 0.55)), 0.32)
     elif ty == "pop":
-        add(fx, t0, pop(), 0.38, pan=rng.uniform(-0.4, 0.4))
+        add(fx, t0, pop(), 0.32, pan=rng.uniform(-0.4, 0.4))
+    elif ty == "tampon":
+        add(fx, t0, tampon(), 0.6)
     elif ty == "glisse":
         add(fx, t0, glisse(), 0.42, pan=-0.2)
     elif ty == "fin":

@@ -57,45 +57,57 @@ html, body { margin: 0; background: #000; }
 .chip { font-weight: 600; font-size: 32px; padding: 14px 26px; border-radius: 999px; background: rgba(251,248,244,.12); border: 2px solid rgba(245,184,61,.65); color: var(--creme); backdrop-filter: blur(8px); }
 
 /* S2c colis */
-#s2c { background: radial-gradient(circle at 50% 52%, #4A2E1E 0%, #2A1A12 45%, #140C08 100%); }
+#s2c { background: radial-gradient(circle at 60% 55%, #4A2E1E 0%, #2A1A12 50%, #140C08 100%); }
 #entete2c { left: 70px; right: 70px; top: 190px; }
 #entete2c .titre { margin-top: 24px; font-size: 88px; }
-#globe { left: 0; top: 0; }
+#carte { left: 0; top: 0; }
 #prix2c { left: 70px; right: 70px; top: 1500px; display: flex; flex-direction: column; gap: 18px; align-items: center; }
 .prix { font-weight: 700; font-size: 38px; padding: 16px 30px; border-radius: 20px; background: rgba(251,248,244,.1); border: 2px solid rgba(245,184,61,.5); }
 .prix b { color: var(--or); }
 
 /* S3 téléphone */
-#s3 { background: radial-gradient(ellipse at 50% 20%, #7A4B22 0%, #3B2417 38%, #160D09 80%); }
+#s3 { background: radial-gradient(ellipse at 50% 22%, #7A4B22 0%, #3B2417 38%, #160D09 80%); }
 #cone { left: 140px; top: -200px; width: 800px; height: 1500px; background: radial-gradient(ellipse at 50% 0%, rgba(255,214,120,.35) 0%, rgba(255,214,120,0) 70%); filter: blur(20px); }
-#tel { left: 240px; top: 360px; width: 600px; height: 1106px; transform-style: preserve-3d; }
-#corps { position: absolute; inset: 0; border-radius: 80px; background: linear-gradient(145deg, #3A3A3C, #0E0E10 55%, #2A2A2C); box-shadow: 0 80px 160px rgba(0,0,0,.65), inset 0 0 0 3px rgba(255,255,255,.12); }
-#ecran { position: absolute; left: 20px; top: 20px; right: 20px; bottom: 20px; border-radius: 62px; overflow: hidden; background: var(--brun); }
-#ecran img { position: absolute; left: 0; top: 70px; width: 560px; height: 996px; box-shadow: -18px 0 40px rgba(0,0,0,.35); }
-#ilot { position: absolute; left: 50%; top: 36px; width: 150px; height: 42px; margin-left: -75px; border-radius: 30px; background: #0B0B0C; }
-#verre { position: absolute; left: 20px; top: 20px; right: 20px; bottom: 20px; border-radius: 62px; overflow: hidden; pointer-events: none; }
-#verre i { position: absolute; top: -30%; left: -80%; width: 45%; height: 160%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.42), rgba(255,255,255,0)); transform: skewX(-18deg); }
-.flottant { position: absolute; display: flex; align-items: center; gap: 18px; font-weight: 700; font-size: 34px; color: var(--nuit); background: var(--creme); padding: 18px 28px 18px 18px; border-radius: 28px; box-shadow: 0 30px 70px rgba(0,0,0,.45); }
-.flottant img { width: 74px; height: 74px; border-radius: 18px; background: #fff; object-fit: contain; }
-#om { left: 40px; top: 560px; }
-#wave { right: 50px; top: 860px; }
-#monde3 { left: 0; right: 0; top: 1590px; text-align: center; }
-#monde3 span { display: inline-flex; align-items: center; gap: 16px; font-weight: 700; font-size: 38px; padding: 18px 34px; border-radius: 999px; background: var(--ocre); color: #fff; box-shadow: 0 24px 60px rgba(200,120,23,.45); }
-#titre3 { left: 60px; right: 60px; top: 110px; text-align: center; }
-#titre3 .titre { font-size: 74px; }
+#tel { left: 240px; top: 330px; width: 600px; height: 1240px; transform-style: preserve-3d; }
+.tranche { position: absolute; inset: 0; border-radius: 78px; background: linear-gradient(90deg, #4a4a4f, #1c1c1e 30%, #2c2c2f 70%, #55555a); }
+#corps { position: absolute; inset: 0; border-radius: 78px; background: linear-gradient(135deg, #a3a3a8 0%, #3a3a3e 22%, #77777c 48%, #252527 72%, #9a9aa0 100%); box-shadow: 0 80px 160px rgba(0,0,0,.6); }
+#corps::after { content: ''; position: absolute; inset: 3px; border-radius: 75px; background: #050506; }
+.bouton { position: absolute; right: -6px; width: 8px; border-radius: 0 5px 5px 0; background: linear-gradient(90deg, #2a2a2d, #8c8c92); }
+#ecran { position: absolute; left: 14px; top: 14px; width: 572px; height: 1212px; border-radius: 62px; overflow: hidden; background: #fff; }
+#barre-etat { position: absolute; left: 0; top: 0; width: 572px; height: 40px; background: #4D3529; }
+#barre-etat svg { position: absolute; right: 40px; top: 12px; height: 17px; }
+#camera { position: absolute; left: 50%; top: 9px; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #34404f 0%, #07080a 62%); box-shadow: 0 0 0 2px #000; }
+#pages { position: absolute; left: 0; top: 40px; width: 572px; height: 1142px; overflow: hidden; background: #F4EEE6; }
+#pages img { position: absolute; left: 0; top: 0; width: 572px; height: 1142px; box-shadow: -18px 0 40px rgba(0,0,0,.3); }
+#gestes { position: absolute; left: 0; bottom: 0; width: 572px; height: 30px; background: #fff; }
+#gestes i { position: absolute; left: 50%; top: 12px; width: 150px; height: 6px; margin-left: -75px; border-radius: 3px; background: #1d1d1f; }
+#verre { position: absolute; left: 14px; top: 14px; width: 572px; height: 1212px; border-radius: 62px; overflow: hidden; pointer-events: none; background: linear-gradient(125deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,0) 30%); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+#verre i { position: absolute; top: -30%; left: -80%; width: 45%; height: 160%; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.36), rgba(255,255,255,0)); transform: skewX(-18deg); }
+.tuile { position: absolute; width: 198px; height: 196px; border-radius: 38px; background: #fff; box-shadow: 0 30px 60px rgba(0,0,0,.45); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+.tuile .logo { width: 128px; height: 108px; display: flex; align-items: center; justify-content: center; }
+.tuile .logo img { max-width: 128px; max-height: 108px; }
+.tuile b { font-weight: 700; font-size: 23px; color: var(--nuit); white-space: nowrap; }
+#t-om { left: 28px; top: 470px; } #t-moov { left: 28px; top: 760px; } #t-visa { left: 28px; top: 1050px; }
+#t-wave { right: 28px; top: 610px; } #t-mc { right: 28px; top: 900px; }
+#dispo3 { left: 0; right: 0; top: 1598px; text-align: center; }
+#dispo3 p { margin: 0 0 4px; font-weight: 700; font-size: 36px; color: var(--pale); }
+#dispo3 img { height: 150px; }
+#titre3 { left: 40px; right: 40px; top: 96px; text-align: center; }
+#titre3 .titre { font-size: 70px; }
 
 /* S4 fin */
 #s4 { background: radial-gradient(circle at 50% 44%, #FFFFFF 0%, var(--creme) 40%, #F1E3CF 100%); color: var(--nuit); }
-#logo4 { left: 90px; top: 640px; width: 900px; }
-#url4 { left: 0; right: 0; top: 1020px; text-align: center; }
+#badge4 { left: 0; right: 0; top: 500px; text-align: center; }
+#badge4 .badge-bf { color: var(--ocre); }
+#logo4 { left: 90px; top: 600px; width: 900px; }
+#dispo4 { left: 0; right: 0; top: 900px; text-align: center; font-weight: 700; font-size: 38px; color: var(--brun); }
+#url4 { left: 0; right: 0; top: 975px; text-align: center; }
 #url4 span { display: inline-block; font-weight: 700; font-size: 44px; color: var(--creme); background: var(--brun); padding: 22px 40px; border-radius: 999px; clip-path: inset(0 100% 0 0 round 999px); }
-#cta4 { left: 0; right: 0; top: 1170px; text-align: center; }
-#cta4 span { display: inline-flex; align-items: center; gap: 16px; font-weight: 800; font-size: 46px; color: #fff; background: var(--ocre); padding: 26px 48px; border-radius: 26px; box-shadow: 0 24px 50px rgba(200,120,23,.4); }
-#wa4 { left: 0; right: 0; top: 1350px; text-align: center; font-weight: 700; font-size: 40px; color: var(--brun); }
+#gp4 { left: 0; right: 0; top: 1110px; text-align: center; }
+#gp4 img { height: 180px; }
+#wa4 { left: 0; right: 0; top: 1330px; text-align: center; font-weight: 700; font-size: 40px; color: var(--brun); }
 #wa4 span { display: inline-flex; align-items: center; gap: 14px; }
 #wa4 svg { width: 50px; height: 50px; }
-#badge4 { left: 0; right: 0; top: 470px; text-align: center; }
-#badge4 .badge-bf { color: var(--ocre); }
 </style>
 </head>
 <body>
@@ -131,7 +143,7 @@ html, body { margin: 0; background: #000; }
 
   <!-- S2c : colis -->
   <div class="scene" id="s2c">
-    <canvas class="abs" id="globe" width="1080" height="1920"></canvas>
+    <canvas class="abs" id="carte" width="1080" height="1920"></canvas>
     <div class="abs" id="entete2c"><span class="sur" id="sur2c">Colis</span><h1 class="titre" id="titre2c"></h1></div>
     <div class="abs" id="prix2c">
       <div class="prix" id="prixA">Afrique · <b>5 000 FCFA</b> le kilo</div>
@@ -144,14 +156,22 @@ html, body { margin: 0; background: #000; }
     <div class="abs" id="cone"></div>
     <div class="abs" id="titre3"><h1 class="titre" id="t3"></h1></div>
     <div class="abs" id="tel">
+      <div class="tranche" style="transform:translateZ(-18px)"></div><div class="tranche" style="transform:translateZ(-12px)"></div><div class="tranche" style="transform:translateZ(-6px)"></div>
       <div id="corps"></div>
-      <div id="ecran"><img id="ec1" src="assets/play-1-accueil.png" alt=""><img id="ec2" src="assets/play-2-courses.png" alt=""><img id="ec3" src="assets/play-4-colis.png" alt=""></div>
-      <div id="ilot"></div>
+      <div class="bouton" style="top:300px;height:110px"></div><div class="bouton" style="top:450px;height:170px"></div>
+      <div id="ecran">
+        <div id="barre-etat"><svg viewBox="0 0 92 18"><g fill="#fff"><path d="M2 16h3v2H2zM7 12h3v6H7zM12 8h3v10h-3zM17 3h3v15h-3z"/><path d="M36 17.5l-3.2-3.6a4.8 4.8 0 0 1 6.4 0zM29.6 10.6a9.4 9.4 0 0 1 12.8 0l-1.8 2a6.6 6.6 0 0 0-9.2 0zM26.4 7.2a14 14 0 0 1 19.2 0l-1.8 2a11.3 11.3 0 0 0-15.6 0z"/><rect x="56" y="3" width="30" height="14" rx="3" fill="none" stroke="#fff" stroke-width="2"/><rect x="59" y="6" width="20" height="8" rx="1.5"/><path d="M88 7h2.5v6H88z"/></g></svg><div id="camera"></div></div>
+        <div id="pages"><img id="ec1" src="assets/ecran-accueil.png" alt=""><img id="ec2" src="assets/ecran-boutique.png" alt=""><img id="ec3" src="assets/ecran-colis.png" alt=""></div>
+        <div id="gestes"><i></i></div>
+      </div>
       <div id="verre"><i id="glint3"></i></div>
     </div>
-    <div class="flottant" id="om"><img src="assets/orange-money.svg" alt="">Orange Money</div>
-    <div class="flottant" id="wave"><img src="assets/wave.png" alt="" style="background:#1DC3FF">Wave</div>
-    <div class="abs" id="monde3"><span><svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.8 3 2.8 15 0 18M12 3c-2.8 3-2.8 15 0 18"/></svg>Expédition dans le monde entier</span></div>
+    <div class="tuile" id="t-om"><div class="logo"><img src="assets/orange-money.svg" alt=""></div><b>Orange Money</b></div>
+    <div class="tuile" id="t-moov"><div class="logo"><img src="assets/moov-money.png" alt=""></div><b>Moov Money</b></div>
+    <div class="tuile" id="t-visa"><div class="logo"><img src="assets/visa.svg" alt=""></div><b>Visa</b></div>
+    <div class="tuile" id="t-wave"><div class="logo"><img src="assets/wave.png" alt="" style="border-radius:24px"></div><b>Wave</b></div>
+    <div class="tuile" id="t-mc"><div class="logo"><img src="assets/mastercard.svg" alt=""></div><b>Mastercard</b></div>
+    <div class="abs" id="dispo3"><p>Disponible sur le site et en application</p><img src="assets/google-play-fr.png" alt="Disponible sur Google Play"></div>
   </div>
 
   <!-- S4 : fin -->
@@ -160,8 +180,9 @@ html, body { margin: 0; background: #000; }
     <div class="bande" id="bande4b" style="top:1890px;height:30px"></div>
     <div class="abs" id="badge4"><span class="badge-bf"><svg viewBox="0 0 3 2"><path fill="#EF2B2D" d="M0 0h3v1H0z"/><path fill="#009E49" d="M0 1h3v1H0z"/><path fill="#FCD116" d="m1.5.62.09.27h.29l-.23.17.09.27-.24-.17-.24.17.09-.27-.23-.17h.29z"/></svg>Made in Burkina</span></div>
     <img class="abs" id="logo4" src="assets/logo-crop.png" alt="Tondraaga">
+    <div class="abs" id="dispo4">Disponible sur le site et en application</div>
     <div class="abs" id="url4"><span>boutique.visionaryentreprises.com</span></div>
-    <div class="abs" id="cta4"><span>Découvrir la boutique <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span></div>
+    <div class="abs" id="gp4"><img src="assets/google-play-fr.png" alt="Disponible sur Google Play"></div>
     <div class="abs" id="wa4"><span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#25D366"/><path fill="#fff" d="M16.8 14.2c-.3-.1-1.6-.8-1.8-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.5-1.5-1.8-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.8-2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.8 2.8 4.4 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.6-.7 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3z"/></svg>WhatsApp +226 75 55 26 61</span></div>
   </div>
 
@@ -171,6 +192,7 @@ html, body { margin: 0; background: #000; }
   <div id="fondu"></div>
 </div>
 
+<script src="assets/monde.js"></script>
 <script>
 (function () {
   const W = 1080, H = 1920, FPS = 30, DUREE = 15;
@@ -214,7 +236,7 @@ html, body { margin: 0; background: #000; }
   const M2a = mots('titre2a', 'Nourrissez la famille, où que vous soyez dans le monde');
   const M2b = mots('titre2b', 'La boutique des artisans');
   const M2c = mots('titre2c', 'Du Burkina vers le monde entier');
-  const M3 = mots('t3', 'Payez par Orange Money ou Wave');
+  const M3 = mots('t3', 'Payez par carte bancaire ou Mobile Money');
 
   // carrousel
   const produits = [['tissus', 'Pagne Faso Dan Fani'], ['karite', 'Beurre de karité'], ['bijoux', 'Collier en perles du Sahel'], ['statuette', 'Statuette en bois peint'], ['panier', 'Panier tressé en paille']];
@@ -246,86 +268,127 @@ html, body { margin: 0; background: #000; }
     }
   }
 
-  // globe en points
-  const ctxG = $('globe').getContext('2d');
-  const pts = [];
-  // contours simplifiés des terres (lat, lon) : seules les terres sont dessinées en points
-  const terres = [
-    [[37,-10],[35,-1],[37,10],[33,11],[32,20],[32,25],[31,32],[28,34],[22,37],[15,40],[12,44],[11,51],[2,46],[-5,40],[-11,40],[-16,40],[-26,33],[-34,26],[-34,18],[-29,16],[-17,12],[-12,14],[-6,12],[-1,9],[4,9],[5,2],[5,-4],[4,-7],[6,-11],[10,-15],[15,-17],[21,-17],[28,-13],[33,-8],[36,-6]],
-    [[36,-9],[43,-9],[44,-1],[48,-5],[51,2],[54,8],[57,8],[58,6],[63,6],[70,20],[71,30],[69,60],[73,80],[76,105],[73,130],[70,160],[66,180],[60,163],[53,157],[45,142],[40,132],[35,129],[30,122],[22,114],[10,107],[1,104],[8,98],[17,95],[22,90],[16,82],[8,77],[20,73],[25,67],[25,57],[30,48],[24,51],[22,59],[17,55],[13,44],[28,34],[31,34],[36,36],[36,28],[41,26],[40,23],[38,22],[40,19],[45,13],[41,16],[38,16],[44,8],[43,3],[37,-1],[36,-6]],
-    [[60,-140],[70,-160],[71,-156],[70,-140],[69,-115],[68,-95],[62,-93],[55,-85],[58,-77],[62,-75],[60,-65],[53,-56],[47,-53],[45,-62],[44,-66],[41,-70],[35,-76],[30,-81],[25,-80],[27,-82],[30,-84],[29,-89],[29,-95],[26,-97],[21,-97],[18,-95],[21,-87],[18,-88],[15,-84],[10,-83],[8,-79],[8,-82],[13,-88],[16,-95],[20,-105],[23,-110],[31,-114],[32,-117],[34,-120],[40,-124],[48,-125],[55,-131],[59,-138],[60,-146]],
-    [[12,-72],[11,-64],[8,-60],[4,-52],[0,-50],[-3,-40],[-5,-35],[-13,-38],[-23,-42],[-25,-48],[-33,-52],[-38,-57],[-41,-63],[-46,-67],[-52,-69],[-55,-67],[-54,-72],[-46,-75],[-38,-73],[-30,-71],[-18,-70],[-14,-76],[-5,-81],[-1,-80],[2,-79],[7,-78],[9,-77]],
-    [[60,-43],[65,-40],[70,-22],[78,-18],[82,-30],[82,-60],[77,-72],[70,-54],[65,-52]],
-    [[50,-5],[51,1],[53,0],[56,-2],[58,-3],[58,-6],[55,-6],[52,-5]],
-    [[-12,49],[-25,47],[-25,44],[-16,44]],
-  ];
-  const dedans = (la, lo, poly) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const [ya, xa] = poly[i], [yb, xb] = poly[j]; if ((ya > la) !== (yb > la) && lo < (xb - xa) * (la - ya) / (yb - ya) + xa) c = !c; } return c; };
-  for (let lat = -58; lat <= 82; lat += 2.6) for (let lon = -180; lon < 180; lon += 2.6 / Math.max(.2, Math.cos(lat * Math.PI / 180))) if (terres.some((pl) => dedans(lat, lon, pl))) pts.push([lat, lon]);
-  const villes = { oua: [12.37, -1.52], paris: [48.86, 2.35], ny: [40.71, -74.0], jnb: [-26.2, 28.05], abidjan: [5.36, -4.0], montreal: [45.5, -73.57] };
-  const routes = [['oua', 'jnb', 'Afrique'], ['oua', 'paris', 'Europe'], ['oua', 'ny', 'Amérique']];
-  function proj(lat, lon, rot, R, cx, cy, h = 1) {
-    const la = lat * Math.PI / 180, lo = (lon + rot) * Math.PI / 180, tilt = .42;
-    let x = Math.cos(la) * Math.sin(lo), y = Math.sin(la), z = Math.cos(la) * Math.cos(lo);
-    const y2 = y * Math.cos(tilt) - z * Math.sin(tilt), z2 = y * Math.sin(tilt) + z * Math.cos(tilt);
-    return { x: cx + x * R * h, y: cy - y2 * R * h, z: z2 };
+  // carte du monde : le Burkina Faso aux couleurs du drapeau, puis les routes des colis
+  const ctxG = $('carte').getContext('2d');
+  const MONDE = window.MONDE;
+  const RAD = Math.PI / 180;
+  const miller = (lat) => 1.25 * Math.log(Math.tan(Math.PI / 4 + 0.4 * lat * RAD)) / RAD;
+  const anneaux = MONDE.pays.map((f) => {
+    let x0 = 999, x1 = -999, y0 = 999, y1 = -999; const m = new Float64Array(f.length / 2);
+    for (let i = 0; i < f.length; i += 2) { x0 = Math.min(x0, f[i]); x1 = Math.max(x1, f[i]); y0 = Math.min(y0, f[i + 1]); y1 = Math.max(y1, f[i + 1]); m[i / 2] = miller(f[i + 1]); }
+    return { f, m, x0, x1, y0, y1 };
+  });
+  const bfAnneaux = MONDE.bf.map((f) => { const m = new Float64Array(f.length / 2); for (let i = 0; i < f.length; i += 2) m[i / 2] = miller(f[i + 1]); return { f, m }; });
+  const BF = { lon: -1.75, lat: 12.25, nord: 15.08, sud: 9.4 };
+  const cam = { lon: 0, mlat: 0, k: 1, cy: 1010 };
+  const X = (lon) => 540 + (lon - cam.lon) * cam.k;
+  const Ym = (m) => cam.cy - (m - cam.mlat) * cam.k;
+  const Y = (lat) => Ym(miller(lat));
+  function chemin(a) { const { f, m } = a; ctxG.moveTo(X(f[0]), Ym(m[0])); for (let i = 2; i < f.length; i += 2) ctxG.lineTo(X(f[i]), Ym(m[i / 2])); ctxG.closePath(); }
+  const villes = { oua: [-1.52, 12.37], paris: [2.35, 48.86], ny: [-74.0, 40.71], jnb: [28.05, -26.2], montreal: [-73.57, 45.5], londres: [-0.13, 51.5], bruxelles: [4.35, 50.85], dakar: [-17.44, 14.69], abidjan: [-4.0, 5.36], nairobi: [36.82, -1.29], caire: [31.24, 30.04] };
+  const routes = [['ny', 'Amérique', 6.84], ['paris', 'Europe', 6.96], ['jnb', 'Afrique', 7.08]];
+  const secondaires = [['montreal', 6.9], ['londres', 6.94], ['bruxelles', 7.0], ['dakar', 6.92], ['abidjan', 7.02], ['nairobi', 7.1], ['caire', 7.05]];
+  function arc(o, d, k, largeur, alpha, tete) {
+    const [ox, oy] = o, [dx, dy] = d; const L = Math.hypot(dx - ox, dy - oy);
+    let nx = -(dy - oy) / L, ny = (dx - ox) / L; if (ny > 0) { nx = -nx; ny = -ny; }
+    const cx = (ox + dx) / 2 + nx * L * .3, cy = (oy + dy) / 2 + ny * L * .3;
+    const pt = (u) => [(1 - u) * (1 - u) * ox + 2 * (1 - u) * u * cx + u * u * dx, (1 - u) * (1 - u) * oy + 2 * (1 - u) * u * cy + u * u * dy];
+    ctxG.beginPath(); ctxG.moveTo(ox, oy);
+    const n = 48; for (let s = 1; s <= n * k; s++) { const q = pt(s / n); ctxG.lineTo(q[0], q[1]); }
+    const fin = pt(k); ctxG.lineTo(fin[0], fin[1]);
+    ctxG.lineWidth = largeur; ctxG.lineCap = 'round'; ctxG.strokeStyle = `rgba(245,184,61,${alpha})`; ctxG.shadowColor = 'rgba(255,200,90,.9)'; ctxG.shadowBlur = largeur * 3; ctxG.stroke(); ctxG.shadowBlur = 0;
+    if (tete && k < 1) { ctxG.fillStyle = '#FFF4D6'; ctxG.beginPath(); ctxG.arc(fin[0], fin[1], largeur * 1.5, 0, 6.283); ctxG.fill(); }
+    return fin;
   }
-  function slerp(a, b, k) {
-    const toV = ([la, lo]) => { la *= Math.PI / 180; lo *= Math.PI / 180; return [Math.cos(la) * Math.cos(lo), Math.cos(la) * Math.sin(lo), Math.sin(la)]; };
-    const A = toV(a), B = toV(b); const d = Math.acos(clamp(A[0] * B[0] + A[1] * B[1] + A[2] * B[2], -1, 1));
-    const s = Math.sin(d) || 1; const fa = Math.sin((1 - k) * d) / s, fb = Math.sin(k * d) / s;
-    const v = [A[0] * fa + B[0] * fb, A[1] * fa + B[1] * fb, A[2] * fa + B[2] * fb];
-    return [Math.asin(v[2]) * 180 / Math.PI, Math.atan2(v[1], v[0]) * 180 / Math.PI];
+  function etoile(cx, cy, r) {
+    ctxG.beginPath();
+    for (let i = 0; i < 10; i++) { const a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * .382 : r; ctxG.lineTo(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr); }
+    ctxG.closePath(); ctxG.fill();
   }
-  function globe(t, apparition) {
+  function carte(t, vis) {
     ctxG.clearRect(0, 0, W, H);
-    if (apparition <= 0) return;
-    const R = 430 * (.85 + .15 * apparition), cx = W / 2, cy = 1010, rot = 32 - (t - 6.4) * 10;
-    const g = ctxG.createRadialGradient(cx - 120, cy - 140, 40, cx, cy, R * 1.05);
-    g.addColorStop(0, `rgba(122,75,34,${.55 * apparition})`); g.addColorStop(1, `rgba(20,12,8,${.9 * apparition})`);
-    ctxG.fillStyle = g; ctxG.beginPath(); ctxG.arc(cx, cy, R, 0, 6.283); ctxG.fill();
-    ctxG.strokeStyle = `rgba(245,184,61,${.35 * apparition})`; ctxG.lineWidth = 3; ctxG.stroke();
-    for (const [la, lo] of pts) {
-      const q = proj(la, lo, rot, R, cx, cy); if (q.z < 0) continue;
-      ctxG.fillStyle = `rgba(247,235,219,${apparition * (.25 + .7 * q.z)})`;
-      ctxG.beginPath(); ctxG.arc(q.x, q.y, 1.8 + 1.8 * q.z, 0, 6.283); ctxG.fill();
+    if (vis <= 0) return;
+    // caméra : du Burkina en gros plan à la carte du monde
+    const z = E.inout3(p(t, 6.22, 7.05));
+    const k0 = 92, k1 = 6.2;
+    const k = Math.exp(lerp(Math.log(k0), Math.log(k1), z));
+    const u = (1 / k - 1 / k0) / (1 / k1 - 1 / k0);
+    const derive = 1 + .14 * (1 - E.out3(p(t, 5.9, 6.3))) + .05 * p(t, 7.05, 8.12);
+    cam.k = k * derive; cam.lon = lerp(BF.lon, -24, u); cam.mlat = lerp(miller(BF.lat), miller(23), u);
+    ctxG.globalAlpha = vis;
+    // graticule discrète
+    ctxG.strokeStyle = 'rgba(247,235,219,.06)'; ctxG.lineWidth = 1; ctxG.beginPath();
+    for (let lo = -180; lo <= 180; lo += 15) { const x = X(lo); if (x > -10 && x < W + 10) { ctxG.moveTo(x, 0); ctxG.lineTo(x, H); } }
+    for (let la = -75; la <= 75; la += 15) { const y = Y(la); if (y > -10 && y < H + 10) { ctxG.moveTo(0, y); ctxG.lineTo(W, y); } }
+    ctxG.stroke();
+    // terres et frontières
+    const lonMin = cam.lon - 560 / cam.k, lonMax = cam.lon + 560 / cam.k;
+    ctxG.beginPath();
+    for (const a of anneaux) { if (a.x1 < lonMin || a.x0 > lonMax) continue; const yb = Y(a.y0), yh = Y(a.y1); if (yb < -20 || yh > H + 20) continue; chemin(a); }
+    ctxG.fillStyle = 'rgba(247,235,219,.16)'; ctxG.fill();
+    ctxG.strokeStyle = 'rgba(247,235,219,.32)'; ctxG.lineWidth = clamp(cam.k / 30, 1, 2.4); ctxG.lineJoin = 'round'; ctxG.stroke();
+    // Burkina Faso aux couleurs du drapeau
+    const O = [X(villes.oua[0]), Y(villes.oua[1])];
+    // routes des colis
+    for (const [v, d0] of secondaires) {
+      const kk = E.inout3(p(t, d0, d0 + .45)); if (kk <= 0) continue;
+      const fin = arc(O, [X(villes[v][0]), Y(villes[v][1])], kk, 2.5, .55, false);
+      if (kk >= 1) { ctxG.fillStyle = 'rgba(255,231,168,.85)'; ctxG.beginPath(); ctxG.arc(fin[0], fin[1], 5, 0, 6.283); ctxG.fill(); }
     }
-    routes.forEach(([a, b, nom], i) => {
-      const k = E.inout3(p(t, 6.7 + i * .16, 7.25 + i * .16));
-      if (k <= 0) return;
-      ctxG.lineWidth = 6; ctxG.lineCap = 'round'; ctxG.strokeStyle = 'rgba(245,184,61,.95)'; ctxG.shadowColor = 'rgba(255,200,90,.9)'; ctxG.shadowBlur = 18;
-      ctxG.beginPath(); let premier = true, fin = null;
-      for (let s = 0; s <= 60 * k; s++) {
-        const u = s / 60, [la, lo] = slerp(villes[a], villes[b], u), h = 1 + .22 * Math.sin(Math.PI * u);
-        const q = proj(la, lo, rot, R, cx, cy, h); fin = q;
-        if (premier) { ctxG.moveTo(q.x, q.y); premier = false; } else ctxG.lineTo(q.x, q.y);
+    routes.forEach(([v, nom, d0]) => {
+      const kk = E.inout3(p(t, d0, d0 + .5)); if (kk <= 0) return;
+      const fin = arc(O, [X(villes[v][0]), Y(villes[v][1])], kk, 6, .95, true);
+      if (kk >= 1) {
+        const pu = ((t - d0 - .5) * 1.4) % 1;
+        ctxG.strokeStyle = `rgba(255,231,168,${(1 - pu) * .9})`; ctxG.lineWidth = 3; ctxG.beginPath(); ctxG.arc(fin[0], fin[1], 10 + pu * 26, 0, 6.283); ctxG.stroke();
+        ctxG.fillStyle = '#FFE7A8'; ctxG.beginPath(); ctxG.arc(fin[0], fin[1], 10, 0, 6.283); ctxG.fill();
       }
-      ctxG.stroke(); ctxG.shadowBlur = 0;
-      if (fin) {
-        ctxG.fillStyle = '#FFE7A8'; ctxG.beginPath(); ctxG.arc(fin.x, fin.y, 12, 0, 6.283); ctxG.fill();
-        const kl = E.outBack(p(t, 7.2 + i * .16, 7.5 + i * .16));
-        if (kl > 0) {
-          ctxG.save(); ctxG.translate(fin.x, fin.y - 46); ctxG.scale(kl, kl);
-          ctxG.font = '700 40px P'; const w = ctxG.measureText(nom).width + 44;
-          ctxG.fillStyle = '#FBF8F4'; ctxG.beginPath(); ctxG.roundRect(-w / 2, -32, w, 64, 32); ctxG.fill();
-          ctxG.fillStyle = '#22150F'; ctxG.textAlign = 'center'; ctxG.textBaseline = 'middle'; ctxG.fillText(nom, 0, 2); ctxG.restore();
-        }
+      const kl = E.outBack(p(t, d0 + .4, d0 + .72));
+      if (kl > 0) {
+        ctxG.save(); ctxG.translate(fin[0], fin[1] - 50); ctxG.scale(kl, kl);
+        ctxG.font = '700 40px P'; const w = ctxG.measureText(nom).width + 44;
+        ctxG.fillStyle = '#FBF8F4'; ctxG.shadowColor = 'rgba(0,0,0,.35)'; ctxG.shadowBlur = 16; ctxG.beginPath(); ctxG.roundRect(-w / 2, -32, w, 64, 32); ctxG.fill(); ctxG.shadowBlur = 0;
+        ctxG.fillStyle = '#22150F'; ctxG.textAlign = 'center'; ctxG.textBaseline = 'middle'; ctxG.fillText(nom, 0, 2); ctxG.restore();
       }
     });
-    const o = proj(...villes.oua, rot, R, cx, cy);
-    const pulse = (t * 1.6) % 1;
-    ctxG.strokeStyle = `rgba(252,209,22,${(1 - pulse) * apparition})`; ctxG.lineWidth = 4; ctxG.beginPath(); ctxG.arc(o.x, o.y, 14 + pulse * 46, 0, 6.283); ctxG.stroke();
-    ctxG.fillStyle = '#FCD116'; ctxG.beginPath(); ctxG.arc(o.x, o.y, 14, 0, 6.283); ctxG.fill();
-    ctxG.font = '700 34px P'; ctxG.fillStyle = `rgba(251,248,244,${apparition})`; ctxG.textAlign = 'left'; ctxG.textBaseline = 'middle'; ctxG.fillText('Ouagadougou', o.x + 26, o.y + 34);
+    // Ouagadougou : point de départ qui pulse
+    const pul = (t * 1.6) % 1, ko = E.out3(p(t, 6.6, 6.9));
+    if (ko > 0) {
+      ctxG.strokeStyle = `rgba(252,209,22,${(1 - pul) * ko})`; ctxG.lineWidth = 4; ctxG.beginPath(); ctxG.arc(O[0], O[1], 40 + pul * 60, 0, 6.283); ctxG.stroke();
+    }
+    // à l'échelle du monde, le Burkina reste agrandi « en relief » pour garder le drapeau lisible
+    const kb = E.outBack(p(t, 5.95, 6.4)) * lerp(1, 2.7, z), cxB = X(BF.lon), cyB = Y(BF.lat);
+    if (z > 0) { ctxG.beginPath(); for (const a of bfAnneaux) chemin(a); ctxG.fillStyle = `rgba(252,209,22,${.5 * z})`; ctxG.fill(); }
+    ctxG.save(); ctxG.translate(cxB, cyB); ctxG.scale(kb, kb); ctxG.translate(-cxB, -cyB);
+    ctxG.globalAlpha = vis * clamp(kb * 1.5);
+    ctxG.beginPath(); for (const a of bfAnneaux) chemin(a);
+    ctxG.shadowColor = z > .5 ? 'rgba(0,0,0,.6)' : 'rgba(252,209,22,.55)'; ctxG.shadowBlur = 30; ctxG.shadowOffsetY = 10 * z / kb; ctxG.fillStyle = '#EF2B2D'; ctxG.fill(); ctxG.shadowBlur = 0; ctxG.shadowOffsetY = 0;
+    ctxG.save(); ctxG.clip();
+    const yN = Y(BF.nord), yS = Y(BF.sud), yM = (yN + yS) / 2;
+    ctxG.fillStyle = '#EF2B2D'; ctxG.fillRect(X(-6) , yN - 5, X(3) - X(-6), yM - yN + 5);
+    ctxG.fillStyle = '#009E49'; ctxG.fillRect(X(-6), yM, X(3) - X(-6), yS - yM + 5);
+    ctxG.fillStyle = '#FCD116'; etoile(X(-1.2), yM, (yS - yN) * .17);
+    ctxG.restore();
+    ctxG.beginPath(); for (const a of bfAnneaux) chemin(a);
+    ctxG.strokeStyle = '#FFF8EB'; ctxG.lineWidth = clamp(cam.k / 14, 2, 6) / Math.max(1, kb); ctxG.stroke();
+    ctxG.restore(); ctxG.globalAlpha = vis;
+    // nom du pays
+    const kn = E.out3(p(t, 6.1, 6.4)), taille = lerp(56, 30, z);
+    ctxG.font = `800 ${taille.toFixed(1)}px P`; ctxG.textAlign = 'center'; ctxG.textBaseline = 'top';
+    ctxG.fillStyle = `rgba(251,248,244,${kn * vis})`; ctxG.shadowColor = 'rgba(0,0,0,.6)'; ctxG.shadowBlur = 10; ctxG.fillText('Burkina Faso', cxB, cyB + (yS - cyB) * Math.max(1, kb) + lerp(26, 14, z) + (1 - kn) * 20); ctxG.shadowBlur = 0;
+    ctxG.globalAlpha = 1;
   }
 
   // sons synchronisés (pour la piste audio)
   window.__cues = [
     { t: 0.0, type: 'montee', duree: 0.62 }, { t: 0.62, type: 'impact' }, { t: 1.55, type: 'eclat' },
-    { t: 2.82, type: 'souffle' }, { t: 4.55, type: 'souffle' }, { t: 6.4, type: 'souffle' },
-    { t: 7.22, type: 'pop' }, { t: 7.38, type: 'pop' }, { t: 7.54, type: 'pop' },
-    { t: 7.88, type: 'souffle' }, { t: 8.08, type: 'impact' }, { t: 9.15, type: 'pop' }, { t: 9.35, type: 'pop' },
-    { t: 9.85, type: 'glisse' }, { t: 10.85, type: 'glisse' },
-    { t: 11.88, type: 'souffle' }, { t: 12.2, type: 'impact' }, { t: 12.8, type: 'glisse' }, { t: 13.15, type: 'pop' }, { t: 14.55, type: 'fin' },
+    { t: 2.82, type: 'souffle' }, { t: 4.12, type: 'souffle' }, { t: 5.78, type: 'souffle' },
+    { t: 5.98, type: 'tampon' }, { t: 6.22, type: 'souffle', duree: 0.85 },
+    { t: 7.24, type: 'pop' }, { t: 7.36, type: 'pop' }, { t: 7.48, type: 'pop' },
+    { t: 7.88, type: 'souffle' }, { t: 8.08, type: 'impact' },
+    { t: 9.1, type: 'pop' }, { t: 9.22, type: 'pop' }, { t: 9.34, type: 'pop' }, { t: 9.46, type: 'pop' }, { t: 9.58, type: 'pop' },
+    { t: 9.85, type: 'glisse' }, { t: 10.3, type: 'eclat' }, { t: 10.85, type: 'glisse' },
+    { t: 11.88, type: 'souffle' }, { t: 12.2, type: 'impact' }, { t: 12.85, type: 'glisse' }, { t: 13.2, type: 'pop' }, { t: 14.55, type: 'fin' },
   ];
 
   window.renderAt = function (t) {
@@ -342,65 +405,66 @@ html, body { margin: 0; background: #000; }
     const kbd = E.out3(p(t, 1.55, 2.0));
     set('badge1', { y: lerp(40, 0, kbd), o: kbd });
 
-    // ---------- S2a : courses (2.95 → 4.9) ----------
-    const in2a = p(t, 2.95, 3.25), out2a = E.inout3(p(t, 4.55, 4.9));
-    set('s2a', { o: t >= 2.95 && t < 4.9 ? in2a : 0, y: -out2a * 1300, rx: out2a * 14, s: 1 - out2a * .12 });
-    set('ph2a', { s: lerp(1.28, 1.06, E.out3(p(t, 2.95, 4.9))), x: lerp(30, -30, p(t, 2.95, 4.9)) });
-    const ks = E.outBack(p(t, 3.2, 3.55));
+    // ---------- S2a : courses (2.95 → 4.45) ----------
+    const in2a = p(t, 2.95, 3.25), out2a = E.inout3(p(t, 4.15, 4.45));
+    set('s2a', { o: t >= 2.95 && t < 4.45 ? in2a : 0, y: -out2a * 1300, rx: out2a * 14, s: 1 - out2a * .12 });
+    set('ph2a', { s: lerp(1.28, 1.06, E.out3(p(t, 2.95, 4.45))), x: lerp(30, -30, p(t, 2.95, 4.45)) });
+    const ks = E.outBack(p(t, 3.12, 3.42));
     set('sur2a', { s: ks, o: clamp(ks) });
-    apparitionMots(M2a, t, 3.32, .06, .4);
-    const kd = E.out3(p(t, 3.85, 4.2));
+    apparitionMots(M2a, t, 3.2, .045, .32);
+    const kd = E.out3(p(t, 3.6, 3.9));
     set('det2a', { x: lerp(-40, 0, kd), o: kd });
 
-    // ---------- S2b : boutique (4.6 → 6.7) ----------
-    const in2b = E.out3(p(t, 4.6, 4.95)), out2b = E.inExpo(p(t, 6.35, 6.7));
-    set('s2b', { o: t >= 4.6 && t < 6.62 ? in2b * (1 - p(t, 6.42, 6.62)) : 0, y: lerp(1100, 0, in2b), rx: lerp(-14, 0, in2b), s: 1 - out2b * .35 });
-    set('fond2b', { s: 1.1 + .1 * p(t, 4.6, 6.7) });
-    const ks2 = E.outBack(p(t, 4.85, 5.15));
+    // ---------- S2b : boutique (4.2 → 6.05) ----------
+    const in2b = E.out3(p(t, 4.2, 4.5)), out2b = E.inExpo(p(t, 5.75, 6.05));
+    set('s2b', { o: t >= 4.2 && t < 6.02 ? in2b * (1 - p(t, 5.85, 6.02)) : 0, y: lerp(1100, 0, in2b), rx: lerp(-14, 0, in2b), s: 1 - out2b * .35 });
+    set('fond2b', { s: 1.1 + .1 * p(t, 4.2, 6.05) });
+    const ks2 = E.outBack(p(t, 4.4, 4.7));
     set('sur2b', { s: ks2, o: clamp(ks2) });
-    apparitionMots(M2b, t, 4.95, .07, .4);
-    const tour = lerp(20, -220, E.inout3(p(t, 4.75, 6.55)));
+    apparitionMots(M2b, t, 4.48, .06, .34);
+    const tour = lerp(20, -220, E.inout3(p(t, 4.3, 5.95)));
     cartes.forEach((c, i) => {
       const a = i * 72 + tour, rad = a * Math.PI / 180, face = Math.cos(rad);
       set(c, { o: 1 });
       c.style.transform = `rotateY(${a}deg) translateZ(420px)`;
       c.querySelector('.ombre').style.opacity = (.75 - .75 * clamp(face)).toFixed(3);
     });
-    set('carrousel', { s: lerp(.6, 1, E.out3(p(t, 4.7, 5.3))), rx: -6, o: 1 });
-    chips.forEach((c, i) => { const k = E.outBack(p(t, 5.55 + i * .12, 5.9 + i * .12)); set(c, { s: k, o: clamp(k) }); });
+    set('carrousel', { s: lerp(.6, 1, E.out3(p(t, 4.3, 4.9))), rx: -6, o: 1 });
+    chips.forEach((c, i) => { const k = E.outBack(p(t, 5.0 + i * .1, 5.32 + i * .1)); set(c, { s: k, o: clamp(k) }); });
 
-    // ---------- S2c : colis (6.45 → 8.15) ----------
-    const in2c = E.out3(p(t, 6.5, 6.9)), out2c = p(t, 7.92, 8.12);
-    set('s2c', { o: t >= 6.5 && t < 8.12 ? in2c * (1 - out2c) : 0, s: lerp(1.25, 1, in2c) + out2c * .3 });
-    const ks3 = E.outBack(p(t, 6.62, 6.92));
+    // ---------- S2c : carte du monde (5.9 → 8.12) ----------
+    const in2c = E.out3(p(t, 5.9, 6.15)), out2c = p(t, 7.92, 8.12);
+    set('s2c', { o: t >= 5.9 && t < 8.12 ? in2c * (1 - out2c) : 0, s: lerp(1.08, 1, in2c) + out2c * .3 });
+    const ks3 = E.outBack(p(t, 6.0, 6.3));
     set('sur2c', { s: ks3, o: clamp(ks3) });
-    apparitionMots(M2c, t, 6.7, .07, .4);
-    globe(t, t >= 6.5 && t < 8.12 ? in2c : 0);
-    [['prixA', 7.3], ['prixB', 7.48]].forEach(([id, d]) => { const k = E.out3(p(t, d, d + .3)); set(id, { y: lerp(50, 0, k), o: k }); });
+    apparitionMots(M2c, t, 6.08, .06, .34);
+    carte(t, t >= 5.9 && t < 8.12 ? in2c : 0);
+    [['prixA', 7.3], ['prixB', 7.45]].forEach(([id, d]) => { const k = E.out3(p(t, d, d + .3)); set(id, { y: lerp(50, 0, k), o: k }); });
 
     // ---------- S3 : téléphone (8.05 → 12.2) ----------
     const in3 = p(t, 8.05, 8.95), out3 = E.inExpo(p(t, 11.85, 12.22));
-    set('s3', { o: t >= 8.05 && t < 12.22 ? 1 : 0, s: 1 + E.inout3(p(t, 10.5, 11.8)) * .03 });
+    set('s3', { o: t >= 8.05 && t < 12.22 ? 1 : 0 });
     set('cone', { o: .4 + .6 * E.out3(p(t, 8.1, 9.0)) });
-    const orb = lerp(-10, 9, E.inout3(p(t, 8.95, 11.85)));
+    const orb = lerp(-9, 8, E.inout3(p(t, 8.95, 11.85)));
     set('tel', {
-      y: lerp(1500, 0, E.out3(in3)) - out3 * 1700, z: lerp(-200, 0, E.out3(in3)) + E.inout3(p(t, 10.5, 11.8)) * 90,
-      ry: lerp(42, orb, E.out3(in3)), rx: lerp(18, 4, E.out3(in3)), rz: lerp(-6, 0, E.out3(in3)), o: 1,
+      y: lerp(1500, 0, E.out3(in3)) - out3 * 1750, z: lerp(-200, 0, E.out3(in3)) + E.inout3(p(t, 10.3, 11.8)) * 40,
+      ry: lerp(40, orb, E.out3(in3)), rx: lerp(16, 3, E.out3(in3)), rz: lerp(-6, 0, E.out3(in3)), o: 1,
     });
     // changement de page : glissement horizontal, comme dans l'application
     const k2 = E.inout3(p(t, 9.85, 10.2)), k3 = E.inout3(p(t, 10.85, 11.2));
-    $('ec1').style.transform = `translateX(${(-k2 * 170).toFixed(1)}px)`;
-    $('ec2').style.transform = `translateX(${((1 - k2) * 560 - k3 * 170).toFixed(1)}px)`;
-    $('ec3').style.transform = `translateX(${((1 - k3) * 560).toFixed(1)}px)`;
+    $('ec1').style.transform = `translateX(${(-k2 * 172).toFixed(1)}px)`;
+    $('ec2').style.transform = `translateX(${((1 - k2) * 580 - k3 * 172).toFixed(1)}px)`;
+    $('ec3').style.transform = `translateX(${((1 - k3) * 580).toFixed(1)}px)`;
     $('ec1').style.filter = `brightness(${(1 - .35 * k2).toFixed(3)})`;
     $('ec2').style.filter = `brightness(${(1 - .35 * k3).toFixed(3)})`;
     set('glint3', { x: lerp(0, 1900, E.inout3(t < 10.5 ? p(t, 9.0, 9.7) : p(t, 10.95, 11.6))) });
-    apparitionMots(M3, t, 9.0, .07, .4);
-    const ko = E.outBack(p(t, 9.1, 9.5)), kw = E.outBack(p(t, 9.3, 9.7));
-    set('om', { s: ko, o: clamp(ko), y: Math.sin(t * 2.2) * 10 - out3 * 900, rz: -3 });
-    set('wave', { s: kw, o: clamp(kw), y: Math.sin(t * 2.2 + 1.5) * 10 - out3 * 900, rz: 3 });
-    const km = E.out3(p(t, 9.7, 10.1));
-    set('monde3', { y: lerp(60, 0, km) + out3 * 300, o: km * (1 - out3) });
+    apparitionMots(M3, t, 8.9, .06, .36);
+    [['t-om', 9.1, -1], ['t-wave', 9.22, 1], ['t-moov', 9.34, -1], ['t-mc', 9.46, 1], ['t-visa', 9.58, -1]].forEach(([id, d, c], i) => {
+      const k = E.outBack(p(t, d, d + .36));
+      set(id, { s: k, o: clamp(k), x: c * (1 - clamp(k)) * 80, y: Math.sin(t * 2.2 + i * 1.3) * 9 - out3 * 900, rz: c * -3 });
+    });
+    const kg = E.outBack(p(t, 10.3, 10.7));
+    set('dispo3', { s: lerp(.8, 1, kg), o: clamp(E.out3(p(t, 10.3, 10.6))) * (1 - out3), y: out3 * 300 });
     set('titre3', { o: 1 - out3, y: -out3 * 300 });
 
     // ---------- S4 : fin (12.15 → 15) ----------
@@ -410,18 +474,20 @@ html, body { margin: 0; background: #000; }
     set('logo4', { s: lerp(.5, 1, kl), o: clamp(E.out3(p(t, 12.2, 12.55))), blur: lerp(14, 0, E.out3(p(t, 12.2, 12.7))) });
     const kbd4 = E.out3(p(t, 12.6, 12.95));
     set('badge4', { y: lerp(-30, 0, kbd4), o: kbd4 });
-    const ku = E.inout3(p(t, 12.8, 13.3));
-    set('url4', { o: t > 12.8 ? 1 : 0 });
+    const kd4 = E.out3(p(t, 12.75, 13.1));
+    set('dispo4', { y: lerp(30, 0, kd4), o: kd4 });
+    const ku = E.inout3(p(t, 12.85, 13.3));
+    set('url4', { o: t > 12.85 ? 1 : 0 });
     document.querySelector('#url4 span').style.clipPath = `inset(0 ${(100 - ku * 100).toFixed(2)}% 0 0 round 999px)`;
-    const kc4 = E.outBack(p(t, 13.15, 13.55)), pulse4 = t > 13.9 ? 1 + .035 * Math.sin((t - 13.9) * 8) : 1;
-    set('cta4', { s: kc4 * pulse4, o: clamp(kc4) });
-    const kw4 = E.out3(p(t, 13.45, 13.85));
+    const kg4 = E.outBack(p(t, 13.2, 13.6)), pulse4 = t > 13.9 ? 1 + .03 * Math.sin((t - 13.9) * 8) : 1;
+    set('gp4', { s: kg4 * pulse4, o: clamp(kg4) });
+    const kw4 = E.out3(p(t, 13.5, 13.9));
     set('wa4', { y: lerp(40, 0, kw4), o: kw4 });
     set('bande4a', { x: -((t - 12) * 60) % 128, o: in4 });
     set('bande4b', { x: ((t - 12) * 60) % 128 - 128, o: in4 });
 
     // ---------- couches globales ----------
-    const forceP = t < 3.1 ? E.out3(p(t, 0, .8)) : t < 6.45 ? .25 : t < 8.1 ? .55 : t < 12.15 ? .45 : .35;
+    const forceP = t < 3.1 ? E.out3(p(t, 0, .8)) : t < 5.9 ? .25 : t < 8.1 ? .4 : t < 12.15 ? .45 : .35;
     poussiere(t, forceP);
     $('poussiere').style.mixBlendMode = t >= 12.15 ? 'multiply' : 'screen';
     set('flare', { x: lerp(-300, 2400, E.inout3(p(t, .15, .95))), o: t < 1 ? .9 : 0, rz: 18 });
