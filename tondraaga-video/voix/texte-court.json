@@ -46,7 +46,8 @@
     },
     {
       "t": 30.95,
-      "texte": "Payez par Mobile Money ou par carte !"
+      "texte": "Payez par Mobile Money ou par carte !",
+      "tts": "Payez par Mobile Moni ou par carte !"
     },
     {
       "t": 35.5,
