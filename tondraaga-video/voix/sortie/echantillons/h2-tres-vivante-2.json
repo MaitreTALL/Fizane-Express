@@ -1,0 +1,34 @@
+{
+ "texte": "Payez par Mobile Money ou par carte !",
+ "variante": "h2-tres-vivante",
+ "retenue": 0,
+ "prises": [
+  {
+   "prise": 0,
+   "dit": "Payez par mobile, monnaie ou par carte.",
+   "wer": 0.143,
+   "intonation": 5.16,
+   "contraste": 11.8,
+   "duree": 4.16,
+   "score": -1.15
+  },
+  {
+   "prise": 1,
+   "dit": "Payez par mobile monnaie et par carte.",
+   "wer": 0.286,
+   "intonation": 4.89,
+   "contraste": 10.5,
+   "duree": 4.28,
+   "score": -0.084
+  },
+  {
+   "prise": 2,
+   "dit": "Payez par Mobile Money ou par carte, ou par carte.",
+   "wer": 0.429,
+   "intonation": 5.26,
+   "contraste": 12.1,
+   "duree": 3.84,
+   "score": 0.488
+  }
+ ]
+}
