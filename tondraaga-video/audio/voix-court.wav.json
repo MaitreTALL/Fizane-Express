@@ -1,67 +1,47 @@
 [
  {
-  "t": 3.25,
-  "fin": 6.4,
-  "texte": "Tondraaga ! Notre marché, notre fierté !"
+  "t": 2.8,
+  "fin": 6.67,
+  "texte": "Tondraaga, c'est la place de marché en ligne du Burkina Faso !"
  },
  {
-  "t": 6.75,
-  "fin": 9.42,
-  "texte": "Nourrissez la famille, où que vous soyez dans le monde !"
+  "t": 7.3,
+  "fin": 10.62,
+  "texte": "Où que vous soyez, faites les courses de vos proches au pays,"
  },
  {
-  "t": 11.25,
-  "fin": 12.4,
-  "texte": "La boutique des artisans !"
+  "t": 11.7,
+  "fin": 15.51,
+  "texte": "et achetez directement aux artisans et aux producteurs burkinabè :"
  },
  {
-  "t": 13.55,
-  "fin": 14.81,
-  "texte": "Le Faso Dan Fani !"
+  "t": 16.4,
+  "fin": 21.21,
+  "texte": "Faso Dan Fani, Koko Dunda, miel, céréales, thé, kinkéliba…"
  },
  {
-  "t": 15.85,
-  "fin": 16.8,
-  "texte": "Le Koko Dunda !"
+  "t": 21.36,
+  "fin": 26.51,
+  "texte": "Pour les producteurs, c'est une vitrine mondiale : de nouveaux clients, et plus de ventes !"
  },
  {
-  "t": 18.15,
-  "fin": 18.95,
-  "texte": "Le miel !"
+  "t": 28.2,
+  "fin": 31.24,
+  "texte": "Vos colis partent aussi du Burkina vers le monde entier."
  },
  {
-  "t": 20.45,
-  "fin": 22.62,
-  "texte": "Mil, sorgho, fonio !"
+  "t": 32.2,
+  "fin": 34.56,
+  "texte": "Paiement par Mobile Money ou par carte."
  },
  {
-  "t": 22.77,
-  "fin": 23.92,
-  "texte": "Thé et kinkéliba !"
+  "t": 35.3,
+  "fin": 39.59,
+  "texte": "Producteurs et artisans : inscription gratuite, produits illimités !"
  },
  {
-  "t": 25.05,
-  "fin": 26.78,
-  "texte": "Et tous les produits du terroir !"
- },
- {
-  "t": 27.45,
-  "fin": 30.0,
-  "texte": "Vos colis, du Burkina vers le monde entier !"
- },
- {
-  "t": 30.95,
-  "fin": 32.84,
-  "texte": "Payez par Mobile Money ou par carte !"
- },
- {
-  "t": 35.5,
-  "fin": 37.92,
-  "texte": "Artisans, vendez vos créations partout dans le monde !"
- },
- {
-  "t": 39.1,
-  "fin": 42.15,
-  "texte": "Tondraaga ! Sur le site, et sur l'application !"
+  "t": 40.0,
+  "fin": 43.23,
+  "texte": "Tondraaga : disponible sur le site, et sur le Play Store !"
  }
 ]

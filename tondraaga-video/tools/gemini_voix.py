@@ -45,6 +45,8 @@ def appel(chemin, corps=None, essais=3):
                 attente = 30 * (essai + 1)
                 m = re.search(r'"retryDelay":\s*"(\d+)s"', msg)
                 if m: attente = int(m.group(1)) + 2
+                if attente > 90:   # quota du jour épuisé : inutile d'attendre, on passe au modèle suivant
+                    raise SystemExit(f"Gemini {chemin.split('?')[0]} : HTTP {e.code} quota épuisé (réessai dans {attente // 3600} h)")
                 print(f"  HTTP {e.code}, nouvel essai dans {attente} s")
                 time.sleep(attente); continue
             raise SystemExit(f"Gemini {chemin.split('?')[0]} : HTTP {e.code} {msg[:500]}")
@@ -167,11 +169,9 @@ elif CONF.get("par_ligne"):
 
 else:
     v = next(x for x in CONF["voix"] if x["nom"] == CONF["choix"])
-    for version in ("long", "court"):
-        lignes = [l["texte"] for l in json.loads((RACINE / "voix" / f"texte-{version}.json").read_text())["lignes"]]
+    for version in [x for x in ("long", "court") if x in os.environ.get("VERSIONS", "court,long")]:
+        lignes = [l.get("tts", l["texte"]) for l in json.loads((RACINE / "voix" / f"texte-{version}.json").read_text())["lignes"]]
         pcm = dire(modele, v["nom"], invite(v, lignes, CONF["pauses_complet"]), lignes)
-        ecrire(OUT / version / "complet.wav", pcm)
-        for k, morceau in enumerate(decouper(pcm, len(lignes))):
-            ecrire(OUT / version / f"l{k:02d}.wav", morceau)
-        print(f"{version} : {len(pcm) / 2 / SR:.1f} s, {len(lignes)} phrases")
+        ecrire(OUT / "lecture-unique" / version / "complet.wav", pcm)
+        print(f"{version} : {len(pcm) / 2 / SR:.1f} s, {len(lignes)} phrases (découpage : tools/decouper_lecture.py)")
         time.sleep(CONF.get("pause_entre_appels", 22))
