@@ -2,82 +2,90 @@
  "base": "https://boutique.visionaryentreprises.com",
  "pages": [
   [
-   "video-accueil",
-   "/",
+   "vendeur-1",
+   "/devenir-vendeur/",
    null,
    "video"
   ],
   [
-   "video-courses",
+   "vendeur-2",
+   "/devenir-vendeur/",
+   null,
+   "video",
+   800
+  ],
+  [
+   "vendeur-3",
+   "/devenir-vendeur/",
+   null,
+   "video",
+   1600
+  ],
+  [
+   "vendeur-4",
+   "/devenir-vendeur/",
+   null,
+   "video",
+   2400
+  ],
+  [
+   "vendeurs",
+   "/#/vendeurs",
+   null,
+   "video"
+  ],
+  [
+   "courses-etapes",
    "/#/courses",
    null,
-   "video"
+   "video",
+   "SERVICE COURSES"
   ],
   [
-   "video-boutique",
-   "/#/boutique",
+   "courses-paniers",
+   "/#/courses",
+   null,
+   "video",
+   "Paniers prêts"
+  ],
+  [
+   "panier-essentiel",
+   "/#/panier-type/essentiel",
    null,
    "video"
   ],
   [
-   "video-colis",
-   "/#/colis",
-   null,
-   "video"
-  ],
-  [
-   "video-vendeur",
-   "/#/vendeur",
-   null,
-   "video"
-  ],
-  [
-   "video-vendre",
-   "/#/vendre",
-   null,
-   "video"
-  ],
-  [
-   "video-devenir-vendeur",
-   "/#/devenir-vendeur",
-   null,
-   "video"
-  ],
-  [
-   "video-inscription",
-   "/#/inscription",
-   null,
-   "video"
-  ],
-  [
-   "video-connexion",
-   "/#/connexion",
-   null,
-   "video"
-  ],
-  [
-   "video-compte",
-   "/#/compte",
-   null,
-   "video"
-  ],
-  [
-   "video-comment",
+   "comment-courses",
    "/#/comment-ca-marche",
    null,
+   "video",
+   "Comment ça marche"
+  ],
+  [
+   "comment-boutique",
+   "/#/comment-ca-marche",
+   null,
+   "video",
+   "Boutique"
+  ],
+  [
+   "colis-envoyer",
+   "/#/colis/envoyer",
+   null,
    "video"
   ],
   [
-   "video-apropos",
+   "produit",
+   "/#/produit/w145",
+   null,
+   "video"
+  ],
+  [
+   "apropos-engagements",
    "/#/a-propos",
    null,
-   "video"
-  ],
-  [
-   "video-panier",
-   "/#/panier",
-   null,
-   "video"
+   "video",
+   "Nos engagements"
   ]
  ]
 }

@@ -17,7 +17,7 @@ const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|
 (async () => {
   const browser = await chromium.launch(process.env.CHROME ? { executablePath: process.env.CHROME } : {});
   const report = [];
-  for (const [name, url, before, opt] of cfg.pages) {
+  for (const [name, url, before, opt, defile] of cfg.pages) {
     const store = opt === 'store' || opt === 'video'; // Google Play screenshots: 1080 × 1920 ; video: phone screen 1080 × 2157
     const ctx = await browser.newContext({ viewport: opt === 'video' ? { width: 360, height: 719 } : store ? { width: 360, height: 640 } : { width: W, height: H }, deviceScaleFactor: store ? 3 : 1, isMobile: true, hasTouch: true, userAgent: UA, locale: 'fr-FR' });
     const page = await ctx.newPage();
@@ -78,7 +78,15 @@ const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|
         return res;
       }, [ENGLISH.source, W]));
       if (store) {
-        await page.evaluate(() => window.scrollTo(0, 0));
+        // défilement facultatif : un nombre de pixels, ou le texte d'un élément à amener en haut de l'écran
+        await page.evaluate((d) => {
+          if (typeof d === 'number') { window.scrollTo(0, d); return; }
+          if (typeof d === 'string') {
+            const el = [...document.querySelectorAll('h1,h2,h3,h4,p,span,div,label,button,a')].find((e) => e.childElementCount < 3 && (e.innerText || '').trim().startsWith(d));
+            if (el) { window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY - 70); return; }
+          }
+          window.scrollTo(0, 0);
+        }, defile === undefined ? 0 : defile);
         await page.waitForTimeout(600);
         await page.screenshot({ path: path.join(out, name + '.png') });
         entry.slices = [name + '.png'];
