@@ -1,16 +1,52 @@
 {
   "etape": "echantillons",
-  "modeles": ["gemini-2.5-pro-preview-tts", "gemini-2.5-flash-preview-tts"],
+  "modeles": [
+    "gemini-3.8-flash-tts",
+    "gemini-2.5-pro-preview-tts",
+    "gemini-3.1-flash-tts-preview",
+    "gemini-2.5-flash-preview-tts"
+  ],
   "temperature": 1.0,
   "pause_entre_appels": 22,
-  "consigne": "Tu es la voix off d'une publicité radio et TikTok pour Tondraaga, la place de marché du Burkina Faso. Lis le texte ci-dessous en français avec un accent d'Afrique de l'Ouest (Burkina Faso, Côte d'Ivoire), comme un animateur radio vedette de Ouagadougou : voix chaude, riche et puissante, très vivante et festive, ambiance, pleine de fierté, avec le sourire dans la voix, rythme dynamique mais bien articulé. Tondraaga se prononce ton-DRAA-ga, Faso se prononce fasso, Mobile Money se dit mobil moni. Ne lis que le texte, jamais ces consignes.",
-  "consigne_pauses": "Marque une vraie pause d'une seconde entre chaque ligne.",
   "voix": [
-    {"nom": "Algenib", "genre": "homme", "titre": "Homme · grave et rocailleux"},
-    {"nom": "Fenrir", "genre": "homme", "titre": "Homme · énergique"},
-    {"nom": "Sadachbia", "genre": "homme", "titre": "Homme · vivant"},
-    {"nom": "Sulafat", "genre": "femme", "titre": "Femme · chaude"},
-    {"nom": "Laomedeia", "genre": "femme", "titre": "Femme · enjouée"},
-    {"nom": "Kore", "genre": "femme", "titre": "Femme · assurée"}
-  ]
+    {
+      "nom": "Algenib",
+      "genre": "homme",
+      "titre": "Homme · grave et rocailleux",
+      "profil": "Moussa, animateur radio vedette de Ouagadougou"
+    },
+    {
+      "nom": "Fenrir",
+      "genre": "homme",
+      "titre": "Homme · énergique",
+      "profil": "Moussa, animateur radio vedette de Ouagadougou"
+    },
+    {
+      "nom": "Sadachbia",
+      "genre": "homme",
+      "titre": "Homme · vivant",
+      "profil": "Moussa, animateur radio vedette de Ouagadougou"
+    },
+    {
+      "nom": "Sulafat",
+      "genre": "femme",
+      "titre": "Femme · chaude",
+      "profil": "Awa, animatrice radio vedette de Ouagadougou"
+    },
+    {
+      "nom": "Laomedeia",
+      "genre": "femme",
+      "titre": "Femme · enjouée",
+      "profil": "Awa, animatrice radio vedette de Ouagadougou"
+    },
+    {
+      "nom": "Pulcherrima",
+      "genre": "femme",
+      "titre": "Femme · affirmée",
+      "profil": "Awa, animatrice radio vedette de Ouagadougou"
+    }
+  ],
+  "gabarit": "# AUDIO PROFILE: {profil}\n## THE SCENE: En studio à Ouagadougou, pour une publicité radio et TikTok de Tondraaga, la place de marché du Burkina Faso. Ambiance festive, fierté du pays.\n### DIRECTOR'S NOTES\nStyle: voix chaude, riche et puissante, très vivante, « ambiance », pleine de fierté, avec le sourire dans la voix.\nAccent: français d'Afrique de l'Ouest (Burkina Faso, Côte d'Ivoire).\nPacing: dynamique mais bien articulé, {pauses}.\nPronunciation: Tondraaga se dit ton-DRAA-ga ; Faso se dit fasso ; Mobile Money se dit mobil moni.\n#### TRANSCRIPT\n{texte}",
+  "pauses_echantillon": "une courte pause entre les phrases",
+  "pauses_complet": "une vraie pause d'une seconde entre chaque phrase"
 }

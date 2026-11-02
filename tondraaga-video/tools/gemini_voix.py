@@ -83,8 +83,12 @@ def dire(modeles, voix, consigne, lignes):
     raise SystemExit("aucun modèle n'a accepté la demande")
 
 
-def dire1(modele, voix, consigne, lignes):
-    texte = consigne.strip() + "\n\n" + "\n".join(lignes)
+def invite(v, lignes, pauses):
+    """Invite structurée (profil, scène, notes du réalisateur, transcription) : seule la transcription est lue."""
+    return CONF["gabarit"].format(profil=v["profil"], pauses=pauses, texte="\n".join(lignes))
+
+
+def dire1(modele, voix, texte, lignes):
     d = appel(f"/models/{modele}:generateContent", {
         "contents": [{"parts": [{"text": texte}]}],
         "generationConfig": {"responseModalities": ["AUDIO"], "temperature": CONF.get("temperature", 1.0),
@@ -128,14 +132,16 @@ if not CLE:
 print("clé présente")
 modele = choisir_modele()
 print("ordre des modèles :", ", ".join(modele))
-consigne = CONF["consigne"]
 
 if CONF["etape"] == "echantillons":
     lignes = [l["texte"] for l in json.loads((RACINE / "voix" / "echantillon.json").read_text())["lignes"]]
     resume = []
+    seules = {int(x) for x in os.environ.get("SEULES", "").split(",") if x}
     for n, v in enumerate(CONF["voix"], 1):
+        if seules and n not in seules:
+            continue
         try:
-            pcm = dire(modele, v["nom"], v.get("consigne", consigne), lignes)
+            pcm = dire(modele, v["nom"], invite(v, lignes, CONF["pauses_echantillon"]), lignes)
         except SystemExit as e:
             print(f"voix {n} {v['nom']} : {e}"); continue
         ecrire(OUT / "echantillons" / f"voix{n}.wav", pcm)
@@ -148,7 +154,7 @@ else:
     v = next(x for x in CONF["voix"] if x["nom"] == CONF["choix"])
     for version in ("long", "court"):
         lignes = [l["texte"] for l in json.loads((RACINE / "voix" / f"texte-{version}.json").read_text())["lignes"]]
-        pcm = dire(modele, v["nom"], v.get("consigne", consigne) + "\n" + CONF.get("consigne_pauses", ""), lignes)
+        pcm = dire(modele, v["nom"], invite(v, lignes, CONF["pauses_complet"]), lignes)
         ecrire(OUT / version / "complet.wav", pcm)
         for k, morceau in enumerate(decouper(pcm, len(lignes))):
             ecrire(OUT / version / f"l{k:02d}.wav", morceau)

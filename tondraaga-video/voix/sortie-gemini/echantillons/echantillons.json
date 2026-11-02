@@ -1,0 +1,50 @@
+[
+ {
+  "numero": 1,
+  "modele": "gemini-3.8-flash-tts",
+  "nom": "Algenib",
+  "genre": "homme",
+  "titre": "Homme · grave et rocailleux",
+  "profil": "Moussa, animateur radio vedette de Ouagadougou"
+ },
+ {
+  "numero": 2,
+  "modele": "gemini-3.8-flash-tts",
+  "nom": "Fenrir",
+  "genre": "homme",
+  "titre": "Homme · énergique",
+  "profil": "Moussa, animateur radio vedette de Ouagadougou"
+ },
+ {
+  "numero": 3,
+  "modele": "gemini-3.8-flash-tts",
+  "nom": "Sadachbia",
+  "genre": "homme",
+  "titre": "Homme · vivant",
+  "profil": "Moussa, animateur radio vedette de Ouagadougou"
+ },
+ {
+  "numero": 4,
+  "modele": "gemini-3.8-flash-tts",
+  "nom": "Sulafat",
+  "genre": "femme",
+  "titre": "Femme · chaude",
+  "profil": "Awa, animatrice radio vedette de Ouagadougou"
+ },
+ {
+  "numero": 5,
+  "modele": "gemini-3.8-flash-tts",
+  "nom": "Laomedeia",
+  "genre": "femme",
+  "titre": "Femme · enjouée",
+  "profil": "Awa, animatrice radio vedette de Ouagadougou"
+ },
+ {
+  "numero": 6,
+  "modele": "gemini-3.8-flash-tts",
+  "nom": "Pulcherrima",
+  "genre": "femme",
+  "titre": "Femme · affirmée",
+  "profil": "Awa, animatrice radio vedette de Ouagadougou"
+ }
+]
