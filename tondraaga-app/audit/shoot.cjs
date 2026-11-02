@@ -69,6 +69,11 @@ const ENGLISH = /\b(the|and|your|you|my|store|stores|orders?|dashboard|vendors?|
           }
         }
         res.english = res.english.slice(0, 60);
+        // texte visible et liens internes (pour connaître les vraies étapes d'utilisation)
+        res.texte = (document.body.innerText || '').replace(/\n{3,}/g, '\n\n').slice(0, 8000);
+        res.liens = [...new Set([...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href') + ' | ' + (a.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 60)))].slice(0, 150);
+        res.boutons = [...new Set([...document.querySelectorAll('button, [role=button], input[type=submit]')].map((b) => (b.innerText || b.value || b.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim()).filter(Boolean))].slice(0, 80);
+        res.champs = [...document.querySelectorAll('input, select, textarea')].map((i) => (i.labels && i.labels[0] ? i.labels[0].innerText.trim() + ' : ' : '') + (i.getAttribute('placeholder') || i.name || i.type)).slice(0, 60);
         for (const img of document.images) if (img.complete && img.naturalWidth === 0 && img.src) res.brokenImages.push(img.src.slice(0, 160));
         return res;
       }, [ENGLISH.source, W]));
