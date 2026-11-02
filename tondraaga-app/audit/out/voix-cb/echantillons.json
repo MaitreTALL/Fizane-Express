@@ -1,0 +1,38 @@
+[
+ {
+  "numero": 1,
+  "ref": "h1",
+  "genre": "male",
+  "titre": "Homme · très grave"
+ },
+ {
+  "numero": 2,
+  "ref": "h2",
+  "genre": "male",
+  "titre": "Homme · grave et chaud"
+ },
+ {
+  "numero": 3,
+  "ref": "h3",
+  "genre": "male",
+  "titre": "Homme · grave et posé"
+ },
+ {
+  "numero": 4,
+  "ref": "f1",
+  "genre": "female",
+  "titre": "Femme · chaude"
+ },
+ {
+  "numero": 5,
+  "ref": "f2",
+  "genre": "female",
+  "titre": "Femme · voix basse et ronde"
+ },
+ {
+  "numero": 6,
+  "ref": "f3",
+  "genre": "female",
+  "titre": "Femme · claire et posée"
+ }
+]
