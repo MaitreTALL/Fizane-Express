@@ -1,0 +1,34 @@
+{
+ "texte": "Le Faso Dan Fani, le Koko Dunda, le miel, le karité : le meilleur du Burkina, livré partout dans le monde !",
+ "variante": "h2-ambianceur",
+ "retenue": 1,
+ "prises": [
+  {
+   "prise": 0,
+   "dit": "Le Faso Dan Fani, le Koko Dunda, le miel, le karité, le meilleur du Burkina, livré partout dans le monde.",
+   "wer": 0.0,
+   "intonation": 3.88,
+   "contraste": 10.2,
+   "duree": 9.32,
+   "score": -1.561
+  },
+  {
+   "prise": 1,
+   "dit": "Le Faso Dan Fani, le Koko Dunda, le Miel, le Karité, le meilleur du Burkina, livré partout dans le monde.",
+   "wer": 0.0,
+   "intonation": 4.96,
+   "contraste": 12.8,
+   "duree": 7.12,
+   "score": -1.991
+  },
+  {
+   "prise": 2,
+   "dit": "Le Faso Dan Fani, le Koko Dunda, le miel, le karité, le meilleur du Burkina, livré partout dans le monde.",
+   "wer": 0.0,
+   "intonation": 3.83,
+   "contraste": 10.4,
+   "duree": 9.84,
+   "score": -1.547
+  }
+ ]
+}
