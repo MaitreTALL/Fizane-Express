@@ -30,18 +30,18 @@ API = "https://generativelanguage.googleapis.com/v1beta"
 SR = 24000
 
 
-def appel(chemin, corps=None):
+def appel(chemin, corps=None, essais=3):
     req = urllib.request.Request(API + chemin, method="POST" if corps else "GET",
                                  headers={"x-goog-api-key": CLE, "Content-Type": "application/json"})
     if corps:
         req.data = json.dumps(corps).encode()
-    for essai in range(3):
+    for essai in range(essais):
         try:
             with urllib.request.urlopen(req, timeout=300) as r:
                 return json.loads(r.read())
         except urllib.error.HTTPError as e:
             msg = e.read().decode(errors="replace")
-            if e.code in (429, 500, 503) and essai < 2:
+            if e.code in (429, 500, 503) and essai < essais - 1:
                 attente = 30 * (essai + 1)
                 m = re.search(r'"retryDelay":\s*"(\d+)s"', msg)
                 if m: attente = int(m.group(1)) + 2
@@ -88,8 +88,8 @@ def invite(v, lignes, pauses):
     return CONF["gabarit"].format(profil=v["profil"], pauses=pauses, texte="\n".join(lignes))
 
 
-def dire1(modele, voix, texte, lignes):
-    d = appel(f"/models/{modele}:generateContent", {
+def dire1(modele, voix, texte, lignes, essais=3):
+    d = appel(f"/models/{modele}:generateContent", essais=essais, corps={
         "contents": [{"parts": [{"text": texte}]}],
         "generationConfig": {"responseModalities": ["AUDIO"], "temperature": CONF.get("temperature", 1.0),
                              "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": voix}}}}})
@@ -149,6 +149,21 @@ if CONF["etape"] == "echantillons":
         print(f"voix {n} : {v['nom']} ({len(pcm) / 2 / SR:.1f} s)")
         time.sleep(CONF.get("pause_entre_appels", 22))
     (OUT / "echantillons" / "echantillons.json").write_text(json.dumps(resume, ensure_ascii=False, indent=1))
+
+elif CONF.get("par_ligne"):
+    # une demande par phrase : chaque phrase tombe exactement à sa place ; même modèle du début à la fin
+    import array
+    v = next(x for x in CONF["voix"] if x["nom"] == CONF["choix"])
+    for version in [x for x in ("court", "long") if x in os.environ.get("VERSIONS", "court,long")]:
+        lignes = [l["texte"] for l in json.loads((RACINE / "voix" / f"texte-{version}.json").read_text())["lignes"]]
+        for k, ligne in enumerate(lignes):
+            sortie = OUT / version / f"l{k:02d}.wav"
+            if sortie.exists() and os.environ.get("REFAIRE") is None:
+                continue
+            pcm = dire1(modele[0], v["nom"], invite(v, [ligne], CONF["pauses_echantillon"]), [ligne], essais=8)
+            ecrire(sortie, pcm)
+            print(f"{version} {k:02d} : {len(pcm) / 2 / SR:.1f} s  {ligne}", flush=True)
+            time.sleep(CONF.get("pause_par_ligne", 7))
 
 else:
     v = next(x for x in CONF["voix"] if x["nom"] == CONF["choix"])

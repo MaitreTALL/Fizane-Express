@@ -29,24 +29,32 @@ fichiers = sorted(f for f in dossier.iterdir() if f.suffix in (".mp3", ".wav") a
 assert len(fichiers) == len(lignes), f"{len(fichiers)} fichiers pour {len(lignes)} phrases"
 piste = np.zeros(int(duree * SR))
 rapport = []
-for i, (l, f) in enumerate(zip(lignes, fichiers)):
-    y = charger(f)
+fin_prec = 0.0
+
+
+def rogner(y):
     e = np.convolve(np.abs(y), np.ones(480) / 480, "same"); v = np.where(e > e.max() * .02)[0]
-    y = y[max(0, v[0] - 960): v[-1] + 2400]
-    place = (lignes[i + 1]["t"] if i + 1 < len(lignes) else duree) - .12 - l["t"]
+    return y[max(0, v[0] - 960): v[-1] + 2400]
+
+
+for i, (l, f) in enumerate(zip(lignes, fichiers)):
+    y = rogner(charger(f))
+    # une phrase commence à son instant, ou juste après la précédente si celle-ci a débordé
+    debut = max(l["t"], fin_prec + .15)
+    limite = (lignes[i + 1]["t"] if i + 1 < len(lignes) else duree) - .12
+    place = limite - debut
     if len(y) / SR > place:
         k = min(ACCEL_MAX, len(y) / SR / place)
-        y = charger(f, f"atempo={k:.4f}")
-        e = np.convolve(np.abs(y), np.ones(480) / 480, "same"); v = np.where(e > e.max() * .02)[0]
-        y = y[max(0, v[0] - 960): v[-1] + 2400]
+        y = rogner(charger(f, f"atempo={k:.4f}"))
         if len(y) / SR > place + .05:
-            print(f"  ! {l['t']:.2f} : la phrase dépasse de {len(y) / SR - place:.2f} s (fondu en sortie)")
-    n0 = int(l["t"] * SR)
-    y = y[: max(0, min(len(piste) - n0, int((place + .1) * SR)))]
+            print(f"  ! {l['t']:.2f} : la phrase déborde de {len(y) / SR - place:.2f} s sur la suivante (décalée d'autant)")
+    n0 = int(debut * SR)
+    y = y[: max(0, len(piste) - n0)]
     m = min(480, len(y) // 4); fen = np.ones(len(y)); fen[:m] = np.linspace(0, 1, m); fen[-m:] = np.linspace(1, 0, m)
     piste[n0:n0 + len(y)] += y * fen
-    rapport.append({"t": l["t"], "fin": round(l["t"] + len(y) / SR, 2), "texte": l["texte"]})
-    print(f"{l['t']:6.2f} → {l['t'] + len(y) / SR:6.2f} s  {l['texte']}")
+    fin_prec = debut + len(y) / SR
+    rapport.append({"t": round(debut, 2), "fin": round(fin_prec, 2), "texte": l["texte"]})
+    print(f"{debut:6.2f} → {fin_prec:6.2f} s  {l['texte']}")
 
 
 def filtre(x, f, t, o=2): return sosfilt(butter(o, f, t, fs=SR, output="sos"), x)
