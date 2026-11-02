@@ -82,6 +82,7 @@ function cp_reglages_defaut() {
 			),
 			'avis'           => array(),     // [ nom, role, texte, note ] : seulement de vrais avis de clients
 			'reseaux'        => array( 'facebook' => '', 'instagram' => '', 'tiktok' => '', 'youtube' => '', 'linkedin' => '' ),
+			'credits'        => '',          // crédits des photos (bas de page), ex. « Photos : Wikimedia Commons (CC BY) »
 		),
 		'frais'      => array(
 			'fixe'       => 0,     // frais de dossier par envoi

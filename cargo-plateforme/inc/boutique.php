@@ -165,9 +165,9 @@ function cp_boutique_section() {
 		return '';
 	}
 	$fleche = cp_icone( 'fleche' );
-	return '<section class="cp-a-section cp-a-teinte cp-a-boutique"><div class="cp-a-in"><div class="cp-a-entete cp-anim"><div><p class="cp-a-sur">Notre boutique</p><h2>Achetez en ligne, payez par Mobile Money</h2></div>'
-		. '<a class="cp-a-tout" href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Voir toute la boutique' . $fleche . '</a></div>'
-		. do_shortcode( '[products limit="4" columns="4" orderby="date" order="DESC"]' ) . '</div></section>';
+	return '<section class="cp-a-section cp-a-boutique"><div class="cp-a-in"><div class="cp-a-entete cp-anim"><p class="cp-a-sur">Notre boutique</p><h2>Achetez en ligne, <span>payez par Mobile Money</span></h2><p class="cp-a-sous">Commandez directement sur le site et payez en toute simplicité : votre reçu arrive par e-mail.</p></div>'
+		. do_shortcode( '[products limit="4" columns="4" orderby="date" order="DESC"]' )
+		. '<p class="cp-a-centre"><a class="cp-btn cp-btn-contour" href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Voir toute la boutique' . $fleche . '</a></p></div></section>';
 }
 
 add_filter( 'cp_mon_espace_liens', function ( $h ) {

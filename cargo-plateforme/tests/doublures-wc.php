@@ -103,7 +103,6 @@ function WC() { return $GLOBALS['wc']; }
 function wc_get_page_permalink( $p ) { return 'https://navilink.test/boutique/'; }
 function wc_price( $n ) { return '<span>' . number_format( $n, 0, ',', ' ' ) . '&nbsp;FCFA</span>'; }
 function wp_strip_all_tags( $s ) { return html_entity_decode( strip_tags( $s ) ); }
-function wp_kses( $s, $a ) { return $s; }
 function wc_add_notice( $m, $t ) { $GLOBALS['avis_wc'][] = $m; }
 function wc_get_orders( $a ) { return array_keys( array_filter( $GLOBALS['commandes'], function ( $o ) use ( $a ) { return $o->get_meta( '_cp_mm_transaction' ) === $a['meta_query'][0]['value']; } ) ); }
 function wc_get_order_statuses() { return array( 'wc-pending' => 'En attente de paiement', 'wc-on-hold' => 'En attente' ); }

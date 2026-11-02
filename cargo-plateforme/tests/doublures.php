@@ -38,6 +38,7 @@ function absint( $n ) { return abs( (int) $n ); }
 function wp_list_pluck( $l, $k ) { return array_column( $l, $k ); }
 function wp_parse_args( $a, $d ) { return array_merge( $d, (array) $a ); }
 function wp_unslash( $v ) { return $v; }
+function wp_kses( $s, $a ) { return $s; }
 function esc_html( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
 function esc_attr( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
 function esc_url( $s ) { return htmlspecialchars( (string) $s, ENT_QUOTES ); }
@@ -51,6 +52,7 @@ function home_url( $p = '' ) { return 'https://navilink.test' . $p; }
 function admin_url( $p = '' ) { return 'https://navilink.test/wp-admin/' . $p; }
 function rest_url( $p = '' ) { return 'https://navilink.test/wp-json/' . $p; }
 function add_query_arg( $a, $u = "", $v = null ) { if ( ! is_array( $a ) ) { $a = array( $a => $u ); $u = (string) $v; } return $u . ( strpos( $u, "?" ) === false ? "?" : "&" ) . http_build_query( $a ); }
+function get_page_by_path( $p ) { return null; }
 function get_permalink( $id ) { return 'https://navilink.test/?page_id=' . $id; }
 function wp_create_nonce() { return 'nonce'; }
 function wp_verify_nonce() { return true; }

@@ -37,7 +37,7 @@ $ct_reseaux = array_filter( (array) ct_r( 'site.reseaux', array() ) );
 		</div>
 		<?php if ( $ct_signature ) : ?><p class="ct-pied-signature"><?php echo esc_html( $ct_signature ); ?></p><?php endif; ?>
 	</div>
-	<div class="ct-pied-bas"><div class="ct-in ct-pied-bas-in"><span>© <?php echo esc_html( gmdate( 'Y' ) . ' ' . get_bloginfo( 'name' ) ); ?><?php echo ct_r( 'entreprise.rccm' ) ? ' · RCCM ' . esc_html( ct_r( 'entreprise.rccm' ) ) : ''; ?><?php echo ct_r( 'entreprise.ifu' ) ? ' · IFU ' . esc_html( ct_r( 'entreprise.ifu' ) ) : ''; ?></span><span><?php echo esc_html( ct_r( 'origine.pays' ) . ' → ' . ct_r( 'destination.pays' ) ); ?></span></div></div>
+	<div class="ct-pied-bas"><div class="ct-in ct-pied-bas-in"><span>© <?php echo esc_html( gmdate( 'Y' ) . ' ' . get_bloginfo( 'name' ) ); ?><?php echo ct_r( 'entreprise.rccm' ) ? ' · RCCM ' . esc_html( ct_r( 'entreprise.rccm' ) ) : ''; ?><?php echo ct_r( 'entreprise.ifu' ) ? ' · IFU ' . esc_html( ct_r( 'entreprise.ifu' ) ) : ''; ?></span><span><?php $ct_credits = ct_r( 'site.credits' ); $ct_page = $ct_credits ? get_page_by_path( 'credits-photos' ) : null; ?><?php if ( $ct_page ) : ?><a href="<?php echo esc_url( get_permalink( $ct_page ) ); ?>"><?php echo esc_html( $ct_credits ); ?></a><?php else : ?><?php echo esc_html( $ct_credits ?: ct_r( 'origine.pays' ) . ' → ' . ct_r( 'destination.pays' ) ); ?><?php endif; ?></span></div></div>
 </footer>
 <?php $wa = function_exists( 'cp_whatsapp_lien' ) ? cp_whatsapp_lien( 'Bonjour ' . get_bloginfo( 'name' ) ) : ''; ?>
 <?php if ( $wa ) : ?><a class="ct-wa" href="<?php echo esc_url( $wa ); ?>" aria-label="WhatsApp" target="_blank" rel="noopener"><?php echo ct_icone( 'whatsapp' ); // phpcs:ignore ?></a><?php endif; ?>

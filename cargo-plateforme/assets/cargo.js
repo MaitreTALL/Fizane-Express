@@ -14,6 +14,14 @@
     return a + ' à ' + b + ' jours';
   };
 
+  /* jeton de sécurité frais : la page peut venir d'un cache (CDN) avec un jeton périmé */
+  function jeton() {
+    if (!C.ajax || !window.fetch) return Promise.resolve(C.nonce);
+    return fetch(C.ajax + '?action=cp_jeton', { credentials: 'same-origin', cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) { return j && j.nonce ? j.nonce : C.nonce; }, function () { return C.nonce; });
+  }
+
   /* -------------------------------------------------- calcul (identique à inc/tarifs.php) */
   function calcul(m, colis, valeur) {
     var poids = 0, vol = 0;
@@ -109,7 +117,7 @@
       });
       if (data.colis) data.colis = Object.keys(data.colis).map(function (k) { return data.colis[k]; });
       var bouton = $('button[type="submit"]', f); bouton.disabled = true; bouton.textContent = 'Enregistrement…';
-      fetch(C.api + 'declarer', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': C.nonce }, body: JSON.stringify(data) })
+      jeton().then(function (n) { return fetch(C.api + 'declarer', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': n }, body: JSON.stringify(data) }); })
         .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
         .then(function (x) {
           bouton.disabled = false; bouton.textContent = 'Obtenir mon code d\'envoi';
@@ -129,30 +137,27 @@
         .catch(function () { bouton.disabled = false; bouton.textContent = 'Obtenir mon code d\'envoi'; err.textContent = 'Connexion impossible. Réessayez.'; });
     });
   });
-  /* -------------------------------------------------- accueil : widget « Suivre / Estimer », apparitions au défilement */
-  $$('[data-cp="widget"]').forEach(function (w) {
-    var onglets = $$('[data-onglet]', w);
-    onglets.forEach(function (b) {
-      b.addEventListener('click', function () {
-        onglets.forEach(function (x) { var on = x === b; x.classList.toggle('cp-actif', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
-        $$('[data-panneau]', w).forEach(function (p) {
-          var on = p.getAttribute('data-panneau') === b.getAttribute('data-onglet');
-          p.hidden = !on; p.classList.toggle('cp-actif', on);
-          if (on) { var i = $('input', p); if (i) i.focus(); }
-        });
-      });
-    });
-    var kg = $('[data-cp="estimer-kg"]', w), out = $('[data-cp="estimations"]', w);
-    if (!kg) return;
-    kg.addEventListener('input', function () {
-      var p = +String(kg.value).replace(',', '.');
-      if (!(p > 0)) { out.innerHTML = '<p>Indiquez un poids : le prix s\'affiche pour chaque mode.</p>'; return; }
-      var lignes = C.modes.filter(function (m) { return m.unite !== 'm3'; }).map(function (m) { return { m: m, r: calcul(m, [{ nombre: 1, poids: p }], 0) }; });
-      var min = Math.min.apply(null, lignes.map(function (l) { return l.r.total; }));
-      out.innerHTML = lignes.map(function (l) {
-        return '<div class="cp-a-estim' + (l.r.total === min ? ' cp-meilleur' : '') + '"><span>' + esc(l.m.nom) + '<small>' + esc(delai(l.m)) + ' · ' + nb(l.r.facture, 1) + ' kg facturés</small></span><strong>' + prix(l.r.total) + '</strong></div>';
-      }).join('') + (C.modes.some(function (m) { return m.unite === 'm3'; }) ? '<p>Par bateau, le prix dépend du volume : ouvrez le simulateur complet.</p>' : '');
-    });
+  /* -------------------------------------------------- accueil : devis en ligne */
+  $$('[data-cp="devis"]').forEach(function (f) {
+    var out = $('[data-cp="devis-resultat"]', f);
+    function calculer(ev) {
+      if (ev) ev.preventDefault();
+      var v = function (n) { return String(f.elements[n].value || '').replace(',', '.'); };
+      var m = C.modes.filter(function (x) { return x.id === f.elements.mode.value; })[0];
+      if (!m) return;
+      var colis = [{ nombre: v('nombre') || 1, poids: v('poids'), longueur: v('longueur'), largeur: v('largeur'), hauteur: v('hauteur') }];
+      var dims = +colis[0].longueur && +colis[0].largeur && +colis[0].hauteur;
+      if (m.unite === 'm3' ? !dims : !(+colis[0].poids || dims)) {
+        out.innerHTML = '<p class="cp-a-devis-erreur">' + (m.unite === 'm3' ? 'Par bateau, le prix dépend du volume : indiquez les dimensions (L × l × h) d\'un colis.' : 'Indiquez le poids ou les dimensions d\'un colis.') + '</p>';
+        return;
+      }
+      var r = calcul(m, colis, 0);
+      var q = m.unite === 'm3' ? nb(r.facture) + ' m³ facturé' + (r.facture > 1 ? 's' : '') : nb(r.facture, 1) + ' kg facturés' + (r.volumetrique > r.poids ? ' (poids volumétrique)' : '');
+      out.innerHTML = '<div class="cp-a-devis-prix">' + prix(r.total) + '<small>' + esc(m.nom) + ' · ' + esc(q) + ' · délai ' + esc(delai(m)) + (r.total_alt ? ' · ' + esc(m.prix_alt_libelle || 'Autre tarif') + ' : ' + prix(r.total_alt) : '') + '</small></div>'
+        + '<a class="cp-btn cp-btn-action" href="' + esc(C.pages.declarer) + '?mode=' + encodeURIComponent(m.id) + '">Expédier ce colis</a>';
+    }
+    f.addEventListener('submit', calculer);
+    f.addEventListener('change', function () { if (out.innerHTML) calculer(); });
   });
 
   var anims = $$('.cp-anim');

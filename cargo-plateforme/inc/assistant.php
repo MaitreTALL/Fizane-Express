@@ -192,6 +192,7 @@ function cp_page_assistant() {
 					<?php endforeach; ?>
 				</tbody></table><p class="description">La section « Ils nous font confiance » n'apparaît que si vous ajoutez des avis. Uniquement de vrais avis, avec l'accord des clients. Enregistrez pour ajouter une ligne.</p></td></tr>
 				<?php
+				$champ( 'site.credits', 'Crédits des photos', 'text', 'Affichés en bas de page si vos photos viennent d\'une banque d\'images libre.' );
 				foreach ( array( 'facebook' => 'Facebook', 'instagram' => 'Instagram', 'tiktok' => 'TikTok', 'youtube' => 'YouTube', 'linkedin' => 'LinkedIn' ) as $k => $nom ) {
 					$champ( 'site.reseaux.' . $k, $nom, 'url', 'facebook' === $k ? 'Adresse complète de vos pages, ex. https://facebook.com/votrepage' : '' );
 				}
@@ -451,7 +452,7 @@ function cp_nettoyer_site( array $s, array $d ) {
 		return $r;
 	};
 	$r = array();
-	foreach ( array( 'bandeau', 'horaires', 'hero_surtitre', 'hero_titre', 'hero_titre_fin', 'signature', 'pourquoi_titre' ) as $k ) {
+	foreach ( array( 'bandeau', 'horaires', 'hero_surtitre', 'hero_titre', 'hero_titre_fin', 'signature', 'pourquoi_titre', 'credits' ) as $k ) {
 		$r[ $k ] = $t( $s[ $k ] ?? $d[ $k ] );
 	}
 	foreach ( array( 'hero_texte', 'pourquoi_texte' ) as $k ) {

@@ -30,7 +30,7 @@ $id = function ( $f ) use ( $SITE, $OUT ) {               // médiathèque simul
 	}
 	if ( ! isset( $ids[ $f ] ) ) {
 		$ids[ $f ] = 100 + count( $ids );
-		copy( "$SITE/$f", "$OUT/$f" );
+		copy( file_exists( "$SITE/$f" ) ? "$SITE/$f" : getenv( 'APERCU_IMAGES' ) . "/$f", "$OUT/$f" );   // photos HD : dossier APERCU_IMAGES
 		$GLOBALS['urls'][ $ids[ $f ] ] = $f;
 	}
 	return $ids[ $f ];
