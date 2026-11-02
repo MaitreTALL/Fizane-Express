@@ -1,7 +1,6 @@
 {
   "etape": "complet",
   "modeles": [
-    "gemini-2.5-pro-preview-tts",
     "gemini-3.1-flash-tts-preview",
     "gemini-3.8-flash-tts",
     "gemini-2.5-flash-preview-tts"
@@ -48,7 +47,7 @@
   ],
   "gabarit": "# AUDIO PROFILE: {profil}\n## THE SCENE: En studio à Ouagadougou, pour une publicité radio et TikTok de Tondraaga, la place de marché du Burkina Faso. Ambiance festive, fierté du pays.\n### DIRECTOR'S NOTES\nStyle: voix chaude, riche et puissante, très vivante, « ambiance », pleine de fierté, avec le sourire dans la voix.\nAccent: français d'Afrique de l'Ouest (Burkina Faso, Côte d'Ivoire).\nPacing: dynamique mais bien articulé, {pauses}.\nPronunciation: le nom de marque Tondraga commence par le son T, comme dans « tonton » : TON-dra-ga (jamais « Pondraga ») ; Faso se dit fasso ; Mobile Money se dit mobil moni.\n#### TRANSCRIPT\n{texte}",
   "pauses_echantillon": "une courte pause entre les phrases",
-  "pauses_complet": "rythme assez rapide et entraînant, et une vraie pause d'une seconde entre chaque ligne",
+  "pauses_complet": "rythme dynamique, et une pause nette d'une seconde et demie entre chaque ligne",
   "choix": "Sadachbia",
   "par_ligne": false,
   "pause_par_ligne": 7

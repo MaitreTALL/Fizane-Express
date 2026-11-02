@@ -1,44 +1,78 @@
 {
   "version": "courte (44 s, flûte)",
-  "ton": "animateur radio vivant ; présente Tondraaga : ce que c'est, ce que ça fait, ce que gagnent les producteurs, où le trouver",
+  "ton": "animateur radio vivant ; chaque phrase reprend ce qui est affiché à l'écran au même moment et présente Tondraaga",
   "lignes": [
     {
-      "t": 2.8,
-      "texte": "Tondraaga, c'est la place de marché en ligne du Burkina Faso !",
-      "tts": "Tondraga, c'est la place de marché en ligne du Burkina Faso !"
+      "t": 3.1,
+      "texte": "Tondraaga, la place de marché du Burkina !",
+      "ecran": "logo",
+      "tts": "Tondraga, la place de marché du Burkina !"
     },
     {
-      "t": 7.3,
-      "texte": "Où que vous soyez, faites les courses de vos proches au pays,"
+      "t": 6.65,
+      "texte": "Nourrissez la famille au pays,",
+      "ecran": "Courses pour mes proches"
     },
     {
-      "t": 11.7,
-      "texte": "et achetez directement aux artisans et aux producteurs burkinabè :"
+      "t": 8.9,
+      "texte": "où que vous soyez dans le monde !",
+      "ecran": "D'où passez-vous commande ?"
     },
     {
-      "t": 16.4,
-      "texte": "Faso Dan Fani, Koko Dunda, miel, céréales, thé, kinkéliba…"
+      "t": 11.2,
+      "texte": "La boutique des artisans !",
+      "ecran": "La boutique des artisans"
     },
     {
-      "t": 21.2,
-      "texte": "Pour les producteurs, c'est une vitrine mondiale : de nouveaux clients, et plus de ventes !"
+      "t": 13.55,
+      "texte": "Le Faso Dan Fani,",
+      "ecran": "Faso Dan Fani"
     },
     {
-      "t": 28.2,
-      "texte": "Vos colis partent aussi du Burkina vers le monde entier."
+      "t": 15.8,
+      "texte": "le Koko Dunda,",
+      "ecran": "Koko Dunda"
     },
     {
-      "t": 32.2,
-      "texte": "Paiement par Mobile Money ou par carte."
+      "t": 18.1,
+      "texte": "le miel,",
+      "ecran": "Miel"
     },
     {
-      "t": 35.3,
-      "texte": "Producteurs et artisans : inscription gratuite, produits illimités !"
+      "t": 20.4,
+      "texte": "les céréales,",
+      "ecran": "Céréales"
     },
     {
-      "t": 40.0,
-      "texte": "Tondraaga : disponible sur le site, et sur le Play Store !",
-      "tts": "Tondraga : disponible sur le site, et sur le Play Store !"
+      "t": 22.75,
+      "texte": "le thé et le kinkéliba,",
+      "ecran": "Thé & kinkeliba"
+    },
+    {
+      "t": 25.05,
+      "texte": "et tous les produits locaux !",
+      "ecran": "Produits locaux"
+    },
+    {
+      "t": 27.45,
+      "texte": "Vos colis, du Burkina vers le monde entier !",
+      "ecran": "Du Burkina vers le monde entier"
+    },
+    {
+      "t": 30.85,
+      "texte": "Payez par Mobile Money ou par carte, sur le site ou l'application !",
+      "ecran": "Payez par Mobile Money ou carte bancaire"
+    },
+    {
+      "t": 35.45,
+      "texte": "Artisans, producteurs : vendez dans le monde entier !",
+      "ecran": "Vendez vos créations dans le monde entier"
+    },
+    {
+      "t": 39.2,
+      "texte": "Tondraaga : disponible sur le site et sur le Play Store !",
+      "ecran": "Disponible sur le site et en application",
+      "tts": "Tondraga : disponible sur le site et sur le Play Store !"
     }
   ]
 }

@@ -1,47 +1,72 @@
 [
  {
-  "t": 2.8,
-  "fin": 6.67,
-  "texte": "Tondraaga, c'est la place de marché en ligne du Burkina Faso !"
+  "t": 3.1,
+  "fin": 6.55,
+  "texte": "Tondraaga, la place de marché du Burkina !"
  },
  {
-  "t": 7.3,
-  "fin": 10.62,
-  "texte": "Où que vous soyez, faites les courses de vos proches au pays,"
+  "t": 6.7,
+  "fin": 8.78,
+  "texte": "Nourrissez la famille au pays,"
  },
  {
-  "t": 11.7,
-  "fin": 15.51,
-  "texte": "et achetez directement aux artisans et aux producteurs burkinabè :"
+  "t": 8.93,
+  "fin": 10.74,
+  "texte": "où que vous soyez dans le monde !"
  },
  {
-  "t": 16.4,
-  "fin": 21.21,
-  "texte": "Faso Dan Fani, Koko Dunda, miel, céréales, thé, kinkéliba…"
+  "t": 11.2,
+  "fin": 12.9,
+  "texte": "La boutique des artisans !"
  },
  {
-  "t": 21.36,
-  "fin": 26.51,
-  "texte": "Pour les producteurs, c'est une vitrine mondiale : de nouveaux clients, et plus de ventes !"
+  "t": 13.55,
+  "fin": 14.95,
+  "texte": "Le Faso Dan Fani,"
  },
  {
-  "t": 28.2,
-  "fin": 31.24,
-  "texte": "Vos colis partent aussi du Burkina vers le monde entier."
+  "t": 15.8,
+  "fin": 17.03,
+  "texte": "le Koko Dunda,"
  },
  {
-  "t": 32.2,
-  "fin": 34.56,
-  "texte": "Paiement par Mobile Money ou par carte."
+  "t": 18.1,
+  "fin": 18.99,
+  "texte": "le miel,"
  },
  {
-  "t": 35.3,
-  "fin": 39.59,
-  "texte": "Producteurs et artisans : inscription gratuite, produits illimités !"
+  "t": 20.4,
+  "fin": 21.41,
+  "texte": "les céréales,"
  },
  {
-  "t": 40.0,
-  "fin": 43.23,
-  "texte": "Tondraaga : disponible sur le site, et sur le Play Store !"
+  "t": 22.75,
+  "fin": 24.93,
+  "texte": "le thé et le kinkéliba,"
+ },
+ {
+  "t": 25.08,
+  "fin": 26.26,
+  "texte": "et tous les produits locaux !"
+ },
+ {
+  "t": 27.45,
+  "fin": 30.74,
+  "texte": "Vos colis, du Burkina vers le monde entier !"
+ },
+ {
+  "t": 30.89,
+  "fin": 34.96,
+  "texte": "Payez par Mobile Money ou par carte, sur le site ou l'application !"
+ },
+ {
+  "t": 35.45,
+  "fin": 39.1,
+  "texte": "Artisans, producteurs : vendez dans le monde entier !"
+ },
+ {
+  "t": 39.25,
+  "fin": 42.96,
+  "texte": "Tondraaga : disponible sur le site et sur le Play Store !"
  }
 ]

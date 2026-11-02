@@ -4,7 +4,9 @@ Les coupes se font dans des silences, choisis par programmation dynamique : chaq
 durée attendue d'après la longueur de sa phrase (en lettres), et on préfère les silences longs. Ainsi une pause
 au milieu d'une phrase (après « Tondraaga ! ») n'est pas prise pour une fin de phrase.
 
-Usage : python3 tools/decouper_lecture.py <texte.json> <lecture.wav> <dossier de sortie>
+Usage : python3 tools/decouper_lecture.py <texte.json> <lecture.wav> <dossier de sortie> [repères.json]
+Avec repères.json (début et fin approximatifs de chaque phrase, donnés par une transcription), chaque coupe se fait
+dans la pause la plus proche du repère : c'est plus sûr que les seules longueurs de phrases.
 """
 import json
 import math
@@ -58,6 +60,16 @@ coupes, j = [], m - 1
 for k in range(n, 0, -1):
     coupes.append(j); j = prec[k][j]
 coupes = [0] + coupes[::-1]
+if len(sys.argv) > 4:
+    rep = json.loads(Path(sys.argv[4]).read_text())["phrases"]
+    assert len(rep) == n
+    coupes = [0]
+    for k in range(n - 1):
+        cible = (rep[k][1] + rep[k + 1][0]) / 2 * 100
+        # la pause la plus proche du repère (en préférant les pauses longues)
+        j = min(range(1, m - 1), key=lambda j: abs(pos[j] - cible) / 100 - .25 * min(lon[j], 1.5))
+        coupes.append(j)
+    coupes.append(m - 1)
 sortie.mkdir(parents=True, exist_ok=True)
 for k in range(n):
     a = pos[coupes[k]] if k else max(0, i0 - 5)
