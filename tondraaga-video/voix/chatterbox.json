@@ -1,0 +1,12 @@
+{
+  "etape": "echantillons",
+  "reglages": {"exaggeration": 0.65, "cfg_weight": 0.35, "temperature": 0.8},
+  "voix": [
+    {"ref": "h1", "genre": "male", "titre": "Homme · très grave"},
+    {"ref": "h2", "genre": "male", "titre": "Homme · grave et chaud"},
+    {"ref": "h3", "genre": "male", "titre": "Homme · grave et posé"},
+    {"ref": "f1", "genre": "female", "titre": "Femme · chaude"},
+    {"ref": "f2", "genre": "female", "titre": "Femme · voix basse et ronde"},
+    {"ref": "f3", "genre": "female", "titre": "Femme · claire et posée"}
+  ]
+}

@@ -1,4 +1,4 @@
-"""Place les phrases de la voix off (un fichier audio par phrase, par exemple produites par elevenlabs.py) à leur
+"""Place les phrases de la voix off (un fichier audio par phrase, l00.wav ou l00.mp3…, produits par chatterbox_voix.py ou elevenlabs.py) à leur
 instant dans la vidéo, en les accélérant légèrement si une phrase déborde sur la suivante, puis applique un traitement
 de voix léger (coupe-bas, chaleur, présence, compression douce).
 
@@ -25,7 +25,7 @@ def charger(chemin, filtre=None):
 
 
 lignes = json.loads(Path(texte).read_text())["lignes"]
-fichiers = sorted(dossier.glob("l*.mp3"))
+fichiers = sorted(f for f in dossier.iterdir() if f.suffix in (".mp3", ".wav") and len(f.stem) == 3 and f.stem[0] == "l")
 assert len(fichiers) == len(lignes), f"{len(fichiers)} fichiers pour {len(lignes)} phrases"
 piste = np.zeros(int(duree * SR))
 rapport = []
