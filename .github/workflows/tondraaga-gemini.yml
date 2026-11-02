@@ -1,0 +1,38 @@
+name: Tondraaga voix Gemini
+
+# Voix off des vidéos Tondraaga avec les voix de synthèse de Google AI Studio (API Gemini).
+# La clé vient du secret de dépôt GEMINI_API_KEY (ou GOOGLE_API_KEY) ; sans clé, rien n'est fait.
+on:
+  push:
+    branches: [ccr-823f62ce-tc8p8p]
+    paths:
+      - 'tondraaga-video/voix/gemini.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: tondraaga-gemini
+
+jobs:
+  voix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tondraaga-video/tools
+            tondraaga-video/voix
+      - name: Read the lines with Gemini
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY || secrets.GOOGLE_API_KEY }}
+        run: python3 tondraaga-video/tools/gemini_voix.py tondraaga-video/voix/sortie-gemini
+      - name: Store the audio in the branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tondraaga-video/voix/sortie-gemini 2>/dev/null || exit 0
+          git commit -q -m "Tondraaga: Gemini voice-over audio [skip ci]" || exit 0
+          for i in 1 2 3 4 5; do git pull -q --rebase origin ccr-823f62ce-tc8p8p && git push -q && exit 0; sleep $((i * 7)); done
+          exit 1
