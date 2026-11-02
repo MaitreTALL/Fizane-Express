@@ -112,16 +112,24 @@ if CONF["etape"] == "echantillons":
     (OUT / "candidats.json").write_text(json.dumps(cands, ensure_ascii=False, indent=1))
     print(f"{len(cands)} voix françaises à accent africain trouvées")
     exclues = set(CONF.get("exclure", []))
-    choix = [c for c in cands if c["genre"] == "male" and c["voice_id"] not in exclues][:3] + \
-            [c for c in cands if c["genre"] == "female" and c["voice_id"] not in exclues][:3]
     lignes = [l["texte"] if "tts" not in l else l["tts"] for l in json.loads((RACINE / "voix" / "echantillon.json").read_text())["lignes"]]
-    resume = []
-    for n, c in enumerate(choix, 1):
-        vid = ajouter(c)
-        for k, l in enumerate(lignes):
-            (OUT / f"voix{n}-{k}.mp3").write_bytes(dire(vid, l, " ".join(lignes[:k])[-300:], " ".join(lignes[k + 1:])[:300]))
-        resume.append({"numero": n, "voice_id": vid, **{k: c[k] for k in ("nom", "genre", "age", "accent", "locale", "descriptif", "description", "clones")}})
-        print(f"voix {n} : {c['nom']} ({c['genre']}, {c['accent']})")
+    resume, n = [], 0
+    for genre in ("male", "female"):
+        faites = 0
+        for c in [c for c in cands if c["genre"] == genre and c["voice_id"] not in exclues]:
+            if faites == 3:
+                break
+            try:
+                vid = ajouter(c)
+                sons = [dire(vid, l, " ".join(lignes[:k])[-300:], " ".join(lignes[k + 1:])[:300]) for k, l in enumerate(lignes)]
+            except SystemExit as e:          # voix refusée (droits, quota…) : on passe à la suivante
+                print(f"voix ignorée {c['nom']} : {e}")
+                continue
+            n += 1; faites += 1
+            for k, son in enumerate(sons):
+                (OUT / f"voix{n}-{k}.mp3").write_bytes(son)
+            resume.append({"numero": n, "voice_id": vid, **{k: c[k] for k in ("nom", "genre", "age", "accent", "locale", "descriptif", "description", "clones")}})
+            print(f"voix {n} : {c['nom']} ({c['genre']}, {c['accent']})")
     (OUT / "echantillons.json").write_text(json.dumps(resume, ensure_ascii=False, indent=1))
 
 elif CONF["etape"] == "complet":
