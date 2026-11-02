@@ -24,7 +24,7 @@ function cp_page_assistant() {
 	}
 	wp_enqueue_media();
 	$r = cp_reglages();
-	$onglets = array( 'entreprise' => '1. Entreprise', 'couleurs' => '2. Couleurs', 'trajet' => '3. Trajet', 'tarifs' => '4. Tarifs & délais', 'paiement' => '5. Paiement', 'documents' => '6. Documents & services', 'etapes' => '7. Étapes de suivi', 'import' => 'Import / export' );
+	$onglets = array( 'entreprise' => '1. Entreprise', 'couleurs' => '2. Couleurs', 'trajet' => '3. Trajet', 'tarifs' => '4. Tarifs & délais', 'paiement' => '5. Paiement', 'documents' => '6. Documents & services', 'site' => '7. Page d\'accueil', 'etapes' => '8. Étapes de suivi', 'import' => 'Import / export' );
 	$n = function ( $chemin ) {
 		$p = explode( '.', $chemin );
 		return 'cp[' . implode( '][', $p ) . ']';
@@ -43,8 +43,8 @@ function cp_page_assistant() {
 		echo '</td></tr>';
 	};
 	$image = function ( $chemin, $libelle, $aide = '' ) use ( $n ) {
-		$id = (int) cp_r( $chemin );
-		$url = $id ? wp_get_attachment_image_url( $id, 'medium' ) : '';
+		$id = cp_r( $chemin, 0 );                                   // identifiant de la médiathèque ou adresse web
+		$url = cp_image_url( $id, 'medium' );
 		echo '<tr><th>' . esc_html( $libelle ) . '</th><td><div class="cp-media"><img src="' . esc_url( $url ) . '" style="max-height:110px;max-width:360px;display:' . ( $url ? 'block' : 'none' ) . ';margin-bottom:8px;background:#fff;border:1px solid #ddd;padding:4px"><input type="hidden" name="' . esc_attr( $n( $chemin ) ) . '" value="' . esc_attr( $id ) . '"><button type="button" class="button cp-choisir">Choisir une image</button> <button type="button" class="button-link cp-retirer">Retirer</button></div>' . ( $aide ? '<p class="description">' . esc_html( $aide ) . '</p>' : '' ) . '</td></tr>';
 	};
 	?>
@@ -82,6 +82,8 @@ function cp_page_assistant() {
 				$champ( 'couleurs.primaire', 'Couleur principale', 'color', 'Boutons, titres, bandeaux, documents.' );
 				$champ( 'couleurs.accent', 'Couleur secondaire', 'color' );
 				$champ( 'couleurs.fond', 'Couleur de fond des encadrés', 'color' );
+				$champ( 'couleurs.bouton', 'Couleur des boutons d\'action', 'color', '« Expédier un colis », « Demander un tarif » : une couleur vive qui ressort sur le bleu.' );
+				$champ( 'couleurs.fonce', 'Couleur des bandeaux sombres', 'color', 'Barre du haut, bandeau « Pourquoi nous », pied de page. Laissez noir (#000000) pour la calculer depuis la couleur principale.' );
 				?>
 			</table></div>
 
@@ -144,11 +146,54 @@ function cp_page_assistant() {
 				$champ( 'documents.accroche', 'Accroche', 'text', 'ex. De la Chine au Burkina Faso en toute sécurité' );
 				$champ( 'documents.pied', 'Phrase du pied de page', 'text' );
 				?>
-				<tr><th>Services (page d'accueil)</th><td><table class="widefat"><thead><tr><th>Titre</th><th>Texte</th></tr></thead><tbody>
-					<?php foreach ( array_merge( (array) $r['services'], array( array( 'titre' => '', 'texte' => '' ) ) ) as $i => $s ) : ?>
-						<tr><td><input name="cp[services][<?php echo (int) $i; ?>][titre]" value="<?php echo esc_attr( $s['titre'] ); ?>"></td><td><input class="large-text" name="cp[services][<?php echo (int) $i; ?>][texte]" value="<?php echo esc_attr( $s['texte'] ); ?>"></td></tr>
+				<tr><th>Services (page d'accueil)</th><td><table class="widefat"><thead><tr><th>Titre</th><th>Texte</th><th>Icône</th><th>Lien</th><th>Photo</th></tr></thead><tbody>
+					<?php foreach ( array_merge( (array) $r['services'], array( array( 'titre' => '', 'texte' => '' ) ) ) as $i => $s ) : $b = 'cp[services][' . (int) $i . ']'; ?>
+						<tr><td><input name="<?php echo esc_attr( $b ); ?>[titre]" value="<?php echo esc_attr( $s['titre'] ); ?>"></td><td><textarea class="large-text" rows="2" name="<?php echo esc_attr( $b ); ?>[texte]"><?php echo esc_textarea( $s['texte'] ); ?></textarea></td>
+							<td><?php cp_choix_icone( $b . '[icone]', $s['icone'] ?? '' ); ?></td>
+							<td><input name="<?php echo esc_attr( $b ); ?>[lien]" value="<?php echo esc_attr( $s['lien'] ?? '' ); ?>" placeholder="tarifs, suivi, boutique…" style="width:130px"></td>
+							<td><?php cp_choix_image( $b . '[image]', $s['image'] ?? 0 ); ?></td></tr>
 					<?php endforeach; ?>
+				</tbody></table><p class="description">Lien : <code>tarifs</code>, <code>simulateur</code>, <code>suivi</code>, <code>declarer</code>, <code>boutique</code>, <code>whatsapp</code> ou une adresse https://… Photo : environ 16 × 10, sinon l'icône est affichée sur la couleur principale.</p></td></tr>
+			</table></div>
+
+			<div class="cp-onglet" id="o-site"><p>Textes et photos de la page d'accueil. <b>Laissez vide</b> pour les textes calculés automatiquement depuis votre trajet et vos tarifs.</p><table class="form-table">
+				<?php
+				$champ( 'site.bandeau', 'Barre du haut', 'text', 'Vide = vos mots clés.' );
+				$champ( 'site.horaires', 'Horaires', 'text', 'ex. Lun – Sam, 8 h – 18 h' );
+				$champ( 'site.hero_surtitre', 'Petit titre', 'text', 'Vide = « Fret aérien & maritime ».' );
+				$champ( 'site.hero_titre', 'Grand titre', 'text', 'Vide = « Expédiez de ' . cp_r( 'origine.pays' ) . ' ».' );
+				$champ( 'site.hero_titre_fin', 'Fin du grand titre (en couleur)', 'text', 'Vide = « ' . cp_au_pays( cp_r( 'destination.pays' ) ) . ' ».' );
+				$champ( 'site.hero_texte', 'Texte d\'accroche', 'textarea' );
+				$image( 'site.hero_images.0', 'Photo principale', 'Grande photo large (environ 3 × 1) : avion, camion, port…' );
+				$image( 'site.hero_images.1', 'Photo 2' );
+				$image( 'site.hero_images.2', 'Photo 3' );
+				$champ( 'site.signature', 'Phrase manuscrite', 'text', 'Écrite à la main sur la photo, ex. Votre solution logistique de confiance' );
+				?>
+				<tr><th>Chiffres clés</th><td><table class="widefat"><thead><tr><th>Valeur</th><th>Libellé</th></tr></thead><tbody>
+					<?php $ch = (array) cp_r( 'site.chiffres', array() ); for ( $i = 0; $i < 3; $i++ ) : ?>
+						<tr><td><input name="cp[site][chiffres][<?php echo (int) $i; ?>][valeur]" value="<?php echo esc_attr( $ch[ $i ]['valeur'] ?? '' ); ?>" placeholder="<?php echo esc_attr( cp_chiffres()[ $i ]['valeur'] ?? '' ); ?>"></td><td><input class="regular-text" name="cp[site][chiffres][<?php echo (int) $i; ?>][libelle]" value="<?php echo esc_attr( $ch[ $i ]['libelle'] ?? '' ); ?>" placeholder="<?php echo esc_attr( cp_chiffres()[ $i ]['libelle'] ?? '' ); ?>"></td></tr>
+					<?php endfor; ?>
+				</tbody></table><p class="description">Vide = calculés depuis vos tarifs (nombre de modes, prix au kilo, délai le plus court). N'indiquez que des chiffres vrais.</p></td></tr>
+				<?php
+				$champ( 'site.pourquoi_titre', 'Bandeau « Pourquoi nous » : titre' );
+				$champ( 'site.pourquoi_texte', 'Bandeau « Pourquoi nous » : texte', 'textarea' );
+				$image( 'site.pourquoi_image', 'Bandeau « Pourquoi nous » : photo', 'Entrepôt, équipe, cartons…' );
+				?>
+				<tr><th>Atouts</th><td><table class="widefat"><thead><tr><th>Icône</th><th>Titre</th><th>Texte</th></tr></thead><tbody>
+					<?php $pts = (array) cp_r( 'site.pourquoi_points', array() ); for ( $i = 0; $i < 4; $i++ ) : $b = 'cp[site][pourquoi_points][' . $i . ']'; ?>
+						<tr><td><?php cp_choix_icone( $b . '[icone]', $pts[ $i ]['icone'] ?? '' ); ?></td><td><input name="<?php echo esc_attr( $b ); ?>[titre]" value="<?php echo esc_attr( $pts[ $i ]['titre'] ?? '' ); ?>"></td><td><input class="large-text" name="<?php echo esc_attr( $b ); ?>[texte]" value="<?php echo esc_attr( $pts[ $i ]['texte'] ?? '' ); ?>"></td></tr>
+					<?php endfor; ?>
 				</tbody></table></td></tr>
+				<tr><th>Avis de clients</th><td><table class="widefat"><thead><tr><th>Nom</th><th>Ville / métier</th><th>Avis</th><th>Note</th></tr></thead><tbody>
+					<?php foreach ( array_merge( (array) cp_r( 'site.avis', array() ), array( array() ) ) as $i => $a ) : $b = 'cp[site][avis][' . (int) $i . ']'; ?>
+						<tr><td><input name="<?php echo esc_attr( $b ); ?>[nom]" value="<?php echo esc_attr( $a['nom'] ?? '' ); ?>"></td><td><input name="<?php echo esc_attr( $b ); ?>[role]" value="<?php echo esc_attr( $a['role'] ?? '' ); ?>"></td><td><textarea class="large-text" rows="2" name="<?php echo esc_attr( $b ); ?>[texte]"><?php echo esc_textarea( $a['texte'] ?? '' ); ?></textarea></td><td><select name="<?php echo esc_attr( $b ); ?>[note]"><?php for ( $k = 5; $k >= 1; $k-- ) : ?><option value="<?php echo (int) $k; ?>" <?php selected( (int) ( $a['note'] ?? 5 ), $k ); ?>><?php echo esc_html( str_repeat( '★', $k ) ); ?></option><?php endfor; ?></select></td></tr>
+					<?php endforeach; ?>
+				</tbody></table><p class="description">La section « Ils nous font confiance » n'apparaît que si vous ajoutez des avis. Uniquement de vrais avis, avec l'accord des clients. Enregistrez pour ajouter une ligne.</p></td></tr>
+				<?php
+				foreach ( array( 'facebook' => 'Facebook', 'instagram' => 'Instagram', 'tiktok' => 'TikTok', 'youtube' => 'YouTube', 'linkedin' => 'LinkedIn' ) as $k => $nom ) {
+					$champ( 'site.reseaux.' . $k, $nom, 'url', 'facebook' === $k ? 'Adresse complète de vos pages, ex. https://facebook.com/votrepage' : '' );
+				}
+				?>
 			</table></div>
 
 			<div class="cp-onglet" id="o-etapes"><p>Les étapes que vos clients voient dans le suivi et reçoivent par e-mail. Vous pouvez changer leur nom et leur texte.</p><table class="widefat striped"><thead><tr><th>Étape</th><th>Texte envoyé au client</th></tr></thead><tbody>
@@ -288,7 +333,7 @@ function cp_nettoyer_reglages( array $cp ) {
 			$r['entreprise'][ $k ] = 'logo_id' === $k ? absint( $cp['entreprise'][ $k ] ) : ( 'email' === $k ? sanitize_email( $cp['entreprise'][ $k ] ) : $t( $cp['entreprise'][ $k ] ) );
 		}
 	}
-	foreach ( array( 'primaire', 'accent', 'fond' ) as $k ) {
+	foreach ( array( 'primaire', 'accent', 'fond', 'bouton', 'fonce' ) as $k ) {
 		$r['couleurs'][ $k ] = sanitize_hex_color( $cp['couleurs'][ $k ] ?? '' ) ?: $d['couleurs'][ $k ];
 	}
 	$r['origine'] = array( 'pays' => $t( $cp['origine']['pays'] ?? $d['origine']['pays'] ), 'entrepot' => $ta( $cp['origine']['entrepot'] ?? '' ), 'entrepot_image' => absint( $cp['origine']['entrepot_image'] ?? cp_r( 'origine.entrepot_image', 0 ) ), 'contact' => $t( $cp['origine']['contact'] ?? '' ) );
@@ -348,9 +393,10 @@ function cp_nettoyer_reglages( array $cp ) {
 	$r['services'] = array();
 	foreach ( (array) ( $cp['services'] ?? array() ) as $s ) {
 		if ( '' !== trim( (string) ( $s['titre'] ?? '' ) ) ) {
-			$r['services'][] = array( 'titre' => $t( $s['titre'] ), 'texte' => $t( $s['texte'] ?? '' ) );
+			$r['services'][] = array( 'titre' => $t( $s['titre'] ), 'texte' => $t( $s['texte'] ?? '' ), 'icone' => sanitize_key( $s['icone'] ?? '' ), 'image' => cp_nettoyer_image( $s['image'] ?? 0 ), 'lien' => cp_nettoyer_lien( $s['lien'] ?? '' ) );
 		}
 	}
+	$r['site'] = cp_nettoyer_site( (array) ( $cp['site'] ?? array() ), $d['site'] );
 	$etapes = array();
 	$ids_etapes = wp_list_pluck( cp_etapes_defaut(), 'id' );
 	foreach ( (array) ( $cp['etapes'] ?? array() ) as $e ) {
@@ -362,4 +408,80 @@ function cp_nettoyer_reglages( array $cp ) {
 	$r['etapes'] = count( $etapes ) === count( $ids_etapes ) ? $etapes : cp_etapes_defaut();
 	$r['code']['prefixe'] = strtoupper( substr( preg_replace( '/[^A-Za-z]/', '', (string) ( $cp['code']['prefixe'] ?? 'CRG' ) ), 0, 4 ) ) ?: 'CRG';
 	return $r;
+}
+
+/** Image : identifiant de la médiathèque ou adresse web. */
+function cp_nettoyer_image( $v ) {
+	if ( is_numeric( $v ) ) {
+		return absint( $v );
+	}
+	$v = trim( (string) $v );
+	return preg_match( '#^https?://#', $v ) ? esc_url_raw( $v ) : 0;
+}
+
+/** Lien : nom de page (tarifs, simulateur, suivi, declarer, espace, boutique, whatsapp) ou adresse web. */
+function cp_nettoyer_lien( $v ) {
+	$v = trim( (string) $v );
+	if ( preg_match( '#^https?://#', $v ) ) {
+		return esc_url_raw( $v );
+	}
+	$v = sanitize_key( $v );
+	return in_array( $v, array( 'tarifs', 'simulateur', 'suivi', 'declarer', 'espace', 'boutique', 'whatsapp' ), true ) ? $v : '';
+}
+
+function cp_nettoyer_site( array $s, array $d ) {
+	$t = function ( $v ) {
+		return sanitize_text_field( (string) $v );
+	};
+	$lignes = function ( $l, $champs, $requis ) use ( $t ) {
+		$r = array();
+		foreach ( (array) $l as $x ) {
+			$x = (array) $x;
+			if ( '' === trim( (string) ( $x[ $requis ] ?? '' ) ) ) {
+				continue;
+			}
+			$y = array();
+			foreach ( $champs as $c ) {
+				$y[ $c ] = 'icone' === $c ? sanitize_key( $x[ $c ] ?? '' ) : ( 'note' === $c ? min( 5, max( 1, absint( $x[ $c ] ?? 5 ) ) ) : $t( $x[ $c ] ?? '' ) );
+			}
+			$r[] = $y;
+		}
+		return $r;
+	};
+	$r = array();
+	foreach ( array( 'bandeau', 'horaires', 'hero_surtitre', 'hero_titre', 'hero_titre_fin', 'signature', 'pourquoi_titre' ) as $k ) {
+		$r[ $k ] = $t( $s[ $k ] ?? $d[ $k ] );
+	}
+	foreach ( array( 'hero_texte', 'pourquoi_texte' ) as $k ) {
+		$r[ $k ] = sanitize_textarea_field( (string) ( $s[ $k ] ?? $d[ $k ] ) );
+	}
+	$r['hero_images'] = array_values( array_filter( array_map( 'cp_nettoyer_image', array_slice( (array) ( $s['hero_images'] ?? array() ), 0, 3 ) ) ) );
+	$r['pourquoi_image'] = cp_nettoyer_image( $s['pourquoi_image'] ?? 0 );
+	$r['chiffres'] = array_slice( $lignes( $s['chiffres'] ?? array(), array( 'valeur', 'libelle' ), 'valeur' ), 0, 3 );
+	$r['pourquoi_points'] = array_slice( $lignes( $s['pourquoi_points'] ?? $d['pourquoi_points'], array( 'icone', 'titre', 'texte' ), 'titre' ), 0, 4 ) ?: $d['pourquoi_points'];
+	$r['avis'] = $lignes( $s['avis'] ?? array(), array( 'nom', 'role', 'texte', 'note' ), 'texte' );
+	$r['reseaux'] = array();
+	foreach ( $d['reseaux'] as $k => $v ) {
+		$u = trim( (string) ( $s['reseaux'][ $k ] ?? '' ) );
+		$r['reseaux'][ $k ] = preg_match( '#^https?://#', $u ) ? esc_url_raw( $u ) : '';
+	}
+	return $r;
+}
+
+/** Liste des icônes proposées dans l'assistant. */
+function cp_icones_disponibles() {
+	return array( 'avion' => 'Avion', 'bateau' => 'Bateau', 'camion' => 'Camion', 'voiture' => 'Voiture', 'engin' => 'Engin de chantier', 'colis' => 'Colis', 'entrepot' => 'Entrepôt', 'suivi' => 'Suivi', 'bouclier' => 'Sécurité', 'douane' => 'Douane / documents', 'panier' => 'Achat', 'equipe' => 'Équipe', 'paiement' => 'Paiement', 'globe' => 'Monde', 'horloge' => 'Délai', 'casque' => 'Assistance', 'engrenage' => 'Pièces', 'valise' => 'Biens personnels' );
+}
+
+function cp_choix_icone( $nom, $valeur ) {
+	echo '<select name="' . esc_attr( $nom ) . '"><option value="">Automatique</option>';
+	foreach ( cp_icones_disponibles() as $k => $l ) {
+		echo '<option value="' . esc_attr( $k ) . '"' . selected( $valeur, $k, false ) . '>' . esc_html( $l ) . '</option>';
+	}
+	echo '</select>';
+}
+
+function cp_choix_image( $nom, $valeur ) {
+	$url = cp_image_url( $valeur, 'thumbnail' );
+	echo '<div class="cp-media"><img src="' . esc_url( $url ) . '" style="width:72px;height:48px;object-fit:cover;display:' . ( $url ? 'block' : 'none' ) . ';margin-bottom:4px"><input type="hidden" name="' . esc_attr( $nom ) . '" value="' . esc_attr( $valeur ) . '"><button type="button" class="button button-small cp-choisir">Photo</button> <button type="button" class="button-link cp-retirer">Retirer</button></div>';
 }

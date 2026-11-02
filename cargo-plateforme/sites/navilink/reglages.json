@@ -16,7 +16,8 @@
  "couleurs": {
   "primaire": "#0146AF",
   "accent": "#0A0A0A",
-  "fond": "#F3F6FB"
+  "fond": "#F3F6FB",
+  "bouton": "#F47B20"
  },
  "origine": {
   "pays": "Chine",
@@ -99,22 +100,79 @@
  "services": [
   {
    "titre": "Fret aérien",
-   "texte": "MCO, LTA ou Express : vos colis de la Chine au Burkina Faso en 3 jours à 3 semaines."
+   "texte": "MCO, LTA ou Express : vos colis en 3 jours à 3 semaines, au kilo.",
+   "icone": "avion",
+   "lien": "tarifs"
   },
   {
    "titre": "Fret maritime",
-   "texte": "Vos marchandises par bateau, au mètre cube, en 2 mois environ."
+   "texte": "Vos marchandises par bateau, au mètre cube (CBM), en 2 mois environ.",
+   "icone": "bateau",
+   "lien": "tarifs"
   },
   {
    "titre": "Vente & location",
-   "texte": "Voitures, camions et engins de chantier Caterpillar, pour particuliers et professionnels."
+   "texte": "Voitures, camions et engins de chantier Caterpillar, pour particuliers et professionnels.",
+   "icone": "voiture",
+   "lien": "boutique"
+  },
+  {
+   "titre": "Achat assisté",
+   "texte": "Nous vous aidons à acheter auprès de vos fournisseurs en Chine et réceptionnons vos marchandises.",
+   "icone": "panier",
+   "lien": "whatsapp"
+  },
+  {
+   "titre": "Transfert & change",
+   "texte": "Transfert d'argent vers vos fournisseurs en Chine et change de devises.",
+   "icone": "paiement",
+   "lien": "whatsapp"
   },
   {
    "titre": "Suivi de colis",
-   "texte": "Chaque envoi a son code : suivez chaque étape, de l'entrepôt en Chine jusqu'à la remise."
+   "texte": "Un code par envoi : suivez chaque étape, de l'entrepôt en Chine jusqu'à la remise.",
+   "icone": "suivi",
+   "lien": "suivi"
   }
  ],
  "code": {
   "prefixe": "NVL"
+ },
+ "site": {
+  "bandeau": "De la Chine au Burkina Faso en toute sécurité",
+  "horaires": "",
+  "signature": "Votre solution logistique de confiance",
+  "pourquoi_titre": "Votre partenaire de confiance",
+  "pourquoi_texte": "Navilink vous accompagne de A à Z : réception de vos colis en Chine, transport par avion ou par bateau, puis remise au Burkina Faso.",
+  "pourquoi_points": [
+   {
+    "icone": "suivi",
+    "titre": "Suivi de votre colis",
+    "texte": "Un code par envoi et un e-mail à chaque étape."
+   },
+   {
+    "icone": "bouclier",
+    "titre": "Service fiable et sécurisé",
+    "texte": "Colis pesés, étiquetés et suivis jusqu'à la remise."
+   },
+   {
+    "icone": "casque",
+    "titre": "Assistance tout au long du transport",
+    "texte": "Une équipe en Chine et au Burkina Faso, joignable sur WhatsApp."
+   },
+   {
+    "icone": "paiement",
+    "titre": "Paiement simple",
+    "texte": "Mobile Money ou sur place, avec un reçu à chaque paiement."
+   }
+  ],
+  "avis": [],
+  "reseaux": {
+   "facebook": "",
+   "instagram": "",
+   "tiktok": "",
+   "youtube": "",
+   "linkedin": ""
+  }
  }
 }

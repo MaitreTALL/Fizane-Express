@@ -21,12 +21,15 @@ function cp_reglages_defaut() {
 			'rccm'       => '',
 			'ifu'        => '',
 			'devise'     => 'FCFA',
+			'devise_courte' => 'F',
 			'mentions'   => 'Rapidité • Sécurité • Fiabilité',
 		),
 		'couleurs'   => array(
 			'primaire'   => '#0B3C5D',
 			'accent'     => '#F2A900',
 			'fond'       => '#F5F7FA',
+			'bouton'     => '#F47B20',   // boutons d'action (Expédier, Demander un devis)
+			'fonce'      => '',          // bandeaux sombres ; vide = calculé depuis la couleur principale
 		),
 		'origine'    => array(
 			'pays'      => 'Chine',
@@ -49,10 +52,35 @@ function cp_reglages_defaut() {
 		),
 		'categories' => array( 'Colis', 'Marchandises', 'Biens personnels' ),
 		'consigne_colis' => 'Écrivez votre code d\'envoi et le mode d\'envoi sur chaque carton.',
+		// image : identifiant de la médiathèque ou adresse web ; lien : page (tarifs, simulateur, suivi, declarer, boutique,
+		// whatsapp) ou adresse web ; icone : voir cp_icone()
 		'services'   => array(
-			array( 'titre' => 'Fret aérien', 'texte' => 'Vos colis par avion, au kilo.' ),
-			array( 'titre' => 'Fret maritime', 'texte' => 'Vos marchandises par bateau, au mètre cube.' ),
-			array( 'titre' => 'Suivi de colis', 'texte' => 'Suivez chaque étape avec votre code d\'envoi.' ),
+			array( 'titre' => 'Fret aérien', 'texte' => 'Vos colis par avion, au kilo.', 'icone' => 'avion', 'image' => 0, 'lien' => 'tarifs' ),
+			array( 'titre' => 'Fret maritime', 'texte' => 'Vos marchandises par bateau, au mètre cube.', 'icone' => 'bateau', 'image' => 0, 'lien' => 'tarifs' ),
+			array( 'titre' => 'Suivi de colis', 'texte' => 'Suivez chaque étape avec votre code d\'envoi.', 'icone' => 'suivi', 'image' => 0, 'lien' => 'suivi' ),
+		),
+		// page d'accueil : textes vides = textes calculés depuis le trajet et les tarifs
+		'site'       => array(
+			'bandeau'        => '',
+			'horaires'       => '',              // ex. Lun – Sam, 8 h – 18 h
+			'hero_surtitre'  => '',
+			'hero_titre'     => '',
+			'hero_titre_fin' => '',
+			'hero_texte'     => '',
+			'hero_images'    => array(),     // 1 à 3 photos (la première en grand)
+			'signature'      => '',          // phrase manuscrite sur la photo
+			'chiffres'       => array(),     // [ valeur, libelle ] × 3 ; vide = calculés depuis les tarifs
+			'pourquoi_titre' => 'Un partenaire logistique de confiance',
+			'pourquoi_texte' => 'Une équipe au départ et à l\'arrivée, des prix clairs et un suivi de chaque colis : vous savez toujours où en est votre envoi.',
+			'pourquoi_image' => 0,
+			'pourquoi_points' => array(
+				array( 'icone' => 'suivi', 'titre' => 'Suivi à chaque étape', 'texte' => 'Un code par envoi et un e-mail à chaque étape.' ),
+				array( 'icone' => 'bouclier', 'titre' => 'Colis en sécurité', 'texte' => 'Pesés, étiquetés et suivis jusqu\'à la remise.' ),
+				array( 'icone' => 'equipe', 'titre' => 'Une équipe des deux côtés', 'texte' => 'À l\'entrepôt de départ comme à l\'agence d\'arrivée.' ),
+				array( 'icone' => 'paiement', 'titre' => 'Paiement simple', 'texte' => 'Mobile Money ou sur place, avec un reçu à chaque paiement.' ),
+			),
+			'avis'           => array(),     // [ nom, role, texte, note ] : seulement de vrais avis de clients
+			'reseaux'        => array( 'facebook' => '', 'instagram' => '', 'tiktok' => '', 'youtube' => '', 'linkedin' => '' ),
 		),
 		'frais'      => array(
 			'fixe'       => 0,     // frais de dossier par envoi
@@ -171,4 +199,102 @@ function cp_prix( $montant ) {
 function cp_whatsapp_lien( $message = '', $numero = '' ) {
 	$numero = preg_replace( '/\D+/', '', $numero ? $numero : cp_r( 'entreprise.whatsapp' ) );
 	return $numero ? 'https://wa.me/' . $numero . ( $message ? '?text=' . rawurlencode( $message ) : '' ) : '';
+}
+
+/** Adresse d'une image réglée par identifiant de la médiathèque ou par adresse web. */
+function cp_image_url( $v, $taille = 'large' ) {
+	if ( is_numeric( $v ) && (int) $v > 0 ) {
+		return (string) wp_get_attachment_image_url( (int) $v, $taille );
+	}
+	return is_string( $v ) && preg_match( '#^(https?:)?//#', $v ) ? $v : '';
+}
+
+/** « au Burkina Faso », « en Côte d'Ivoire », « aux Comores ». */
+function cp_au_pays( $pays ) {
+	$pays = trim( (string) $pays );
+	$sans = strtolower( remove_accents( $pays ) );
+	if ( preg_match( '/^(etats|emirats|comores|pays-bas|philippines|seychelles)/', $sans ) ) {
+		return 'aux ' . $pays;
+	}
+	$masculins = array( 'mexique', 'cambodge', 'mozambique', 'zimbabwe', 'belize' );
+	if ( preg_match( '/^[aeiouy]/', $sans ) || ( 'e' === substr( strtok( $sans, ' ' ), -1 ) && ! in_array( strtok( $sans, ' ' ), $masculins, true ) ) ) {
+		return 'en ' . $pays;
+	}
+	return 'au ' . $pays;
+}
+
+/** « de Chine », « du Burkina Faso », « d'Inde », « des États-Unis ». */
+function cp_de_pays( $pays ) {
+	$a = cp_au_pays( $pays );
+	if ( 0 === strpos( $a, 'aux ' ) ) {
+		return 'des ' . $pays;
+	}
+	if ( 0 === strpos( $a, 'au ' ) ) {
+		return 'du ' . $pays;
+	}
+	return preg_match( '/^[aeiouy]/', strtolower( remove_accents( $pays ) ) ) ? "d'" . $pays : 'de ' . $pays;
+}
+
+/** Délai court : « 3–7 j », « 2–3 sem. », « ≈ 2 mois ». */
+function cp_delai_court( $m ) {
+	$a = (int) $m['delai_min'];
+	$b = (int) $m['delai_max'];
+	if ( $a >= 45 ) {
+		return '≈ ' . round( ( $a + $b ) / 60 ) . ' mois';
+	}
+	if ( $a >= 14 && 0 === $a % 7 && 0 === $b % 7 ) {
+		return ( $a / 7 ) . '–' . ( $b / 7 ) . ' sem.';
+	}
+	return $a === $b ? $a . ' j' : $a . '–' . $b . ' j';
+}
+
+/** Nom court d'un mode : « Avion — Express » → « Express ». */
+function cp_nom_court( $m ) {
+	$p = preg_split( '/\s+[—–-]\s+/u', $m['nom'] );
+	return trim( end( $p ) );
+}
+
+/** Chiffres de la page d'accueil : ceux de l'assistant, sinon calculés depuis les tarifs (aucun chiffre inventé). */
+function cp_chiffres() {
+	$c = array_values( array_filter( (array) cp_r( 'site.chiffres', array() ), function ( $x ) {
+		return '' !== trim( (string) ( $x['valeur'] ?? '' ) );
+	} ) );
+	if ( $c ) {
+		return array_slice( $c, 0, 3 );
+	}
+	$modes = cp_modes_actifs();
+	if ( ! $modes ) {
+		return array();
+	}
+	$c = array( array( 'valeur' => (string) count( $modes ), 'libelle' => count( $modes ) > 1 ? 'modes d\'envoi' : 'mode d\'envoi' ) );
+	$kg = array_filter( $modes, function ( $m ) {
+		return 'kg' === $m['unite'];
+	} );
+	$base = $kg ? $kg : $modes;
+	usort( $base, function ( $x, $y ) {
+		return $x['prix'] <=> $y['prix'];
+	} );
+	$c[] = array( 'valeur' => number_format( (float) $base[0]['prix'], 0, ',', "\u{202F}" ) . ' ' . cp_r( 'entreprise.devise_courte', 'F' ), 'libelle' => ( $kg ? 'le kilo en ' : 'le m³ en ' ) . cp_nom_court( $base[0] ) );
+	usort( $modes, function ( $x, $y ) {
+		return $x['delai_min'] <=> $y['delai_min'];
+	} );
+	$c[] = array( 'valeur' => cp_delai_court( $modes[0] ), 'libelle' => 'en ' . cp_nom_court( $modes[0] ) );
+	return $c;
+}
+
+/** Délais regroupés : [ « 3–7 j », « Express » ], [ « 2–3 sem. », « MCO · LTA » ]… */
+function cp_delais_groupes() {
+	$g = array();
+	$modes = cp_modes_actifs();
+	usort( $modes, function ( $x, $y ) {
+		return $x['delai_min'] <=> $y['delai_min'];
+	} );
+	foreach ( $modes as $m ) {
+		$g[ cp_delai_court( $m ) ][] = cp_nom_court( $m );
+	}
+	$r = array();
+	foreach ( $g as $d => $noms ) {
+		$r[] = array( 'valeur' => $d, 'libelle' => implode( ' · ', $noms ) );
+	}
+	return array_slice( $r, 0, 3 );
 }

@@ -52,7 +52,10 @@ function cp_css_couleurs() {
 	$p = sanitize_hex_color( cp_r( 'couleurs.primaire' ) ) ?: '#0B3C5D';
 	$a = sanitize_hex_color( cp_r( 'couleurs.accent' ) ) ?: '#F2A900';
 	$f = sanitize_hex_color( cp_r( 'couleurs.fond' ) ) ?: '#F5F7FA';
-	return ":root{--cp-prim:$p;--cp-accent:$a;--cp-fond:$f}";
+	$b = sanitize_hex_color( cp_r( 'couleurs.bouton' ) ) ?: $p;
+	$n = sanitize_hex_color( cp_r( 'couleurs.fonce' ) );
+	$n = $n && ! in_array( strtolower( $n ), array( '#000', '#000000' ), true ) ? $n : "color-mix(in srgb, $p 38%, #030A1C)";
+	return ":root{--cp-prim:$p;--cp-accent:$a;--cp-fond:$f;--cp-bouton:$b;--cp-fonce:$n}";
 }
 
 function cp_config_js() {
@@ -189,16 +192,75 @@ function cp_rest_declarer( WP_REST_Request $q ) {
 /* ---------------------------------------------------------------- codes courts */
 function cp_icone( $nom ) {
 	$i = array(
-		'avion'   => '<path d="M2.5 13.5l19-8-5.5 15-3.5-6.5z"/><path d="M12.5 14l9-8.5"/>',
-		'bateau'  => '<path d="M3 15l2 5h14l2-5z"/><path d="M5 15V9h14v6M9 9V5h6v4"/><path d="M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1"/>',
-		'colis'   => '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/>',
-		'suivi'   => '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
-		'calcul'  => '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11v6M8 15h2M12 15h2"/>',
-		'voiture' => '<path d="M4 16v-4l2-5h12l2 5v4z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/><path d="M4 12h16"/>',
-		'whatsapp' => '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c.5 2 2 3.6 4 4.5l1.2-1.2 2 .8-.5 1.9c-3.5 0-7.4-3.9-7.4-7.4l1.9-.5.8 2z"/>',
-		'bouclier' => '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
+		'avion'     => '<path d="M21 4.2c-.7-.7-2-.4-2.9.5l-3.6 3.7-9.2-2.7-1.6 1.6 7.5 4.3-3.1 3.2-2.7-.4-1.3 1.3 3.3 1.6 1.6 3.3 1.3-1.3-.4-2.7 3.2-3.1 4.3 7.5 1.6-1.6-2.7-9.2 3.7-3.6c.9-.9 1.2-2.2.5-2.9z"/>',
+		'bateau'    => '<path d="M3 15l2 5h14l2-5z"/><path d="M5 15V9h14v6M9 9V5h6v4"/><path d="M2 21c2 0 2-1 4-1s2 1 4 1 2-1 4-1 2 1 4 1 2-1 4-1"/>',
+		'camion'    => '<path d="M2.5 5.5h11v10.5h-11z"/><path d="M13.5 9h4l3.5 3.6V16h-7.5"/><circle cx="6.5" cy="17.5" r="1.9"/><circle cx="17" cy="17.5" r="1.9"/>',
+		'voiture'   => '<path d="M4 16v-4l2-5h12l2 5v4z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/><path d="M4 12h16"/>',
+		'engin'     => '<rect x="2.5" y="15" width="10" height="4.5" rx="2.2"/><path d="M4.5 15v-3.5h5.5l2 3.5"/><path d="M10.5 11.5l4.5-6.5 4.5 3-1.5 4.5"/><path d="M17.5 12.5l3 3.5h-5z"/>',
+		'colis'     => '<path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/>',
+		'entrepot'  => '<path d="M3 21V9l9-5 9 5v12"/><path d="M7 21v-8h10v8M7 17h10"/>',
+		'suivi'     => '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>',
+		'loupe'     => '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
+		'calcul'    => '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11v6M8 15h2M12 15h2"/>',
+		'bouclier'  => '<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
+		'douane'    => '<path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 11h7M9 15h7M9 19h4"/>',
+		'panier'    => '<path d="M3 4h2.5l2.2 11h10.6L20.5 8H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
+		'equipe'    => '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.2c3 .2 5.5 2.6 5.5 5.8"/>',
+		'paiement'  => '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10 18.5h4"/><path d="M14 7.5h-2.8a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H10M12 6v1.5M12 13.9v1.5"/>',
+		'globe'     => '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/>',
+		'horloge'   => '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+		'casque'    => '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19c0 1.5-1.5 2.5-4 2.5h-2"/>',
+		'engrenage' => '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="6.5"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+		'valise'    => '<rect x="4" y="7" width="16" height="13" rx="2"/><path d="M9 7V4.5h6V7M4 12h16M9 20v1M15 20v1"/>',
+		'puce'      => '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
+		'vetement'  => '<path d="M8 3L3 6l2 4 3-1.5V21h8V8.5l3 1.5 2-4-5-3c-.5 1.5-2 2.5-4 2.5S8.5 4.5 8 3z"/>',
+		'fleche'    => '<path d="M5 12h14M13 6l6 6-6 6"/>',
+		'telephone' => '<path d="M5 3.5h3.5l1.8 4.5-2.3 1.4a11 11 0 0 0 6.6 6.6l1.4-2.3 4.5 1.8V19a2 2 0 0 1-2 2A17 17 0 0 1 3 5.5a2 2 0 0 1 2-2z"/>',
+		'email'     => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/>',
+		'eclair'    => '<path d="M13 2.5L4.5 14H12l-1 7.5L19.5 10H12z"/>',
+		'whatsapp'  => '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c.5 2 2 3.6 4 4.5l1.2-1.2 2 .8-.5 1.9c-3.5 0-7.4-3.9-7.4-7.4l1.9-.5.8 2z"/>',
+		'facebook'  => '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8.5c0-.3.2-.5.5-.5z"/>',
+		'instagram' => '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.2 6.8v.01"/>',
+		'tiktok'    => '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.4 2.8 2.2 4.6 5 5"/>',
+		'youtube'   => '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9v6l5-3z"/>',
+		'linkedin'  => '<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16M8 7.5v.01M12 16v-3.2c0-1.4 1-2.3 2.2-2.3s2 .9 2 2.3V16M12 10.5V16"/>',
 	);
 	return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' . ( $i[ $nom ] ?? $i['colis'] ) . '</svg>';
+}
+
+/** Icône choisie dans l'assistant, sinon devinée d'après le texte (« Fret aérien » → avion…). */
+function cp_icone_auto( $texte, $choix = '' ) {
+	if ( $choix ) {
+		return $choix;
+	}
+	$t = strtolower( remove_accents( (string) $texte ) );
+	$regles = array(
+		'engrenage' => 'piece|moteur|rechange', 'avion' => 'aerien|avion|air|express', 'bateau' => 'maritime|bateau|mer|conteneur|container',
+		'voiture' => 'vehicule|voiture|auto|location|vente', 'engin' => 'engin|chantier|caterpillar|machine', 'camion' => 'camion|transport|livraison|routier',
+		'suivi' => 'suivi|tracking', 'panier' => 'achat|commande|sourcing|marchandise|commerce', 'douane' => 'douane|dedouan|document',
+		'entrepot' => 'entrepot|stockage|magasin', 'valise' => 'personnel|bagage|effet|demenagement', 'puce' => 'electro|telephone|informatique',
+		'vetement' => 'vetement|textile|habit|mode', 'paiement' => 'change|transfert|paiement|argent', 'colis' => 'colis',
+	);
+	foreach ( $regles as $icone => $motif ) {
+		if ( preg_match( '/' . $motif . '/', $t ) ) {
+			return $icone;
+		}
+	}
+	return 'colis';
+}
+
+/** Lien d'un service : page de la plateforme, boutique, WhatsApp ou adresse web. */
+function cp_lien_service( $lien ) {
+	if ( preg_match( '#^https?://#', (string) $lien ) ) {
+		return $lien;
+	}
+	if ( 'boutique' === $lien ) {
+		return function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : ( cp_whatsapp_lien( 'Bonjour ' . cp_r( 'entreprise.nom' ) ) ?: cp_url_page( 'tarifs' ) );
+	}
+	if ( 'whatsapp' === $lien ) {
+		return cp_whatsapp_lien( 'Bonjour ' . cp_r( 'entreprise.nom' ) ) ?: cp_url_page( 'tarifs' );
+	}
+	return cp_url_page( in_array( $lien, array( 'simulateur', 'suivi', 'declarer', 'espace', 'tarifs' ), true ) ? $lien : 'tarifs' );
 }
 
 function cp_icone_mode( $m ) {
@@ -257,7 +319,7 @@ add_shortcode( 'cargo_suivi', function () {
 	ob_start();
 	?>
 	<div class="cp-carte cp-suivi" data-cp="suivi">
-		<h2><?php echo cp_icone( 'suivi' ); // phpcs:ignore ?> Suivre mon colis</h2>
+		<h2><?php echo cp_icone( 'loupe' ); // phpcs:ignore ?> Suivre mon colis</h2>
 		<form class="cp-suivi-form" data-cp="suivi-form">
 			<input type="text" name="code" value="<?php echo esc_attr( $code ); ?>" placeholder="Votre code d'envoi, ex. <?php echo esc_attr( cp_r( 'code.prefixe' ) ); ?>-7K3Q9M" autocomplete="off" required>
 			<button type="submit" class="cp-btn">Suivre</button>
@@ -348,57 +410,193 @@ add_shortcode( 'cargo_mon_espace', function () {
 } );
 
 add_shortcode( 'cargo_accueil', function () {
-	$logo = cp_logo_url( 'large' );
-	$wa = cp_whatsapp_lien( 'Bonjour ' . cp_r( 'entreprise.nom' ) . ', je voudrais expédier un colis.' );
+	$o = cp_r( 'origine.pays' );
+	$d = cp_r( 'destination.pays' );
+	$nom = cp_r( 'entreprise.nom' );
+	$modes = cp_modes_actifs();
+	$unites = array_unique( wp_list_pluck( $modes, 'unite' ) );
+	$fret = in_array( 'kg', $unites, true ) && in_array( 'm3', $unites, true ) ? 'Fret aérien & maritime' : ( in_array( 'm3', $unites, true ) ? 'Fret maritime' : 'Fret aérien' );
+	$sur = cp_r( 'site.hero_surtitre' ) ?: $fret;
+	$titre = cp_r( 'site.hero_titre' ) ?: 'Expédiez ' . cp_de_pays( $o );
+	$fin = cp_r( 'site.hero_titre_fin' ) ?: cp_au_pays( $d );
+	$texte = cp_r( 'site.hero_texte' ) ?: rtrim( cp_r( 'entreprise.slogan' ), ' .' ) . ' : déclarez vos colis en ligne, payez par Mobile Money et suivez chaque étape jusqu\'à la remise ' . cp_au_pays( $d ) . '.';
+	$photos = array_values( array_filter( array_map( function ( $v ) {
+		return cp_image_url( $v, 'large' );
+	}, (array) cp_r( 'site.hero_images', array() ) ) ) );
+	$signature = cp_r( 'site.signature' );
+	$wa = cp_whatsapp_lien( 'Bonjour ' . $nom . ', je voudrais expédier un colis.' );
+	$fleche = cp_icone( 'fleche' );
+	$entete = function ( $surtitre, $h2, $lien = '', $texte_lien = '' ) use ( $fleche ) {
+		echo '<div class="cp-a-entete"><div><p class="cp-a-sur">' . esc_html( $surtitre ) . '</p><h2>' . esc_html( $h2 ) . '</h2></div>';
+		if ( $lien ) {
+			echo '<a class="cp-a-tout" href="' . esc_url( $lien ) . '">' . esc_html( $texte_lien ) . $fleche . '</a>'; // phpcs:ignore
+		}
+		echo '</div>';
+	};
 	ob_start();
 	?>
-	<section class="cp-hero">
-		<div class="cp-hero-texte">
-			<?php if ( $logo ) : ?><img class="cp-hero-logo" src="<?php echo esc_url( $logo ); ?>" alt="<?php echo esc_attr( cp_r( 'entreprise.nom' ) ); ?>"><?php endif; ?>
-			<p class="cp-sur"><?php echo esc_html( cp_r( 'origine.pays' ) . ' → ' . cp_r( 'destination.pays' ) ); ?></p>
-			<h1><?php echo esc_html( cp_r( 'entreprise.slogan' ) ); ?></h1>
-			<p class="cp-hero-mentions"><?php echo esc_html( cp_r( 'entreprise.mentions' ) ); ?></p>
-			<div class="cp-hero-boutons">
-				<a class="cp-btn cp-btn-grand" href="<?php echo esc_url( cp_url_page( 'declarer' ) ); ?>">Expédier un colis</a>
-				<a class="cp-btn cp-btn-clair cp-btn-grand" href="<?php echo esc_url( cp_url_page( 'simulateur' ) ); ?>">Simuler un tarif</a>
+	<div class="cp-accueil">
+	<section class="cp-a-hero">
+		<div class="cp-a-in cp-a-hero-in">
+			<div class="cp-a-hero-texte">
+				<p class="cp-a-sur"><?php echo esc_html( $sur ); ?></p>
+				<h1><?php echo esc_html( $titre ); ?> <span><?php echo esc_html( $fin ); ?></span></h1>
+				<p class="cp-a-hero-p"><?php echo esc_html( $texte ); ?></p>
+				<div class="cp-a-boutons">
+					<a class="cp-btn cp-btn-action cp-btn-grand" href="<?php echo esc_url( cp_url_page( 'declarer' ) ); ?>">Expédier un colis <?php echo $fleche; // phpcs:ignore ?></a>
+					<a class="cp-btn cp-btn-contour cp-btn-grand" href="<?php echo esc_url( cp_url_page( 'suivi' ) ); ?>"><?php echo cp_icone( 'loupe' ); // phpcs:ignore ?> Suivre mon colis</a>
+				</div>
+				<ul class="cp-a-atouts">
+					<li><?php echo cp_icone( 'globe' ); // phpcs:ignore ?><span><?php echo esc_html( $o . ' → ' . $d ); ?></span></li>
+					<li><?php echo cp_icone( 'bouclier' ); // phpcs:ignore ?><span>Colis sécurisés</span></li>
+					<li><?php echo cp_icone( 'suivi' ); // phpcs:ignore ?><span>Suivi en ligne</span></li>
+					<li><?php echo cp_icone( 'casque' ); // phpcs:ignore ?><span><?php echo $wa ? 'Assistance WhatsApp' : 'Assistance dédiée'; ?></span></li>
+				</ul>
 			</div>
-			<form class="cp-hero-suivi" action="<?php echo esc_url( cp_url_page( 'suivi' ) ); ?>" method="get">
-				<?php echo cp_icone( 'suivi' ); // phpcs:ignore ?><input name="code" placeholder="Suivre un colis : votre code d'envoi" required><button class="cp-btn">Suivre</button>
-			</form>
+			<div class="cp-a-hero-media cp-a-photos-<?php echo (int) min( 3, max( 1, count( $photos ) ) ); ?>">
+				<?php if ( $signature ) : ?><p class="cp-a-signature-hero"><?php echo esc_html( $signature ); ?></p><?php endif; ?>
+				<figure class="cp-a-photo cp-a-photo-1<?php echo $photos ? '' : ' cp-a-sans-photo'; ?>">
+					<?php if ( $photos ) : ?>
+						<img src="<?php echo esc_url( $photos[0] ); ?>" alt="<?php echo esc_attr( $nom ); ?>" fetchpriority="high">
+					<?php else : ?>
+						<div class="cp-a-trajet"><span><?php echo esc_html( $o ); ?></span><i><?php echo cp_icone( in_array( 'kg', $unites, true ) ? 'avion' : 'bateau' ); // phpcs:ignore ?></i><span><?php echo esc_html( $d ); ?></span></div>
+					<?php endif; ?>
+					<?php $chiffres = cp_chiffres(); if ( $chiffres ) : ?>
+						<div class="cp-a-chiffres"><?php foreach ( $chiffres as $c ) : ?><div><b><?php echo esc_html( $c['valeur'] ); ?></b><span><?php echo esc_html( $c['libelle'] ); ?></span></div><?php endforeach; ?></div>
+					<?php endif; ?>
+				</figure>
+				<?php foreach ( array_slice( $photos, 1, 2 ) as $i => $u ) : ?>
+					<figure class="cp-a-photo cp-a-photo-<?php echo (int) $i + 2; ?>"><img src="<?php echo esc_url( $u ); ?>" alt="" loading="lazy"></figure>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	</section>
-	<section class="cp-section"><h2 class="cp-titre-section">Nos tarifs</h2><?php echo do_shortcode( '[cargo_tarifs]' ); ?>
-		<p class="cp-consigne"><?php echo cp_icone( 'colis' ); // phpcs:ignore ?> <?php echo esc_html( cp_r( 'consigne_colis' ) ); ?></p></section>
-	<section class="cp-section cp-etapes-accueil"><h2 class="cp-titre-section">Comment ça marche ?</h2><ol>
-		<li><b>Déclarez votre envoi</b><span>En ligne : vous recevez votre code, la fiche d'expédition et les étiquettes.</span></li>
-		<li><b>Livrez à notre entrepôt</b><span>En <?php echo esc_html( cp_r( 'origine.pays' ) ); ?>, avec votre code et le mode d'envoi sur chaque carton.</span></li>
-		<li><b>Pesée et paiement</b><span>Nous pesons vos colis et vous envoyons le montant exact. Payez par Mobile Money.</span></li>
-		<li><b>Suivi jusqu'à la remise</b><span>Chaque étape vous est envoyée par e-mail, jusqu'au retrait au <?php echo esc_html( cp_r( 'destination.pays' ) ); ?>.</span></li>
-	</ol></section>
-	<section class="cp-section"><h2 class="cp-titre-section">Nos services</h2><div class="cp-services">
-		<?php foreach ( (array) cp_r( 'services', array() ) as $i => $s ) : ?>
-			<div class="cp-service"><div class="cp-service-ico"><?php echo cp_icone( array( 'avion', 'bateau', 'voiture', 'suivi', 'bouclier', 'colis' )[ $i % 6 ] ); // phpcs:ignore ?></div><h3><?php echo esc_html( $s['titre'] ); ?></h3><p><?php echo esc_html( $s['texte'] ); ?></p></div>
-		<?php endforeach; ?>
-	</div></section>
-	<section class="cp-section"><h2 class="cp-titre-section">Simulez votre envoi</h2><?php echo do_shortcode( '[cargo_simulateur]' ); ?></section>
-	<section class="cp-section cp-adresses"><h2 class="cp-titre-section">Nos adresses</h2><div class="cp-services">
-		<?php
-		$vus = array();
-		foreach ( cp_modes_actifs() as $m ) {
-			$ent = cp_entrepot( $m['id'] );
-			$vus[ $ent['texte'] ][] = $m['nom'];
-		}
-		foreach ( $vus as $adresse => $noms ) :
-			?>
-			<div class="cp-service"><h3>Entrepôt en <?php echo esc_html( cp_r( 'origine.pays' ) ); ?></h3><p class="cp-petit"><?php echo esc_html( implode( ' · ', $noms ) ); ?></p><p class="cp-adresse"><?php echo nl2br( esc_html( $adresse ) ); ?></p><?php if ( cp_r( 'origine.contact' ) ) : ?><p><?php echo esc_html( cp_r( 'origine.contact' ) ); ?></p><?php endif; ?></div>
-		<?php endforeach; ?>
-		<?php foreach ( (array) cp_r( 'destination.agences', array() ) as $a ) : ?>
-			<div class="cp-service"><h3>Agence de <?php echo esc_html( $a['ville'] ); ?></h3><p class="cp-adresse"><?php echo nl2br( esc_html( $a['adresse'] ) ); ?></p><?php if ( $a['telephone'] ) : ?><p><?php echo esc_html( $a['telephone'] ); ?></p><?php endif; ?></div>
-		<?php endforeach; ?>
-	</div></section>
-	<?php if ( $wa ) : ?>
-		<section class="cp-section cp-contact"><h2>Une question ?</h2><p>Notre équipe vous accompagne de A à Z.</p><a class="cp-btn cp-btn-grand cp-btn-wa" href="<?php echo esc_url( $wa ); ?>"><?php echo cp_icone( 'whatsapp' ); // phpcs:ignore ?> Écrire sur WhatsApp</a></section>
+
+	<section class="cp-a-section">
+		<div class="cp-a-in">
+			<?php $entete( 'Nos services', 'Tout pour vos envois, ' . cp_de_pays( $o ) . ' ' . cp_au_pays( $d ), cp_url_page( 'tarifs' ), 'Voir les tarifs' ); ?>
+			<div class="cp-a-services">
+				<?php foreach ( (array) cp_r( 'services', array() ) as $s ) : $img = cp_image_url( $s['image'] ?? 0, 'medium_large' ); ?>
+					<a class="cp-a-service" href="<?php echo esc_url( cp_lien_service( $s['lien'] ?? '' ) ); ?>">
+						<div class="cp-a-service-img<?php echo $img ? '' : ' cp-a-sans-photo'; ?>"><?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" loading="lazy"><?php endif; ?><span class="cp-a-service-ico"><?php echo cp_icone( cp_icone_auto( $s['titre'], $s['icone'] ?? '' ) ); // phpcs:ignore ?></span></div>
+						<h3><?php echo esc_html( $s['titre'] ); ?></h3>
+						<p><?php echo esc_html( $s['texte'] ); ?></p>
+						<span class="cp-a-plus">En savoir plus <?php echo $fleche; // phpcs:ignore ?></span>
+					</a>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
+
+	<section class="cp-a-section cp-a-fond">
+		<div class="cp-a-in">
+			<?php $entete( 'Nos tarifs', 1 === count( $unites ) ? ( 'm3' === reset( $unites ) ? 'Des prix clairs, au mètre cube' : 'Des prix clairs, au kilo' ) : 'Des prix clairs, au kilo ou au mètre cube', cp_url_page( 'simulateur' ), 'Simuler mon envoi' ); ?>
+			<?php echo do_shortcode( '[cargo_tarifs]' ); ?>
+			<?php if ( cp_r( 'consigne_colis' ) ) : ?><p class="cp-consigne"><?php echo cp_icone( 'colis' ); // phpcs:ignore ?> <?php echo esc_html( cp_r( 'consigne_colis' ) ); ?></p><?php endif; ?>
+		</div>
+	</section>
+
+	<section class="cp-a-pourquoi">
+		<div class="cp-a-pourquoi-sombre">
+			<p class="cp-a-sur">Pourquoi <?php echo esc_html( $nom ); ?></p>
+			<h2><?php echo esc_html( cp_r( 'site.pourquoi_titre' ) ); ?></h2>
+			<p><?php echo esc_html( cp_r( 'site.pourquoi_texte' ) ); ?></p>
+			<a class="cp-btn cp-btn-action" href="#comment">Comment ça marche <?php echo $fleche; // phpcs:ignore ?></a>
+			<div class="cp-a-delais"><?php foreach ( cp_delais_groupes() as $g ) : ?><div><b><?php echo esc_html( $g['valeur'] ); ?></b><span><?php echo esc_html( $g['libelle'] ); ?></span></div><?php endforeach; ?></div>
+		</div>
+		<?php $img = cp_image_url( cp_r( 'site.pourquoi_image' ), 'large' ); ?>
+		<figure class="cp-a-pourquoi-photo<?php echo $img ? '' : ' cp-a-sans-photo'; ?>">
+			<?php if ( $img ) : ?><img src="<?php echo esc_url( $img ); ?>" alt="" loading="lazy"><?php else : ?><?php echo cp_icone( 'entrepot' ); // phpcs:ignore ?><?php endif; ?>
+			<?php $mots = array_filter( array_map( 'trim', preg_split( '/[•·|,]/u', (string) cp_r( 'entreprise.mentions' ) ) ) ); if ( $mots ) : ?><p class="cp-a-signature"><?php echo implode( '<br>', array_map( 'esc_html', $mots ) ); // phpcs:ignore ?></p><?php endif; ?>
+		</figure>
+		<div class="cp-a-pourquoi-points">
+			<?php foreach ( (array) cp_r( 'site.pourquoi_points', array() ) as $pt ) : ?>
+				<div class="cp-a-point"><span class="cp-a-point-ico"><?php echo cp_icone( cp_icone_auto( $pt['titre'], $pt['icone'] ?? '' ) ); // phpcs:ignore ?></span><div><b><?php echo esc_html( $pt['titre'] ); ?></b><span><?php echo esc_html( $pt['texte'] ); ?></span></div></div>
+			<?php endforeach; ?>
+		</div>
+	</section>
+
+	<section class="cp-a-section">
+		<div class="cp-a-in">
+			<?php $entete( 'Ce que nous transportons', 'Vos achats ' . cp_de_pays( $o ) . ', quelle que soit leur nature' ); ?>
+			<div class="cp-a-categories">
+				<?php foreach ( (array) cp_r( 'categories', array() ) as $c ) : ?>
+					<div class="cp-a-categorie"><?php echo cp_icone( cp_icone_auto( $c ) ); // phpcs:ignore ?><span><?php echo esc_html( $c ); ?></span></div>
+				<?php endforeach; ?>
+				<?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?><a class="cp-a-categorie cp-a-categorie-lien" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><?php echo cp_icone( 'panier' ); // phpcs:ignore ?><span>Notre boutique</span></a><?php endif; ?>
+			</div>
+		</div>
+	</section>
+
+	<section class="cp-a-section cp-a-fond" id="comment">
+		<div class="cp-a-in">
+			<?php $entete( 'Comment ça marche', 'Votre envoi en 4 étapes' ); ?>
+			<ol class="cp-a-etapes">
+				<li><span class="cp-a-etape-ico"><?php echo cp_icone( 'douane' ); // phpcs:ignore ?></span><b>Déclarez votre envoi</b><span>En ligne : vous recevez votre code, le bordereau d'expédition et les étiquettes.</span></li>
+				<li><span class="cp-a-etape-ico"><?php echo cp_icone( 'entrepot' ); // phpcs:ignore ?></span><b>Livrez à notre entrepôt</b><span><?php echo esc_html( ucfirst( cp_au_pays( $o ) ) ); ?>, avec votre code et le mode d'envoi sur chaque carton.</span></li>
+				<li><span class="cp-a-etape-ico"><?php echo cp_icone( 'paiement' ); // phpcs:ignore ?></span><b>Pesée et paiement</b><span>Nous pesons vos colis et vous envoyons le montant exact. Payez par Mobile Money.</span></li>
+				<li><span class="cp-a-etape-ico"><?php echo cp_icone( 'suivi' ); // phpcs:ignore ?></span><b>Suivi jusqu'à la remise</b><span>Chaque étape vous est envoyée par e-mail, jusqu'au retrait <?php echo esc_html( cp_au_pays( $d ) ); ?>.</span></li>
+			</ol>
+		</div>
+	</section>
+
+	<section class="cp-a-section cp-a-simulateur">
+		<div class="cp-a-in">
+			<?php $entete( 'Simulateur', 'Combien coûte votre envoi ?' ); ?>
+			<?php echo do_shortcode( '[cargo_simulateur]' ); ?>
+		</div>
+	</section>
+
+	<?php $avis = (array) cp_r( 'site.avis', array() ); if ( $avis ) : ?>
+	<section class="cp-a-section cp-a-fond">
+		<div class="cp-a-in cp-a-avis-in">
+			<div class="cp-a-entete"><div><p class="cp-a-sur">Avis de clients</p><h2>Ils nous font confiance</h2></div></div>
+			<div class="cp-a-avis">
+				<?php foreach ( array_slice( $avis, 0, 6 ) as $a ) : ?>
+					<figure class="cp-a-avi"><blockquote>« <?php echo esc_html( $a['texte'] ); ?> »</blockquote><figcaption><span class="cp-a-initiales"><?php echo esc_html( mb_strtoupper( mb_substr( $a['nom'], 0, 1 ) ) ); ?></span><span><b><?php echo esc_html( $a['nom'] ); ?></b><?php echo $a['role'] ? '<small>' . esc_html( $a['role'] ) . '</small>' : ''; ?></span><span class="cp-a-etoiles" aria-label="<?php echo (int) $a['note']; ?> sur 5"><?php echo esc_html( str_repeat( '★', (int) $a['note'] ) ); ?></span></figcaption></figure>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
 	<?php endif; ?>
+
+	<section class="cp-a-section cp-a-adresses">
+		<div class="cp-a-in">
+			<?php $entete( 'Nos adresses', 'Où déposer et retirer vos colis' ); ?>
+			<div class="cp-a-adresses-grille">
+				<?php
+				$vus = array();
+				foreach ( $modes as $m ) {
+					$ent = cp_entrepot( $m['id'] );
+					$vus[ $ent['texte'] ][] = cp_nom_court( $m );
+				}
+				foreach ( $vus as $adresse => $noms ) :
+					?>
+					<div class="cp-a-adresse"><span class="cp-a-point-ico"><?php echo cp_icone( 'entrepot' ); // phpcs:ignore ?></span><div><h3>Entrepôt <?php echo esc_html( cp_au_pays( $o ) ); ?></h3><p class="cp-a-modes-adresse"><?php echo esc_html( implode( ' · ', $noms ) ); ?></p><p class="cp-adresse"><?php echo nl2br( esc_html( $adresse ) ); ?></p><?php if ( cp_r( 'origine.contact' ) ) : ?><p class="cp-a-tel"><?php echo cp_icone( 'telephone' ); // phpcs:ignore ?> <?php echo esc_html( cp_r( 'origine.contact' ) ); ?></p><?php endif; ?></div></div>
+				<?php endforeach; ?>
+				<?php foreach ( (array) cp_r( 'destination.agences', array() ) as $a ) : ?>
+					<div class="cp-a-adresse"><span class="cp-a-point-ico"><?php echo cp_icone( 'suivi' ); // phpcs:ignore ?></span><div><h3>Agence de <?php echo esc_html( $a['ville'] ); ?></h3><p class="cp-a-modes-adresse">Retrait des colis</p><?php if ( $a['adresse'] ) : ?><p class="cp-adresse"><?php echo nl2br( esc_html( $a['adresse'] ) ); ?></p><?php endif; ?><?php if ( $a['telephone'] ) : ?><p class="cp-a-tel"><?php echo cp_icone( 'telephone' ); // phpcs:ignore ?> <?php echo esc_html( $a['telephone'] ); ?></p><?php endif; ?></div></div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
+
+	<section class="cp-a-cta">
+		<div class="cp-a-in cp-a-cta-in">
+			<div class="cp-a-cta-texte"><h2>Prêt à expédier ?</h2><p>Déclarez votre envoi en ligne : vous recevez aussitôt votre code de suivi et votre bordereau.</p></div>
+			<div class="cp-a-boutons">
+				<a class="cp-btn cp-btn-action cp-btn-grand" href="<?php echo esc_url( cp_url_page( 'declarer' ) ); ?>">Expédier un colis <?php echo $fleche; // phpcs:ignore ?></a>
+				<?php if ( $wa ) : ?><a class="cp-btn cp-btn-wa cp-btn-grand" href="<?php echo esc_url( $wa ); ?>" target="_blank" rel="noopener"><?php echo cp_icone( 'whatsapp' ); // phpcs:ignore ?> WhatsApp</a><?php endif; ?>
+			</div>
+			<ul class="cp-a-cta-icones">
+				<li><?php echo cp_icone( 'globe' ); // phpcs:ignore ?><span><?php echo esc_html( $o . ' → ' . $d ); ?></span></li>
+				<?php $rapide = $modes ? array_reduce( $modes, function ( $x, $m ) { return ! $x || $m['delai_min'] < $x['delai_min'] ? $m : $x; } ) : null; ?>
+				<?php if ( $rapide ) : ?><li><?php echo cp_icone( 'eclair' ); // phpcs:ignore ?><span><?php echo esc_html( cp_nom_court( $rapide ) . ' : ' . cp_delai_court( $rapide ) ); ?></span></li><?php endif; ?>
+				<li><?php echo cp_icone( 'suivi' ); // phpcs:ignore ?><span>Suivi en ligne</span></li>
+			</ul>
+		</div>
+	</section>
+	</div>
 	<?php
 	return ob_get_clean();
 } );

@@ -1,0 +1,19 @@
+{
+ "_note": "Photos de la configuration Navilink : à téléverser dans la médiathèque puis à placer dans ces réglages (identifiants).",
+ "entreprise.logo_id": "logo.jpg",
+ "documents.banniere": "banniere-documents.jpg",
+ "site.hero_images": [
+  "photo-avion.jpg",
+  "photo-bateau.jpg",
+  "photo-trajet.jpg"
+ ],
+ "site.pourquoi_image": "photo-camion.jpg",
+ "services": [
+  "carte-avion.jpg",
+  "photo-bateau.jpg",
+  "photo-vehicules.jpg",
+  "photo-entrepot.jpg",
+  "",
+  "photo-trajet.jpg"
+ ]
+}
