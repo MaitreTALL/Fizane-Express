@@ -16,5 +16,7 @@
   "photo-entrepot.jpg",
   "",
   "photo-trajet.jpg"
- ]
+ ],
+ "origine.entrepot_image": "adresse-aerien.jpg",
+ "modes.maritime.entrepot_image": "adresse-maritime.jpg"
 }
