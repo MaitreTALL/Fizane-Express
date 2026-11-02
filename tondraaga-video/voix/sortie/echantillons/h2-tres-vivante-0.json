@@ -1,0 +1,34 @@
+{
+ "texte": "Tondraaga ! Notre marché, notre fierté !",
+ "variante": "h2-tres-vivante",
+ "retenue": 0,
+ "prises": [
+  {
+   "prise": 0,
+   "dit": "Tondraaga, notre marché, notre fierté.",
+   "wer": 0.0,
+   "intonation": 4.23,
+   "contraste": 12.0,
+   "duree": 4.56,
+   "score": -1.642
+  },
+  {
+   "prise": 1,
+   "dit": "Tondraga, notre marché, notre fierté.",
+   "wer": 0.2,
+   "intonation": 5.91,
+   "contraste": 11.8,
+   "duree": 4.36,
+   "score": -1.104
+  },
+  {
+   "prise": 2,
+   "dit": "Tondraaga, notre marché, notre fierté.",
+   "wer": 0.0,
+   "intonation": 3.92,
+   "contraste": 11.8,
+   "duree": 3.8,
+   "score": -1.608
+  }
+ ]
+}
