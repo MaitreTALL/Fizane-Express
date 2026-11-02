@@ -11,7 +11,8 @@
 <?php
 $ct_tel = ct_r( 'entreprise.telephone' );
 $ct_tel_o = ct_r( 'entreprise.telephone_chine' );
-$ct_logo = function_exists( 'cp_logo_url' ) ? cp_logo_url( 'medium' ) : '';
+$ct_logo_clair = function_exists( 'cp_logo_clair_url' ) ? cp_logo_clair_url( 'medium' ) : '';
+$ct_logo = $ct_logo_clair ? $ct_logo_clair : ( function_exists( 'cp_logo_url' ) ? cp_logo_url( 'medium' ) : '' );
 $ct_bandeau = ct_r( 'site.bandeau' ) ?: ct_r( 'entreprise.mentions' );
 ?>
 <div class="ct-barre"><div class="ct-in ct-barre-in">
@@ -25,7 +26,7 @@ $ct_bandeau = ct_r( 'site.bandeau' ) ?: ct_r( 'entreprise.mentions' );
 	</nav>
 </div></div>
 <header class="ct-entete"><div class="ct-in ct-entete-in">
-	<a class="ct-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+	<a class="ct-logo<?php echo $ct_logo && ! $ct_logo_clair ? ' ct-logo-pastille' : ''; ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 		<?php if ( $ct_logo ) : ?><img src="<?php echo esc_url( $ct_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"><?php else : ?><span><?php bloginfo( 'name' ); ?></span><?php endif; ?>
 	</a>
 	<nav class="ct-menu" id="ct-menu">

@@ -65,6 +65,7 @@ function cp_page_assistant() {
 				$champ( 'entreprise.slogan', 'Slogan', 'text', 'Grand titre de la page d\'accueil.' );
 				$champ( 'entreprise.mentions', 'Mots clés', 'text', 'ex. Rapidité • Sécurité • Fiabilité' );
 				$image( 'entreprise.logo_id', 'Logo', 'Sur le site, les e-mails, les bordereaux, les reçus et les étiquettes.' );
+				$image( 'entreprise.logo_clair_id', 'Logo pour fond sombre', 'Facultatif : version claire (PNG transparent) pour l\'en-tête et le pied de page bleu nuit. Sans elle, le logo s\'affiche sur une pastille blanche.' );
 				$champ( 'entreprise.telephone', 'Téléphone (destination)' );
 				$champ( 'entreprise.telephone_chine', 'Téléphone (origine)' );
 				$champ( 'entreprise.whatsapp', 'Numéro WhatsApp', 'text', 'Avec l\'indicatif, ex. +226 54 20 55 46' );
@@ -331,7 +332,7 @@ function cp_nettoyer_reglages( array $cp ) {
 	$r = $d;
 	foreach ( $d['entreprise'] as $k => $v ) {
 		if ( isset( $cp['entreprise'][ $k ] ) ) {
-			$r['entreprise'][ $k ] = 'logo_id' === $k ? absint( $cp['entreprise'][ $k ] ) : ( 'email' === $k ? sanitize_email( $cp['entreprise'][ $k ] ) : $t( $cp['entreprise'][ $k ] ) );
+			$r['entreprise'][ $k ] = in_array( $k, array( 'logo_id', 'logo_clair_id' ), true ) ? absint( $cp['entreprise'][ $k ] ) : ( 'email' === $k ? sanitize_email( $cp['entreprise'][ $k ] ) : $t( $cp['entreprise'][ $k ] ) );
 		}
 	}
 	foreach ( array( 'primaire', 'accent', 'fond', 'bouton', 'fonce' ) as $k ) {

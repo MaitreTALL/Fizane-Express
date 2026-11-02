@@ -65,7 +65,7 @@ $acc = $GLOBALS['codes']['cargo_accueil']( array() );
 verifier( false !== strpos( $acc, 'Expédiez de Chine <span>au Burkina Faso</span>' ), 'accueil : titre calculé depuis le trajet' );
 verifier( false !== strpos( $acc, "8\u{202F}500 F</b><span>le kilo en MCO" ) && false !== strpos( $acc, '3–7 j</b><span>en Express' ), 'accueil : chiffres calculés depuis les tarifs' );
 verifier( false !== strpos( $acc, '2–3 sem.</b><span>MCO · LTA' ) && false !== strpos( $acc, '≈ 2 mois</b><span>Maritime' ), 'accueil : délais regroupés' );
-verifier( 6 === substr_count( $acc, 'class="cp-a-service"' ) && false !== strpos( $acc, 'https://wa.me/22654205546' ), 'accueil : 6 services, liens WhatsApp' );
+verifier( 6 === substr_count( $acc, 'class="cp-a-service ' ) && false !== strpos( $acc, 'https://wa.me/22654205546' ), 'accueil : 6 services, liens WhatsApp' );
 verifier( false === strpos( $acc, 'Ils nous font confiance' ), 'accueil : pas d\'avis tant qu\'aucun vrai avis n\'est saisi' );
 verifier( 'au Burkina Faso' === cp_au_pays( 'Burkina Faso' ) && 'en Côte d\'Ivoire' === cp_au_pays( 'Côte d\'Ivoire' ) && 'de Chine' === cp_de_pays( 'Chine' ) && 'aux Émirats arabes unis' === cp_au_pays( 'Émirats arabes unis' ), 'accueil : prépositions des pays' );
 $o = get_option( 'cp_reglages' );

@@ -129,4 +129,42 @@
         .catch(function () { bouton.disabled = false; bouton.textContent = 'Obtenir mon code d\'envoi'; err.textContent = 'Connexion impossible. Réessayez.'; });
     });
   });
+  /* -------------------------------------------------- accueil : widget « Suivre / Estimer », apparitions au défilement */
+  $$('[data-cp="widget"]').forEach(function (w) {
+    var onglets = $$('[data-onglet]', w);
+    onglets.forEach(function (b) {
+      b.addEventListener('click', function () {
+        onglets.forEach(function (x) { var on = x === b; x.classList.toggle('cp-actif', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
+        $$('[data-panneau]', w).forEach(function (p) {
+          var on = p.getAttribute('data-panneau') === b.getAttribute('data-onglet');
+          p.hidden = !on; p.classList.toggle('cp-actif', on);
+          if (on) { var i = $('input', p); if (i) i.focus(); }
+        });
+      });
+    });
+    var kg = $('[data-cp="estimer-kg"]', w), out = $('[data-cp="estimations"]', w);
+    if (!kg) return;
+    kg.addEventListener('input', function () {
+      var p = +String(kg.value).replace(',', '.');
+      if (!(p > 0)) { out.innerHTML = '<p>Indiquez un poids : le prix s\'affiche pour chaque mode.</p>'; return; }
+      var lignes = C.modes.filter(function (m) { return m.unite !== 'm3'; }).map(function (m) { return { m: m, r: calcul(m, [{ nombre: 1, poids: p }], 0) }; });
+      var min = Math.min.apply(null, lignes.map(function (l) { return l.r.total; }));
+      out.innerHTML = lignes.map(function (l) {
+        return '<div class="cp-a-estim' + (l.r.total === min ? ' cp-meilleur' : '') + '"><span>' + esc(l.m.nom) + '<small>' + esc(delai(l.m)) + ' · ' + nb(l.r.facture, 1) + ' kg facturés</small></span><strong>' + prix(l.r.total) + '</strong></div>';
+      }).join('') + (C.modes.some(function (m) { return m.unite === 'm3'; }) ? '<p>Par bateau, le prix dépend du volume : ouvrez le simulateur complet.</p>' : '');
+    });
+  });
+
+  var anims = $$('.cp-anim');
+  if (anims.length && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('cp-js');
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('cp-vu'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    anims.forEach(function (el) {
+      var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.transitionDelay = Math.min(i, 6) * 70 + 'ms';
+      io.observe(el);
+    });
+  }
 })();

@@ -37,6 +37,7 @@ $id = function ( $f ) use ( $SITE, $OUT ) {               // médiathèque simul
 };
 $j = json_decode( file_get_contents( "$SITE/reglages.json" ), true );
 $j['entreprise']['logo_id'] = $id( $img['entreprise.logo_id'] );
+$j['entreprise']['logo_clair_id'] = $id( $img['entreprise.logo_clair_id'] ?? '' );
 $j['site']['hero_images'] = array_map( $id, $img['site.hero_images'] );
 $j['site']['pourquoi_image'] = $id( $img['site.pourquoi_image'] );
 foreach ( $j['services'] as $i => $s ) {

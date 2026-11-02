@@ -13,6 +13,7 @@ function cp_reglages_defaut() {
 			'nom'        => get_bloginfo( 'name' ) ?: 'Ma société cargo',
 			'slogan'     => 'De la Chine à votre porte',
 			'logo_id'    => 0,
+			'logo_clair_id' => 0,     // logo pour fond sombre (en-tête, pied de page) ; facultatif
 			'telephone'  => '',
 			'telephone_chine' => '',
 			'whatsapp'   => '',
@@ -190,6 +191,12 @@ function cp_entrepot( $mode_id ) {
 function cp_logo_url( $taille = 'medium' ) {
 	$id = (int) cp_r( 'entreprise.logo_id' );
 	return $id ? wp_get_attachment_image_url( $id, $taille ) : '';
+}
+
+/** Logo pour fond sombre ('' s'il n'y en a pas : le logo normal s'affiche alors sur une pastille blanche). */
+function cp_logo_clair_url( $taille = 'medium' ) {
+	$id = (int) cp_r( 'entreprise.logo_clair_id' );
+	return $id ? (string) wp_get_attachment_image_url( $id, $taille ) : '';
 }
 
 function cp_prix( $montant ) {

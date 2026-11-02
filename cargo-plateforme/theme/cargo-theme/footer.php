@@ -1,13 +1,14 @@
 </main>
 <?php
-$ct_logo = function_exists( 'cp_logo_url' ) ? cp_logo_url( 'medium' ) : '';
+$ct_logo_clair = function_exists( 'cp_logo_clair_url' ) ? cp_logo_clair_url( 'medium' ) : '';
+$ct_logo = $ct_logo_clair ? $ct_logo_clair : ( function_exists( 'cp_logo_url' ) ? cp_logo_url( 'medium' ) : '' );
 $ct_signature = ct_r( 'site.signature' ) ?: ct_r( 'entreprise.slogan' );
 $ct_reseaux = array_filter( (array) ct_r( 'site.reseaux', array() ) );
 ?>
 <footer class="ct-pied" id="contact">
 	<div class="ct-in ct-pied-in">
 		<div class="ct-pied-marque">
-			<?php if ( $ct_logo ) : ?><img src="<?php echo esc_url( $ct_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"><?php else : ?><h3><?php bloginfo( 'name' ); ?></h3><?php endif; ?>
+			<?php if ( $ct_logo ) : ?><img<?php echo $ct_logo_clair ? '' : ' class="ct-logo-pastille"'; ?> src="<?php echo esc_url( $ct_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"><?php else : ?><h3><?php bloginfo( 'name' ); ?></h3><?php endif; ?>
 			<p><?php echo esc_html( ct_r( 'entreprise.slogan' ) ); ?></p>
 			<p class="ct-pied-mots"><?php echo esc_html( ct_r( 'entreprise.mentions' ) ); ?></p>
 			<?php if ( $ct_reseaux ) : ?>
