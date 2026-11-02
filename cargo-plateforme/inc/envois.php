@@ -397,14 +397,18 @@ add_action( 'template_redirect', function () {
 } );
 
 /** Octets du document PDF (fiche, etiquettes, recu) ou '' si indisponible. */
+/** Logo et bannière des documents, en JPEG pour les PDF : [ logo, bannière ]. */
+function cp_doc_images() {
+	$jpeg = function ( $id ) {
+		$f = (int) $id ? get_attached_file( (int) $id ) : '';
+		return $f ? CP_PDF::vers_jpeg( (string) $f ) : '';
+	};
+	return array( $jpeg( cp_r( 'entreprise.logo_id' ) ), $jpeg( cp_r( 'documents.banniere', 0 ) ) );
+}
+
 function cp_document( $id, $type ) {
 	$e = cp_envoi( $id );
-	$logo = '';
-	$logo_id = (int) cp_r( 'entreprise.logo_id' );
-	if ( $logo_id ) {
-		$fichier = get_attached_file( $logo_id );
-		$logo = $fichier ? CP_PDF::vers_jpeg( $fichier ) : '';
-	}
+	list( $logo, $banniere ) = cp_doc_images();
 	$r = cp_reglages();
 	$e['lien_suivi'] = cp_lien_suivi( $e['code'] );
 	$e['etapes'] = cp_etapes();
@@ -412,11 +416,6 @@ function cp_document( $id, $type ) {
 	$e['delais'] = $m ? array( (int) $m['delai_min'], (int) $m['delai_max'] ) : array();
 	$ent = cp_entrepot( $e['mode'] );
 	$e['entrepot'] = array( 'texte' => $ent['texte'], 'jpeg' => $ent['image'] ? CP_PDF::vers_jpeg( (string) get_attached_file( $ent['image'] ) ) : '' );
-	$banniere = '';
-	$bid = (int) cp_r( 'documents.banniere', 0 );
-	if ( $bid ) {
-		$banniere = CP_PDF::vers_jpeg( (string) get_attached_file( $bid ) );
-	}
 	if ( 'fiche' === $type ) {
 		return cp_pdf_fiche( $e, $r, $logo, $banniere );
 	}

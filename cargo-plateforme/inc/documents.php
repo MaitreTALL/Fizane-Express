@@ -565,18 +565,22 @@ function cp_pdf_recu( array $e, array $r, $logo = '', $banniere = '' ) {
 	foreach ( array( array( 'Nom et Prénoms', $cl['nom'] ), array( 'Téléphone / WhatsApp', $cl['telephone'] ), array( 'E-mail', $cl['email'] ), array( 'Ville / Pays', $cl['ville'] ?? '' ) ) as $i => $l ) {
 		cp_doc_ligne( $pdf, $r, 14, $cy + $i * 5.9, 86, $l[0], $l[1] );
 	}
-	$cy = cp_doc_rubrique( $pdf, $r, 106, $y, 94, 38, 2, 'Envoi concerné', 'colis' );
+	// $e['objet'] (facultatif) : [ titre, [ [ libellé, valeur ] × 4 ] ] pour un reçu de commande de la boutique
+	$cy = cp_doc_rubrique( $pdf, $r, 106, $y, 94, 38, 2, $e['objet'][0] ?? 'Envoi concerné', 'colis' );
 	$nb = 0;
 	foreach ( $e['colis'] as $col ) { $nb += max( 1, (int) $col['nombre'] ); }
 	$mesure = $k ? ( 'm3' === $k['unite'] ? cp_pdf_nombre( $k['facture'] ) . ' m³' : cp_pdf_nombre( $k['facture'], 1 ) . ' kg' ) : '';
-	foreach ( array( array( 'N° de suivi', $e['code'] ), array( 'Mode', $e['mode_nom'] ), array( 'Trajet', $r['origine']['pays'] . ' → ' . $r['destination']['pays'] ), array( 'Colis', trim( ( $nb ? $nb . ' colis' : '' ) . ( $mesure ? ' · ' . $mesure . ' facturés' : '' ), ' ·' ) ) ) as $i => $l ) {
+	$objet = $e['objet'][1] ?? array( array( 'N° de suivi', $e['code'] ), array( 'Mode', $e['mode_nom'] ), array( 'Trajet', $r['origine']['pays'] . ' → ' . $r['destination']['pays'] ), array( 'Colis', trim( ( $nb ? $nb . ' colis' : '' ) . ( $mesure ? ' · ' . $mesure . ' facturés' : '' ), ' ·' ) ) );
+	foreach ( array_slice( $objet, 0, 4 ) as $i => $l ) {
 		cp_doc_ligne( $pdf, $r, 110, $cy + $i * 5.9, 86, $l[0], $l[1] );
 	}
 	$y += 41;
 
-	// 3. détail du paiement
-	$lignes = array();
-	if ( $k ) {
+	// 3. détail du paiement ($e['lignes'] : [ désignation, quantité, prix unitaire, montant ] fournies par la boutique)
+	$lignes = isset( $e['lignes'] ) ? array_map( function ( $l ) use ( $r ) {
+		return array( $l[0], (string) $l[1], '' === (string) $l[2] ? '' : cp_pdf_prix( $l[2], $r, false ), (float) $l[3] );
+	}, $e['lignes'] ) : array();
+	if ( $k && ! isset( $e['lignes'] ) ) {
 		$q = 'm3' === $k['unite'] ? cp_pdf_nombre( $k['facture'] ) . ' m³' : cp_pdf_nombre( $k['facture'], 1 ) . ' kg';
 		$lignes[] = array( 'Transport ' . $e['mode_nom'] . ( $e['contenu'] ? ' — ' . $e['contenu'] : '' ), $q, cp_pdf_prix( $k['prix_unite'], $r, false ), $k['transport'] );
 		if ( $k['frais'] ) { $lignes[] = array( 'Frais de dossier', '1', cp_pdf_prix( $k['frais'], $r, false ), $k['frais'] ); }
@@ -633,7 +637,7 @@ function cp_pdf_recu( array $e, array $r, $logo = '', $banniere = '' ) {
 	$pdf->couleur( '#0A7D33' )->police( true, 17 )->texte( 112, $cy + 7.5, 'PAYÉ', 'c', 36 );
 	$pdf->police( false, 7 )->texte( 112, $cy + 12, cp_pdf_date( $date ), 'c', 36 );
 	$pdf->couleur( $c['texte'] )->police( false, 7.8 );
-	$pdf->paragraphe( 151, $cy + 1, 45, 'Conservez ce reçu : il vous sera demandé au retrait de vos colis.', 3.6 );
+	$pdf->paragraphe( 151, $cy + 1, 45, $e['mention'] ?? 'Conservez ce reçu : il vous sera demandé au retrait de vos colis.', 3.6 );
 	$pdf->rect_arrondi( 109, $cy + 17, 43, $hb - 35, 1.6, '#FFFFFF', '#374151', .35 );
 	$pdf->rect_arrondi( 154, $cy + 17, 43, $hb - 35, 1.6, '#FFFFFF', '#374151', .35 );
 	$pdf->police( true, 7.4 )->texte( 109, $cy + 20.5, 'Signature ' . mb_strtoupper( $r['entreprise']['nom'] ), 'c', 43 )->texte( 154, $cy + 20.5, 'Signature du client', 'c', 43 );

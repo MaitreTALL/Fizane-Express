@@ -131,6 +131,7 @@ function cp_page_assistant() {
 
 			<div class="cp-onglet" id="o-paiement"><table class="form-table">
 				<?php
+				echo '<tr><td colspan="2"><p class="description">Ces numéros servent pour les envois et pour le <b>paiement direct de la boutique</b> (WooCommerce → Réglages → Paiements : Orange Money, Moov Money, Wave). Un moyen sans numéro n\'est pas proposé.</p></td></tr>';
 				$champ( 'paiement.orange_money', 'Numéro Orange Money' );
 				$champ( 'paiement.moov_money', 'Numéro Moov Money' );
 				$champ( 'paiement.wave', 'Numéro Wave' );

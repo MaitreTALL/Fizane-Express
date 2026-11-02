@@ -1,86 +1,178 @@
 <?php
 /**
- * Boutique (si WooCommerce est installé) : moyen de paiement « Mobile Money » (Orange Money, Moov Money, Wave)
- * avec les numéros de l'entreprise et la référence de transaction saisie par le client ; la commande attend la
- * vérification du paiement. Mention du trajet et du délai sur les fiches produits.
+ * Boutique de l'entreprise (WooCommerce, un seul vendeur : pas de place de marché).
+ * - réglages préparés une fois : franc CFA sans décimales, Burkina Faso, kg / cm, panier et paiement classiques ;
+ * - fiche produit : lieu du produit (à faire venir ou déjà sur place), location à la journée, prix sur demande ;
+ * - paiement direct Mobile Money : inc/boutique-paiement.php ; transport cargo : inc/boutique-livraison.php.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'plugins_loaded', function () {
-	if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
-		return;
-	}
+require_once __DIR__ . '/boutique-livraison.php';
+require_once __DIR__ . '/boutique-paiement.php';
 
-	class CP_Paiement_Mobile_Money extends WC_Payment_Gateway {
-		public function __construct() {
-			$this->id = 'cp_mobile_money';
-			$this->method_title = 'Mobile Money (Cargo Plateforme)';
-			$this->method_description = 'Le client paie par Orange Money, Moov Money ou Wave aux numéros de l\'assistant, puis saisit la référence de la transaction. La commande reste « en attente » jusqu\'à votre vérification.';
-			$this->has_fields = true;
-			$this->init_form_fields();
-			$this->init_settings();
-			$this->title = $this->get_option( 'title', 'Mobile Money (Orange Money, Moov Money, Wave)' );
-			$this->enabled = $this->get_option( 'enabled', 'yes' );
-			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		}
+function cp_boutique_active() {
+	return class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_permalink' );
+}
 
-		public function init_form_fields() {
-			$this->form_fields = array(
-				'enabled' => array( 'title' => 'Activer', 'type' => 'checkbox', 'label' => 'Paiement par Mobile Money', 'default' => 'yes' ),
-				'title'   => array( 'title' => 'Titre', 'type' => 'text', 'default' => 'Mobile Money (Orange Money, Moov Money, Wave)' ),
-			);
-		}
-
-		public function payment_fields() {
-			echo '<p>Envoyez le montant de la commande à l\'un de ces numéros :</p><ul>';
-			foreach ( array( 'orange_money' => 'Orange Money', 'moov_money' => 'Moov Money', 'wave' => 'Wave' ) as $k => $nom ) {
-				if ( cp_r( 'paiement.' . $k ) ) {
-					echo '<li><b>' . esc_html( $nom ) . '</b> : ' . esc_html( cp_r( 'paiement.' . $k ) ) . '</li>';
-				}
-			}
-			echo '</ul><p><label>Moyen utilisé<br><select name="cp_mm_moyen"><option>Orange Money</option><option>Moov Money</option><option>Wave</option></select></label></p>';
-			echo '<p><label>Référence de la transaction *<br><input name="cp_mm_ref" type="text" required style="width:100%"></label></p>';
-		}
-
-		public function validate_fields() {
-			if ( empty( $_POST['cp_mm_ref'] ) ) { // phpcs:ignore
-				wc_add_notice( 'Indiquez la référence de la transaction Mobile Money.', 'error' );
-				return false;
-			}
-			return true;
-		}
-
-		public function process_payment( $commande_id ) {
-			$o = wc_get_order( $commande_id );
-			$o->update_meta_data( '_cp_mm_moyen', sanitize_text_field( wp_unslash( $_POST['cp_mm_moyen'] ?? '' ) ) ); // phpcs:ignore
-			$o->update_meta_data( '_cp_mm_ref', sanitize_text_field( wp_unslash( $_POST['cp_mm_ref'] ?? '' ) ) ); // phpcs:ignore
-			$o->update_status( 'on-hold', 'Paiement Mobile Money à vérifier : ' . $o->get_meta( '_cp_mm_moyen' ) . ' ' . $o->get_meta( '_cp_mm_ref' ) );
-			wc_reduce_stock_levels( $commande_id );
-			WC()->cart->empty_cart();
-			return array( 'result' => 'success', 'redirect' => $this->get_return_url( $o ) );
-		}
-	}
-
-	add_filter( 'woocommerce_payment_gateways', function ( $g ) {
-		$g[] = 'CP_Paiement_Mobile_Money';
-		return $g;
-	} );
-}, 20 );
-
-// référence de paiement visible dans la commande (administration)
-add_action( 'woocommerce_admin_order_data_after_billing_address', function ( $o ) {
-	if ( $o->get_meta( '_cp_mm_ref' ) ) {
-		echo '<p><strong>Mobile Money :</strong> ' . esc_html( $o->get_meta( '_cp_mm_moyen' ) . ' — réf. ' . $o->get_meta( '_cp_mm_ref' ) ) . '</p>';
+/* ---------------------------------------------------------------- réglages de WooCommerce (une fois) */
+add_action( 'admin_init', function () {
+	if ( cp_boutique_active() && '1' !== get_option( 'cp_boutique_prete' ) && current_user_can( 'manage_woocommerce' ) ) {
+		cp_boutique_preparer();
 	}
 } );
 
-// trajet et délai sous le prix des produits
+function cp_boutique_preparer() {
+	if ( in_array( get_option( 'woocommerce_currency' ), array( '', 'USD', 'EUR', 'GBP' ), true ) ) {
+		update_option( 'woocommerce_currency', 'XOF' );
+	}
+	if ( in_array( get_option( 'woocommerce_default_country' ), array( '', 'US:CA', 'GB', 'FR' ), true ) ) {
+		update_option( 'woocommerce_default_country', 'BF' );
+	}
+	update_option( 'woocommerce_price_num_decimals', 0 );
+	update_option( 'woocommerce_price_thousand_sep', ' ' );
+	update_option( 'woocommerce_price_decimal_sep', ',' );
+	update_option( 'woocommerce_currency_pos', 'right_space' );
+	update_option( 'woocommerce_weight_unit', 'kg' );
+	update_option( 'woocommerce_dimension_unit', 'cm' );
+	if ( 'disabled' === get_option( 'woocommerce_ship_to_countries' ) ) {
+		update_option( 'woocommerce_ship_to_countries', '' );
+	}
+	// panier et paiement « classiques » : les moyens de paiement Mobile Money y affichent leurs étapes et leurs champs
+	foreach ( array( 'cart' => '[woocommerce_cart]', 'checkout' => '[woocommerce_checkout]' ) as $page => $code ) {
+		$id = wc_get_page_id( $page );
+		$p = $id > 0 ? get_post( $id ) : null;
+		if ( $p && false !== strpos( (string) $p->post_content, '<!-- wp:woocommerce/' ) ) {
+			wp_update_post( array( 'ID' => $id, 'post_content' => $code ) );
+		}
+	}
+	update_option( 'cp_boutique_prete', '1' );
+}
+
+// « FCFA » plutôt que « CFA »
+add_filter( 'woocommerce_currency_symbol', function ( $s, $devise ) {
+	return 'XOF' === $devise ? ( cp_r( 'entreprise.devise' ) ?: 'FCFA' ) : $s;
+}, 10, 2 );
+
+/* ---------------------------------------------------------------- fiche produit (administration) */
+add_action( 'woocommerce_product_options_pricing', function () {
+	woocommerce_wp_checkbox( array( 'id' => '_cp_location', 'label' => 'Location', 'description' => 'Prix par jour : la quantité commandée est le nombre de jours.' ) );
+} );
+
+add_action( 'woocommerce_product_options_shipping', function () {
+	woocommerce_wp_select( array(
+		'id'      => '_cp_lieu',
+		'label'   => 'Où est le produit ?',
+		'options' => array(
+			''      => 'En ' . cp_r( 'origine.pays' ) . ' : expédié par cargo (transport calculé)',
+			'local' => 'Déjà ' . cp_au_pays( cp_r( 'destination.pays' ) ) . ' : retrait à l\'agence',
+		),
+		'desc_tip'    => true,
+		'description' => 'Pour calculer le transport, indiquez le poids (kg) et les dimensions (cm) emballé. Sans ces valeurs, le transport est payé à l\'arrivée, après pesée.',
+	) );
+} );
+
+add_action( 'woocommerce_admin_process_product_object', function ( $p ) {
+	$p->update_meta_data( '_cp_lieu', 'local' === ( $_POST['_cp_lieu'] ?? '' ) ? 'local' : '' ); // phpcs:ignore -- nonce vérifié par WooCommerce
+	$p->update_meta_data( '_cp_location', isset( $_POST['_cp_location'] ) ? 'yes' : '' ); // phpcs:ignore
+} );
+
+/* ---------------------------------------------------------------- affichage */
+function cp_est_location( $p ) {
+	$p = $p && $p->get_parent_id() ? wc_get_product( $p->get_parent_id() ) : $p;
+	return $p && 'yes' === $p->get_meta( '_cp_location' );
+}
+
+add_filter( 'woocommerce_get_price_html', function ( $html, $p ) {
+	return $html && cp_est_location( $p ) ? $html . ' <small class="cp-par-jour">/ jour</small>' : $html;
+}, 10, 2 );
+
+add_filter( 'woocommerce_empty_price_html', function () {
+	return '<span class="cp-sur-demande">Prix sur demande</span>';
+} );
+
+function cp_lien_demande( $p ) {
+	return cp_whatsapp_lien( 'Bonjour ' . cp_r( 'entreprise.nom' ) . ', je voudrais le prix de : ' . $p->get_name() . ' (' . get_permalink( $p->get_id() ) . ')' );
+}
+
+// produit sans prix : « Demander le prix » sur WhatsApp au lieu de « Ajouter au panier »
+add_filter( 'woocommerce_loop_add_to_cart_link', function ( $html, $p ) {
+	if ( '' === (string) $p->get_price() && $p->is_type( 'simple' ) && cp_lien_demande( $p ) ) {
+		return '<a class="button cp-demander" href="' . esc_url( cp_lien_demande( $p ) ) . '" target="_blank" rel="noopener">Demander le prix</a>';
+	}
+	return $html;
+}, 10, 2 );
+
 add_action( 'woocommerce_single_product_summary', function () {
-	$modes = cp_modes_actifs();
-	if ( ! $modes ) {
+	global $product;
+	if ( ! $product ) {
 		return;
 	}
-	echo '<p class="cp-produit-trajet" style="background:var(--cp-fond,#F5F7FA);border-radius:12px;padding:10px 14px;font-weight:600">Expédié de ' . esc_html( cp_r( 'origine.pays' ) ) . ' vers ' . esc_html( cp_r( 'destination.pays' ) ) . ' — ' . esc_html( cp_delai_texte( $modes[0] ) ) . ' (' . esc_html( $modes[0]['nom'] ) . ')</p>';
+	if ( '' === (string) $product->get_price() && $product->is_type( 'simple' ) && cp_lien_demande( $product ) ) {
+		echo '<p><a class="button alt cp-demander" href="' . esc_url( cp_lien_demande( $product ) ) . '" target="_blank" rel="noopener">' . cp_icone( 'whatsapp' ) . ' Demander le prix sur WhatsApp</a></p>'; // phpcs:ignore
+	}
+}, 31 );
+
+// lieu, délai et moyens de paiement sous le prix
+add_action( 'woocommerce_single_product_summary', function () {
+	global $product;
+	if ( ! $product ) {
+		return;
+	}
+	echo '<ul class="cp-produit-infos">';
+	if ( cp_produit_local( $product ) ) {
+		echo '<li>' . cp_icone( 'suivi' ) . '<span><b>Disponible ' . esc_html( cp_au_pays( cp_r( 'destination.pays' ) ) ) . '</b> : retrait à l\'agence</span></li>'; // phpcs:ignore
+	} else {
+		$modes = cp_modes_actifs();
+		usort( $modes, function ( $a, $b ) {
+			return $a['delai_min'] <=> $b['delai_min'];
+		} );
+		if ( $modes ) {
+			echo '<li>' . cp_icone( 'avion' ) . '<span><b>Expédié ' . esc_html( cp_de_pays( cp_r( 'origine.pays' ) ) ) . '</b> : livraison dès ' . esc_html( cp_delai_court( $modes[0] ) ) . ' (' . esc_html( cp_nom_court( $modes[0] ) ) . '), suivi en ligne</span></li>'; // phpcs:ignore
+		}
+	}
+	$moyens = array();
+	foreach ( cp_moyens_mobiles() as $m ) {
+		if ( cp_r( 'paiement.' . $m[0] ) ) {
+			$moyens[] = '<img src="' . esc_url( CP_URL . 'assets/moyens/' . $m[2] ) . '" alt="' . esc_attr( $m[1] ) . '" title="' . esc_attr( $m[1] ) . '">';
+		}
+	}
+	if ( $moyens ) {
+		echo '<li class="cp-produit-moyens">' . cp_icone( 'paiement' ) . '<span><b>Paiement direct</b>' . implode( '', $moyens ) . '</span></li>'; // phpcs:ignore
+	}
+	echo '</ul>';
 }, 25 );
+
+add_action( 'woocommerce_before_add_to_cart_quantity', function () {
+	global $product;
+	if ( $product && cp_est_location( $product ) ) {
+		echo '<span class="cp-jours">Nombre de jours</span>';
+	}
+} );
+
+add_filter( 'woocommerce_get_item_data', function ( $donnees, $ligne ) {
+	if ( ! empty( $ligne['data'] ) && cp_est_location( $ligne['data'] ) ) {
+		$donnees[] = array( 'key' => 'Location', 'value' => (int) $ligne['quantity'] . ' jour' . ( $ligne['quantity'] > 1 ? 's' : '' ) );
+	}
+	return $donnees;
+}, 10, 2 );
+
+/* ---------------------------------------------------------------- page d'accueil et espace client */
+/** Section « Notre boutique » de la page d'accueil (rien si la boutique est vide). */
+function cp_boutique_section() {
+	if ( ! cp_boutique_active() || ! wc_get_products( array( 'limit' => 1, 'status' => 'publish', 'return' => 'ids' ) ) ) {
+		return '';
+	}
+	$fleche = cp_icone( 'fleche' );
+	return '<section class="cp-a-section cp-a-boutique"><div class="cp-a-in"><div class="cp-a-entete"><div><p class="cp-a-sur">Notre boutique</p><h2>Achetez en ligne, payez par Mobile Money</h2></div>'
+		. '<a class="cp-a-tout" href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Voir toute la boutique' . $fleche . '</a></div>'
+		. do_shortcode( '[products limit="4" columns="4" orderby="date" order="DESC"]' ) . '</div></section>';
+}
+
+add_filter( 'cp_mon_espace_liens', function ( $h ) {
+	if ( cp_boutique_active() ) {
+		$h .= '<a class="cp-btn cp-btn-clair cp-btn-petit" href="' . esc_url( wc_get_account_endpoint_url( 'orders' ) ) . '">Mes commandes de la boutique</a>';
+	}
+	return $h;
+} );

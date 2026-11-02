@@ -395,7 +395,8 @@ add_shortcode( 'cargo_mon_espace', function () {
 	}
 	$u = wp_get_current_user();
 	$ids = get_posts( array( 'post_type' => 'cp_envoi', 'numberposts' => 100, 'fields' => 'ids', 'meta_query' => array( 'relation' => 'OR', array( 'key' => '_cp_user', 'value' => $u->ID ), array( 'key' => '_cp_client', 'value' => '"' . $u->user_email . '"', 'compare' => 'LIKE' ) ) ) );
-	$h = '<div class="cp-carte"><h2>Mes envois</h2>';
+	$liens = apply_filters( 'cp_mon_espace_liens', '' );
+	$h = '<div class="cp-carte"><h2>Mes envois</h2>' . ( $liens ? '<p class="cp-boutons">' . $liens . '</p>' : '' );
 	if ( ! $ids ) {
 		return $h . '<p>Aucun envoi pour le moment. <a class="cp-btn" href="' . esc_url( cp_url_page( 'declarer' ) ) . '">Expédier un colis</a></p></div>';
 	}
@@ -487,6 +488,8 @@ add_shortcode( 'cargo_accueil', function () {
 			</div>
 		</div>
 	</section>
+
+	<?php echo function_exists( 'cp_boutique_section' ) ? cp_boutique_section() : ''; // phpcs:ignore -- HTML de WooCommerce ?>
 
 	<section class="cp-a-section cp-a-fond">
 		<div class="cp-a-in">

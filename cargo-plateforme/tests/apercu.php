@@ -1,13 +1,22 @@
 <?php
 /**
- * Aperçu de la page d'accueil hors WordPress : exécute le vrai thème (en-tête, pied de page) et le code court
- * [cargo_accueil] avec la configuration Navilink et ses photos, puis écrit une page HTML autonome.
- * Usage : php tests/apercu.php <dossier de sortie>
+ * Aperçu hors WordPress : exécute le vrai thème (en-tête, pied de page) et le code court [cargo_accueil] avec la
+ * configuration Navilink et ses photos, puis écrit des pages HTML autonomes.
+ * Avec « boutique » : produits d'EXEMPLE (aperçu seulement) et pages boutique, fiche produit et paiement.
+ * Usage : php tests/apercu.php <dossier de sortie> [boutique]
  */
 $OUT = rtrim( $argv[1] ?? sys_get_temp_dir() . '/apercu', '/' );
+$BOUTIQUE = in_array( 'boutique', $argv, true );
 @mkdir( $OUT, 0777, true );
 require __DIR__ . '/doublures.php';
+if ( $BOUTIQUE ) {
+	require __DIR__ . '/doublures-wc.php';
+}
 require __DIR__ . '/../cargo-plateforme.php';
+if ( $BOUTIQUE ) {
+	do_action( 'plugins_loaded' );
+	do_action( 'woocommerce_shipping_init' );
+}
 $THEME = __DIR__ . '/../theme/cargo-theme';
 require $THEME . '/functions.php';
 
@@ -33,13 +42,20 @@ $j['site']['pourquoi_image'] = $id( $img['site.pourquoi_image'] );
 foreach ( $j['services'] as $i => $s ) {
 	$j['services'][ $i ]['image'] = $id( $img['services'][ $i ] ?? '' );
 }
+if ( $BOUTIQUE ) {      // numéros d'EXEMPLE (WhatsApp) tant que les numéros Mobile Money ne sont pas connus
+	$j['paiement'] = array( 'orange_money' => '+226 54 20 55 46', 'wave' => '+226 54 20 55 46' );
+	is_dir( "$OUT/moyens" ) || mkdir( "$OUT/moyens" );
+	foreach ( glob( __DIR__ . '/../assets/moyens/*' ) as $f ) {
+		copy( $f, "$OUT/moyens/" . basename( $f ) );
+	}
+}
 update_option( 'cp_reglages', cp_nettoyer_reglages( $j ) );
 cp_creer_pages();
 
 // doublures du thème
 function language_attributes() { echo 'lang="fr-FR"'; }
 function bloginfo( $k = '' ) { echo 'charset' === $k ? 'UTF-8' : esc_html( get_bloginfo( 'name' ) ); }
-function body_class() { echo 'class="home page"'; }
+function body_class() { echo 'class="' . esc_attr( $GLOBALS['classes_body'] ?? 'home page' ) . '"'; }
 function wp_body_open() {}
 function has_nav_menu() { return false; }
 function untrailingslashit( $s ) { return rtrim( $s, '/' ); }
@@ -54,9 +70,19 @@ function wp_footer() {
 }
 function wp_json_encode( $v, $o = 0 ) { return json_encode( $v, $o ); }
 
-ob_start();
-require $THEME . '/header.php';
-echo do_shortcode( '[cargo_accueil]' );
-require $THEME . '/footer.php';
-file_put_contents( "$OUT/index.html", ob_get_clean() );
-echo "$OUT/index.html\n";
+if ( $BOUTIQUE ) {
+	require __DIR__ . '/apercu-boutique.php';
+}
+function cp_apercu_page( $fichier, $classes, $contenu ) {
+	$GLOBALS['classes_body'] = $classes;
+	ob_start();
+	require $GLOBALS['THEME'] . '/header.php';
+	echo $contenu; // phpcs:ignore
+	require $GLOBALS['THEME'] . '/footer.php';
+	file_put_contents( $GLOBALS['OUT'] . '/' . $fichier, str_replace( CP_URL . 'assets/moyens/', 'moyens/', ob_get_clean() ) );
+	echo $GLOBALS['OUT'] . '/' . $fichier . "\n";
+}
+cp_apercu_page( 'index.html', 'home page', do_shortcode( '[cargo_accueil]' ) );
+if ( $BOUTIQUE ) {
+	cp_apercu_pages_boutique();
+}

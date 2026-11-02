@@ -14,10 +14,11 @@ $GLOBALS['codes'] = array();
 $GLOBALS['routes'] = array();
 function add_action( $h, $cb, $p = 10, $n = 1 ) { $GLOBALS['hooks'][ $h ][] = $cb; }
 function add_filter( $h, $cb, $p = 10, $n = 1 ) { $GLOBALS['hooks'][ $h ][] = $cb; }
+function apply_filters( $h, $v, ...$a ) { foreach ( $GLOBALS['hooks'][ $h ] ?? array() as $cb ) { $v = $cb( $v, ...$a ); } return $v; }
 function do_action( $h, ...$a ) { foreach ( $GLOBALS['hooks'][ $h ] ?? array() as $cb ) { $cb( ...$a ); } }
 function remove_action() {}
 function add_shortcode( $t, $cb ) { $GLOBALS['codes'][ $t ] = $cb; }
-function do_shortcode( $s ) { return preg_replace_callback( '/\[(\w+)\]/', function ( $m ) { return isset( $GLOBALS['codes'][ $m[1] ] ) ? $GLOBALS['codes'][ $m[1] ](array()) : $m[0]; }, $s ); }
+function do_shortcode( $s ) { return preg_replace_callback( '/\[(\w+)([^\]]*)\]/', function ( $m ) { preg_match_all( '/(\w+)="([^"]*)"/', $m[2], $a ); return isset( $GLOBALS['codes'][ $m[1] ] ) ? $GLOBALS['codes'][ $m[1] ]( array_combine( $a[1], $a[2] ) ) : $m[0]; }, $s ); }
 function register_activation_hook() {} function register_deactivation_hook() {}
 function plugin_dir_url( $f ) { return 'https://navilink.test/wp-content/plugins/cargo-plateforme/'; }
 function get_option( $k, $d = false ) { return $GLOBALS['opt'][ $k ] ?? $d; }
