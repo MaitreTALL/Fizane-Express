@@ -171,7 +171,7 @@ else:
     v = next(x for x in CONF["voix"] if x["nom"] == CONF["choix"])
     for version in os.environ.get("VERSIONS", "court,long").split(","):
         lignes = [l.get("tts", l["texte"]) for l in json.loads((RACINE / "voix" / f"texte-{version}.json").read_text())["lignes"]]
-        pcm = dire(modele, v["nom"], invite(v, lignes, CONF["pauses_complet"]), lignes)
+        pcm = dire(modele, v["nom"], invite(v, lignes, CONF.get(f"pauses_{version}", CONF["pauses_complet"])), lignes)
         ecrire(OUT / "lecture-unique" / version / "complet.wav", pcm)
         print(f"{version} : {len(pcm) / 2 / SR:.1f} s, {len(lignes)} phrases (découpage : tools/decouper_lecture.py)")
         time.sleep(CONF.get("pause_entre_appels", 22))

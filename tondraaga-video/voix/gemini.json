@@ -45,10 +45,11 @@
       "profil": "Awa, animatrice radio vedette de Ouagadougou"
     }
   ],
-  "gabarit": "# AUDIO PROFILE: {profil}\n## THE SCENE: En studio à Ouagadougou, pour une publicité radio et TikTok de Tondraaga, la place de marché du Burkina Faso. Ambiance festive, fierté du pays.\n### DIRECTOR'S NOTES\nStyle: voix chaude, riche et puissante, très vivante, « ambiance », pleine de fierté, avec le sourire dans la voix.\nAccent: français d'Afrique de l'Ouest (Burkina Faso, Côte d'Ivoire).\nPacing: dynamique mais bien articulé, {pauses}.\nPronunciation: le nom de marque Tondraga commence par le son T, comme dans « tonton » : TON-dra-ga (jamais « Pondraga ») ; Faso se dit fasso ; Mobile Money se dit mobil moni.\n#### TRANSCRIPT\n{texte}",
+  "gabarit": "# AUDIO PROFILE: {profil}\n## THE SCENE: En studio à Ouagadougou, pour une publicité radio et TikTok de Tondraaga, la place de marché du Burkina Faso. Ambiance festive, fierté du pays.\n### DIRECTOR'S NOTES\nStyle: voix chaude, riche et puissante, très vivante, « ambiance », pleine de fierté, avec le sourire dans la voix.\nAccent: français d'Afrique de l'Ouest (Burkina Faso, Côte d'Ivoire).\nPacing: {pauses}.\nPronunciation: le nom de marque Tondraga commence par le son T, comme dans « tonton » : TON-dra-ga (jamais « Pondraga ») ; Faso se dit fasso ; Mobile Money se dit mobil moni.\n#### TRANSCRIPT\n{texte}",
   "pauses_echantillon": "une courte pause entre les phrases",
   "pauses_complet": "rythme dynamique, et une pause nette d'une seconde et demie entre chaque ligne",
   "choix": "Sadachbia",
   "par_ligne": false,
-  "pause_par_ligne": 7
+  "pause_par_ligne": 7,
+  "pauses_tuto": "rythme RAPIDE, énergique et enjoué, comme une pub radio qui enchaîne, bien articulé ; une courte pause d'une demi-seconde entre chaque ligne"
 }

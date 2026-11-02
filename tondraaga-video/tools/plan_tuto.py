@@ -17,8 +17,8 @@ TEXTE = RACINE / "voix" / "texte-tuto.json"
 PHRASES = RACINE / "voix" / "sortie-gemini" / "tuto"
 MESURE = 4 * 60 / 104
 M0 = 0.70                               # premier temps fort de la grille
-DEMI = MESURE / 2
-AVANT, APRES = .35, .55                 # la phrase commence 0,35 s après le début de la scène, et respire 0,55 s à la fin
+DEMI = MESURE / 4                       # pas de calage : un temps (version rapide)
+AVANT, APRES = .2, .3                   # la phrase commence 0,2 s après le début de la scène, et respire 0,3 s à la fin
 
 
 def parole(k):
@@ -38,15 +38,15 @@ for k, l in enumerate(lignes):
         groupes[sc] = []; ordre.append(sc)
     groupes[sc].append(k)
 
-TRANS = {"s1": ("", "zoom"), "s3": ("zoom", "droite"), "tu1": ("droite", "haut"), "s4d": ("haut", "zoom"), "s5a": ("zoom", "droite"),
-         "s6b": ("droite", "haut"), "tu2": ("haut", "zoom"), "eco": ("zoom", "droite"), "s7": ("droite", "zoom"), "s9": ("cercle", "")}
+TRANS = {"s1": ("", "zoom"), "s3": ("zoom", "droite"), "tu1": ("droite", "haut"), "s5a": ("haut", "zoom"), "s6b": ("zoom", "droite"),
+         "tu2": ("droite", "haut"), "eco": ("haut", "zoom"), "s9": ("cercle", "")}
 scenes, etapes, mesure = [], {}, 0.0
 for sc in ordre:
     debut = mesure
     t_scene = M0 + debut * MESURE
     if sc == "s1":
         fin = 2.5                                    # l'ouverture du logo garde sa durée ; la phrase arrive avec le nom
-        lignes[groupes[sc][0]]["t"] = 3.1
+        lignes[groupes[sc][0]]["t"] = 2.6
     else:
         t = t_scene + AVANT
         bornes = []

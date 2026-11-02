@@ -547,23 +547,25 @@
   const TUTO = {
     tu1: [
       { titre: 'Choisissez', sous: 'Votre pays, puis les produits ou un panier tout prêt.',
-        ecrans: [['courses-etapes', 0], ['courses-paniers', .5]],
-        cadres: [[.14, .47, [38, 1588, 983, 321]], [.62, 1.02, [45, 616, 758, 1344]]], taps: [[.32, 300, 1752], [.86, 278, 1882]] },
+        ecrans: [['courses-etapes', 0], ['courses-paniers', .48]],
+        cadres: [[.08, .44, [38, 1588, 983, 321]], [.56, 1.02, [45, 616, 758, 1344]]], taps: [[.24, 300, 1752], [.78, 278, 1882]] },
       { titre: 'Indiquez votre proche', sous: 'Nom, téléphone burkinabè, quartier et repère.',
-        ecrans: [['comment-courses', 0]], cadres: [[.12, 1.02, [560, 632, 476, 632]]], zoom: [.14, 798, 948, 1.3] },
-      { titre: 'Payez en sécurité', sous: 'Le total, frais compris, est affiché avant de payer.',
-        ecrans: [['comment-courses', 0]], cadres: [[.1, 1.02, [45, 1302, 480, 635]]], zoom: [.12, 285, 1620, 1.3] },
+        ecrans: [['comment-courses', 0]], cadres: [[.06, 1.02, [560, 632, 476, 632]]], zoom: [.04, 798, 948, 1.3] },
+      { titre: 'Payez', sous: 'Orange Money ou Wave : le total, frais compris, est affiché avant de payer.',
+        ecrans: [['comment-courses', 0]], cadres: [[.06, 1.02, [45, 1302, 480, 635]]], zoom: [.04, 285, 1620, 1.3] },
+      { titre: 'Nous livrons', sous: 'Notre équipe fait les courses, vous informe et livre votre proche.',
+        ecrans: [['comment-courses', 0]], cadres: [[.06, 1.02, [560, 1302, 476, 635]]], zoom: [.04, 798, 1620, 1.3] },
     ],
     tu2: [
       { titre: 'Ouvrez votre boutique', sous: 'Artisans, producteurs, coopératives : 0 FCFA pour ouvrir.',
-        ecrans: [['vendeur-1', 0]], cadres: [[.35, 1.02, [42, 1776, 1020, 190]]], zoom: [.3, 540, 1870, 1.18] },
+        ecrans: [['vendeur-1', 0]], cadres: [[.3, 1.02, [42, 1776, 1020, 190]]], zoom: [.25, 540, 1870, 1.18] },
       { titre: 'Deux formules', sous: 'Sans abonnement : 15 % de commission. Abonnement annuel (15 000 FCFA) : 8 %.',
-        ecrans: [['vendeur-2', 0]], cadres: [[.1, .5, [97, 486, 972, 655]], [.54, 1.02, [97, 1199, 972, 762]]] },
-      { titre: 'Inscription et validation', sous: 'Deux minutes pour vous inscrire ; l’équipe valide votre boutique, puis vos produits.',
-        ecrans: [['vendeur-4', 0], ['vendeur-3', .46]],
-        cadres: [[.1, .42, [104, 1180, 959, 640]], [.52, .76, [603, 0, 467, 648]], [.76, 1.02, [45, 697, 525, 600]]], taps: [[.24, 160, 1335]] },
+        ecrans: [['vendeur-2', 0]], cadres: [[.06, .5, [97, 486, 972, 655]], [.52, 1.02, [97, 1199, 972, 762]]] },
+      { titre: 'Inscription et validation', sous: 'Deux minutes pour vous inscrire ; l’équipe valide votre boutique.',
+        ecrans: [['vendeur-4', 0], ['vendeur-3', .5]],
+        cadres: [[.06, .46, [104, 1180, 959, 640]], [.58, 1.02, [603, 0, 467, 648]]], taps: [[.22, 160, 1335]] },
       { titre: 'Vendez partout', sous: 'Vous préparez les commandes ; vos gains vous sont reversés.',
-        ecrans: [['vendeur-3', 0]], cadres: [[.1, 1.02, [603, 697, 467, 600]]], zoom: [.12, 836, 997, 1.3], paiement: .42 },
+        ecrans: [['vendeur-3', 0]], cadres: [[.06, 1.02, [603, 697, 467, 600]]], zoom: [.04, 836, 997, 1.3], paiement: .3 },
     ],
   };
   const KECR = 515 / 1080;
@@ -577,7 +579,7 @@
     const evts = [];
     data.forEach((e, k) => {
       const [d, f] = bornes[k];
-      $(`${id}-e${k}`).querySelector('.tu-titre').textContent = e.titre;
+      $(`${id}-e${k}`).querySelector('.tu-titre').innerHTML = e.titre.split(' ').map((m) => `<span class="m" style="display:inline-block;margin-right:.22em">${m}</span>`).join('');
       $(`${id}-e${k}`).querySelector('.tu-sous').textContent = e.sous;
       for (const [nom, fr] of e.ecrans) {
         if (evts.length && evts[evts.length - 1].nom === nom) continue;
@@ -590,27 +592,33 @@
   function tuto(id, t) {
     const T = tutos[id]; if (!T) return;
     const { a, b, data, bornes, evts, cadre, doigt, pages } = T;
-    const kin = E.out3(p(t, a, a + .8));
-    set(id + '-tel', { y: lerp(900, 0, kin) + Math.sin((t - a) * 1.1) * 7, rz: Math.sin((t - a) * .8) * 1.1, o: 1 });
+    const kin = E.out3(p(t, a, a + .6));
+    // téléphone vivant : léger balancement en 3D, petit « coup » à chaque nouvelle étape
+    let punch = 0; bornes.forEach(([d]) => { if (t >= d && t < d + .35) punch = 1 - (t - d) / .35; });
+    set(id + '-tel', { y: lerp(900, 0, kin) + Math.sin((t - a) * 1.7) * 9, ry: Math.sin((t - a) * 1.3) * 5, rz: Math.sin((t - a) * 1.1) * 1.4, s: 1 + .035 * E.out3(punch), o: 1 });
     const ks = pop(t, a + .1, .4); set(id + '-sur', { s: ks, o: clamp(ks) });
     let k = bornes.findIndex(([d, f]) => t < f); if (k < 0) k = bornes.length - 1;
     data.forEach((e, j) => {
-      const [d, f] = bornes[j], ke = E.out3(p(t, d + .05, d + .45)), ks2 = E.in3(p(t, f - .25, f));
-      const vis = j === k ? ke * (j + 1 < data.length ? 1 - ks2 : 1) : 0;
-      set(`${id}-e${j}`, { y: lerp(40, 0, ke) - 30 * ks2, o: vis, blur: lerp(10, 0, ke) });
+      const [d, f] = bornes[j], ke = E.out3(p(t, d, d + .3)), ks2 = E.in3(p(t, f - .18, f));
+      const vis = j === k ? (j + 1 < data.length ? 1 - ks2 : 1) : 0;
+      const el = $(`${id}-e${j}`);
+      set(el, { y: -30 * ks2, o: vis });
+      set(el.querySelector('.tu-num'), { s: pop(t, d, .35), o: clamp(pop(t, d, .35)) });
+      el.querySelectorAll('.tu-titre .m').forEach((m, n) => { const km = E.outBack(p(t, d + .05 + n * .06, d + .4 + n * .06)); set(m, { y: lerp(50, 0, clamp(km)), s: lerp(.6, 1, km), o: clamp(km * 1.5) }); });
+      const kso = E.out3(p(t, d + .2, d + .55)); set(el.querySelector('.tu-sous'), { y: lerp(24, 0, kso), o: kso });
     });
     // écrans : le nouveau glisse depuis la droite, la page « défile » légèrement en arrivant
     let i = 0; evts.forEach((ev, n) => { if (t >= ev.t) i = n; });
     evts.forEach((ev, n) => {
-      const kk = E.inout3(p(t, ev.t, ev.t + .45));
-      if (n === i) { ev.img.style.display = 'block'; ev.img.style.transform = `translate(${(n ? (1 - kk) * 515 : 0).toFixed(1)}px, ${((1 - E.out3(p(t, ev.t, ev.t + .9))) * 50).toFixed(1)}px)`; ev.img.style.filter = ''; ev.img.style.zIndex = 2; }
-      else if (n === i - 1 && t < evts[i].t + .45) { const kp = E.inout3(p(t, evts[i].t, evts[i].t + .45)); ev.img.style.display = 'block'; ev.img.style.transform = `translateX(${(-kp * 150).toFixed(1)}px)`; ev.img.style.filter = `brightness(${(1 - .4 * kp).toFixed(3)})`; ev.img.style.zIndex = 1; }
+      const kk = E.inout3(p(t, ev.t, ev.t + .35));
+      if (n === i) { ev.img.style.display = 'block'; ev.img.style.transform = `translate(${(n ? (1 - kk) * 515 : 0).toFixed(1)}px, ${((1 - E.out3(p(t, ev.t, ev.t + .7))) * 60).toFixed(1)}px) scale(${(1 + .035 * p(t, ev.t, ev.t + 6)).toFixed(4)})`; ev.img.style.transformOrigin = '50% 30%'; ev.img.style.filter = ''; ev.img.style.zIndex = 2; }
+      else if (n === i - 1 && t < evts[i].t + .35) { const kp = E.inout3(p(t, evts[i].t, evts[i].t + .35)); ev.img.style.display = 'block'; ev.img.style.transform = `translateX(${(-kp * 150).toFixed(1)}px)`; ev.img.style.filter = `brightness(${(1 - .4 * kp).toFixed(3)})`; ev.img.style.zIndex = 1; }
       else ev.img.style.display = 'none';
     });
     // zoom vers la zone expliquée
     const e = data[k], [d, f] = bornes[k], dur = f - d;
     if (e.zoom) {
-      const [fz, zx, zy, zs] = e.zoom, up = E.inout3(p(t, d + fz * dur, d + fz * dur + .8)), down = k + 1 < data.length ? E.inout3(p(t, f - .45, f)) : 0;
+      const [fz, zx, zy, zs] = e.zoom, up = E.inout3(p(t, d + fz * dur, d + fz * dur + .55)), down = k + 1 < data.length ? E.inout3(p(t, f - .3, f)) : 0;
       // la zone expliquée vient au centre de l'écran (sans laisser voir le bord de la page)
       const u = up * (1 - down), cx = zx * KECR, cy = zy * KECR, W2 = 515, H2 = 1029;
       const fx = Math.min(0, Math.max(W2 - W2 * zs, W2 / 2 - zs * cx)), fy = Math.min(0, Math.max(H2 - H2 * zs, lerp(cy, H2 / 2, .5) - zs * cy));
@@ -658,24 +666,24 @@
   function economie(t) {
     const [a, b] = SC.eco;
     const ks = pop(t, a + .05, .4); set('sur-eco', { s: ks, o: clamp(ks) });
-    apparitionMots(TECO, t, a + .15, .06, .4);
+    apparitionMots(TECO, t, a + .1, .045, .3);
     set(document.querySelector('#eco .photo'), { s: 1.04 + .05 * p(t, a, b) });
-    const kc = E.outBack(p(t, a + .5, a + 1.1)); set('eco-centre', { s: kc, o: clamp(kc * 2), rz: lerp(-25, 0, clamp(kc)) });
+    const kc = E.outBack(p(t, a + .3, a + .75)); set('eco-centre', { s: kc, o: clamp(kc * 2), rz: lerp(-25, 0, clamp(kc)) });
     NOEUDS.forEach(([x, y], i) => {
-      const d = a + 1.0 + i * .22, kn = E.outBack(p(t, d, d + .5));
+      const d = a + .55 + i * .14, kn = E.outBack(p(t, d, d + .4));
       set('eco-n' + i, { s: kn, o: clamp(kn * 2) });
       const l = $('eco-l' + i); l.style.opacity = clamp((t - d) / .4).toFixed(3); l.style.strokeDashoffset = (-(t - a) * 70).toFixed(1);
     });
     // les pièces partent du centre (Burkina) vers chaque acteur économique
     for (let j = 0; j < 12; j++) {
-      const n = j % 4, [x, y] = NOEUDS[n], ph = ((t - a - 1.9) * .55 + j / 12 * 3) % 1, el = $('eco-p' + j);
-      if (t < a + 1.9 || ph < 0) { el.style.opacity = 0; continue; }
+      const n = j % 4, [x, y] = NOEUDS[n], ph = ((t - a - 1.1) * .8 + j / 12 * 3) % 1, el = $('eco-p' + j);
+      if (t < a + 1.1 || ph < 0) { el.style.opacity = 0; continue; }
       const kk = E.inout3(ph);
       el.style.left = `${(x * kk).toFixed(1)}px`; el.style.top = `${((y + 75) * kk).toFixed(1)}px`;
-      el.style.opacity = (Math.min(1, ph * 6, (1 - ph) * 6) * clamp((t - a - 1.9) / .5)).toFixed(3);
+      el.style.opacity = (Math.min(1, ph * 6, (1 - ph) * 6) * clamp((t - a - 1.1) / .4)).toFixed(3);
       el.style.transform = `scale(${(.7 + .5 * Math.sin(ph * Math.PI)).toFixed(3)})`;
     }
-    const kb = E.out3(p(t, a + 2.4, a + 2.9)); set('eco-bas', { y: lerp(60, 0, kb), o: kb });
+    const kb = E.out3(p(t, a + 1.4, a + 1.8)); set('eco-bas', { y: lerp(60, 0, kb), o: kb });
   }
 
   // ---------------------------------------------------------------- sons synchronisés
@@ -961,7 +969,7 @@
     if (S('tu1') || S('tu2')) for (const id of ['tu1', 'tu2']) { const T = tutos[id]; if (!T) continue;
       T.bornes.forEach(([d, f], k) => { if (k) C(d, 'glisse'); const e = T.data[k], dur = f - d; (e.cadres || []).forEach(([f0]) => C(d + f0 * dur, 'pop')); (e.taps || []).forEach(([ft]) => C(d + ft * dur, 'pop')); });
       T.evts.forEach((ev, n) => { if (n) C(ev.t, 'souffle', { duree: .35 }); }); }
-    if (S('eco')) { const [a] = SC.eco; C(a + .5, 'impact-doux'); [0, 1, 2, 3].forEach((i) => C(a + 1.0 + i * .22, 'pop')); C(a + 2.4, 'eclat'); }
+    if (S('eco')) { const [a] = SC.eco; C(a + .3, 'impact-doux'); [0, 1, 2, 3].forEach((i) => C(a + .55 + i * .14, 'pop')); C(a + 1.4, 'eclat'); }
     if (S('s7')) { const [a, b] = SC.s7; C(a + .5, 'impact-doux'); [0, 1, 2, 3].forEach((i) => C(a + .55 + i * .1, 'pop')); C(bq(a, b, .38), 'glisse'); C(bq(a, b, .72), 'glisse'); C(bq(a, b, .76) + .05, 'eclat'); }
     if (S('s8')) { const [a, b] = SC.s8; C(bq(a, b, .24), 'pop'); C(bq(a, b, .33), 'pop'); C(bq(a, b, .68), 'eclat'); }
     const [a9] = SC.s9; C(a9 + .75, 'glisse'); C(a9 + 1.1, 'pop'); C(DUREE - .6, 'fin');

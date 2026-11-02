@@ -9,6 +9,7 @@ Avec repères.json (début et fin approximatifs de chaque phrase, donnés par un
 dans la pause la plus proche du repère : c'est plus sûr que les seules longueurs de phrases.
 """
 import json
+import os
 import math
 import re
 import sys
@@ -33,7 +34,7 @@ for i in range(i0, i1 + 1):
     s = i < i1 and not parle[i]
     if s and d is None: d = i
     if not s and d is not None:
-        if i - d >= 10: sil.append(((d + i) // 2, (i - d) / 100))
+        if i - d >= int(os.environ.get("PAUSE_MIN", "10")): sil.append(((d + i) // 2, (i - d) / 100))
         d = None
 n = len(lignes)
 poids = [len(re.findall(r"\w", l)) + 4 + 5 * len(re.findall(r"[,:;]", l)) for l in lignes]   # les virgules sont des pauses
