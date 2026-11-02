@@ -1,60 +1,60 @@
 {
   "version": "courte (44 s, flûte)",
+  "ton": "vivant, façon ambianceur : phrases courtes, exclamations",
   "lignes": [
     {
       "t": 3.25,
-      "texte": "Tondraaga. Notre marché, notre fierté."
+      "texte": "Tondraaga ! Notre marché, notre fierté !"
     },
     {
       "t": 6.75,
-      "texte": "Nourrissez la famille, où que vous soyez dans le monde."
+      "texte": "Nourrissez la famille, où que vous soyez dans le monde !"
     },
     {
       "t": 11.25,
-      "texte": "La boutique des artisans."
+      "texte": "La boutique des artisans !"
     },
     {
       "t": 13.55,
-      "texte": "Le Faso Dan Fani.",
-      "tts": "Le Fasso Dan Fani."
+      "texte": "Le Faso Dan Fani !",
+      "tts": "Le Fasso Dan Fani !"
     },
     {
       "t": 15.85,
-      "texte": "Le Koko Dunda.",
-      "tts": "Le Koko Doun-da."
+      "texte": "Le Koko Dunda !",
+      "tts": "Le Koko Dounda !"
     },
     {
       "t": 18.15,
-      "texte": "Le miel."
+      "texte": "Le miel !"
     },
     {
       "t": 20.45,
-      "texte": "Mil, sorgho, fonio.",
-      "lent": 0.96
+      "texte": "Mil, sorgho, fonio !"
     },
     {
       "t": 22.75,
-      "texte": "Thé et kinkéliba."
+      "texte": "Thé et kinkéliba !"
     },
     {
       "t": 25.05,
-      "texte": "Et tous les produits locaux."
+      "texte": "Et tous les produits du terroir !"
     },
     {
       "t": 27.45,
-      "texte": "Vos colis, du Burkina vers le monde entier."
+      "texte": "Vos colis, du Burkina vers le monde entier !"
     },
     {
       "t": 30.95,
-      "texte": "Payez par Mobile Money ou carte bancaire."
+      "texte": "Payez par Mobile Money ou par carte !"
     },
     {
       "t": 35.5,
-      "texte": "Artisans, vendez vos créations dans le monde entier."
+      "texte": "Artisans, vendez vos créations partout dans le monde !"
     },
     {
       "t": 39.1,
-      "texte": "Tondraaga. Disponible sur le site et en application."
+      "texte": "Tondraaga ! Sur le site, et sur l'application !"
     }
   ]
 }

@@ -12,7 +12,6 @@ on:
       - 'tondraaga-app/audit/*.html'
       - 'tondraaga-app/audit/traitement.sh'
       - 'tondraaga-video/voix/elevenlabs.json'
-      - 'tondraaga-video/voix/chatterbox.json'
       - '.github/workflows/tondraaga-audit.yml'
   workflow_dispatch:
 
