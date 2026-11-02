@@ -268,6 +268,52 @@ html, body { margin: 0; background: #000; }
 .ombre-sol { position: absolute; width: 200px; height: 42px; margin: -21px 0 0 -100px; border-radius: 50%; background: radial-gradient(ellipse, rgba(0,0,0,.55), rgba(0,0,0,0) 70%); }
 #sol7 { left: -100px; right: -100px; top: 1520px; height: 500px; background: radial-gradient(ellipse at 50% 0%, rgba(245,184,61,.16), rgba(245,184,61,0) 60%); }
 
+
+/* tutoriel : téléphone qui montre les vraies pages du site, étape par étape */
+.tuto { background: var(--nuit); }
+.tuto .photo { filter: blur(14px) saturate(1.1) brightness(.8); }
+.tuto .voile { background: linear-gradient(180deg, rgba(22,13,9,.86) 0%, rgba(22,13,9,.62) 40%, rgba(22,13,9,.9) 100%); }
+.tu-tete { left: 60px; right: 60px; top: 120px; height: 440px; }
+.tu-etape { position: absolute; left: 0; right: 0; top: 104px; display: flex; gap: 30px; align-items: flex-start; }
+.tu-num { flex: none; width: 104px; height: 104px; border-radius: 50%; background: var(--ocre); color: #fff; font-weight: 800; font-size: 58px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 8px rgba(245,184,61,.25), 0 18px 40px rgba(0,0,0,.4); }
+.tu-titre { margin: 0; font-weight: 800; font-size: 68px; line-height: 1.04; color: var(--creme); }
+.tu-sous { margin: 14px 0 0; font-weight: 600; font-size: 34px; line-height: 1.3; color: var(--pale); }
+.tu-tel { left: 270px; top: 600px; width: 540px; height: 1116px; }
+.tu-tel .corps { position: absolute; inset: 0; border-radius: 70px; background: linear-gradient(135deg, #a3a3a8 0%, #3a3a3e 22%, #77777c 48%, #252527 72%, #9a9aa0 100%); box-shadow: 0 70px 140px rgba(0,0,0,.65); }
+.tu-tel .corps::after { content: ''; position: absolute; inset: 3px; border-radius: 67px; background: #050506; }
+.tu-ecran { position: absolute; left: 12.5px; top: 44px; width: 515px; height: 1029px; overflow: hidden; background: #F4EEE6; border-radius: 0 0 54px 54px; }
+.tu-haut { position: absolute; left: 12.5px; top: 12.5px; width: 515px; height: 32px; border-radius: 54px 54px 0 0; background: #4D3529; }
+.tu-haut i { position: absolute; left: 50%; top: 7px; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #34404f 0%, #07080a 62%); }
+.tu-pages { position: absolute; inset: 0; transform-origin: 0 0; }
+.tu-pages img { position: absolute; left: 0; top: 0; width: 515px; height: 1029px; box-shadow: -14px 0 34px rgba(0,0,0,.3); }
+.tu-cadre { position: absolute; z-index: 5; border: 6px solid var(--or); border-radius: 26px; box-shadow: 0 0 0 9999px rgba(22,13,9,.38), 0 0 30px rgba(245,184,61,.85), inset 0 0 22px rgba(245,184,61,.35); pointer-events: none; }
+.tu-doigt { position: absolute; z-index: 6; width: 74px; height: 74px; margin: -37px 0 0 -37px; border-radius: 50%; background: rgba(255,255,255,.55); box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+.tu-doigt::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 5px solid rgba(255,255,255,.9); transform: scale(var(--onde, 1)); opacity: var(--onde-o, 0); }
+.tu-points { left: 0; right: 0; top: 1850px; display: flex; justify-content: center; gap: 18px; }
+.tu-points i { display: block; width: 20px; height: 20px; border-radius: 10px; background: rgba(251,248,244,.3); }
+.tu-paiement { left: 0; right: 0; top: 1728px; display: flex; justify-content: center; gap: 30px; }
+.tu-paiement span { display: inline-flex; align-items: center; gap: 16px; font-weight: 800; font-size: 34px; color: var(--nuit); background: var(--creme); padding: 14px 28px 14px 16px; border-radius: 999px; box-shadow: 0 24px 50px rgba(0,0,0,.45); }
+.tu-paiement img { width: 64px; height: 64px; border-radius: 16px; object-fit: contain; background: #fff; }
+
+/* économie nationale */
+#eco { background: radial-gradient(ellipse at 50% 55%, #5A3A22 0%, #2E1C12 55%, var(--nuit) 90%); }
+#eco .photo { opacity: .22; filter: blur(5px) saturate(1.2); }
+#titre-eco { left: 60px; right: 60px; top: 130px; }
+#titre-eco .titre { font-size: 74px; color: var(--creme); margin-top: 26px; }
+#eco-roue { left: 540px; top: 1060px; width: 0; height: 0; }
+#eco-lignes { position: absolute; left: -540px; top: -540px; width: 1080px; height: 1080px; overflow: visible; }
+#eco-centre { position: absolute; left: -170px; top: -170px; width: 340px; height: 340px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 12px rgba(245,184,61,.35), 0 40px 90px rgba(0,0,0,.6); }
+#eco-centre .rouge { position: absolute; left: 0; right: 0; top: 0; height: 50%; background: var(--rouge); }
+#eco-centre .vert { position: absolute; left: 0; right: 0; bottom: 0; height: 50%; background: var(--vert); }
+#eco-centre svg { position: absolute; left: 50%; top: 50%; width: 150px; height: 150px; margin: -75px 0 0 -75px; }
+.eco-noeud { position: absolute; width: 260px; margin-left: -130px; text-align: center; }
+.eco-noeud .ico { width: 150px; height: 150px; margin: 0 auto 16px; border-radius: 42px; background: var(--creme); display: flex; align-items: center; justify-content: center; box-shadow: 0 26px 50px rgba(0,0,0,.45); }
+.eco-noeud .ico svg { width: 90px; height: 90px; }
+.eco-noeud b { display: inline-block; font-weight: 800; font-size: 34px; color: var(--creme); background: rgba(22,13,9,.55); padding: 6px 18px; border-radius: 999px; }
+.eco-piece { position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #FFE7A8, var(--or) 55%, #B9821F); box-shadow: 0 6px 14px rgba(0,0,0,.4); font-weight: 800; font-size: 20px; color: #6B4510; display: flex; align-items: center; justify-content: center; }
+#eco-bas { left: 70px; right: 70px; top: 1640px; text-align: center; }
+#eco-bas p { display: inline-block; font-weight: 700; font-size: 40px; line-height: 1.3; color: var(--nuit); background: var(--or); padding: 22px 36px; border-radius: 34px; box-shadow: 0 30px 60px rgba(0,0,0,.45); }
+
 /* S9 fin */
 #s9 { background: radial-gradient(circle at 50% 44%, #FFFFFF 0%, var(--creme) 40%, #F1E3CF 100%); color: var(--nuit); }
 #badge9 { left: 0; right: 0; top: 500px; text-align: center; }
@@ -460,6 +506,36 @@ html, body { margin: 0; background: #000; }
     <div class="abs" id="dispo7"><p>Disponible sur le site et en application</p><img src="assets/google-play-fr.png" alt="Disponible sur Google Play"></div>
   </div>
 
+
+  <!-- tu1 : tutoriel « Faire les courses de vos proches » (téléphone avec les vraies pages du site) -->
+  <div class="scene tuto" id="tu1">
+    <div class="photo" style="background-image:url(assets/photos/courses.jpg)"></div>
+    <div class="voile"></div>
+    <div class="abs tu-tete"><span class="sur" id="tu1-sur">Faire les courses de vos proches</span><div class="tu-etape" id="tu1-e0"><span class="tu-num">1</span><div><h2 class="tu-titre"></h2><p class="tu-sous"></p></div></div><div class="tu-etape" id="tu1-e1"><span class="tu-num">2</span><div><h2 class="tu-titre"></h2><p class="tu-sous"></p></div></div><div class="tu-etape" id="tu1-e2"><span class="tu-num">3</span><div><h2 class="tu-titre"></h2><p class="tu-sous"></p></div></div></div>
+    <div class="abs tu-tel" id="tu1-tel"><div class="corps"></div><div class="tu-haut"><i></i></div><div class="tu-ecran"><div class="tu-pages" id="tu1-pages"></div><div class="tu-cadre" id="tu1-cadre"></div><div class="tu-doigt" id="tu1-doigt"></div></div></div>
+    
+    <div class="abs tu-points" id="tu1-points"><i></i><i></i><i></i></div>
+  </div>
+
+  <!-- tu2 : tutoriel « Devenir vendeur » (téléphone avec les vraies pages du site) -->
+  <div class="scene tuto" id="tu2">
+    <div class="photo" style="background-image:url(assets/photos/artisan.jpg)"></div>
+    <div class="voile"></div>
+    <div class="abs tu-tete"><span class="sur" id="tu2-sur">Devenir vendeur</span><div class="tu-etape" id="tu2-e0"><span class="tu-num">1</span><div><h2 class="tu-titre"></h2><p class="tu-sous"></p></div></div><div class="tu-etape" id="tu2-e1"><span class="tu-num">2</span><div><h2 class="tu-titre"></h2><p class="tu-sous"></p></div></div><div class="tu-etape" id="tu2-e2"><span class="tu-num">3</span><div><h2 class="tu-titre"></h2><p class="tu-sous"></p></div></div><div class="tu-etape" id="tu2-e3"><span class="tu-num">4</span><div><h2 class="tu-titre"></h2><p class="tu-sous"></p></div></div></div>
+    <div class="abs tu-tel" id="tu2-tel"><div class="corps"></div><div class="tu-haut"><i></i></div><div class="tu-ecran"><div class="tu-pages" id="tu2-pages"></div><div class="tu-cadre" id="tu2-cadre"></div><div class="tu-doigt" id="tu2-doigt"></div></div></div>
+    <div class="abs tu-paiement" id="tu2-pay"><span><img src="assets/orange-money.svg" alt="">Orange Money</span><span><img src="assets/wave.png" alt="">Wave</span></div>
+    <div class="abs tu-points" id="tu2-points"><i></i><i></i><i></i><i></i></div>
+  </div>
+
+  <!-- eco : utiliser Tondraaga, c'est soutenir l'économie nationale -->
+  <div class="scene" id="eco">
+    <div class="photo" style="background-image:url(assets/photos/marche.jpg)"></div>
+    <div class="abs" id="titre-eco"><span class="sur" id="sur-eco">Fierté locale</span><h1 class="titre" id="t-eco"></h1></div>
+    <div class="abs" id="eco-roue"><svg id="eco-lignes" viewBox="-540 -540 1080 1080"><line id="eco-l0" x1="0" y1="0" x2="-300" y2="-375" stroke="rgba(245,184,61,.55)" stroke-width="6" stroke-dasharray="14 14"/><line id="eco-l1" x1="0" y1="0" x2="300" y2="-375" stroke="rgba(245,184,61,.55)" stroke-width="6" stroke-dasharray="14 14"/><line id="eco-l2" x1="0" y1="0" x2="-300" y2="345" stroke="rgba(245,184,61,.55)" stroke-width="6" stroke-dasharray="14 14"/><line id="eco-l3" x1="0" y1="0" x2="300" y2="345" stroke="rgba(245,184,61,.55)" stroke-width="6" stroke-dasharray="14 14"/></svg>
+      <div id="eco-centre"><div class="rouge"></div><div class="vert"></div><svg viewBox="0 0 24 24"><path fill="#FCD116" d="M12 2.5l2.6 6.9h7.3l-5.9 4.4 2.3 7.1L12 16.6l-6.3 4.3 2.3-7.1-5.9-4.4h7.3z"/></svg></div><div class="eco-noeud" id="eco-n0" style="left:-300px;top:-470px"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C87817" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4.5l5 5-9.5 9.5H5v-5z"/><path d="M12.5 6.5l5 5"/></svg></div><b>Artisans</b></div><div class="eco-noeud" id="eco-n1" style="left:300px;top:-470px"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C87817" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 11c0-3 2-5 5-5 0 3-2 5-5 5zM12 17c-3 0-5-2-5-5 3 0 5 2 5 5zM12 15c0-3 2-5 5-5 0 3-2 5-5 5z"/></svg></div><b>Producteurs</b></div><div class="eco-noeud" id="eco-n2" style="left:-300px;top:250px"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C87817" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5M10.5 19c.6-3 2.8-5 5.5-5s4.9 2 5.5 5"/></svg></div><b>Coopératives</b></div><div class="eco-noeud" id="eco-n3" style="left:300px;top:250px"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#C87817" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M8.5 17h6l3-6h-4l-2-3H9M14 8h3l1.5 3M5.5 14l2-4h4"/></svg></div><b>Livreurs</b></div><div class="eco-piece" id="eco-p0">F</div><div class="eco-piece" id="eco-p1">F</div><div class="eco-piece" id="eco-p2">F</div><div class="eco-piece" id="eco-p3">F</div><div class="eco-piece" id="eco-p4">F</div><div class="eco-piece" id="eco-p5">F</div><div class="eco-piece" id="eco-p6">F</div><div class="eco-piece" id="eco-p7">F</div><div class="eco-piece" id="eco-p8">F</div><div class="eco-piece" id="eco-p9">F</div><div class="eco-piece" id="eco-p10">F</div><div class="eco-piece" id="eco-p11">F</div></div>
+    <div class="abs" id="eco-bas"><p>Chaque vente rémunère directement un acteur économique burkinabè.</p></div>
+  </div>
+
   <!-- S8 : vendeurs -->
   <div class="scene" id="s8">
     <div class="abs" id="photo8" style="background-image:url(assets/photos/artisan.jpg)"></div>
@@ -492,6 +568,7 @@ html, body { margin: 0; background: #000; }
 </div>
 <script src="assets/monde.js"></script>
 <script src="assets/temps-long.js"></script>
+<script src="assets/plan-tuto.js"></script>
 <script src="assets/logo-pieces.js"></script>
 <script src="intro.js"></script>
 <script src="long.js"></script>

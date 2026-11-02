@@ -8,6 +8,7 @@ Les percussions ne sont pas accordées, elles ne heurtent pas la justesse nature
 Usage : python3 tools/make_audio_court.py <cues.json> <flute.wav> <mix.wav> [durée]
 """
 import json
+import math
 import subprocess
 import sys
 import wave
@@ -65,7 +66,15 @@ for c in range(2):
     fl[:, c] = x
 fl /= np.max(np.abs(fl))
 fl *= np.clip((44.3 - np.arange(len(fl)) / SR) / 1.2, 0, 1)[:, None]   # la dernière note s'éteint doucement
-flute = np.zeros((N, 2)); flute[: min(N, len(fl))] = fl[:N]
+flute = np.zeros((N, 2))
+# au-delà de 44 s (tutoriel), la flûte est reprise depuis le début, chaque reprise sur un début de mesure
+debut_reprise = 0.0
+while debut_reprise < DUR:
+    i0 = int(debut_reprise * SR); n = min(len(fl), N - i0)
+    entree = np.clip(np.arange(n) / SR / .8, 0, 1)[:, None] if debut_reprise > 0 else 1
+    flute[i0:i0 + n] += fl[:n] * entree
+    suivant = debut_reprise + 44.0
+    debut_reprise = T0 + math.ceil((suivant - T0) / (4 * BEAT)) * 4 * BEAT if DUR > 46 else DUR
 flute = reverb(flute, 2.2, .16)
 
 # ---------------------------------------------------------------- percussions
@@ -100,7 +109,7 @@ nb_mesures = int((DUR - T0) / mesure) + 1
 def intensite(m):
     t = T0 + m * mesure
     if t < 6.4: return .35 + .3 * (t / 6.4)
-    if 27.0 <= t < 29.5: return .6
+    if DUR <= 46 and 27.0 <= t < 29.5: return .6
     return 1.0
 for m in range(-1, nb_mesures):
     base = T0 + m * mesure

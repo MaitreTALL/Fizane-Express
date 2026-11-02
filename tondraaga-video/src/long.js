@@ -1,7 +1,9 @@
-// Tondraaga — moteur des vidéos (version longue sur le balafon, version courte « ?plan=court » sur la flûte).
+// Tondraaga — moteur des vidéos (version longue sur le balafon, version courte « ?plan=court » sur la flûte,
+// tutoriel « ?plan=tuto » sur la flûte : comment utiliser la plateforme, plan calculé depuis la voix off).
 (function () {
-  const MODE = new URLSearchParams(location.search).get('plan') === 'court' ? 'court' : 'long';
-  const W = 1080, H = 1920, FPS = 30, DUREE = MODE === 'court' ? 44 : 84.6;
+  const PARAM = new URLSearchParams(location.search).get('plan');
+  const MODE = PARAM === 'court' ? 'court' : PARAM === 'tuto' ? 'tuto' : 'long';
+  const W = 1080, H = 1920, FPS = 30, DUREE = MODE === 'court' ? 44 : MODE === 'tuto' ? window.PLAN_TUTO.duree : 84.6;
   window.__fps = FPS; window.__duration = DUREE;
   const $ = (id) => document.getElementById(id);
   const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
@@ -39,7 +41,7 @@
 
   // ---------------------------------------------------------------- calage sur la musique
   // version longue : battements détectés dans le balafon ; version courte : grille de percussions à 104 bpm sous la flûte
-  const BT = MODE === 'court' ? Array.from({ length: 96 }, (_, i) => +(0.70 + (i - 1) * 60 / 104).toFixed(4)) : window.BATTEMENTS;
+  const BT = MODE !== 'long' ? Array.from({ length: Math.ceil((DUREE + 3) * 104 / 60) + 4 }, (_, i) => +(0.70 + (i - 1) * 60 / 104).toFixed(4)) : window.BATTEMENTS;
   const M = BT.filter((_, i) => i % 4 === 1);           // débuts de mesure
   const Mf = (k) => { const i = Math.floor(k), f = k - i; return f ? M[i] + f * (M[i + 1] - M[i]) : M[i]; };
   const bt = (t, n = 0) => { let i = BT.findIndex((b) => b >= t - .03); if (i < 0) i = BT.length - 1; return BT[Math.min(i + n, BT.length - 1)]; };
@@ -53,10 +55,11 @@
       ['tr1', 5.5, 6.5, 'zoom', 'droite'], ['tr2', 6.5, 7.5, 'droite', 'haut'], ['tr3', 7.5, 8.5, 'haut', 'droite'], ['tr4', 8.5, 9.5, 'droite', 'zoom'], ['tr5', 9.5, 10.5, 'zoom', 'haut'], ['tr6', 10.5, 11.5, 'haut', 'zoom'],
       ['s6a', 11.5, 13, 'zoom', 'droite'], ['s7', 13, 15, 'droite', 'zoom'], ['s8', 15, 16.5, 'zoom', 'cercle'], ['s9', 16.5, null, 'cercle', '']],
   };
+  PLANS.tuto = (window.PLAN_TUTO || {}).scenes;
   const PLAN = PLANS[MODE];
   const SC = Object.fromEntries(PLAN.map(([id, d, f]) => [id, [Mf(d), f === null ? DUREE : Mf(f)]]));
   const TRANS = Object.fromEntries(PLAN.map(([id, , , te, ts]) => [id, [te, ts]]));
-  ['s1', 's2', 's3', 's4a', 's4b', 's4c', 's4d', 's5a', 's5b', 'tr1', 'tr2', 'tr3', 'tr4', 'tr5', 'tr6', 's6a', 's6b', 's7', 's8', 's9'].forEach((id) => { if (!SC[id]) $(id).style.display = 'none'; });
+  ['s1', 's2', 's3', 's4a', 's4b', 's4c', 's4d', 's5a', 's5b', 'tr1', 'tr2', 'tr3', 'tr4', 'tr5', 'tr6', 's6a', 's6b', 's7', 's8', 's9', 'tu1', 'tu2', 'eco'].forEach((id) => { if (!SC[id]) $(id).style.display = 'none'; });
   // transitions d'entrée / de sortie communes
   function scene(id, t) {
     if (!SC[id]) return false;
@@ -241,8 +244,8 @@
     return { dessiner, ctx };
   }
   const carte2 = Carte($('carte2')), carte6 = Carte($('carte6'));
-  if (MODE === 'court') $('credit9').style.display = 'none';   // la flûte est jouée par l'auteur de Tondraaga : pas de crédit
-  const INTRO = MODE === 'court'
+  if (MODE !== 'long') $('credit9').style.display = 'none';   // la flûte est jouée par l'auteur de Tondraaga : pas de crédit
+  const INTRO = MODE !== 'long'
     ? { impact: M[0], marche: [M[0], 2.1], xDepart: 1330, accroupi: [2.1, 2.58], morph: [2.62, 2.95], zoom: [2.9, 3.85],
       lettres: 2.98, lettresPas: .05, bandes: 3.05, slogan: 3.55, sloganPas: .018, eclat: 4.0, tampon: M[2] }
     : { impact: M[0], marche: [M[0], 2.25], xDepart: 1385, accroupi: [2.25, 2.75], morph: [2.75, 3.05], zoom: [3.0, 4.15],
@@ -538,6 +541,143 @@
     });
   }
 
+
+  // ---------------------------------------------------------------- tutoriel : téléphone avec les vraies pages du site
+  // rectangles et points en pixels de la capture (1080 × 2157) ; fractions de la durée de l'étape
+  const TUTO = {
+    tu1: [
+      { titre: 'Choisissez', sous: 'Votre pays, puis les produits ou un panier tout prêt.',
+        ecrans: [['courses-etapes', 0], ['courses-paniers', .5]],
+        cadres: [[.14, .47, [38, 1588, 983, 321]], [.62, 1.02, [45, 616, 758, 1344]]], taps: [[.32, 300, 1752], [.86, 278, 1882]] },
+      { titre: 'Indiquez votre proche', sous: 'Nom, téléphone burkinabè, quartier et repère.',
+        ecrans: [['comment-courses', 0]], cadres: [[.12, 1.02, [560, 632, 476, 632]]], zoom: [.14, 798, 948, 1.3] },
+      { titre: 'Payez en sécurité', sous: 'Le total, frais compris, est affiché avant de payer.',
+        ecrans: [['comment-courses', 0]], cadres: [[.1, 1.02, [45, 1302, 480, 635]]], zoom: [.12, 285, 1620, 1.3] },
+    ],
+    tu2: [
+      { titre: 'Ouvrez votre boutique', sous: 'Artisans, producteurs, coopératives : 0 FCFA pour ouvrir.',
+        ecrans: [['vendeur-1', 0]], cadres: [[.35, 1.02, [42, 1776, 1020, 190]]], zoom: [.3, 540, 1870, 1.18] },
+      { titre: 'Deux formules', sous: 'Sans abonnement : 15 % de commission. Abonnement annuel (15 000 FCFA) : 8 %.',
+        ecrans: [['vendeur-2', 0]], cadres: [[.1, .5, [97, 486, 972, 655]], [.54, 1.02, [97, 1199, 972, 762]]] },
+      { titre: 'Inscription et validation', sous: 'Deux minutes pour vous inscrire ; l’équipe valide votre boutique, puis vos produits.',
+        ecrans: [['vendeur-4', 0], ['vendeur-3', .46]],
+        cadres: [[.1, .42, [104, 1180, 959, 640]], [.52, .76, [603, 0, 467, 648]], [.76, 1.02, [45, 697, 525, 600]]], taps: [[.24, 160, 1335]] },
+      { titre: 'Vendez partout', sous: 'Vous préparez les commandes ; vos gains vous sont reversés.',
+        ecrans: [['vendeur-3', 0]], cadres: [[.1, 1.02, [603, 697, 467, 600]]], zoom: [.12, 836, 997, 1.3], paiement: .42 },
+    ],
+  };
+  const KECR = 515 / 1080;
+  const tutos = {};
+  for (const id of ['tu1', 'tu2']) {
+    if (!SC[id]) continue;
+    const [a, b] = SC[id], et = (window.PLAN_TUTO.etapes[id] || [0]).map((x) => a + x), data = TUTO[id];
+    const bornes = data.map((_, k) => [et[k], k + 1 < data.length ? et[k + 1] : b]);
+    const pages = $(id + '-pages'), cadre = $(id + '-cadre'), doigt = $(id + '-doigt');
+    pages.appendChild(cadre); pages.appendChild(doigt);              // ils suivent le zoom de la page
+    const evts = [];
+    data.forEach((e, k) => {
+      const [d, f] = bornes[k];
+      $(`${id}-e${k}`).querySelector('.tu-titre').textContent = e.titre;
+      $(`${id}-e${k}`).querySelector('.tu-sous').textContent = e.sous;
+      for (const [nom, fr] of e.ecrans) {
+        if (evts.length && evts[evts.length - 1].nom === nom) continue;
+        const img = document.createElement('img'); img.src = `assets/tuto/${nom}.jpg`; img.alt = ''; pages.insertBefore(img, cadre);
+        evts.push({ nom, t: d + fr * (f - d), img });
+      }
+    });
+    tutos[id] = { a, b, data, bornes, evts, cadre, doigt, pages };
+  }
+  function tuto(id, t) {
+    const T = tutos[id]; if (!T) return;
+    const { a, b, data, bornes, evts, cadre, doigt, pages } = T;
+    const kin = E.out3(p(t, a, a + .8));
+    set(id + '-tel', { y: lerp(900, 0, kin) + Math.sin((t - a) * 1.1) * 7, rz: Math.sin((t - a) * .8) * 1.1, o: 1 });
+    const ks = pop(t, a + .1, .4); set(id + '-sur', { s: ks, o: clamp(ks) });
+    let k = bornes.findIndex(([d, f]) => t < f); if (k < 0) k = bornes.length - 1;
+    data.forEach((e, j) => {
+      const [d, f] = bornes[j], ke = E.out3(p(t, d + .05, d + .45)), ks2 = E.in3(p(t, f - .25, f));
+      const vis = j === k ? ke * (j + 1 < data.length ? 1 - ks2 : 1) : 0;
+      set(`${id}-e${j}`, { y: lerp(40, 0, ke) - 30 * ks2, o: vis, blur: lerp(10, 0, ke) });
+    });
+    // écrans : le nouveau glisse depuis la droite, la page « défile » légèrement en arrivant
+    let i = 0; evts.forEach((ev, n) => { if (t >= ev.t) i = n; });
+    evts.forEach((ev, n) => {
+      const kk = E.inout3(p(t, ev.t, ev.t + .45));
+      if (n === i) { ev.img.style.display = 'block'; ev.img.style.transform = `translate(${(n ? (1 - kk) * 515 : 0).toFixed(1)}px, ${((1 - E.out3(p(t, ev.t, ev.t + .9))) * 50).toFixed(1)}px)`; ev.img.style.filter = ''; ev.img.style.zIndex = 2; }
+      else if (n === i - 1 && t < evts[i].t + .45) { const kp = E.inout3(p(t, evts[i].t, evts[i].t + .45)); ev.img.style.display = 'block'; ev.img.style.transform = `translateX(${(-kp * 150).toFixed(1)}px)`; ev.img.style.filter = `brightness(${(1 - .4 * kp).toFixed(3)})`; ev.img.style.zIndex = 1; }
+      else ev.img.style.display = 'none';
+    });
+    // zoom vers la zone expliquée
+    const e = data[k], [d, f] = bornes[k], dur = f - d;
+    if (e.zoom) {
+      const [fz, zx, zy, zs] = e.zoom, up = E.inout3(p(t, d + fz * dur, d + fz * dur + .8)), down = k + 1 < data.length ? E.inout3(p(t, f - .45, f)) : 0;
+      // la zone expliquée vient au centre de l'écran (sans laisser voir le bord de la page)
+      const u = up * (1 - down), cx = zx * KECR, cy = zy * KECR, W2 = 515, H2 = 1029;
+      const fx = Math.min(0, Math.max(W2 - W2 * zs, W2 / 2 - zs * cx)), fy = Math.min(0, Math.max(H2 - H2 * zs, lerp(cy, H2 / 2, .5) - zs * cy));
+      pages.style.transformOrigin = '0 0';
+      pages.style.transform = `translate(${(fx * u).toFixed(1)}px, ${(fy * u).toFixed(1)}px) scale(${(1 + (zs - 1) * u).toFixed(4)})`;
+    } else pages.style.transform = '';
+    // cadre lumineux sur la partie de la page dont parle la voix
+    let co = 0;
+    for (const [f0, f1, r] of e.cadres || []) {
+      const ts = d + f0 * dur, te = d + f1 * dur;
+      if (t >= ts && t < te + .01) {
+        co = clamp((t - ts) / .25) * (1 - clamp((t - (te - .2)) / .2) * (f1 > 1 ? 0 : 1));
+        const [x, y, w, h] = r.map((v) => v * KECR), kp = E.out3(p(t, ts, ts + .35));
+        Object.assign(cadre.style, { left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${h}px` });
+        cadre.style.transform = `scale(${lerp(1.1, 1, kp) + (t > ts + .4 ? .012 * Math.sin((t - ts) * 6) : 0)})`;
+      }
+    }
+    cadre.style.opacity = co.toFixed(3);
+    // doigt qui touche l'écran
+    let dop = 0;
+    for (const [ft, x, y] of e.taps || []) {
+      const tt = d + ft * dur;
+      if (t > tt - .45 && t < tt + .6) {
+        const kv = E.out3(p(t, tt - .45, tt)), press = t > tt ? 1 - .15 * Math.sin(Math.min(1, (t - tt) / .25) * Math.PI) : 1;
+        dop = clamp((t - (tt - .45)) / .2) * (1 - clamp((t - (tt + .35)) / .25));
+        doigt.style.left = `${(x * KECR + (1 - kv) * 90).toFixed(1)}px`; doigt.style.top = `${(y * KECR + (1 - kv) * 120).toFixed(1)}px`;
+        doigt.style.transform = `scale(${press})`;
+        doigt.style.setProperty('--onde', (1 + 1.4 * clamp((t - tt) / .5)).toFixed(3)); doigt.style.setProperty('--onde-o', (t > tt ? 1 - clamp((t - tt) / .5) : 0).toFixed(3));
+      }
+    }
+    doigt.style.opacity = dop.toFixed(3);
+    // points de progression
+    $(id + '-points').querySelectorAll('i').forEach((pt, j) => { pt.style.width = j === k ? '56px' : '20px'; pt.style.background = j === k ? 'var(--or)' : j < k ? 'rgba(245,184,61,.55)' : 'rgba(251,248,244,.3)'; });
+    if (id === 'tu2') {
+      $('tu2-pay').querySelectorAll('span').forEach((sp, j) => {
+        if (e.paiement === undefined) { set(sp, { o: 0 }); return; }
+        const kk = pop(t, d + e.paiement * dur + j * .15, .45); set(sp, { s: kk, o: clamp(kk), y: lerp(40, 0, clamp(kk)) });
+      });
+    }
+  }
+
+  // ---------------------------------------------------------------- économie nationale
+  const TECO = mots('t-eco', 'Utiliser Tondraaga, c’est soutenir l’économie nationale');
+  const NOEUDS = [[-300, -470], [300, -470], [-300, 250], [300, 250]];
+  function economie(t) {
+    const [a, b] = SC.eco;
+    const ks = pop(t, a + .05, .4); set('sur-eco', { s: ks, o: clamp(ks) });
+    apparitionMots(TECO, t, a + .15, .06, .4);
+    set(document.querySelector('#eco .photo'), { s: 1.04 + .05 * p(t, a, b) });
+    const kc = E.outBack(p(t, a + .5, a + 1.1)); set('eco-centre', { s: kc, o: clamp(kc * 2), rz: lerp(-25, 0, clamp(kc)) });
+    NOEUDS.forEach(([x, y], i) => {
+      const d = a + 1.0 + i * .22, kn = E.outBack(p(t, d, d + .5));
+      set('eco-n' + i, { s: kn, o: clamp(kn * 2) });
+      const l = $('eco-l' + i); l.style.opacity = clamp((t - d) / .4).toFixed(3); l.style.strokeDashoffset = (-(t - a) * 70).toFixed(1);
+    });
+    // les pièces partent du centre (Burkina) vers chaque acteur économique
+    for (let j = 0; j < 12; j++) {
+      const n = j % 4, [x, y] = NOEUDS[n], ph = ((t - a - 1.9) * .55 + j / 12 * 3) % 1, el = $('eco-p' + j);
+      if (t < a + 1.9 || ph < 0) { el.style.opacity = 0; continue; }
+      const kk = E.inout3(ph);
+      el.style.left = `${(x * kk).toFixed(1)}px`; el.style.top = `${((y + 75) * kk).toFixed(1)}px`;
+      el.style.opacity = (Math.min(1, ph * 6, (1 - ph) * 6) * clamp((t - a - 1.9) / .5)).toFixed(3);
+      el.style.transform = `scale(${(.7 + .5 * Math.sin(ph * Math.PI)).toFixed(3)})`;
+    }
+    const kb = E.out3(p(t, a + 2.4, a + 2.9)); set('eco-bas', { y: lerp(60, 0, kb), o: kb });
+  }
+
   // ---------------------------------------------------------------- sons synchronisés
   const cues = [{ t: 0, type: 'montee', duree: M[0] }, { t: M[0], type: 'impact' }, { t: INTRO.accroupi[0], type: 'souffle', duree: .45 },
     { t: INTRO.morph[0] + .1, type: 'eclat' }, { t: M[1], type: 'tampon' }, { t: INTRO.lettres, type: 'cascade', duree: .6 }, { t: INTRO.bandes, type: 'souffle' },
@@ -766,6 +906,11 @@
       }
     }
 
+    // ---------- tutoriels et économie nationale ----------
+    if (scene('tu1', t)) tuto('tu1', t);
+    if (scene('tu2', t)) tuto('tu2', t);
+    if (scene('eco', t)) economie(t);
+
     // ---------- S9 fin ----------
     {
       const [a] = SC.s9 || [0, 0];
@@ -784,7 +929,7 @@
     }
 
     // ---------- couches globales ----------
-    const clair = (t >= M[0] + .3 && t < SC.s1[1]) || (t >= SC.s4b[0] && t < SC.s4b[1]) || t >= SC.s9[0];
+    const clair = (t >= M[0] + .3 && t < SC.s1[1]) || (SC.s4b && t >= SC.s4b[0] && t < SC.s4b[1]) || t >= SC.s9[0];
     grain(t);
     poussiere(t, t < 3 ? E.out3(p(t, 0, .8)) : clair ? .25 : .35);
     $('poussiere').style.mixBlendMode = clair ? 'multiply' : 'screen';
@@ -813,6 +958,10 @@
     if (S('tr6')) { const [a, b] = SC.tr6, d = b - a; [0, 1, 2, 3, 4, 5].forEach((i) => C(a + (.05 + i * .065) * d, 'pop')); }
     if (S('s6a')) { const [a] = SC.s6a; C(a + .1, 'tampon'); C(a + .85, 'souffle', { duree: .9 }); [1.97, 2.09, 2.21].forEach((d) => C(a + d, 'pop')); }
     if (S('s6b')) { const [a] = SC.s6b; C(a + .6, 'tampon'); C(a + 1.35, 'pop'); [1, 2, 3].forEach((n) => C(bt(a, n), 'glisse')); C(bt(a, 5), 'pop'); }
+    if (S('tu1') || S('tu2')) for (const id of ['tu1', 'tu2']) { const T = tutos[id]; if (!T) continue;
+      T.bornes.forEach(([d, f], k) => { if (k) C(d, 'glisse'); const e = T.data[k], dur = f - d; (e.cadres || []).forEach(([f0]) => C(d + f0 * dur, 'pop')); (e.taps || []).forEach(([ft]) => C(d + ft * dur, 'pop')); });
+      T.evts.forEach((ev, n) => { if (n) C(ev.t, 'souffle', { duree: .35 }); }); }
+    if (S('eco')) { const [a] = SC.eco; C(a + .5, 'impact-doux'); [0, 1, 2, 3].forEach((i) => C(a + 1.0 + i * .22, 'pop')); C(a + 2.4, 'eclat'); }
     if (S('s7')) { const [a, b] = SC.s7; C(a + .5, 'impact-doux'); [0, 1, 2, 3].forEach((i) => C(a + .55 + i * .1, 'pop')); C(bq(a, b, .38), 'glisse'); C(bq(a, b, .72), 'glisse'); C(bq(a, b, .76) + .05, 'eclat'); }
     if (S('s8')) { const [a, b] = SC.s8; C(bq(a, b, .24), 'pop'); C(bq(a, b, .33), 'pop'); C(bq(a, b, .68), 'eclat'); }
     const [a9] = SC.s9; C(a9 + .75, 'glisse'); C(a9 + 1.1, 'pop'); C(DUREE - .6, 'fin');

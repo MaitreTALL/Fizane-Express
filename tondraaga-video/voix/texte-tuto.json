@@ -1,0 +1,85 @@
+{
+  "version": "tutoriel (flûte)",
+  "ton": "présente l'utilisation de la plateforme ; chaque phrase va avec sa scène",
+  "lignes": [
+    {
+      "scene": "s1",
+      "texte": "Tondraaga, c'est la place de marché en ligne du Burkina Faso.",
+      "tts": "Tondraga, c'est la place de marché en ligne du Burkina Faso.",
+      "t": 3.1
+    },
+    {
+      "scene": "s3",
+      "texte": "Trois services, une seule plateforme : la boutique Made in Burkina, les courses pour vos proches, et l'envoi de colis.",
+      "t": 6.82
+    },
+    {
+      "scene": "tu1-1",
+      "texte": "Pour faire les courses de vos proches, choisissez votre pays, puis les produits, ou un panier tout prêt.",
+      "t": 14.9
+    },
+    {
+      "scene": "tu1-2",
+      "texte": "Indiquez votre proche : son nom, son téléphone, et son quartier.",
+      "t": 21.82
+    },
+    {
+      "scene": "tu1-3",
+      "texte": "Payez en sécurité : le total, frais compris, est affiché avant de payer.",
+      "t": 26.43
+    },
+    {
+      "scene": "s4d",
+      "texte": "Notre équipe fait les courses, vous informe à chaque étape, et livre votre proche.",
+      "t": 32.2
+    },
+    {
+      "scene": "s5a",
+      "texte": "Dans la boutique, achetez directement aux artisans : le vendeur est prévenu, et prépare votre commande.",
+      "t": 37.97
+    },
+    {
+      "scene": "s6b",
+      "texte": "Pour envoyer un colis : déclarez-le en ligne, déposez-le en agence, et suivez chaque étape.",
+      "t": 44.9
+    },
+    {
+      "scene": "tu2-1",
+      "texte": "Vous êtes artisan, producteur ou coopérative ? Ouvrez votre boutique sur Tondraaga : c'est gratuit !",
+      "tts": "Vous êtes artisan, producteur ou coopérative ? Ouvrez votre boutique sur Tondraga : c'est gratuit !",
+      "t": 51.82
+    },
+    {
+      "scene": "tu2-2",
+      "texte": "Deux formules : sans abonnement, quinze pour cent de commission ; ou l'abonnement annuel, à huit pour cent.",
+      "t": 58.74
+    },
+    {
+      "scene": "tu2-3",
+      "texte": "Inscrivez-vous en deux minutes ; notre équipe valide votre boutique, puis vous ajoutez vos produits.",
+      "t": 70.28
+    },
+    {
+      "scene": "tu2-4",
+      "texte": "Vous vendez dans le monde entier, et vos gains vous sont reversés par Orange Money ou Wave.",
+      "t": 79.51
+    },
+    {
+      "scene": "eco",
+      "texte": "Utiliser Tondraaga, c'est soutenir l'économie nationale : chaque vente rémunère directement un acteur économique burkinabè.",
+      "tts": "Utiliser Tondraga, c'est soutenir l'économie nationale : chaque vente rémunère directement un acteur économique burkinabè.",
+      "t": 87.59
+    },
+    {
+      "scene": "s7",
+      "texte": "Payez par Mobile Money ou par carte, sur le site ou sur l'application.",
+      "t": 95.67
+    },
+    {
+      "scene": "s9",
+      "texte": "Tondraaga, notre marché, notre fierté ! Disponible sur le site, et sur le Play Store.",
+      "tts": "Tondraga, notre marché, notre fierté ! Disponible sur le site, et sur le Play Store.",
+      "t": 100.28
+    }
+  ]
+}
