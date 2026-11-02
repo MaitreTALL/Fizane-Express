@@ -24,6 +24,15 @@ CONF = json.loads((RACINE / "voix" / "chatterbox.json").read_text())
 REG = {"exaggeration": .65, "cfg_weight": .35, "temperature": .8, **CONF.get("reglages", {})}
 torch.set_num_threads(4)
 
+import perth  # noqa: E402
+
+# le filigrane audio de Chatterbox (perth) ne se charge pas toujours sur le runner : il n'est pas nécessaire ici
+if getattr(perth, "PerthImplicitWatermarker", None) is None:
+    class SansFiligrane:
+        def apply_watermark(self, wav, sample_rate=None, **_):
+            return wav
+    perth.PerthImplicitWatermarker = SansFiligrane
+
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS  # noqa: E402
 
 t0 = time.time()
