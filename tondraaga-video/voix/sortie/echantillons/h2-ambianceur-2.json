@@ -1,0 +1,34 @@
+{
+ "texte": "Payez par Mobile Money ou par carte !",
+ "variante": "h2-ambianceur",
+ "retenue": 1,
+ "prises": [
+  {
+   "prise": 0,
+   "dit": "Payé par Mobile Money ou par carte.  Il soit zéager, bassiste, marge, je veux d'ici et tabac au maître commis.",
+   "wer": 2.143,
+   "intonation": 4.18,
+   "contraste": 12.1,
+   "duree": 8.56,
+   "score": 14.4
+  },
+  {
+   "prise": 1,
+   "dit": "Payez par Mobile Money ou par carte.",
+   "wer": 0.0,
+   "intonation": 4.81,
+   "contraste": 13.4,
+   "duree": 2.44,
+   "score": -1.95
+  },
+  {
+   "prise": 2,
+   "dit": "Payez par mobile monnaie ou par carte.",
+   "wer": 0.143,
+   "intonation": 3.58,
+   "contraste": 12.9,
+   "duree": 2.48,
+   "score": -0.654
+  }
+ ]
+}
