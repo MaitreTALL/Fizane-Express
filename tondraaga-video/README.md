@@ -55,12 +55,30 @@ lisibles par-dessus l'écran. Mastercard est retiré.
 
 ## Envoi d'un colis (version longue)
 
-Le colis tombe sur la balance de l'agence : le plateau s'enfonce, l'écran compte le poids jusqu'à 2,40 kg ; à l'étape 2 la
+Les trois étapes ont la même hauteur et le même espacement. Le colis tombe sur la balance de l'agence : le plateau s'enfonce, l'écran compte le poids jusqu'à 2,40 kg ; à l'étape 2 la
 fiche d'envoi Tondraaga (OUAGA → PARIS, code-barres, code de suivi) se colle sur le carton, tamponné « Made in Burkina Faso ».
 
 ## Voix off
 
-VOIX_PLACEHOLDER
+Textes minutés phrase par phrase : `voix/texte-long.json` et `voix/texte-court.json` (champ `tts` : graphie donnée à la
+synthèse pour bien prononcer « Fasso Dan Fani », « Koko Dounda »).
+
+- **ElevenLabs** (voix retenue) : `tools/elevenlabs.py`, lancé par le runner GitHub (étape « Optional processing » du
+  workflow `tondraaga-audit.yml`) avec le secret de dépôt `ELEVENLABS_API_KEY`. Réglé par `voix/elevenlabs.json` :
+  `"etape": "echantillons"` cherche des voix françaises à accent africain dans la Voice Library et lit `voix/echantillon.json`
+  avec 3 voix d'homme et 3 voix de femme ; `"etape": "complet", "voix": "<id>"` lit toutes les phrases des deux vidéos.
+  Les fichiers arrivent dans `tondraaga-app/audit/out/voix-el/`.
+- Placement et traitement : `tools/voix_place.py` (accélère au plus de 12 % une phrase qui déborde, coupe-bas, chaleur,
+  présence, compression douce), puis les mixeurs baissent la musique de 8 à 9 dB sous la voix (`VOIX=… python3 tools/make_audio_*.py`).
+- Premier essai écarté (trop robotique) : synthèse Piper + conversion de timbre kNN-VC vers des voix du corpus « African
+  Accented French » (OpenSLR 57, Apache 2.0), `tools/voix_off.py` ; échantillons dans `voix/echantillons/`.
+
+```bash
+python3 tools/voix_place.py voix/texte-long.json ../tondraaga-app/audit/out/voix-el/long audio/voix-long.wav 84.6
+VOIX=audio/voix-long.wav python3 tools/make_audio_long.py out/cues-long.json audio/mix-long.wav 84.6 audio/balafon-long.wav
+python3 tools/voix_place.py voix/texte-court.json ../tondraaga-app/audit/out/voix-el/court audio/voix-court.wav 44
+VOIX=audio/voix-court.wav python3 tools/make_audio_court.py out/cues-court.json audio/flute.wav audio/mix-court.wav 44
+```
 
 ## Entrée du logo (les deux vidéos)
 
