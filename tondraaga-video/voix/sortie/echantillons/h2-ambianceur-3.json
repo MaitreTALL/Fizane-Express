@@ -1,0 +1,34 @@
+{
+ "texte": "Tondraaga ! Sur le site, et sur l'application !",
+ "variante": "h2-ambianceur",
+ "retenue": 1,
+ "prises": [
+  {
+   "prise": 0,
+   "dit": "Tondraaga sur le site et sur l'application.",
+   "wer": 0.0,
+   "intonation": 4.42,
+   "contraste": 12.7,
+   "duree": 3.48,
+   "score": -1.802
+  },
+  {
+   "prise": 1,
+   "dit": "Tondraaga sur le site et sur l'application.",
+   "wer": 0.0,
+   "intonation": 5.16,
+   "contraste": 15.0,
+   "duree": 4.04,
+   "score": -2.107
+  },
+  {
+   "prise": 2,
+   "dit": "Tondraga sur le site et sur l'application.",
+   "wer": 0.125,
+   "intonation": 5.66,
+   "contraste": 15.1,
+   "duree": 4.2,
+   "score": -1.535
+  }
+ ]
+}
