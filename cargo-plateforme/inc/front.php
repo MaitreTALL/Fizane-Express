@@ -140,9 +140,11 @@ function cp_rest_declarer( WP_REST_Request $q ) {
 	if ( $n >= 8 ) {
 		return new WP_Error( 'trop', 'Trop de déclarations en peu de temps. Réessayez dans une heure ou écrivez-nous sur WhatsApp.', array( 'status' => 429 ) );
 	}
-	$client = array_map( 'sanitize_text_field', (array) $q->get_param( 'client' ) );
-	$client['email'] = sanitize_email( $client['email'] ?? '' );
-	$dest = array_map( 'sanitize_text_field', (array) $q->get_param( 'destinataire' ) );
+	$client = wp_parse_args( array_map( 'sanitize_text_field', (array) $q->get_param( 'client' ) ), array( 'nom' => '', 'telephone' => '', 'email' => '', 'ville' => '', 'pays' => '', 'adresse' => '', 'fournisseur' => '' ) );
+	$client = array_intersect_key( $client, array_flip( array( 'nom', 'telephone', 'email', 'ville', 'pays', 'adresse', 'fournisseur' ) ) );
+	$client['email'] = sanitize_email( $client['email'] );
+	$dest = wp_parse_args( array_map( 'sanitize_text_field', (array) $q->get_param( 'destinataire' ) ), array( 'nom' => '', 'telephone' => '', 'ville' => '', 'quartier' => '', 'adresse' => '', 'agence' => '' ) );
+	$dest = array_intersect_key( $dest, array_flip( array( 'nom', 'telephone', 'ville', 'quartier', 'adresse', 'agence' ) ) );
 	$mode = sanitize_key( (string) $q->get_param( 'mode' ) );
 	$erreurs = array();
 	if ( empty( $client['nom'] ) ) { $erreurs[] = 'votre nom'; }
@@ -208,7 +210,7 @@ add_shortcode( 'cargo_tarifs', function () {
 	foreach ( cp_modes_actifs() as $m ) {
 		$h .= '<div class="cp-mode"><div class="cp-mode-ico">' . cp_icone_mode( $m ) . '</div><h3>' . esc_html( $m['nom'] ) . '</h3>'
 			. ( ! empty( $m['description'] ) ? '<p class="cp-mode-desc">' . esc_html( $m['description'] ) . '</p>' : '' )
-			. '<p class="cp-mode-prix">' . esc_html( cp_prix( $m['prix'] ) ) . '<small> / ' . ( 'm3' === $m['unite'] ? 'm³' : 'kg' ) . '</small></p>'
+			. '<p class="cp-mode-prix">' . esc_html( cp_prix( $m['prix'] ) ) . '<small>par ' . ( 'm3' === $m['unite'] ? 'm³ (CBM)' : 'kilo' ) . '</small></p>'
 			. ( ! empty( $m['prix_alt'] ) ? '<p class="cp-mode-alt">' . esc_html( ( $m['prix_alt_libelle'] ?: 'Autre tarif' ) . ' : ' . cp_prix( $m['prix_alt'] ) ) . '</p>' : '' )
 			. '<p class="cp-mode-delai">' . esc_html( cp_delai_texte( $m ) ) . '</p></div>';
 	}
@@ -285,11 +287,14 @@ add_shortcode( 'cargo_declarer', function () {
 				<label>Téléphone / WhatsApp *<input name="client[telephone]" type="tel" required></label>
 				<label>E-mail * <small>(pour recevoir la fiche)</small><input name="client[email]" type="email" required value="<?php echo esc_attr( $u->exists() ? $u->user_email : '' ); ?>"></label>
 				<label>Ville<input name="client[ville]"></label>
+				<label>Adresse<input name="client[adresse]"></label>
+				<label>Fournisseur / site d'achat <small>(facultatif)</small><input name="client[fournisseur]" placeholder="ex. Alibaba, 1688, nom du magasin…"></label>
 			</div></fieldset>
 			<fieldset><legend>3. Destinataire au <?php echo esc_html( cp_r( 'destination.pays' ) ); ?> <small>(laisser vide si c'est vous)</small></legend><div class="cp-grille">
 				<label>Nom<input name="destinataire[nom]"></label>
 				<label>Téléphone<input name="destinataire[telephone]" type="tel"></label>
 				<label>Ville<input name="destinataire[ville]"></label>
+				<label>Quartier<input name="destinataire[quartier]"></label>
 				<label>Agence de retrait<select name="destinataire[agence]">
 					<?php foreach ( (array) cp_r( 'destination.agences', array() ) as $a ) : ?>
 						<option><?php echo esc_html( $a['ville'] ); ?></option>

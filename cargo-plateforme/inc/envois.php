@@ -59,16 +59,16 @@ function cp_envoi( $id ) {
 		'id'           => $id,
 		'code'         => $g( '_cp_code' ),
 		'date'         => get_post_time( 'U', true, $id ),
-		'client'       => wp_parse_args( (array) $g( '_cp_client', array() ), array( 'nom' => '', 'telephone' => '', 'email' => '', 'ville' => '' ) ),
-		'destinataire' => wp_parse_args( (array) $g( '_cp_destinataire', array() ), array( 'nom' => '', 'telephone' => '', 'ville' => '', 'agence' => '' ) ),
+		'client'       => wp_parse_args( (array) $g( '_cp_client', array() ), array( 'nom' => '', 'telephone' => '', 'email' => '', 'ville' => '', 'pays' => '', 'adresse' => '', 'fournisseur' => '' ) ),
+		'destinataire' => wp_parse_args( (array) $g( '_cp_destinataire', array() ), array( 'nom' => '', 'telephone' => '', 'ville' => '', 'quartier' => '', 'adresse' => '', 'agence' => '' ) ),
 		'mode'         => $g( '_cp_mode', 'aerien' ),
-		'colis'        => (array) $g( '_cp_colis', array() ),
+		'colis'        => array_values( array_filter( (array) $g( '_cp_colis', array() ), 'is_array' ) ),
 		'contenu'      => $g( '_cp_contenu' ),
 		'valeur'       => (float) $g( '_cp_valeur', 0 ),
 		'calcul'       => (array) $g( '_cp_calcul', array() ),
 		'montant'      => (float) $g( '_cp_montant', 0 ),
 		'paiement'     => wp_parse_args( (array) $g( '_cp_paiement', array() ), array( 'statut' => 'attente', 'moyen' => '', 'reference' => '', 'date' => 0, 'montant' => 0 ) ),
-		'historique'   => (array) $g( '_cp_historique', array() ),
+		'historique'   => array_values( array_filter( (array) $g( '_cp_historique', array() ), 'is_array' ) ),
 		'statut'       => $g( '_cp_statut', 'declare' ),
 		'recu'         => $g( '_cp_recu_num' ),
 		'cle'          => $g( '_cp_cle' ),
@@ -116,7 +116,8 @@ function cp_changer_etape( $id, $etape, $note = '', $lieu = '', $prevenir = true
 	if ( ! cp_etape( $etape ) ) {
 		return false;
 	}
-	$h = (array) get_post_meta( $id, '_cp_historique', true );
+	$h = get_post_meta( $id, '_cp_historique', true );
+	$h = is_array( $h ) ? $h : array();          // WordPress renvoie '' quand la donnée n'existe pas encore
 	$h[] = array( 'etape' => $etape, 'date' => time(), 'note' => $note, 'lieu' => $lieu );
 	update_post_meta( $id, '_cp_historique', $h );
 	update_post_meta( $id, '_cp_statut', $etape );
@@ -196,11 +197,16 @@ function cp_boite_client( $post ) {
 	cp_champ( 'cp[client][nom]', $e['client']['nom'], 'Nom' );
 	cp_champ( 'cp[client][telephone]', $e['client']['telephone'], 'Téléphone / WhatsApp' );
 	cp_champ( 'cp[client][email]', $e['client']['email'], 'E-mail', 'email' );
+	cp_champ( 'cp[client][adresse]', $e['client']['adresse'], 'Adresse complète' );
 	cp_champ( 'cp[client][ville]', $e['client']['ville'], 'Ville' );
+	cp_champ( 'cp[client][pays]', $e['client']['pays'], 'Pays' );
+	cp_champ( 'cp[client][fournisseur]', $e['client']['fournisseur'], 'Fournisseur (site d\'achat)' );
 	echo '</div><div><h4>Destinataire au ' . esc_html( cp_r( 'destination.pays' ) ) . '</h4>';
 	cp_champ( 'cp[destinataire][nom]', $e['destinataire']['nom'], 'Nom' );
 	cp_champ( 'cp[destinataire][telephone]', $e['destinataire']['telephone'], 'Téléphone' );
 	cp_champ( 'cp[destinataire][ville]', $e['destinataire']['ville'], 'Ville' );
+	cp_champ( 'cp[destinataire][quartier]', $e['destinataire']['quartier'], 'Quartier' );
+	cp_champ( 'cp[destinataire][adresse]', $e['destinataire']['adresse'], 'Adresse / point de livraison' );
 	echo '<p><label style="display:block;font-weight:600;margin-bottom:3px">Agence de retrait</label><select name="cp[destinataire][agence]" class="widefat"><option value="">—</option>';
 	foreach ( (array) cp_r( 'destination.agences', array() ) as $a ) {
 		printf( '<option %s>%s</option>', selected( $e['destinataire']['agence'], $a['ville'], false ), esc_html( $a['ville'] ) );
@@ -402,14 +408,23 @@ function cp_document( $id, $type ) {
 	$r = cp_reglages();
 	$e['lien_suivi'] = cp_lien_suivi( $e['code'] );
 	$e['etapes'] = cp_etapes();
+	$m = cp_mode( $e['mode'] );
+	$e['delais'] = $m ? array( (int) $m['delai_min'], (int) $m['delai_max'] ) : array();
+	$ent = cp_entrepot( $e['mode'] );
+	$e['entrepot'] = array( 'texte' => $ent['texte'], 'jpeg' => $ent['image'] ? CP_PDF::vers_jpeg( (string) get_attached_file( $ent['image'] ) ) : '' );
+	$banniere = '';
+	$bid = (int) cp_r( 'documents.banniere', 0 );
+	if ( $bid ) {
+		$banniere = CP_PDF::vers_jpeg( (string) get_attached_file( $bid ) );
+	}
 	if ( 'fiche' === $type ) {
-		return cp_pdf_fiche( $e, $r, $logo );
+		return cp_pdf_fiche( $e, $r, $logo, $banniere );
 	}
 	if ( 'etiquettes' === $type ) {
 		return cp_pdf_etiquettes( $e, $r, $logo );
 	}
 	if ( 'recu' === $type && 'paye' === $e['paiement']['statut'] ) {
-		return cp_pdf_recu( $e, $r, $logo );
+		return cp_pdf_recu( $e, $r, $logo, $banniere );
 	}
 	return '';
 }

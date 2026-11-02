@@ -65,6 +65,7 @@ function cp_reglages_defaut() {
 			'autres'       => '',
 			'consignes'    => 'Envoyez le montant au numéro indiqué, puis envoyez la capture du paiement sur WhatsApp avec votre code d\'envoi.',
 		),
+		'documents'  => array( 'banniere' => 0, 'services' => '', 'accroche' => '', 'pied' => '' ),
 		'etapes'     => cp_etapes_defaut(),
 		'code'       => array( 'prefixe' => 'CRG' ),
 	);
@@ -85,9 +86,11 @@ function cp_etapes_defaut() {
 
 /** Réglages fusionnés avec les valeurs par défaut (les clés manquantes sont complétées). */
 function cp_reglages() {
-	static $r = null;
-	if ( null === $r ) {
-		$r = cp_fusion( cp_reglages_defaut(), (array) get_option( 'cp_reglages', array() ) );
+	static $source = null, $r = null;
+	$o = get_option( 'cp_reglages', array() );
+	if ( null === $r || $o !== $source ) {      // relu si l'option a changé pendant la requête (import, assistant)
+		$source = $o;
+		$r = cp_fusion( cp_reglages_defaut(), (array) $o );
 	}
 	return $r;
 }
