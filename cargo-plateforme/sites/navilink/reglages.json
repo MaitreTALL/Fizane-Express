@@ -1,0 +1,120 @@
+{
+ "entreprise": {
+  "nom": "Navilink Cargo",
+  "slogan": "Votre solution logistique de confiance",
+  "telephone": "+226 54 20 55 46",
+  "whatsapp": "+226 54 20 55 46",
+  "telephone_chine": "+86 151 6719 3983",
+  "email": "",
+  "adresse": "Burkina Faso",
+  "rccm": "",
+  "ifu": "",
+  "devise": "FCFA",
+  "devise_courte": "F",
+  "mentions": "Rapidité • Sécurité • Fiabilité"
+ },
+ "couleurs": {
+  "primaire": "#0146AF",
+  "accent": "#0A0A0A",
+  "fond": "#F3F6FB"
+ },
+ "origine": {
+  "pays": "Chine",
+  "entrepot": "浙江省金华市义乌市义乌市稠城街道稠江小区31栋2号209房间",
+  "contact": "+86 151 6719 3983"
+ },
+ "destination": {
+  "pays": "Burkina Faso",
+  "agences": [
+   {
+    "ville": "Ouagadougou",
+    "adresse": "",
+    "telephone": "+226 54 20 55 46"
+   }
+  ]
+ },
+ "modes": [
+  {
+   "id": "mco",
+   "nom": "Avion — MCO",
+   "unite": "kg",
+   "prix": 8500,
+   "minimum": 1,
+   "delai_min": 14,
+   "delai_max": 21,
+   "actif": 1,
+   "diviseur": 6000,
+   "description": "Fret aérien",
+   "entrepot": ""
+  },
+  {
+   "id": "lta",
+   "nom": "Avion — LTA",
+   "unite": "kg",
+   "prix": 10500,
+   "minimum": 1,
+   "delai_min": 14,
+   "delai_max": 21,
+   "actif": 1,
+   "diviseur": 6000,
+   "description": "Fret aérien",
+   "entrepot": ""
+  },
+  {
+   "id": "express",
+   "nom": "Avion — Express",
+   "unite": "kg",
+   "prix": 11500,
+   "minimum": 1,
+   "delai_min": 3,
+   "delai_max": 7,
+   "actif": 1,
+   "diviseur": 6000,
+   "description": "Le plus rapide",
+   "entrepot": ""
+  },
+  {
+   "id": "maritime",
+   "nom": "Bateau — Maritime",
+   "unite": "m3",
+   "prix": 215000,
+   "minimum": 0.1,
+   "delai_min": 55,
+   "delai_max": 65,
+   "actif": 1,
+   "diviseur": 0,
+   "description": "Tarif standard",
+   "prix_alt": 195000,
+   "prix_alt_libelle": "Paiement sur place",
+   "entrepot": "浙江省金华市义乌市诚信大道266号，义乌港一期1号楼1C111~112号门\n浙江新越国际物流有限公司"
+  }
+ ],
+ "categories": [
+  "Colis",
+  "Pièces auto",
+  "Marchandises",
+  "Biens personnels"
+ ],
+ "consigne_colis": "Veuillez préciser le mode d'envoi et votre numéro sur le colis.",
+ "services": [
+  {
+   "titre": "Fret aérien",
+   "texte": "MCO, LTA ou Express : vos colis de la Chine au Burkina Faso en 3 jours à 3 semaines."
+  },
+  {
+   "titre": "Fret maritime",
+   "texte": "Vos marchandises par bateau, au mètre cube, en 2 mois environ."
+  },
+  {
+   "titre": "Vente & location",
+   "texte": "Voitures, camions et engins de chantier Caterpillar, pour particuliers et professionnels."
+  },
+  {
+   "titre": "Suivi de colis",
+   "texte": "Chaque envoi a son code : suivez chaque étape, de l'entrepôt en Chine jusqu'à la remise."
+  }
+ ],
+ "code": {
+  "prefixe": "NVL"
+ }
+}
