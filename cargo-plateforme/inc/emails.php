@@ -7,6 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// e-mails du site signés du nom de l'entreprise (et non « WordPress »)
+add_filter( 'wp_mail_from_name', function ( $nom ) {
+	return 'WordPress' === $nom && cp_r( 'entreprise.nom' ) ? cp_r( 'entreprise.nom' ) : $nom;
+} );
+
 /** Gabarit HTML commun. $blocs : HTML du corps (déjà échappé). */
 function cp_mail_gabarit( $titre, $blocs, $bouton = null ) {
 	$prim = esc_attr( cp_r( 'couleurs.primaire' ) );
