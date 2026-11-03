@@ -73,6 +73,14 @@ function cp_config_js() {
 	);
 }
 
+// ?actualiser : demande au navigateur d'oublier les pages qu'il a gardées en mémoire (ancienne version du site)
+add_action( 'send_headers', function () {
+	if ( isset( $_GET['actualiser'] ) ) { // phpcs:ignore -- aucune donnée utilisée
+		nocache_headers();
+		header( 'Clear-Site-Data: "cache"' );
+	}
+} );
+
 /** Jeton de sécurité frais pour les formulaires : les pages peuvent être servies par un cache (CDN, extension de cache). */
 function cp_ajax_jeton() {
 	nocache_headers();
