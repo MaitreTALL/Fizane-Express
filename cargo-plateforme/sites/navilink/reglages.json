@@ -174,7 +174,37 @@
    "youtube": "",
    "linkedin": ""
   },
-  "credits": "Photos : Unsplash"
+  "credits": "Photos : Unsplash",
+  "diapos": [
+   {
+    "titre": "Vos achats de Chine,",
+    "titre_fin": "livrés au Burkina Faso.",
+    "texte": "Navilink Cargo vous accompagne de A à Z : réception de vos colis en Chine, transport par avion ou par bateau, suivi en ligne et remise au Burkina Faso.",
+    "bouton": "Expédier un colis",
+    "lien": "declarer"
+   },
+   {
+    "titre": "Fret aérien,",
+    "titre_fin": "de 3 jours à 3 semaines.",
+    "texte": "MCO, LTA ou Express : vos colis au kilo, pesés à notre entrepôt de Yiwu et suivis en ligne jusqu'à Ouagadougou.",
+    "bouton": "Voir les tarifs",
+    "lien": "tarifs"
+   },
+   {
+    "titre": "Fret maritime,",
+    "titre_fin": "au mètre cube.",
+    "texte": "La solution économique pour vos marchandises volumineuses : facturation au CBM, livraison en 2 mois environ.",
+    "bouton": "Simuler mon envoi",
+    "lien": "simulateur"
+   },
+   {
+    "titre": "Vente & location",
+    "titre_fin": "de véhicules.",
+    "texte": "Voitures, camions et engins de chantier Caterpillar, pour particuliers et professionnels.",
+    "bouton": "Voir la boutique",
+    "lien": "boutique"
+   }
+  ]
  },
  "paiement": {
   "orange_money": "+226 54 20 55 46",

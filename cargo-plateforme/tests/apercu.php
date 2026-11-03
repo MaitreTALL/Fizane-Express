@@ -40,6 +40,9 @@ $j['entreprise']['logo_id'] = $id( $img['entreprise.logo_id'] );
 $j['entreprise']['logo_clair_id'] = $id( $img['entreprise.logo_clair_id'] ?? '' );
 $j['site']['hero_images'] = array_map( $id, $img['site.hero_images'] );
 $j['site']['pourquoi_image'] = $id( $img['site.pourquoi_image'] );
+foreach ( (array) ( $img['site.diapos'] ?? array() ) as $k => $f ) {   // photos du diaporama (textes dans reglages.json)
+	$j['site']['diapos'][ $k ]['image'] = $id( $f );
+}
 foreach ( $j['services'] as $i => $s ) {
 	$j['services'][ $i ]['image'] = $id( $img['services'][ $i ] ?? '' );
 }

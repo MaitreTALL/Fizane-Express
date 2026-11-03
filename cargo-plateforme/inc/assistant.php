@@ -169,6 +169,13 @@ function cp_page_assistant() {
 				$image( 'site.hero_images.0', 'Photo principale', 'Grande photo large (environ 3 × 1) : avion, camion, port…' );
 				$image( 'site.hero_images.1', 'Photo 2' );
 				$image( 'site.hero_images.2', 'Photo 3' );
+				?>
+				<tr><th>Diaporama du bandeau</th><td><table class="widefat"><thead><tr><th>Photo</th><th>Titre (blanc)</th><th>Suite du titre (couleur)</th><th>Texte</th><th>Bouton</th><th>Lien</th></tr></thead><tbody>
+					<?php $dp = (array) cp_r( 'site.diapos', array() ); for ( $i = 0; $i < 5; $i++ ) : $b = 'cp[site][diapos][' . $i . ']'; $x = $dp[ $i ] ?? array(); ?>
+						<tr><td><?php cp_choix_image( $b . '[image]', $x['image'] ?? 0 ); ?></td><td><input name="<?php echo esc_attr( $b ); ?>[titre]" value="<?php echo esc_attr( $x['titre'] ?? '' ); ?>"></td><td><input name="<?php echo esc_attr( $b ); ?>[titre_fin]" value="<?php echo esc_attr( $x['titre_fin'] ?? '' ); ?>"></td><td><textarea rows="2" name="<?php echo esc_attr( $b ); ?>[texte]"><?php echo esc_textarea( $x['texte'] ?? '' ); ?></textarea></td><td><input name="<?php echo esc_attr( $b ); ?>[bouton]" value="<?php echo esc_attr( $x['bouton'] ?? '' ); ?>" style="width:120px"></td><td><input name="<?php echo esc_attr( $b ); ?>[lien]" value="<?php echo esc_attr( $x['lien'] ?? '' ); ?>" placeholder="tarifs, boutique…" style="width:110px"></td></tr>
+					<?php endfor; ?>
+				</tbody></table><p class="description">Vide = la photo principale avec le grand titre, puis vos services qui ont une photo. Photos larges (au moins 1600 px).</p></td></tr>
+				<?php
 				$champ( 'site.signature', 'Phrase manuscrite', 'text', 'Écrite à la main sur la photo, ex. Votre solution logistique de confiance' );
 				?>
 				<tr><th>Chiffres clés</th><td><table class="widefat"><thead><tr><th>Valeur</th><th>Libellé</th></tr></thead><tbody>
@@ -459,6 +466,14 @@ function cp_nettoyer_site( array $s, array $d ) {
 		$r[ $k ] = sanitize_textarea_field( (string) ( $s[ $k ] ?? $d[ $k ] ) );
 	}
 	$r['hero_images'] = array_values( array_filter( array_map( 'cp_nettoyer_image', array_slice( (array) ( $s['hero_images'] ?? array() ), 0, 3 ) ) ) );
+	$r['diapos'] = array();
+	foreach ( array_slice( (array) ( $s['diapos'] ?? array() ), 0, 6 ) as $x ) {
+		$x = (array) $x;
+		$img = cp_nettoyer_image( $x['image'] ?? 0 );
+		if ( $img && '' !== trim( (string) ( $x['titre'] ?? '' ) ) ) {
+			$r['diapos'][] = array( 'image' => $img, 'titre' => $t( $x['titre'] ), 'titre_fin' => $t( $x['titre_fin'] ?? '' ), 'texte' => sanitize_textarea_field( (string) ( $x['texte'] ?? '' ) ), 'bouton' => $t( $x['bouton'] ?? '' ), 'lien' => cp_nettoyer_lien( $x['lien'] ?? '' ) );
+		}
+	}
 	$r['pourquoi_image'] = cp_nettoyer_image( $s['pourquoi_image'] ?? 0 );
 	$r['chiffres'] = array_slice( $lignes( $s['chiffres'] ?? array(), array( 'valeur', 'libelle' ), 'valeur' ), 0, 3 );
 	$r['pourquoi_points'] = array_slice( $lignes( $s['pourquoi_points'] ?? $d['pourquoi_points'], array( 'icone', 'titre', 'texte' ), 'titre' ), 0, 4 ) ?: $d['pourquoi_points'];

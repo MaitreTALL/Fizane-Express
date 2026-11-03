@@ -432,10 +432,6 @@ add_shortcode( 'cargo_accueil', function () {
 	$nom = cp_r( 'entreprise.nom' );
 	$modes = cp_modes_actifs();
 	$unites = array_unique( wp_list_pluck( $modes, 'unite' ) );
-	$titre = cp_r( 'site.hero_titre' ) ?: 'Vos achats ' . cp_de_pays( $o ) . ',';
-	$fin = cp_r( 'site.hero_titre_fin' ) ?: 'livrés ' . cp_au_pays( $d ) . '.';
-	$texte = cp_r( 'site.hero_texte' ) ?: $nom . ' vous accompagne de A à Z : réception de vos colis ' . cp_au_pays( $o ) . ', transport par avion ou par bateau, suivi en ligne et remise ' . cp_au_pays( $d ) . '.';
-	$photo = cp_image_url( ( (array) cp_r( 'site.hero_images', array() ) )[0] ?? 0, 'full' );
 	$wa = cp_whatsapp_lien( 'Bonjour ' . $nom . ', je voudrais expédier un colis.' );
 	$fleche = cp_icone( 'fleche' );
 	$rapide = $modes ? array_reduce( $modes, function ( $x, $m ) {
@@ -449,28 +445,44 @@ add_shortcode( 'cargo_accueil', function () {
 	ob_start();
 	?>
 	<div class="cp-accueil">
-	<section class="cp-a-hero">
-		<?php if ( $photo ) : ?><div class="cp-a-hero-photo" aria-hidden="true"><img src="<?php echo esc_url( $photo ); ?>" alt="" fetchpriority="high"></div><?php endif; ?>
-		<div class="cp-a-in cp-a-hero-in">
-			<div class="cp-a-hero-texte">
-				<h1><?php echo esc_html( $titre ); ?> <span><?php echo esc_html( $fin ); ?></span></h1>
-				<p class="cp-a-hero-p"><?php echo esc_html( $texte ); ?></p>
-				<div class="cp-a-boutons">
-					<a class="cp-btn cp-btn-action" href="<?php echo esc_url( cp_url_page( 'declarer' ) ); ?>">Expédier un colis<?php echo $fleche; // phpcs:ignore ?></a>
-					<a class="cp-btn cp-btn-contour-clair" href="#services">Découvrir nos services</a>
+	<?php $diapos = cp_diapos(); $nb = count( $diapos ); ?>
+	<section class="cp-a-hero" data-cp="diapos" aria-roledescription="carrousel" aria-label="À la une">
+		<div class="cp-a-diapos">
+			<?php foreach ( $diapos as $i => $dp ) : $balise = $i ? 'h2' : 'h1'; ?>
+				<div class="cp-a-diapo<?php echo 0 === $i ? ' cp-actif' : ''; ?>" role="group" aria-roledescription="diapositive" aria-label="<?php echo esc_attr( ( $i + 1 ) . ' sur ' . $nb ); ?>"<?php echo $i ? ' aria-hidden="true"' : ''; ?>>
+					<?php if ( $dp['image'] ) : ?><div class="cp-a-hero-photo"><img src="<?php echo esc_url( $dp['image'] ); ?>" alt=""<?php echo $i ? ' loading="lazy"' : ' fetchpriority="high"'; ?>></div><?php endif; ?>
+					<div class="cp-a-in"><div class="cp-a-hero-texte">
+						<<?php echo $balise; ?> class="cp-a-titre-diapo"><?php echo esc_html( $dp['titre'] ); ?><?php if ( $dp['titre_fin'] ) : ?> <span><?php echo esc_html( $dp['titre_fin'] ); ?></span><?php endif; ?></<?php echo $balise; ?>>
+						<?php if ( $dp['texte'] ) : ?><p class="cp-a-hero-p"><?php echo esc_html( $dp['texte'] ); ?></p><?php endif; ?>
+						<div class="cp-a-boutons">
+							<a class="cp-btn cp-btn-action" href="<?php echo esc_url( $dp['lien'] ); ?>"<?php echo $i ? ' tabindex="-1"' : ''; ?>><?php echo esc_html( $dp['bouton'] ); ?><?php echo $fleche; // phpcs:ignore ?></a>
+							<a class="cp-btn cp-btn-contour-clair" href="#services"<?php echo $i ? ' tabindex="-1"' : ''; ?>>Découvrir nos services</a>
+						</div>
+					</div></div>
 				</div>
-				<ul class="cp-a-chiffres">
-					<?php foreach ( $chiffres as $i => $c ) : ?><li><?php echo cp_icone( $icones_chiffres[ $i ] ?? 'colis' ); // phpcs:ignore ?><span><b><?php echo esc_html( $c['valeur'] ); ?></b><?php echo esc_html( $c['libelle'] ); ?></span></li><?php endforeach; ?>
-					<li><?php echo cp_icone( 'suivi' ); // phpcs:ignore ?><span><b>24h/24</b>suivi en ligne</span></li>
-				</ul>
-			</div>
-			<?php if ( $rapide ) : ?>
+			<?php endforeach; ?>
+		</div>
+		<?php if ( $rapide ) : ?>
+			<div class="cp-a-in cp-a-flottante-in">
 				<a class="cp-a-flottante" href="<?php echo esc_url( cp_url_page( 'tarifs' ) ); ?>">
 					<span class="cp-a-flottante-ico"><?php echo cp_icone( 'eclair' ); // phpcs:ignore ?></span>
 					<b><?php echo esc_html( cp_nom_court( $rapide ) . ' : ' . str_replace( 'Délai : ', '', cp_delai_texte( $rapide ) ) ); ?></b>
 					<span><?php echo esc_html( 'Vos colis urgents ' . ( 'm3' === $rapide['unite'] ? 'par bateau' : 'par avion' ) . ', suivis jusqu\'à la remise.' ); ?></span>
 					<em>Voir les tarifs<?php echo $fleche; // phpcs:ignore ?></em>
 				</a>
+			</div>
+		<?php endif; ?>
+		<div class="cp-a-in cp-a-hero-bas">
+			<ul class="cp-a-chiffres">
+				<?php foreach ( $chiffres as $i => $c ) : ?><li><?php echo cp_icone( $icones_chiffres[ $i ] ?? 'colis' ); // phpcs:ignore ?><span><b><?php echo esc_html( $c['valeur'] ); ?></b><?php echo esc_html( $c['libelle'] ); ?></span></li><?php endforeach; ?>
+				<li><?php echo cp_icone( 'suivi' ); // phpcs:ignore ?><span><b>24h/24</b>suivi en ligne</span></li>
+			</ul>
+			<?php if ( $nb > 1 ) : ?>
+				<div class="cp-a-diapos-nav">
+					<button type="button" class="cp-a-diapos-prec" aria-label="Diapositive précédente"><?php echo cp_icone( 'fleche' ); // phpcs:ignore ?></button>
+					<div class="cp-a-points"><?php for ( $i = 0; $i < $nb; $i++ ) : ?><button type="button" class="<?php echo 0 === $i ? 'cp-actif' : ''; ?>" aria-label="<?php echo esc_attr( 'Diapositive ' . ( $i + 1 ) ); ?>" aria-current="<?php echo 0 === $i ? 'true' : 'false'; ?>"></button><?php endfor; ?></div>
+					<button type="button" class="cp-a-diapos-suiv" aria-label="Diapositive suivante"><?php echo cp_icone( 'fleche' ); // phpcs:ignore ?></button>
+				</div>
 			<?php endif; ?>
 		</div>
 	</section>

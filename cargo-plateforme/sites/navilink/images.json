@@ -17,5 +17,11 @@
  ],
  "origine.entrepot_image": "adresse-aerien.jpg",
  "modes.maritime.entrepot_image": "adresse-maritime.jpg",
- "_photos_unsplash": "Les fichiers u-*.jpg viennent d'Unsplash (licence Unsplash, usage commercial libre) : voir credits.json, téléchargés sur le serveur au déploiement."
+ "_photos_unsplash": "Les fichiers u-*.jpg viennent d'Unsplash (licence Unsplash, usage commercial libre) : voir credits.json, téléchargés sur le serveur au déploiement.",
+ "site.diapos": [
+  "u-hero.jpg",
+  "u-diapo-avion.jpg",
+  "u-diapo-bateau.jpg",
+  "u-diapo-vehicules.jpg"
+ ]
 }

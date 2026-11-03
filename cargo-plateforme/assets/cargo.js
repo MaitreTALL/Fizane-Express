@@ -137,6 +137,42 @@
         .catch(function () { bouton.disabled = false; bouton.textContent = 'Obtenir mon code d\'envoi'; err.textContent = 'Connexion impossible. Réessayez.'; });
     });
   });
+  /* -------------------------------------------------- accueil : diaporama du bandeau */
+  $$('[data-cp="diapos"]').forEach(function (h) {
+    var d = $$('.cp-a-diapo', h), p = $$('.cp-a-points button', h), i = 0, t = null, x0 = null;
+    if (d.length < 2) return;
+    var calme = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function aller(n) {
+      i = (n + d.length) % d.length;
+      d.forEach(function (x, k) {
+        var on = k === i;
+        x.classList.toggle('cp-actif', on);
+        if (on) x.removeAttribute('aria-hidden'); else x.setAttribute('aria-hidden', 'true');
+        $$('a', x).forEach(function (a) { if (on) a.removeAttribute('tabindex'); else a.setAttribute('tabindex', '-1'); });
+      });
+      p.forEach(function (x, k) { x.classList.toggle('cp-actif', k === i); x.setAttribute('aria-current', k === i ? 'true' : 'false'); });
+    }
+    function arreter() { if (t) clearInterval(t); t = null; }
+    function lancer() { arreter(); if (!calme && !document.hidden) t = setInterval(function () { aller(i + 1); }, 6500); }
+    p.forEach(function (x, k) { x.addEventListener('click', function () { aller(k); lancer(); }); });
+    var pr = $('.cp-a-diapos-prec', h), su = $('.cp-a-diapos-suiv', h);
+    if (pr) pr.addEventListener('click', function () { aller(i - 1); lancer(); });
+    if (su) su.addEventListener('click', function () { aller(i + 1); lancer(); });
+    h.addEventListener('mouseenter', arreter);
+    h.addEventListener('mouseleave', lancer);
+    h.addEventListener('focusin', arreter);
+    h.addEventListener('focusout', lancer);
+    h.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    h.addEventListener('touchend', function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 45) { aller(i + (dx < 0 ? 1 : -1)); lancer(); }
+      x0 = null;
+    });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) arreter(); else lancer(); });
+    lancer();
+  });
+
   /* -------------------------------------------------- accueil : devis en ligne */
   $$('[data-cp="devis"]').forEach(function (f) {
     var out = $('[data-cp="devis-resultat"]', f);

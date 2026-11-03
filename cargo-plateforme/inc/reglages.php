@@ -68,7 +68,8 @@ function cp_reglages_defaut() {
 			'hero_titre'     => '',
 			'hero_titre_fin' => '',
 			'hero_texte'     => '',
-			'hero_images'    => array(),     // 1 à 3 photos (la première en grand)
+			'hero_images'    => array(),     // photo du premier écran
+			'diapos'         => array(),     // diaporama : [ image, titre, titre_fin, texte, bouton, lien ] ; vide = calculé (accroche + services)
 			'signature'      => '',          // phrase manuscrite sur la photo
 			'chiffres'       => array(),     // [ valeur, libelle ] × 3 ; vide = calculés depuis les tarifs
 			'pourquoi_titre' => 'Un partenaire logistique de confiance',
@@ -305,4 +306,38 @@ function cp_delais_groupes() {
 		$r[] = array( 'valeur' => $d, 'libelle' => implode( ' · ', $noms ) );
 	}
 	return array_slice( $r, 0, 3 );
+}
+
+/**
+ * Diapositives du bandeau d'accueil : celles de l'assistant, sinon l'accroche (photo du premier écran) suivie des
+ * services qui ont une photo. Chaque diapositive : image (adresse), titre, titre_fin, texte, bouton, lien (adresse).
+ */
+function cp_diapos() {
+	$o = cp_r( 'origine.pays' );
+	$d = cp_r( 'destination.pays' );
+	$res = array();
+	foreach ( (array) cp_r( 'site.diapos', array() ) as $x ) {
+		$img = cp_image_url( $x['image'] ?? 0, 'full' );
+		if ( $img && '' !== trim( (string) ( $x['titre'] ?? '' ) ) ) {
+			$res[] = array( 'image' => $img, 'titre' => $x['titre'], 'titre_fin' => $x['titre_fin'] ?? '', 'texte' => $x['texte'] ?? '', 'bouton' => ( $x['bouton'] ?? '' ) ?: 'En savoir plus', 'lien' => cp_lien_service( $x['lien'] ?? '' ) );
+		}
+	}
+	if ( $res ) {
+		return $res;
+	}
+	$res[] = array(
+		'image'     => cp_image_url( ( (array) cp_r( 'site.hero_images', array() ) )[0] ?? 0, 'full' ),
+		'titre'     => cp_r( 'site.hero_titre' ) ?: 'Vos achats ' . cp_de_pays( $o ) . ',',
+		'titre_fin' => cp_r( 'site.hero_titre_fin' ) ?: 'livrés ' . cp_au_pays( $d ) . '.',
+		'texte'     => cp_r( 'site.hero_texte' ) ?: cp_r( 'entreprise.nom' ) . ' vous accompagne de A à Z : réception de vos colis ' . cp_au_pays( $o ) . ', transport par avion ou par bateau, suivi en ligne et remise ' . cp_au_pays( $d ) . '.',
+		'bouton'    => 'Expédier un colis',
+		'lien'      => cp_url_page( 'declarer' ),
+	);
+	foreach ( (array) cp_r( 'services', array() ) as $s ) {
+		$img = cp_image_url( $s['image'] ?? 0, 'full' );
+		if ( $img && count( $res ) < 4 ) {
+			$res[] = array( 'image' => $img, 'titre' => $s['titre'], 'titre_fin' => '', 'texte' => $s['texte'], 'bouton' => 'En savoir plus', 'lien' => cp_lien_service( $s['lien'] ?? '' ) );
+		}
+	}
+	return $res;
 }

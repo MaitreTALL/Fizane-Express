@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Cargo Plateforme
  * Description: Plateforme clé en main pour transitaires et vendeurs (Chine → Afrique) : assistant de configuration (logo, couleurs, tarifs, délais, paiements), simulateur de tarif et de délai, suivi de colis, gestion des expéditions, fiche d'expédition et reçu en PDF envoyés automatiquement par e-mail, espace client et boutique (WooCommerce).
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: Visionary Entreprises
  * Text Domain: cargo-plateforme
  * Requires PHP: 7.4
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'CP_VERSION', '2.0.0' );
+define( 'CP_VERSION', '2.1.0' );
 define( 'CP_DIR', __DIR__ );
 define( 'CP_URL', plugin_dir_url( __FILE__ ) );
 
