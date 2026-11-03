@@ -4,18 +4,18 @@
  "entreprise.logo_clair_id": "logo-clair.png",
  "documents.banniere": "banniere-documents.jpg",
  "site.hero_images": [
-  "hd-hero.jpg"
+  "u-hero.jpg"
  ],
- "site.pourquoi_image": "hd-pourquoi.jpg",
+ "site.pourquoi_image": "u-pourquoi.jpg",
  "services": [
-  "hd-aerien.jpg",
-  "hd-maritime.jpg",
-  "hd-vehicules.jpg",
-  "hd-achat.jpg",
-  "hd-transfert.jpg",
-  "photo-trajet.jpg"
+  "u-aerien.jpg",
+  "u-maritime.jpg",
+  "u-vehicules.jpg",
+  "u-achat.jpg",
+  "u-transfert.jpg",
+  "u-suivi.jpg"
  ],
  "origine.entrepot_image": "adresse-aerien.jpg",
  "modes.maritime.entrepot_image": "adresse-maritime.jpg",
- "_photos_hd": "Les fichiers hd-*.jpg viennent de Wikimedia Commons (voir credits.json) : téléchargés sur le serveur au déploiement."
+ "_photos_unsplash": "Les fichiers u-*.jpg viennent d'Unsplash (licence Unsplash, usage commercial libre) : voir credits.json, téléchargés sur le serveur au déploiement."
 }
