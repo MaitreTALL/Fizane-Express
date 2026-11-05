@@ -1,0 +1,152 @@
+[
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "  const categorie = (id) => D.categories.find((c) => c.id === id);\n",
+  "new": "  const categorie = (id) => D.categories.find((c) => c.id === id) || (D.electro && D.electro.id === id ? D.electro : { id, nom: 'Boutique' });\n  // rayon Électroménager & électronique (js/electro.js) : appareils des vendeurs, sans la mention « Made in Burkina »\n  const estElectro = (p) => !!p && !!D.electro && p.cat === D.electro.id;\n  const nomCat = (p) => (estElectro(p) ? p.sousNom || D.electro.court : categorie(p.cat).nom);\n  const lienCat = (p) => (estElectro(p) ? '#/electromenager' + (p.sous ? '?sous=' + p.sous : '') : '#/boutique?cat=' + p.cat);\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        <li><a href=\"#/boutique\" data-match=\"boutique|produit|categories\">Boutique</a></li>\n",
+  "new": "        <li><a href=\"#/boutique\" data-match=\"boutique|produit|categories\">Boutique</a></li>\n        <li><a href=\"#/electromenager\" data-match=\"electromenager\">Électroménager</a></li>\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<span>${esc(c.nom)}</span></a>`).join('')}</div></div>\n",
+  "new": "<span>${esc(c.nom)}</span></a>`).join('')}</div>${window.TDGElectro ? `<p class=\"surtitre\" style=\"margin-top:16px\">Électroménager & électronique</p><div class=\"mega-grille\">${window.TDGElectro.menu(80)}</div>` : ''}</div>\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        <p class=\"tiroir-titre\">Courses pour mes proches</p>\n",
+  "new": "        ${window.TDGElectro ? `<p class=\"tiroir-titre\">Électroménager & électronique</p>\n        <div class=\"tiroir-grille\">${window.TDGElectro.menu(96)}<a href=\"#/electromenager\"><span class=\"tiroir-icone\">${I.grille}</span><span>Tout le rayon</span></a></div>` : ''}\n        <p class=\"tiroir-titre\">Courses pour mes proches</p>\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<li><a href=\"#/boutique\">Boutique Made in Burkina</a></li>",
+  "new": "<li><a href=\"#/boutique\">Boutique Made in Burkina</a></li><li><a href=\"#/electromenager\">Électroménager & électronique</a></li>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        ${madeInBF('sur-photo')}\n      </div>\n      <div class=\"corps\">\n        <span class=\"categorie\">${esc(categorie(p.cat).nom)}</span>",
+  "new": "        ${estElectro(p) ? '' : madeInBF('sur-photo')}\n      </div>\n      <div class=\"corps\">\n        <span class=\"categorie\">${esc(nomCat(p))}</span>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "      c('bijoux') && [`#/boutique?cat=bijoux`, IMG.categories.bijoux, c('bijoux').nom],\n",
+  "new": "      c('bijoux') && [`#/boutique?cat=bijoux`, IMG.categories.bijoux, c('bijoux').nom],\n      D.electro && IMG.electro && ['#/electromenager', IMG.electro['electro-mobilite'], D.electro.nom],\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "    const tuiles = ouverte ? [...D.categories.map((x) => [`#/boutique?cat=${x.id}`, IMG.categories[x.id], x.nom]), ",
+  "new": "    const tuiles = ouverte ? [...D.categories.map((x) => [`#/boutique?cat=${x.id}`, IMG.categories[x.id], x.nom]), ...(D.electro && IMG.electro ? [['#/electromenager', IMG.electro['electro-cuisine'], D.electro.court]] : []), ",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "    const selection = [...D.produits.filter((p) => p.vedette), ...D.produits.filter((p) => !p.vedette)].slice(0, 8);\n",
+  "new": "    const faitMain = D.produits.filter((p) => !estElectro(p)); // la sélection reste celle des artisans\n    const selection = [...faitMain.filter((p) => p.vedette), ...faitMain.filter((p) => !p.vedette)].slice(0, 8);\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "\n\n    <section class=\"v6-bande-claire\">",
+  "new": "\n\n    ${ouverte && window.TDGElectro ? window.TDGElectro.accueil() : ''}\n\n    <section class=\"v6-bande-claire\">",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "      && p.prix <= F.prixMax && p.prix >= F.prixMin && (!F.dispo || p.stock > 0)",
+  "new": "      && (F.prixMax >= 40000 || p.prix <= F.prixMax) && p.prix >= F.prixMin && (!F.dispo || p.stock > 0) && (F.q || F.vendeurs.size || !estElectro(p))",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "' ' + categorie(p.cat).nom + ' ' + (p.sousNom || '')",
+  "new": "' ' + nomCat(p) + ' ' + (p.sousNom || '')",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<a href=\"#/boutique\">Boutique</a> › <a href=\"#/boutique?cat=${p.cat}\">${esc(categorie(p.cat).nom)}</a> › <span>${esc(p.nom)}</span>",
+  "new": "<a href=\"${estElectro(p) ? '#/electromenager' : '#/boutique'}\">${estElectro(p) ? 'Électroménager' : 'Boutique'}</a> › <a href=\"${lienCat(p)}\">${esc(nomCat(p))}</a> › <span>${esc(p.nom)}</span>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "${photo(imgDe(p), 900, 900, p.nom, 'loading=\"eager\"')}</div>${madeInBF('sur-photo')}",
+  "new": "${photo(imgDe(p), 900, 900, p.nom, 'loading=\"eager\"')}</div>${estElectro(p) ? '' : madeInBF('sur-photo')}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "      `Fabriqué au Burkina Faso par ${v.nom} (${v.ville}), vendeur vérifié par Tondraaga.`,",
+  "new": "      estElectro(p) ? `Vendu par ${v.nom} (${v.ville}), vendeur vérifié par Tondraaga.` : `Fabriqué au Burkina Faso par ${v.nom} (${v.ville}), vendeur vérifié par Tondraaga.`,",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<table class=\"table-attributs\"><tr><th>Origine</th><td>${drapeau('BF')} ${esc(v.ville)}, Burkina Faso</td></tr><tr><th>Catégorie</th><td>${esc(categorie(p.cat).nom)}</td></tr>",
+  "new": "<table class=\"table-attributs\">${estElectro(p) ? `<tr><th>Rayon</th><td>${esc(D.electro.nom)}</td></tr>` : `<tr><th>Origine</th><td>${drapeau('BF')} ${esc(v.ville)}, Burkina Faso</td></tr>`}<tr><th>Catégorie</th><td>${esc(nomCat(p))}</td></tr>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "      <h2 style=\"font-size:1.3rem\">Courses pour mes proches</h2>\n",
+  "new": "      ${window.TDGElectro ? window.TDGElectro.categories() : ''}\n      <h2 style=\"font-size:1.3rem\">Courses pour mes proches</h2>\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "      colis: () => window.TDGColis.vue(seg, qs),\n",
+  "new": "      colis: () => window.TDGColis.vue(seg, qs),\n      electromenager: () => (window.TDGElectro ? window.TDGElectro.vue(seg, qs) : vIntrouvable()),\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        : ((enCourses && !enBoutique) || !boutiqueOuverte() ? '#/courses' : '#/boutique') + (q ? '?q=' + encodeURIComponent(q) : '');",
+  "new": "        : ((enCourses && !enBoutique) || !boutiqueOuverte() ? '#/courses' : enBoutique && D.produits.every((p) => !sansAccents(p.nom).includes(qn) || estElectro(p)) ? '#/electromenager' : '#/boutique') + (q ? '?q=' + encodeURIComponent(q) : '');",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "madeInBF, rendre: () => rendre(), etoiles, WOO, WP, API };",
+  "new": "madeInBF, rendre: () => rendre(), etoiles, WOO, WP, API, carteProduit, categorie };",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "define( 'TDG_THEME_VERSION', '1.9.7' );",
+  "new": "define( 'TDG_THEME_VERSION', '1.9.8' );",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "'v6', 'v7', 'v8', 'v9' ) as $f ) {",
+  "new": "'v6', 'v7', 'v8', 'v9', 'electro' ) as $f ) {",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "\twp_enqueue_script( 'tdg-app', \"$base/js/app.js\", array( 'tdg-colis' ), $v, true );",
+  "new": "\twp_enqueue_script( 'tdg-electro', \"$base/js/electro.js\", array( 'tdg-colis' ), $v, true );\n\twp_enqueue_script( 'tdg-app', \"$base/js/app.js\", array( 'tdg-electro' ), $v, true );",
+  "count": 1
+ },
+ {
+  "file": "plugins/tondraaga-core/inc/catalogue.php",
+  "old": "\t\t'limit'   => 500,",
+  "new": "\t\t'limit'   => 1500,",
+  "count": 1
+ },
+ {
+  "file": "mu-plugins/tdg-ameliorations.php",
+  "old": "\treturn array( 'artisanat', 'mode', 'local', 'karite', 'bijoux', 'cadeaux', 'culture' );",
+  "new": "\treturn array( 'artisanat', 'mode', 'local', 'karite', 'bijoux', 'cadeaux', 'culture', 'electromenager' );",
+  "count": 1
+ }
+]

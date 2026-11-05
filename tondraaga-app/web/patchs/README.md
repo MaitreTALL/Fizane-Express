@@ -15,3 +15,10 @@ La page « Devenir vendeur » complète est dans `../theme/page-devenir-vendeur.
 4. `derniers-textes-monde.json` : dernières mentions « France et États-Unis » (courses, fiche produit, à propos).
 5. `pays-de-commande.json` : « Je commande depuis » ouvert à tous les pays (liste et taux injectés par
    l'extension tdg-ameliorations), équivalent dans la monnaie du pays, aucun pour les pays du franc CFA.
+6. `electromenager.json` (5 novembre 2026) : rayon « Électroménager & électronique » (`#/electromenager`) — lien dans
+   l'en-tête, le méga-menu, le tiroir mobile, le pied de page et la page Catégories ; section sur l'accueil ; fiches
+   des appareils sans mention « Made in Burkina » ; boutique Made in Burkina sans les appareils (sauf recherche) et
+   sans plafond caché à 40 000 FCFA ; catalogue porté à 1 500 produits. Le module lui-même est dans
+   `../theme/assets/js/electro.js`, `../theme/assets/css/electro.css` et `../theme/assets/img/electro/`
+   (illustrations produites par `../../tools/electro_illustrations.py`). Sauvegardes :
+   `wp-content/tdg-sauvegardes/electromenager-20261105/`.

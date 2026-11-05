@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160"><rect width="160" height="160" fill="#F7EBDB"/><ellipse cx="80" cy="136" rx="62" ry="6" fill="#EAD7BE"/>
+<path d="M42 100 L38 132 M118 100 L122 132" stroke="#3B281F" stroke-width="5" stroke-linecap="round"/>
+<rect x="34" y="94" width="92" height="10" rx="3" fill="#4D3529" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="88" y="64" width="38" height="28" rx="8" fill="#4D3529" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M96 70 V86 M103 70 V86 M110 70 V86" stroke="#B9AFA6" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="126" cy="78" r="6" fill="#DDD6CE" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="50" y="62" width="40" height="32" rx="6" fill="#C87817" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M40 24 H100 L84 62 H56 Z" fill="#DDD6CE" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<ellipse cx="70" cy="30" rx="26" ry="5" fill="#F2B661"/>
+<circle cx="58" cy="29" r="2" fill="#C87817"/><circle cx="68" cy="31" r="2" fill="#C87817"/><circle cx="80" cy="28" r="2" fill="#C87817"/><circle cx="88" cy="31" r="2" fill="#C87817"/>
+<path d="M54 84 L40 96 L46 102 L60 90 Z" fill="#DDD6CE" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="70" cy="78" r="6" fill="#F2B661" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M22 112 H66 C64 126 54 132 44 132 C34 132 24 126 22 112 Z" fill="#4D3529" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M28 112 C32 102 40 98 44 98 C48 98 56 102 60 112 Z" fill="#FFFFFF" stroke="#3B281F" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="40" cy="104" r="1.6" fill="#FFFFFF"/><circle cx="36" cy="100" r="1.4" fill="#FFFFFF"/></svg>
