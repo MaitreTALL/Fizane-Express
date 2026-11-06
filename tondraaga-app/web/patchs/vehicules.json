@@ -1,0 +1,152 @@
+[
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "  const categorie = (id) => D.categories.find((c) => c.id === id) || (D.electro && D.electro.id === id ? D.electro : { id, nom: 'Boutique' });\n  // rayon Électroménager & électronique (js/electro.js) : appareils des vendeurs, sans la mention « Made in Burkina »\n  const estElectro = (p) => !!p && !!D.electro && p.cat === D.electro.id;\n  const nomCat = (p) => (estElectro(p) ? p.sousNom || D.electro.court : categorie(p.cat).nom);\n  const lienCat = (p) => (estElectro(p) ? '#/electromenager' + (p.sous ? '?sous=' + p.sous : '') : '#/boutique?cat=' + p.cat);\n",
+  "new": "  // rayons de produits d'usine (js/electro.js) : électroménager et véhicules, sans la mention « Made in Burkina »\n  const rayonImporte = (id) => (D.rayonsImportes || []).find((x) => x.id === id);\n  const categorie = (id) => D.categories.find((c) => c.id === id) || rayonImporte(id) || { id, nom: 'Boutique' };\n  const estElectro = (p) => !!p && !!rayonImporte(p.cat);\n  const surDevis = (p) => estElectro(p) && !p.prix; // véhicules : prix sur demande\n  const nomCat = (p) => (estElectro(p) ? p.sousNom || rayonImporte(p.cat).court : categorie(p.cat).nom);\n  const lienCat = (p) => (estElectro(p) ? '#/' + p.cat + (p.sous ? '?sous=' + p.sous : '') : '#/boutique?cat=' + p.cat);\n  const rayonRecherche = (qn) => { const l = D.produits.filter((p) => sansAccents(p.nom).includes(qn)), c = [...new Set(l.map((p) => p.cat))]; return l.length && c.length === 1 && rayonImporte(c[0]) ? '#/' + c[0] : ''; };\n  const devisWa = (p) => lienWhatsapp('Bonjour Tondraaga, je voudrais un devis pour : ' + p.nom + (p.lien ? ' (' + p.lien + ')' : ''));\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        <li><a href=\"#/electromenager\" data-match=\"electromenager\">Électroménager</a></li>\n",
+  "new": "        <li><a href=\"#/electromenager\" data-match=\"electromenager\">Électroménager</a></li>\n        <li><a href=\"#/vehicules\" data-match=\"vehicules\">Véhicules</a></li>\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "${window.TDGElectro ? `<p class=\"surtitre\" style=\"margin-top:16px\">Électroménager & électronique</p><div class=\"mega-grille\">${window.TDGElectro.menu(80)}</div>` : ''}",
+  "new": "${window.TDGElectro ? window.TDGElectro.mega() : ''}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        ${window.TDGElectro ? `<p class=\"tiroir-titre\">Électroménager & électronique</p>\n        <div class=\"tiroir-grille\">${window.TDGElectro.menu(96)}<a href=\"#/electromenager\"><span class=\"tiroir-icone\">${I.grille}</span><span>Tout le rayon</span></a></div>` : ''}\n",
+  "new": "        ${window.TDGElectro ? window.TDGElectro.tiroir() : ''}\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<li><a href=\"#/electromenager\">Électroménager & électronique</a></li>",
+  "new": "<li><a href=\"#/electromenager\">Électroménager & électronique</a></li><li><a href=\"#/vehicules\">Véhicules & engins</a></li>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<span class=\"livraison-carte\">${p.stock > 0 ? (p.stock <= 5 ?",
+  "new": "<span class=\"livraison-carte\">${estElectro(p) ? (surDevis(p) ? 'Sur devis · importé de l’usine' : 'Sur commande · livré à Ouagadougou') : p.stock > 0 ? (p.stock <= 5 ?",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        <div class=\"pied-carte\"><span class=\"prix\">${fcfa(p.prix)}${p.ancien ? `<s>${fcfa(p.ancien)}</s>` : ''}<small>${equiv(p.prix)}</small></span>\n          ${p.stock > 0 ? (p.variantes ? ",
+  "new": "        <div class=\"pied-carte\">${surDevis(p) ? `<span class=\"prix prix-demande\">Prix sur demande<small>devis gratuit</small></span><a class=\"rond-panier devis\" href=\"${devisWa(p)}\" target=\"_blank\" rel=\"noopener\" aria-label=\"Demander un devis pour ${esc(p.nom)}\">${I.wa}</a>` : `<span class=\"prix\">${fcfa(p.prix)}${p.ancien ? `<s>${fcfa(p.ancien)}</s>` : ''}<small>${equiv(p.prix)}</small></span>`}\n          ${surDevis(p) ? '' : p.stock > 0 ? (p.variantes ? ",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "      D.electro && IMG.electro && ['#/electromenager', IMG.electro['electro-mobilite'], D.electro.nom],\n",
+  "new": "      ...(window.TDGElectro ? window.TDGElectro.liensMenu() : []),\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "...(D.electro && IMG.electro ? [['#/electromenager', IMG.electro['electro-cuisine'], D.electro.court]] : []), ",
+  "new": "...(window.TDGElectro ? window.TDGElectro.liensMenu() : []), ",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "    const ensemble = D.produits.filter((x) => x.id !== p.id && x.stock > 0 && (x.cat === p.cat || x.vendeur === p.vendeur)).slice(0, 2);",
+  "new": "    const ensemble = surDevis(p) ? [] : D.produits.filter((x) => x.id !== p.id && x.stock > 0 && x.prix > 0 && (x.cat === p.cat || x.vendeur === p.vendeur)).slice(0, 2);",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "'Article prêt à être préparé par le vendeur.',",
+  "new": "(estElectro(p) ? 'Produit commandé à l’usine pour vous, puis transporté jusqu’à Ouagadougou.' : 'Article prêt à être préparé par le vendeur.'),",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<a href=\"${estElectro(p) ? '#/electromenager' : '#/boutique'}\">${estElectro(p) ? 'Électroménager' : 'Boutique'}</a>",
+  "new": "<a href=\"${estElectro(p) ? '#/' + p.cat : '#/boutique'}\">${estElectro(p) ? esc(rayonImporte(p.cat).court) : 'Boutique'}</a>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "${photo(imgDe(p), 900, 900, p.nom, 'loading=\"eager\"')}</div>${estElectro(p) ? '' : madeInBF('sur-photo')}",
+  "new": "${photo(imgDe(p), 900, 900, p.nom, 'loading=\"eager\"')}</div>${estElectro(p) ? '' : madeInBF('sur-photo')}${p.galerie && p.galerie.length ? `<div class=\"el-vignettes\">${[imgDe(p)].concat(p.galerie).filter(Boolean).slice(0, 7).map((u, i) => `<button type=\"button\" data-vignette=\"${esc(u)}\" aria-label=\"Photo ${i + 1}\" aria-pressed=\"${i ? 'false' : 'true'}\"><img src=\"${esc(u)}\" alt=\"\" loading=\"lazy\"></button>`).join('')}</div>` : ''}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "`<tr><th>Rayon</th><td>${esc(D.electro.nom)}</td></tr>`",
+  "new": "`<tr><th>Rayon</th><td>${esc(rayonImporte(p.cat).nom)}</td></tr>`",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<div class=\"prix-amz\">${r ? `<span class=\"remise-amz\">-${r} %</span>` : ''}<span class=\"montant\">${fcfa(p.prix)}</span></div>",
+  "new": "${surDevis(p) ? '<div class=\"prix-amz\"><span class=\"montant prix-demande\">Prix sur demande</span></div>' : `<div class=\"prix-amz\">${r ? `<span class=\"remise-amz\">-${r} %</span>` : ''}<span class=\"montant\">${fcfa(p.prix)}</span></div>`}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "<div class=\"prix-amz petit-format\"><span class=\"montant\">${fcfa(p.prix)}</span></div><p class=\"petit muet\" style=\"margin:0 0 10px\">${equiv(p.prix)}</p>",
+  "new": "${surDevis(p) ? '<div class=\"prix-amz petit-format\"><span class=\"montant prix-demande\">Prix sur demande</span></div>' : `<div class=\"prix-amz petit-format\"><span class=\"montant\">${fcfa(p.prix)}</span></div><p class=\"petit muet\" style=\"margin:0 0 10px\">${equiv(p.prix)}</p>`}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "Préparation par le vendeur : 2 à 4 jours.</span></p>",
+  "new": "Préparation par le vendeur : 2 à 4 jours.</span></p>${estElectro(p) ? `<p class=\"note-commande\">${I.info}<span>${surDevis(p) ? 'Importé sur devis : prix rendu Ouagadougou, acompte à la commande et solde à la livraison' : 'Produit d’usine commandé pour vous'}. Délai : ${esc(rayonImporte(p.cat).delai || '')}.</span></p>` : ''}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "${demo ? 'Bientôt disponible' : p.stock > 0 ? (p.stock <= 5 ? `Plus que ${p.stock} en stock` : 'En stock') : 'Rupture de stock'}</p>",
+  "new": "${demo ? 'Bientôt disponible' : estElectro(p) ? (surDevis(p) ? 'Sur devis' : 'Sur commande') : p.stock > 0 ? (p.stock <= 5 ? `Plus que ${p.stock} en stock` : 'En stock') : 'Rupture de stock'}</p>",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "          <button class=\"btn btn-ocre btn-bloc\" data-action=\"ajouter-fiche\" data-id=\"${p.id}\" ${p.stock > 0 && !demo ? '' : 'disabled'}>${I.ajout} Ajouter au panier</button>\n          <button class=\"btn btn-brun btn-bloc\" data-action=\"acheter-fiche\" data-id=\"${p.id}\" ${p.stock > 0 && !demo ? '' : 'disabled'}>Commander maintenant</button>",
+  "new": "          ${surDevis(p) ? `<a class=\"btn btn-ocre btn-bloc\" href=\"${devisWa(p)}\" target=\"_blank\" rel=\"noopener\">${I.wa} Demander un devis</a>` : `<button class=\"btn btn-ocre btn-bloc\" data-action=\"ajouter-fiche\" data-id=\"${p.id}\" ${p.stock > 0 && !demo ? '' : 'disabled'}>${I.ajout} Ajouter au panier</button>\n          <button class=\"btn btn-brun btn-bloc\" data-action=\"acheter-fiche\" data-id=\"${p.id}\" ${p.stock > 0 && !demo ? '' : 'disabled'}>Commander maintenant</button>`}",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "p.stock > 0 ? `<span class=\"prix\">${fcfa(p.prix)}<small>${equiv(p.prix)}</small></span><button class=\"btn btn-ocre\" data-action=\"ajouter-fiche\"",
+  "new": "surDevis(p) ? `<span class=\"prix prix-demande\">Prix sur demande</span><a class=\"btn btn-ocre\" href=\"${devisWa(p)}\" target=\"_blank\" rel=\"noopener\">${I.wa} Demander un devis</a>` : p.stock > 0 ? `<span class=\"prix\">${fcfa(p.prix)}<small>${equiv(p.prix)}</small></span><button class=\"btn btn-ocre\" data-action=\"ajouter-fiche\"",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "      electromenager: () => (window.TDGElectro ? window.TDGElectro.vue(seg, qs) : vIntrouvable()),\n",
+  "new": "      electromenager: () => (window.TDGElectro ? window.TDGElectro.vue(seg, qs) : vIntrouvable()),\n      vehicules: () => (window.TDGElectro ? window.TDGElectro.vue(seg, qs) : vIntrouvable()),\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "enBoutique && D.produits.every((p) => !sansAccents(p.nom).includes(qn) || estElectro(p)) ? '#/electromenager' : '#/boutique'",
+  "new": "enBoutique && rayonRecherche(qn) ? rayonRecherche(qn) : '#/boutique'",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/assets/js/app.js",
+  "old": "        if (c.sousCategories) D.sousCategories = c.sousCategories;\n",
+  "new": "        if (c.sousCategories) D.sousCategories = c.sousCategories;\n        if (window.TDGElectro && window.TDGElectro.majMenus) window.TDGElectro.majMenus();\n",
+  "count": 1
+ },
+ {
+  "file": "themes/tondraaga/functions.php",
+  "old": "define( 'TDG_THEME_VERSION', '1.9.9' );",
+  "new": "define( 'TDG_THEME_VERSION', '2.0.0' );",
+  "count": 1
+ },
+ {
+  "file": "mu-plugins/tdg-ameliorations.php",
+  "old": "'cadeaux', 'culture', 'electromenager' );",
+  "new": "'cadeaux', 'culture', 'electromenager', 'vehicules' );",
+  "count": 1
+ }
+]
