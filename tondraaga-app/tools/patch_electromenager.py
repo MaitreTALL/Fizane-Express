@@ -78,7 +78,7 @@ r(APP, "madeInBF, rendre: () => rendre(), etoiles, WOO, WP, API };",
 
 # 9. thème : feuille de style et script du rayon, version (cache des navigateurs)
 FN = 'themes/tondraaga/functions.php'
-r(FN, "define( 'TDG_THEME_VERSION', '1.9.7' );", "define( 'TDG_THEME_VERSION', '1.9.8' );")
+r(FN, "define( 'TDG_THEME_VERSION', '1.9.7' );", "define( 'TDG_THEME_VERSION', '1.9.9' );")
 r(FN, "'v6', 'v7', 'v8', 'v9' ) as $f ) {", "'v6', 'v7', 'v8', 'v9', 'electro' ) as $f ) {")
 r(FN, "\twp_enqueue_script( 'tdg-app', \"$base/js/app.js\", array( 'tdg-colis' ), $v, true );",
   "\twp_enqueue_script( 'tdg-electro', \"$base/js/electro.js\", array( 'tdg-colis' ), $v, true );\n"
