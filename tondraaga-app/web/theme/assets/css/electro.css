@@ -1,5 +1,5 @@
-/* Tondraaga — rayon « Électroménager & électronique » (#/electromenager) et sa section de la page d'accueil.
-   Couleurs du logo uniquement (brun, ocre, blancs chauds) ; motif bogolan des bannières sombres. Chargé en dernier. */
+/* Tondraaga — rayons de produits d'usine (#/electromenager, #/vehicules) et leurs sections de la page d'accueil.
+   Couleurs du logo uniquement (brun, ocre, blancs chauds) ; photos des fabricants sur fond blanc. Chargé en dernier. */
 
 .el-haut { padding-top: 8px; }
 .el-fil { margin: 6px 0 12px; font-size: .82rem; color: var(--gris-500); }
@@ -9,13 +9,24 @@
 .el-surtitre svg { width: 16px; height: 16px; }
 .el-boutons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
 
-/* bannière : photo à droite, texte sur un dégradé brun à gauche */
-.el-heros { position: relative; display: flex; align-items: center; min-height: 400px; padding: 44px 48px; border-radius: 22px; overflow: hidden; color: #fff;
-  background: linear-gradient(90deg, rgba(36, 22, 15, .96) 0%, rgba(36, 22, 15, .88) 36%, rgba(36, 22, 15, .4) 64%, rgba(36, 22, 15, .05) 100%), var(--fond, none) 70% 62% / cover no-repeat, var(--brun); }
+/* bannière : texte sur fond brun, vitrine de photos d'usine à droite */
+.el-heros { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 28px; min-height: 380px; padding: 40px 44px; border-radius: 22px; overflow: hidden; color: #fff;
+  background: var(--bogolan-sombre, none), radial-gradient(120% 140% at 85% 30%, #5E4536 0%, var(--brun) 45%, var(--brun-fonce) 100%); }
+.el-heros.avec-collage { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
 .el-heros-texte { max-width: 560px; }
 .el-heros h1 { margin: .35em 0 .35em; font-size: clamp(2rem, 4.2vw, 3.1rem); line-height: 1.04; letter-spacing: -.02em; color: #fff; }
 .el-heros h1 span { display: block; color: var(--ocre-clair, #F2B661); }
 .el-heros p { margin: 0; max-width: 34em; font-size: 1.02rem; line-height: 1.6; color: var(--creme-texte, #F3E6D6); }
+
+.el-collage { display: grid; gap: 12px; }
+.el-collage-4 { grid-template-columns: 1fr 1fr; }
+.el-collage-3 { grid-template-columns: 1.3fr 1fr; grid-template-rows: 1fr 1fr; }
+.el-collage-3 span:first-child { grid-row: span 2; }
+.el-collage span { display: block; overflow: hidden; border-radius: 16px; background: #fff; box-shadow: 0 12px 30px rgba(0, 0, 0, .25); aspect-ratio: 1; }
+.el-collage-3 span:first-child { aspect-ratio: auto; }
+.el-collage img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.el-heros .el-collage span:nth-child(odd) { transform: translateY(10px); }
+.el-collage span:hover img { transform: scale(1.05); }
 
 /* atouts */
 .el-atouts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 14px 0 0; padding: 14px 18px; list-style: none;
@@ -27,14 +38,15 @@
 .el-section { margin-top: 34px; }
 
 /* univers */
-.el-tuiles { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 10px; }
+.el-tuiles { display: grid; grid-template-columns: repeat(var(--n, 9), minmax(0, 1fr)); gap: 10px; }
 .el-tuile { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 14px 6px 12px; text-align: center; text-decoration: none; color: var(--brun);
   background: #fff; border: 1.5px solid var(--ligne, #EADFD2); border-radius: 16px; transition: border-color .2s, transform .2s, box-shadow .2s; }
 .el-tuile:hover { border-color: var(--ocre); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(36, 22, 15, .08); }
 .el-tuile.actif { border-color: var(--ocre); background: var(--ocre-pale, #F7EBDB); box-shadow: inset 0 0 0 1px var(--ocre); }
-.el-tuile-img { display: grid; place-items: center; width: 80px; height: 80px; margin-bottom: 8px; border-radius: 50%; overflow: hidden; background: var(--ocre-pale, #F7EBDB); }
+.el-tuile-img { display: grid; place-items: center; width: 80px; height: 80px; margin-bottom: 8px; border-radius: 50%; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px var(--ligne, #EADFD2); }
 .el-tuile-img img { width: 100%; height: 100%; object-fit: cover; }
 .el-tuile-img svg { width: 34px; height: 34px; color: var(--brun); }
+.el-tuile:first-child .el-tuile-img { background: var(--ocre-pale, #F7EBDB); }
 .el-tuile-nom { font-size: .8rem; font-weight: 700; line-height: 1.25; }
 .el-tuile small { font-size: .74rem; color: var(--gris-500); }
 
@@ -57,12 +69,17 @@
 .el-tri .champ-select { height: 40px; }
 .el-plus { margin-top: 26px; text-align: center; }
 .el-plus small { font-weight: 500; opacity: .75; }
+.el-vide-texte h3 { margin: 0 0 8px; color: var(--brun); }
+.el-vide-texte p { margin: 0 auto; max-width: 36em; color: var(--gris-700); }
 
-/* rayon encore vide */
-.el-vide { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); align-items: center; gap: 28px; margin-top: 18px; padding: 24px; background: #fff; border: 1.5px dashed var(--gris-300); border-radius: 18px; }
-.el-vide img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 14px; }
-.el-vide h3 { margin: 0 0 8px; font-size: 1.25rem; color: var(--brun); }
-.el-vide p { margin: 0; color: var(--gris-700); line-height: 1.6; }
+/* comment ça marche */
+.el-etapes { padding: 26px 28px; background: #fff; border: 1px solid var(--ligne, #EADFD2); border-radius: 18px; }
+.el-etapes h2 { margin: 0 0 18px; font-size: 1.35rem; color: var(--brun); }
+.el-etapes ol { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; counter-reset: none; }
+.el-etapes li { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 16px 16px 14px; border-radius: 14px; background: var(--fond-page, #FAF7F3); }
+.el-etapes li span { display: grid; place-items: center; width: 32px; height: 32px; margin-bottom: 6px; border-radius: 50%; background: var(--ocre); color: var(--brun-encre, #24160F); font-weight: 800; }
+.el-etapes li b { color: var(--brun); font-size: .92rem; }
+.el-etapes li small { color: var(--gris-700); font-size: .8rem; line-height: 1.45; }
 
 /* bandeau vendeurs */
 .el-vendre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 10px; padding: 30px 36px; border-radius: 22px; color: #fff;
@@ -71,44 +88,56 @@
 .el-vendre p { margin: 0; max-width: 40em; color: var(--creme-texte, #F3E6D6); }
 .el-vendre .el-boutons { margin-top: 0; }
 
-.el-credits { margin: 14px 0 0; font-size: .7rem; line-height: 1.6; color: var(--gris-500); }
-.el-credits a { color: var(--gris-700); }
+/* produits sur devis (véhicules) */
+.prix-demande { font-size: .95rem; font-weight: 700; color: var(--ocre-texte, #9C5B0E); }
+.rond-panier.devis { background: #1F8F4E; color: #fff; }
+.note-commande { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0; padding: 10px 12px; border-radius: 10px; background: var(--ocre-pale, #F7EBDB); font-size: .84rem; line-height: 1.45; color: var(--brun); }
+.note-commande svg { flex: none; width: 18px; height: 18px; margin-top: 1px; color: var(--ocre-texte, #9C5B0E); }
 
-/* section de la page d'accueil */
+/* fiche produit : vignettes de la galerie */
+.el-vignettes { display: flex; gap: 8px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
+.el-vignettes::-webkit-scrollbar { display: none; }
+.el-vignettes button { flex: none; width: 64px; height: 64px; padding: 0; border: 2px solid var(--ligne, #EADFD2); border-radius: 10px; overflow: hidden; background: #fff; cursor: pointer; }
+.el-vignettes button[aria-pressed="true"], .el-vignettes button:hover { border-color: var(--ocre); }
+.el-vignettes img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* sections de la page d'accueil */
+.el-accueil + .el-accueil { margin-top: 18px; }
 .el-accueil-haut { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 16px; }
-.el-accueil-banniere { position: relative; display: flex; align-items: center; min-height: 270px; border-radius: 16px; overflow: hidden; text-decoration: none; color: #fff;
-  background: linear-gradient(90deg, rgba(36, 22, 15, .95) 0%, rgba(36, 22, 15, .8) 48%, rgba(36, 22, 15, .2) 100%), var(--fond, none) 72% 60% / 190% auto no-repeat, var(--brun);
-  transition: background-size .6s cubic-bezier(.2, .7, .2, 1); }
-.el-accueil-banniere:hover { background-size: auto, 200% auto, auto; }
-.el-accueil-texte { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; max-width: 62%; padding: 24px; }
-.el-accueil-titre { font-size: 1.5rem; font-weight: 800; line-height: 1.12; color: #fff; }
-.el-accueil-texte > span:not(.el-surtitre):not(.btn) { font-size: .88rem; line-height: 1.5; color: var(--creme-texte, #F3E6D6); }
+.el-accueil-banniere { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); align-items: center; gap: 14px; min-height: 270px; padding: 22px; border-radius: 16px; overflow: hidden; text-decoration: none; color: #fff;
+  background: var(--bogolan-sombre, none), radial-gradient(120% 140% at 85% 30%, #5E4536 0%, var(--brun) 50%, var(--brun-fonce) 100%); }
+.el-accueil-texte { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.el-accueil-titre { font-size: 1.45rem; font-weight: 800; line-height: 1.12; color: #fff; }
+.el-accueil-texte > span:not(.el-surtitre):not(.btn) { font-size: .86rem; line-height: 1.5; color: var(--creme-texte, #F3E6D6); }
 .el-accueil-texte .btn { margin-top: 6px; }
+.el-accueil-banniere .el-collage { gap: 8px; }
+.el-accueil-banniere .el-collage span { border-radius: 12px; }
 .el-tuiles-accueil { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
 .el-tuiles-accueil .el-tuile { padding: 12px 6px 10px; }
 .el-tuiles-accueil .el-tuile-img { width: 64px; height: 64px; margin-bottom: 6px; }
 .el-tuiles-accueil .el-tuile-nom { font-size: .76rem; }
 .el-accueil-entete { margin: 22px 0 14px; }
 
-/* en-tête : le lien « Électroménager » tient avec les autres sur une ligne */
-@media (min-width: 1101px) { .hd-menu a { padding-left: 7px; padding-right: 7px; font-size: .85rem; } }
-
-/* menus : icônes illustrées sur fond crème */
-.mega-grille a[href^="#/electromenager"] img, .tiroir-grille a[href^="#/electromenager"] img { background: var(--ocre-pale, #F7EBDB); }
+/* en-tête : les liens « Électroménager » et « Véhicules » tiennent avec les autres sur une ligne */
+@media (min-width: 1101px) { .hd-menu a { padding-left: 6px; padding-right: 6px; font-size: .84rem; } }
 
 @media (max-width: 1140px) {
   .el-tuiles:not(.el-tuiles-accueil) { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 118px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; }
 }
 @media (max-width: 960px) {
-  .el-heros { align-items: flex-end; min-height: 0; padding: 200px 24px 28px;
-    background: linear-gradient(180deg, rgba(36, 22, 15, .15) 0%, rgba(36, 22, 15, .78) 34%, rgba(36, 22, 15, .97) 62%), var(--fond, none) 72% 0 / 170% auto no-repeat, var(--brun); }
+  .el-heros, .el-heros.avec-collage { grid-template-columns: 1fr; padding: 28px 22px; min-height: 0; }
+  .el-heros .el-collage { max-width: 460px; }
+  .el-heros .el-collage span:nth-child(odd) { transform: none; }
   .el-atouts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .el-etapes ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .el-accueil-haut { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
   .el-heros { border-radius: 18px; }
   .el-heros h1 { font-size: 1.9rem; }
   .el-heros p { font-size: .94rem; }
+  .el-heros .el-collage { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .el-heros .el-collage span { border-radius: 10px; }
   .el-boutons .btn { flex: 1 1 auto; }
   .el-atouts { padding: 12px; gap: 12px 8px; }
   .el-atouts li { font-size: .74rem; gap: 8px; }
@@ -120,14 +149,14 @@
   .el-tuile-nom { font-size: .76rem; }
   .el-filtres { padding: 10px; }
   .el-recherche { flex-basis: 100%; }
-  .el-vide { grid-template-columns: 1fr; gap: 16px; padding: 16px; }
+  .el-etapes { padding: 20px 16px; }
+  .el-etapes ol { grid-template-columns: 1fr; gap: 10px; }
   .el-vendre { padding: 24px 20px; border-radius: 18px; }
   .el-vendre h2 { font-size: 1.25rem; }
-  .el-heros { padding-top: 160px; background-size: auto, 230% auto, auto; }
-  .el-accueil-banniere { min-height: 240px; background-size: auto, 260% auto, auto; }
-  .el-accueil-banniere:hover { background-size: auto, 260% auto, auto; }
-  .el-accueil-texte { max-width: 78%; padding: 18px; }
+  .el-accueil-banniere { grid-template-columns: 1fr; padding: 18px; }
   .el-accueil-titre { font-size: 1.2rem; }
+  .el-accueil-banniere .el-collage { grid-template-columns: repeat(3, 1fr); grid-template-rows: none; }
+  .el-accueil-banniere .el-collage span:first-child { grid-row: auto; aspect-ratio: 1; }
   .el-tuiles-accueil { grid-auto-columns: 96px; }
   .el-tuiles-accueil .el-tuile-img { width: 58px; height: 58px; }
 }
