@@ -9,24 +9,37 @@
   const script = document.currentScript;
   const BASE = script && script.src ? script.src.replace(/\/js\/electro\.js.*$/, '/img/electro/') : '';
   const VER = ((script && /[?&]ver=([^&]+)/.exec(script.src)) || [])[1] || '';
-  const img = (n) => BASE + n + '.svg' + (VER ? '?ver=' + VER : '');
+  // photos libres de droits (Wikimedia Commons), recadrées et enregistrées dans le thème
+  const img = (n) => BASE + n + '.jpg' + (VER ? '?ver=' + VER : '');
 
   // univers du rayon : identifiants = sous-catégories WooCommerce (Produits › Catégories)
   D.electro = {
     id: ID, nom: 'Électroménager & électronique', court: 'Électroménager',
     sous: [
-      { id: 'electro-mobilite', nom: 'Vélos & motos électriques', court: 'Vélos & motos électriques', icone: 'mobilite' },
-      { id: 'electro-cuisine', nom: 'Mixeurs & blenders', court: 'Mixeurs & blenders', icone: 'mixeur' },
-      { id: 'electro-moulins', nom: 'Broyeurs & moulins', court: 'Broyeurs & moulins', icone: 'moulin' },
-      { id: 'electro-snack', nom: 'Popcorn & machines à snacks', court: 'Popcorn & snacks', icone: 'popcorn' },
-      { id: 'electro-froid', nom: 'Froid & ventilation', court: 'Froid & ventilation', icone: 'froid' },
-      { id: 'electro-maison', nom: 'Petit électroménager', court: 'Petit électroménager', icone: 'maison' },
-      { id: 'electro-image-son', nom: 'TV, son & téléphonie', court: 'TV, son & téléphones', icone: 'tv' },
-      { id: 'electro-energie', nom: 'Énergie & solaire', court: 'Énergie & solaire', icone: 'solaire' }
+      { id: 'electro-mobilite', nom: 'Vélos & motos électriques', court: 'Vélos & motos électriques' },
+      { id: 'electro-cuisine', nom: 'Mixeurs & blenders', court: 'Mixeurs & blenders' },
+      { id: 'electro-moulins', nom: 'Broyeurs & moulins', court: 'Broyeurs & moulins' },
+      { id: 'electro-snack', nom: 'Popcorn & machines à snacks', court: 'Popcorn & snacks' },
+      { id: 'electro-froid', nom: 'Froid & ventilation', court: 'Froid & ventilation' },
+      { id: 'electro-maison', nom: 'Petit électroménager', court: 'Petit électroménager' },
+      { id: 'electro-image-son', nom: 'TV, son & téléphonie', court: 'TV, son & téléphones' },
+      { id: 'electro-energie', nom: 'Énergie & solaire', court: 'Énergie & solaire' }
+    ],
+    // auteurs et licences des photos (obligatoire pour les licences CC BY et CC BY-SA)
+    credits: [
+      ['Bannière', 'أسكيمو (Askemo)', 'CC BY-SA 4.0', 'Askemo_home_appliances.jpg'],
+      ['Vélos & motos', 'Cosmic Console', 'CC0', '2022_EMMO_Hornet_X_electric_moped_2.jpg'],
+      ['Mixeurs', 'Shixart1985', 'CC BY 2.0', 'Fresh_fruits_and_a_blender_are_arranged_on_a_kitchen_counter_for_smoothie_preparation.jpg'],
+      ['Moulins', 'Emmanuel Ssekaggo', 'CC BY-SA 4.0', 'A_man_operating_the_maize_mill_to_produce_maize_flour.jpg'],
+      ['Popcorn', 'Edwardx', 'CC BY-SA 4.0', 'Cinema_Museum,_London_object_58.JPG'],
+      ['Froid', 'Infrogmation of New Orleans', 'CC BY-SA 4.0', 'US_Domestic_Refrigerator_-_Frigidaire.jpg'],
+      ['Petit électroménager', 'Smoth 007', 'CC BY-SA 2.0', 'Breville.jpg'],
+      ['TV & téléphonie', 'Dennis Cortés', 'CC0', 'Black_smartphone_in_hand_(Unsplash).jpg'],
+      ['Énergie', 'Deo photographer', 'CC BY-SA 4.0', 'Cleaning_solar_panel.jpg']
     ]
   };
   IMG.electro = { heros: img('heros') };
-  D.electro.sous.forEach((s) => { IMG.electro[s.id] = img(s.icone); });
+  D.electro.sous.forEach((s) => { IMG.electro[s.id] = img(s.id); });
 
   const A = () => window.TDGApp;
   const sansAccents = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -44,12 +57,12 @@
       const x = serveur.find((y) => y.id === s.id);
       return x ? Object.assign({}, s, { nom: x.nom, court: x.nom }) : s;
     });
-    serveur.forEach((x) => { if (!l.some((s) => s.id === x.id)) l.push({ id: x.id, nom: x.nom, court: x.nom, icone: 'maison' }); });
+    serveur.forEach((x) => { if (!l.some((s) => s.id === x.id)) l.push({ id: x.id, nom: x.nom, court: x.nom }); });
     return l;
   }
   const nomUnivers = (id) => { const s = univers().find((x) => x.id === id); return s ? s.nom : ''; };
   const produits = () => (D.catalogueReel ? D.produits.filter((p) => p.cat === ID) : []);
-  const imageUnivers = (s) => IMG.electro[s.id] || img(s.icone || 'maison');
+  const imageUnivers = (s) => IMG.electro[s.id] || IMG.electro.heros;
 
   /* ---------- Filtres de la page ---------- */
   const TRIS = [['pop', 'Les plus vendus'], ['nouveau', 'Nouveautés'], ['asc', 'Prix croissant'], ['desc', 'Prix décroissant'], ['promo', 'Promotions']];
@@ -79,7 +92,7 @@
 
   function videRayon() {
     const T = A();
-    return `<div class="el-vide"><img src="${IMG.electro.heros}" alt="" width="320" height="210" loading="lazy">
+    return `<div class="el-vide"><img src="${IMG.electro.heros}" alt="Cuisine équipée : réfrigérateur, four, micro-ondes, mixeurs" width="480" height="320" loading="lazy">
       <div><h3>Le rayon ouvre : les premiers appareils arrivent</h3>
         <p>Nos vendeurs ajoutent leurs articles. Vous cherchez un appareil précis (vélo électrique, moulin, mixeur, machine à popcorn…) ? Écrivez-nous : nous vous disons s’il est disponible et à quel prix.</p>
         <div class="el-boutons"><a class="btn btn-ocre" href="${wa('Bonjour Tondraaga, je cherche cet appareil : ')}" target="_blank" rel="noopener">${T.I.wa} Demander un appareil</a>
@@ -107,7 +120,7 @@
     return `
     <section class="cadre el-haut">
       <div class="fil el-fil"><a href="#/">Accueil</a> › <span>Électroménager & électronique</span></div>
-      <div class="el-heros">
+      <div class="el-heros" style="--fond:url('${IMG.electro.heros}')">
         <div class="el-heros-texte">
           <p class="el-surtitre">${T.I.eclair}Nouveau rayon</p>
           <h1>Électroménager <span>& électronique</span></h1>
@@ -115,7 +128,6 @@
           <div class="el-boutons"><button type="button" class="btn btn-ocre" data-electro-voir>Voir les articles ${T.I.fleche}</button>
             <a class="btn btn-transparent" href="${wa('Bonjour Tondraaga, je cherche cet appareil : ')}" target="_blank" rel="noopener">${T.I.wa} Demander un appareil</a></div>
         </div>
-        <div class="el-heros-image"><img src="${IMG.electro.heros}" alt="Vélomoteur électrique, réfrigérateur, machine à popcorn et mixeur" width="640" height="420" loading="eager"></div>
       </div>
       <ul class="el-atouts">
         <li>${T.I.moto}<span><b>Livraison à domicile</b>à Ouagadougou</span></li>
@@ -140,7 +152,8 @@
         <p>Ouvrez votre boutique sur Tondraaga : vos appareils sont vus par les clients de Ouagadougou et de la diaspora, qui paient par Orange Money ou Wave.</p></div>
       <div class="el-boutons"><a class="btn btn-ocre" href="${(T.WP && T.WP.inscriptionVendeur) || '#/vendeurs'}">Devenir vendeur</a>
         <a class="btn btn-transparent" href="${wa('Bonjour Tondraaga, je voudrais vendre mes appareils électroménagers sur Tondraaga.')}" target="_blank" rel="noopener">${T.I.wa} Nous écrire</a></div>
-    </div></section>`;
+    </div>
+    <p class="el-credits">Photos d’illustration recadrées, Wikimedia Commons : ${D.electro.credits.map(([q, a, l, f]) => `${T.esc(q)} — <a href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(f)}" target="_blank" rel="noopener">${T.esc(a)}</a> (${l})`).join(' · ')}.</p></section>`;
   }
 
   /* ---------- Section de la page d'accueil ---------- */
@@ -150,10 +163,9 @@
     const top = tout.slice().sort((a, b) => (b.vedette ? 1 : 0) - (a.vedette ? 1 : 0) || (b.pop || 0) - (a.pop || 0) || (b.wcid || 0) - (a.wcid || 0)).slice(0, 4);
     return `<section class="cadre a-panneau el-accueil">
       <div class="el-accueil-haut">
-        <a class="el-accueil-banniere" href="#/electromenager">
+        <a class="el-accueil-banniere" href="#/electromenager" style="--fond:url('${IMG.electro.heros}')">
           <span class="el-accueil-texte"><span class="el-surtitre">${T.I.eclair}Nouveau rayon</span><b class="el-accueil-titre">Électroménager & électronique</b>
-            <span>Vélos électriques, mixeurs, moulins, popcorn, froid, TV, solaire…</span><span class="btn btn-ocre btn-petit">Découvrir le rayon ${T.I.fleche}</span></span>
-          <img src="${IMG.electro.heros}" alt="" width="640" height="420" loading="lazy" decoding="async"></a>
+            <span>Vélos électriques, mixeurs, moulins, popcorn, froid, TV, solaire…</span><span class="btn btn-ocre btn-petit">Découvrir le rayon ${T.I.fleche}</span></span></a>
         <div class="el-tuiles el-tuiles-accueil">${u.map((s) => tuile(s, tout.filter((p) => p.sous === s.id).length, true)).join('')}</div>
       </div>
       ${top.length ? `<div class="v6-entete el-accueil-entete"><div><h2>Les appareils du moment</h2></div><a class="v6-tout" href="#/electromenager">Tout le rayon ${T.I.fleche}</a></div>

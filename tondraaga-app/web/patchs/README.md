@@ -20,5 +20,5 @@ La page « Devenir vendeur » complète est dans `../theme/page-devenir-vendeur.
    des appareils sans mention « Made in Burkina » ; boutique Made in Burkina sans les appareils (sauf recherche) et
    sans plafond caché à 40 000 FCFA ; catalogue porté à 1 500 produits. Le module lui-même est dans
    `../theme/assets/js/electro.js`, `../theme/assets/css/electro.css` et `../theme/assets/img/electro/`
-   (illustrations produites par `../../tools/electro_illustrations.py`). Sauvegardes :
+   (photos libres de droits de Wikimedia Commons, recadrées ; auteurs et licences affichés au bas du rayon). Sauvegardes :
    `wp-content/tdg-sauvegardes/electromenager-20261105/`.
